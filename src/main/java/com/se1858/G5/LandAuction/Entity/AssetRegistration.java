@@ -24,8 +24,8 @@ public class AssetRegistration {
     private String registrationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "legalId")
-    private User legal;
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     @Column(nullable = true)
     private java.util.Date approvalDate;

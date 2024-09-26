@@ -22,10 +22,6 @@ public class Wishlist {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "landId", nullable = false)
-    private Land land;
-
-    @ManyToOne
     @JoinColumn(name = "auctionId")
     private Auction auction;
 }

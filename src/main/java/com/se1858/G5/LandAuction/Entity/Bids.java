@@ -18,12 +18,8 @@ public class Bids {
     private int bidId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
-
-    @ManyToOne
-    @JoinColumn(name = "landId", nullable = false)
-    private Land land;
+    @JoinColumn(name = "auctionid", nullable = false)
+    private Auction auction;
 
     private float bidAmount;
 

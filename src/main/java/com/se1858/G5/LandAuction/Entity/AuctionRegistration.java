@@ -23,8 +23,8 @@ public class AuctionRegistration {
     private String registrationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "legalId")
-    private User legal;
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
 
     private java.util.Date approvalDate;
 

@@ -23,8 +23,11 @@ public class Auction {
     private Land land;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    @JoinColumn(name = "bidId", nullable = false)
+    private Bids bids;
+
+    @ManyToMany(mappedBy = "auctions", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Set<User> users;
 
     @Column(nullable = false)
     private String status;
