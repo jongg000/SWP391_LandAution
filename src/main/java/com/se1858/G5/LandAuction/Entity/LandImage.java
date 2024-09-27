@@ -22,7 +22,7 @@ public class LandImage {
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
-    @Column(name = "ImageURL", nullable = false)
+    @Column(name = "Image_URL", nullable = false)
     private String imageUrl;
 }
 

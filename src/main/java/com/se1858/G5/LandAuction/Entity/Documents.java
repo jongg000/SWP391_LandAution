@@ -25,7 +25,7 @@ public class Documents {
     @Column(name = "Type")
     private String type;
 
-    @Column(name = "SubmitTime",nullable = false)
+    @Column(name = "Submit_Time",nullable = false)
     private java.util.Date submitTime;
 }
 

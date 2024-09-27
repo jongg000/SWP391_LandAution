@@ -29,7 +29,7 @@ public class User {
     @Column(name = "Email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "PhoneNumber", nullable = false, unique = true)
+    @Column(name = "Phone_Number", nullable = false, unique = true)
     private String phoneNumber;
 
     @Column(name = "Avatar")
@@ -41,10 +41,10 @@ public class User {
     @Column(name = "Wallet")
     private Float wallet;
 
-    @Column(name = "NationalFrontImage", nullable = true)
+    @Column(name = "National_Front_Image", nullable = true)
     private String nationalFrontImage;
 
-    @Column(name = "NationalBackImage",nullable = true)
+    @Column(name = "National_Back_Image",nullable = true)
     private String nationalBackImage;
 
     @Column(name = "NationalID", nullable = true, unique = true)

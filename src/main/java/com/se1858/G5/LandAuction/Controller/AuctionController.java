@@ -1,7 +1,7 @@
 package com.se1858.G5.LandAuction.Controller;
 
 
-import com.se1858.G5.LandAuction.Entity.Auction;
+import com.se1858.G5.LandAuction.DTO.Request.AuctionRequest;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +18,13 @@ public class AuctionController {
     @GetMapping
     public String showAuctionPage(Model model) {
         model.addAttribute("auctions", auctionService.getAllAuctions());
-        model.addAttribute("auction", new Auction());
-        return "auction-management";
+        model.addAttribute("auction", new AuctionRequest());
+        return "Manager/Auction";
     }
 
     @PostMapping("/save")
-    public String saveAuction(@ModelAttribute Auction auction) {
-        auctionService.update(auction);
+    public String saveAuction(@ModelAttribute AuctionRequest auctionRequest) {
+        auctionService.update(auctionRequest);
         return "redirect:/auction";
     }
 
@@ -32,7 +32,7 @@ public class AuctionController {
     public String editAuction(@PathVariable int id, Model model) {
         model.addAttribute("auction", auctionService.findAuctionById(id));
         model.addAttribute("auctions", auctionService.getAllAuctions());
-        return "auction-management";
+        return "Manager/Auction";
     }
 
     @GetMapping("/delete{id}")

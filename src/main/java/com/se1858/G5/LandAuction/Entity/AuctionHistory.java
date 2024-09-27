@@ -31,6 +31,6 @@ public class AuctionHistory {
     @Column(name= "Details")
     private String details;
 
-    @Column(name = "ActionTime")
+    @Column(name = "Action_Time")
     private java.util.Date actionTime;
 }
