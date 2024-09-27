@@ -16,27 +16,30 @@ import lombok.Builder;
 public class Land {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "LandID")
     private int landId;
 
-    @Column(nullable = false)
+    @Column(name = "Name", nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "Location", columnDefinition = "TEXT")
     private String location;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "Description", columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "Price")
     private Float price;
 
+    @Column(name = "Contact")
     private String contact;
 
     @ManyToOne
-    @JoinColumn(name = "auctionId")
+    @JoinColumn(name = "AuctionID")
     private Auction auction;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL, orphanRemoval = true)

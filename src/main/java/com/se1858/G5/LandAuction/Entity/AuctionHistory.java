@@ -18,16 +18,19 @@ public class AuctionHistory {
     private int historyId;
 
     @ManyToOne
-    @JoinColumn(name = "auctionId", nullable = false)
+    @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserId", nullable = false)
     private User user;
 
+    @Column(name = "Action")
     private String action;
 
+    @Column(name= "Details")
     private String details;
 
+    @Column(name = "ActionTime")
     private java.util.Date actionTime;
 }

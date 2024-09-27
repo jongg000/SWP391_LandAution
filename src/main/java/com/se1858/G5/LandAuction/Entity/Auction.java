@@ -16,26 +16,29 @@ import lombok.Builder;
 public class Auction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "AuctionID")
     private int auctionId;
 
     @ManyToOne
-    @JoinColumn(name = "landId", nullable = false)
+    @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
-    @ManyToOne
-    @JoinColumn(name = "bidId", nullable = false)
-    private Bids bids;
+    @OneToMany(mappedBy = "auction")
+    private Set<Bids> bids;
 
     @ManyToMany(mappedBy = "auctions", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> users;
 
-    @Column(nullable = false)
+    @Column(name = "Status", nullable = false)
     private String status;
 
+    @Column(name = "StartTime")
     private java.util.Date startTime;
 
+    @Column(name = "EndTime")
     private java.util.Date endTime;
 
+    @Column(name = "Highest_Bid")
     private Float highestBid;
 
     @OneToMany(mappedBy = "auction")

@@ -17,40 +17,45 @@ import lombok.Builder;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "UserID")
     private int userId;
 
-    @Column(nullable = false)
+    @Column(name = "Password", nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(name = "Name", nullable = false)
     private String name;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "Email", nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
+    @Column(name = "PhoneNumber", nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(name = "Avatar")
     private String avatar;
 
+    @Column(name = "Status")
     private String status; // unverified, verified, or ban
 
+    @Column(name = "Wallet")
     private Float wallet;
 
-    @Column(nullable = true)
+    @Column(name = "NationalFrontImage", nullable = true)
     private String nationalFrontImage;
 
-    @Column(nullable = true)
+    @Column(name = "NationalBackImage",nullable = true)
     private String nationalBackImage;
 
-    @Column(nullable = true, unique = true)
+    @Column(name = "NationalID", nullable = true, unique = true)
     private Integer nationalID;
 
     @Temporal(TemporalType.DATE)
+    @Column(name = "Dob")
     private Date dob; // Date of Birth
 
     @ManyToOne
-    @JoinColumn(name = "roleId")
+    @JoinColumn(name = "RoleID")
     private Roles role; // Liên kết đến bảng Roles
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -62,11 +67,12 @@ public class User {
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
-            name = "user_auction_participation",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "auction_id")
+            name = "User_Auction_Participation",
+            joinColumns = @JoinColumn(name = "UserID"),
+            inverseJoinColumns = @JoinColumn(name = "AuctionID")
     )
     private Set<Auction> auctions;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Notification> notifications;
 

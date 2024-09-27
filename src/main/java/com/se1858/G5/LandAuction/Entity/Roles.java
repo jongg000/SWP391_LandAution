@@ -16,9 +16,10 @@ import lombok.Builder;
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "RoleID")
     private int roleId;
 
-    @Column(nullable = false)
+    @Column(name = "RoleName", nullable = false)
     private String roleName;
 
     @OneToMany(mappedBy = "role")

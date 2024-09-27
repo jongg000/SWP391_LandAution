@@ -15,15 +15,17 @@ import lombok.Builder;
 public class Documents {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "DocumentID")
     private int documentId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
+    @Column(name = "Type")
     private String type;
 
-    @Column(nullable = false)
+    @Column(name = "SubmitTime",nullable = false)
     private java.util.Date submitTime;
 }
 

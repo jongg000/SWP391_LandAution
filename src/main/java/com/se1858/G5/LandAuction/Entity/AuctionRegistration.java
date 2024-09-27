@@ -14,19 +14,23 @@ import lombok.Builder;
 @Table(name = "Auction_Registration")
 public class AuctionRegistration {
     @Id
+    @Column(name = "DocumentID")
     private int documentId;
 
     @ManyToOne
-    @JoinColumn(name = "auctionId", nullable = false)
+    @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
 
+    @Column(name = "RegistrationStatus")
     private String registrationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
+    @Column(name = "ApprovalDate")
     private java.util.Date approvalDate;
 
+    @Column(name = "Comments")
     private String comments;
 }

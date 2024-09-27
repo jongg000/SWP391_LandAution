@@ -14,22 +14,23 @@ import lombok.Builder;
 @Table(name = "Asset_Registration")
 public class AssetRegistration {
     @Id
+    @Column(name = "DocumentID")
     private int documentId;
 
     @ManyToOne
-    @JoinColumn(name = "landId", nullable = false)
+    @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
-    @Column(nullable = false)
+    @Column(name = "RegistrationStatus",nullable = false)
     private String registrationStatus;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Column(nullable = true)
+    @Column(name = "ApprovalDate", nullable = true)
     private java.util.Date approvalDate;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "Comments", columnDefinition = "TEXT")
     private String comments;
 }
