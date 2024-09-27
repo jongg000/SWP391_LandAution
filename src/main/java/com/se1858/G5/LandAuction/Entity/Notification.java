@@ -15,13 +15,16 @@ import lombok.Builder;
 public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "NotificationID")
     private int notificationId;
 
+    @Column(name = "Title")
     private String title;
 
+    @Column(name = "Content")
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserID", nullable = false)
     private User user;
 }

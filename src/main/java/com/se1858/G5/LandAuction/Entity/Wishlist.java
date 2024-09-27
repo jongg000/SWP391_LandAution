@@ -15,14 +15,15 @@ import lombok.Builder;
 public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "WishlistID")
     private int wishlistId;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "auctionId")
+    @JoinColumn(name = "AuctionID")
     private Auction auction;
 }
 

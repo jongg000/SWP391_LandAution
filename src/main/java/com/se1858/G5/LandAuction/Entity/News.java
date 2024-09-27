@@ -16,21 +16,23 @@ import lombok.Builder;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "NewsID")
     private int newsId;
 
-    @Column(nullable = false)
+    @Column(name = "Title", nullable = false)
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "Content", columnDefinition = "TEXT")
     private String content;
 
     private String image;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "Time")
     private Date time;
 }
 
