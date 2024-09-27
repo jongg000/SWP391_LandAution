@@ -21,14 +21,14 @@ public class AssetRegistration {
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
-    @Column(name = "RegistrationStatus",nullable = false)
+    @Column(name = "Registration_Status",nullable = false)
     private String registrationStatus;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Column(name = "ApprovalDate", nullable = true)
+    @Column(name = "Approval_Date", nullable = true)
     private java.util.Date approvalDate;
 
     @Column(name = "Comments", columnDefinition = "TEXT")

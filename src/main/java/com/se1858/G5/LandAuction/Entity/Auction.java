@@ -19,6 +19,22 @@ public class Auction {
     @Column(name = "AuctionID")
     private int auctionId;
 
+    @Column(name = "end_time")
+    private java.util.Date endTime;
+
+    @Column(name = "Status", nullable = false)
+    private String status;
+
+    @Column(name = "start_time")
+    private java.util.Date startTime;
+
+
+    @Column(name = "highest_bid")
+    private Float highestBid;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<AuctionHistory> history;
+
     @ManyToOne
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
@@ -28,19 +44,4 @@ public class Auction {
 
     @ManyToMany(mappedBy = "auctions", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> users;
-
-    @Column(name = "Status", nullable = false)
-    private String status;
-
-    @Column(name = "StartTime")
-    private java.util.Date startTime;
-
-    @Column(name = "EndTime")
-    private java.util.Date endTime;
-
-    @Column(name = "Highest_Bid")
-    private Float highestBid;
-
-    @OneToMany(mappedBy = "auction")
-    private Set<AuctionHistory> history;
 }

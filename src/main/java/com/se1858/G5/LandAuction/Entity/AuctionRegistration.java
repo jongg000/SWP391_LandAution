@@ -21,14 +21,14 @@ public class AuctionRegistration {
     @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
 
-    @Column(name = "RegistrationStatus")
+    @Column(name = "Registration_Status")
     private String registrationStatus;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Column(name = "ApprovalDate")
+    @Column(name = "Approval_Date")
     private java.util.Date approvalDate;
 
     @Column(name = "Comments")
