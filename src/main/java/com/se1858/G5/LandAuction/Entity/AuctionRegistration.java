@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 
+import java.util.Set;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,8 +16,8 @@ import lombok.Builder;
 @Table(name = "Auction_Registration")
 public class AuctionRegistration {
     @Id
-    @Column(name = "DocumentID")
-    private int documentId;
+    @Column(name = "RegistrationID")
+    private int registrationID;
 
     @ManyToOne
     @JoinColumn(name = "AuctionID", nullable = false)
@@ -28,9 +30,6 @@ public class AuctionRegistration {
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Column(name = "Approval_Date")
-    private java.util.Date approvalDate;
-
-    @Column(name = "Comments")
-    private String comments;
+    @OneToMany(mappedBy = "auctionRegistration")
+    private Set<Bids> bids;
 }

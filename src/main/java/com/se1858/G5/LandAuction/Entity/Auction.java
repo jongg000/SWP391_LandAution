@@ -32,16 +32,16 @@ public class Auction {
     @Column(name = "highest_bid")
     private Float highestBid;
 
-    @OneToMany(mappedBy = "auction")
-    private Set<AuctionHistory> history;
-
     @ManyToOne
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
     @OneToMany(mappedBy = "auction")
-    private Set<Bids> bids;
+    private Set<AuctionRegistration> auctionRegistrations;
 
     @ManyToMany(mappedBy = "auctions", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<User> users;
+    private Set<User> user;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<AuctionChangeLog> auctionChangeLogs;
 }

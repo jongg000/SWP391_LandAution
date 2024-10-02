@@ -25,6 +25,7 @@ public class News {
     @Column(name = "Content", columnDefinition = "TEXT")
     private String content;
 
+    @Column(name = "Image")
     private String image;
 
     @ManyToOne

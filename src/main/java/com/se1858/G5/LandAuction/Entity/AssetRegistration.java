@@ -33,4 +33,7 @@ public class AssetRegistration {
 
     @Column(name = "Comments", columnDefinition = "TEXT")
     private String comments;
+
+    @Column(name = "Path")
+    private String path;
 }
