@@ -19,13 +19,13 @@ public class Bids {
     private int bidId;
 
     @ManyToOne
-    @JoinColumn(name = "AuctionID", nullable = false)
-    private Auction auction;
+    @JoinColumn(name = "RegistrationID", nullable = false)
+    private AuctionRegistration auctionRegistration;
 
-    @Column(name = "Bid_Amount")
+    @Column(name = "bid_amount")
     private float bidAmount;
 
-    @Column(name = "Bid_Time")
+    @Column(name = "bid_time")
     private java.util.Date bidTime;
 }
 

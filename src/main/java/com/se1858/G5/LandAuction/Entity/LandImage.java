@@ -18,6 +18,9 @@ public class LandImage {
     @Column(name = "ImageID")
     private int imageId;
 
+    @Column(name = "Name")
+    private String name;
+
     @ManyToOne
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;

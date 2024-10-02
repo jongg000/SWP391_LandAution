@@ -38,9 +38,8 @@ public class Land {
     @Column(name = "Contact")
     private String contact;
 
-    @ManyToOne
-    @JoinColumn(name = "AuctionID")
-    private Auction auction;
+    @OneToMany(mappedBy = "land")
+    private Set<Auction> auctions;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<LandImage> images;
