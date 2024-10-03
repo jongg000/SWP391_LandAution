@@ -12,8 +12,9 @@ import java.util.Date;
 @AllArgsConstructor
 @Builder
 public class BidsRequest {
+
     private int bidId;
-    private int auctionRegistrationId;
-    private float bidAmount;
+    private int registrationId;
     private Date bidTime;
+    private Float bidAmount;
 }
