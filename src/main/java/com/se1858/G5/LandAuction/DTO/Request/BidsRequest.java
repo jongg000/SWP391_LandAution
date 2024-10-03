@@ -17,4 +17,3 @@ public class BidsRequest {
     private float bidAmount;
     private Date bidTime;
 }
-
