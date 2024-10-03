@@ -39,7 +39,7 @@ public class Auction {
     @OneToMany(mappedBy = "auction")
     private Set<AuctionRegistration> auctionRegistrations;
 
-    @ManyToMany(mappedBy = "auctions", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(mappedBy = "auction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> user;
 
     @OneToMany(mappedBy = "auction")
