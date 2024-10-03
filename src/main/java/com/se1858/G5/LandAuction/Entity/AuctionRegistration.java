@@ -16,6 +16,7 @@ import java.util.Set;
 @Table(name = "Auction_Registration")
 public class AuctionRegistration {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RegistrationID")
     private int registrationID;
 

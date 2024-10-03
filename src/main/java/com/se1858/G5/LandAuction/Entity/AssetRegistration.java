@@ -14,6 +14,7 @@ import lombok.Builder;
 @Table(name = "Asset_Registration")
 public class AssetRegistration {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DocumentID")
     private int documentId;
 

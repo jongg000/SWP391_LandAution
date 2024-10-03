@@ -52,14 +52,14 @@ public class User {
 
     @Temporal(TemporalType.DATE)
     @Column(name = "Dob")
-    private Date dob; // Date of Birth
+    private Date dob;
 
     @ManyToOne
     @JoinColumn(name = "RoleID")
-    private Roles role; // Liên kết đến bảng Roles
+    private Roles role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Land> lands;
+    private Set<Land> land;
 
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
@@ -86,13 +86,10 @@ public class User {
     private Set<AuctionRegistration> auctionRegistration;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Land> land;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Payment> payment;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Task> task;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Task> task;
 
 }
 
