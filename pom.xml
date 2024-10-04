@@ -90,11 +90,6 @@
 			<artifactId>mapstruct</artifactId>
 			<version>${mapstruct.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-configuration-processor</artifactId>
-			<scope>annotationProcessor</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
@@ -135,9 +130,9 @@
 						</path>
 					</annotationProcessorPaths>
 					<compilerArgs>
-						<arg>-MapStruct.suppressGeneratorTimestamp=true</arg>
-						<arg>-MapStruct.defaultComponentModel=spring</arg>
-						<arg>-MapStruct.verbose=true</arg>
+						<arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
+						<arg>-Amapstruct.defaultComponentModel=spring</arg>
+						<arg>-Amapstruct.verbose=true</arg>
 					</compilerArgs>
 				</configuration>
 			</plugin>

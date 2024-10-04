@@ -44,7 +44,7 @@ public class AthController {
                 Authentication authentication = authenticationManager.authenticate(
                         new UsernamePasswordAuthenticationToken(username, password)
                 );
-                return "redirect:/home";
+                return "Successfully";
             } catch (AuthenticationException e) {
                 model.addAttribute("error", "Invalid username or password.");
                 return "Customer/login";
