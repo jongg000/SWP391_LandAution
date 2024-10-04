@@ -20,6 +20,9 @@ public class User {
     @Column(name = "UserID")
     private int userId;
 
+    @Column(name = "User_Name", nullable = false)
+    private String userName;
+
     @Column(name = "Password", nullable = false)
     private String password;
 
@@ -41,12 +44,6 @@ public class User {
     @Column(name = "Wallet")
     private Float wallet;
 
-    @Column(name = "National_Front_Image", nullable = true)
-    private String nationalFrontImage;
-
-    @Column(name = "National_Back_Image",nullable = true)
-    private String nationalBackImage;
-
     @Column(name = "NationalID", nullable = true, unique = true)
     private Integer nationalID;
 
@@ -60,7 +57,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Land> land;
-
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
