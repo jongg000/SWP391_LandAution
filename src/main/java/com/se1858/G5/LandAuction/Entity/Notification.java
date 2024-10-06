@@ -18,11 +18,11 @@ public class Notification {
     @Column(name = "NotificationID")
     private int notificationId;
 
-    @Column(name = "Title")
     private String title;
 
-    @Column(name = "Content")
+    @Column(columnDefinition = "TEXT")
     private String content;
+
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)
