@@ -1,6 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
