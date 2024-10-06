@@ -1,6 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,8 +22,9 @@ public class Auction {
     @Column(name = "end_time")
     private java.util.Date endTime;
 
-    @Column(name = "Status", nullable = false)
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @Column(name = "start_time")
     private java.util.Date startTime;

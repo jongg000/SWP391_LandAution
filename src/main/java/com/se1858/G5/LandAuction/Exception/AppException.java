@@ -1,4 +1,4 @@
-package com.se1858.G5.LandAuction.Exeption;
+package com.se1858.G5.LandAuction.Exception;
 
 
 import lombok.Getter;

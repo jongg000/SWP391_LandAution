@@ -1,24 +1,32 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "Users")
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
     private int userId;
+
+    @Column(name = "User_Name", nullable = false)
+    private String userName;
 
     @Column(name = "Password", nullable = false)
     private String password;
@@ -35,17 +43,12 @@ public class User {
     @Column(name = "Avatar")
     private String avatar;
 
-    @Column(name = "Status")
-    private String status; // unverified, verified, or ban
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @Column(name = "Wallet")
     private Float wallet;
-
-    @Column(name = "National_Front_Image", nullable = true)
-    private String nationalFrontImage;
-
-    @Column(name = "National_Back_Image",nullable = true)
-    private String nationalBackImage;
 
     @Column(name = "NationalID", nullable = true, unique = true)
     private Integer nationalID;
@@ -60,7 +63,6 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Land> land;
-
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -90,6 +92,42 @@ public class User {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Task> task;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return userName;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return status.equals("unverified");
+    }
+
 
 }
 

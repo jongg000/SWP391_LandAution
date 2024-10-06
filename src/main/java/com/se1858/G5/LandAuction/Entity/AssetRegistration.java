@@ -1,6 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -22,8 +22,9 @@ public class AssetRegistration {
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
-    @Column(name = "Registration_Status",nullable = false)
-    private String registrationStatus;
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)

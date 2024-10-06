@@ -17,7 +17,6 @@ public class AuctionService {
 
     @Autowired
     private AuctionRepository auctionRepository;
-
     @Autowired
     private LandRepository landRepository;
 
@@ -46,7 +45,6 @@ public class AuctionService {
     private AuctionRequest convertToDTO(Auction auction) {
         return AuctionRequest.builder().auctionId(auction.getAuctionId()).
                 landId(auction.getLand().getLandId()).
-                status(auction.getStatus()).
                 startTime(auction.getStartTime()).
                 endTime(auction.getEndTime()).
                 highestBid(auction.getHighestBid()).
@@ -58,7 +56,6 @@ public class AuctionService {
         return Auction.builder()
                 .auctionId(auctionRequest.getAuctionId())
                 .land(land)
-                .status(auctionRequest.getStatus())
                 .startTime(auctionRequest.getStartTime())
                 .endTime(auctionRequest.getEndTime())
                 .highestBid(auctionRequest.getHighestBid())

@@ -1,6 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,8 +30,9 @@ public class Task {
     @Column(name = "request_time")
     private Date request_time;
 
-    @Column(name = "status")
-    private String status;
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "AuctionID")
