@@ -43,8 +43,9 @@ public class User implements UserDetails {
     @Column(name = "Avatar")
     private String avatar;
 
-    @Column(name = "Status")
-    private String status; // unverified, verified, or ban
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @Column(name = "Wallet")
     private Float wallet;

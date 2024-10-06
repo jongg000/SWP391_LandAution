@@ -22,8 +22,9 @@ public class AssetRegistration {
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
-    @Column(name = "Registration_Status",nullable = false)
-    private String registrationStatus;
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)

@@ -24,8 +24,9 @@ public class AuctionRegistration {
     @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
 
-    @Column(name = "Registration_Status")
-    private String registrationStatus;
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)
