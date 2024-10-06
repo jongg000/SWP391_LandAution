@@ -1,7 +1,7 @@
 package com.se1858.G5.LandAuction.Service;
 
 import com.se1858.G5.LandAuction.Entity.Auction;
-import com.se1858.G5.LandAuction.DTO.Request.AuctionRequest;
+import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
@@ -17,17 +17,16 @@ public class AuctionService {
 
     @Autowired
     private AuctionRepository auctionRepository;
-
     @Autowired
     private LandRepository landRepository;
 
-    public List<AuctionRequest> getAllAuctions() {
+    public List<AuctionDto> getAllAuctions() {
         return auctionRepository.findAll().
                 stream().map(this::convertToDTO).
                 collect(Collectors.toList());
     }
 
-    public AuctionRequest findAuctionById(int auctionId) {
+    public AuctionDto findAuctionById(int auctionId) {
         return auctionRepository.findById(auctionId)
                 .map(this::convertToDTO)
                 .orElse(null);
@@ -37,31 +36,29 @@ public class AuctionService {
         auctionRepository.deleteById(auctionId);
     }
 
-    public AuctionRequest update(AuctionRequest auctionRequest) {
-        Auction auction = convertToEntity(auctionRequest);
+    public AuctionDto update(AuctionDto auctionDto) {
+        Auction auction = convertToEntity(auctionDto);
         Auction auctionUpdate = auctionRepository.save(auction);
         return convertToDTO(auctionUpdate);
     }
 
-    private AuctionRequest convertToDTO(Auction auction) {
-        return AuctionRequest.builder().auctionId(auction.getAuctionId()).
+    private AuctionDto convertToDTO(Auction auction) {
+        return AuctionDto.builder().auctionId(auction.getAuctionId()).
                 landId(auction.getLand().getLandId()).
-                status(auction.getStatus()).
                 startTime(auction.getStartTime()).
                 endTime(auction.getEndTime()).
                 highestBid(auction.getHighestBid()).
                 build();
     }
 
-    private Auction convertToEntity(AuctionRequest auctionRequest) {
-        Land land = landRepository.findById(auctionRequest.getLandId()).orElse(null);
+    private Auction convertToEntity(AuctionDto auctionDto) {
+        Land land = landRepository.findById(auctionDto.getLandId()).orElse(null);
         return Auction.builder()
-                .auctionId(auctionRequest.getAuctionId())
+                .auctionId(auctionDto.getAuctionId())
                 .land(land)
-                .status(auctionRequest.getStatus())
-                .startTime(auctionRequest.getStartTime())
-                .endTime(auctionRequest.getEndTime())
-                .highestBid(auctionRequest.getHighestBid())
+                .startTime(auctionDto.getStartTime())
+                .endTime(auctionDto.getEndTime())
+                .highestBid(auctionDto.getHighestBid())
                 .build();
     }
 

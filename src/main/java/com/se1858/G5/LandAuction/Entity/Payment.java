@@ -1,6 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
@@ -25,8 +25,9 @@ public class Payment {
     @Column(name = "Payment_Amount")
     private float paymentAmount;
 
-    @Column(name="Payment_Status")
-    private String paymentStatus;
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "AuctionID", nullable = false)

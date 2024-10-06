@@ -28,7 +28,6 @@ public class WishlistService {
         this.wishlistRepository = wishlistRepository;
         this.userRepository = userRepository;
         this.auctionRepository = auctionRepository;
-
     }
 
 
@@ -87,8 +86,8 @@ public class WishlistService {
 
     public UserDTO findUserByWishlistId(int wishlistId) {
         return userService.convertToDTO(
-                wishlistRepository.findById(wishlistId).orElse(null).getUser()
-        );
+                        userRepository.findById(wishlistRepository.findById(wishlistId).orElse(null).getUser().getUserId())
+                )
 
     }
 

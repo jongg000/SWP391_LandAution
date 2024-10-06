@@ -1,7 +1,10 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,12 +16,15 @@ import lombok.Builder;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "Users")
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
     private int userId;
+
+    @Column(name = "User_Name", nullable = false)
+    private String userName;
 
     @Column(name = "Password", nullable = false)
     private String password;
@@ -35,32 +41,26 @@ public class User {
     @Column(name = "Avatar")
     private String avatar;
 
-    @Column(name = "Status")
-    private String status; // unverified, verified, or ban
+    @ManyToOne
+    @JoinColumn(name = "StatusID")
+    private Status status;
 
     @Column(name = "Wallet")
     private Float wallet;
-
-    @Column(name = "National_Front_Image", nullable = true)
-    private String nationalFrontImage;
-
-    @Column(name = "National_Back_Image",nullable = true)
-    private String nationalBackImage;
 
     @Column(name = "NationalID", nullable = true, unique = true)
     private Integer nationalID;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "Dob")
-    private Date dob; // Date of Birth
+    private Date dob;
 
     @ManyToOne
     @JoinColumn(name = "RoleID")
-    private Roles role; // Liên kết đến bảng Roles
+    private Roles role;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Land> lands;
-
+    private Set<Land> land;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -86,13 +86,10 @@ public class User {
     private Set<AuctionRegistration> auctionRegistration;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Land> land;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Payment> payment;
 
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Task> task;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Task> task;
 
 }
 

@@ -1,6 +1,6 @@
 package com.se1858.G5.LandAuction.Controller;
 
-import com.se1858.G5.LandAuction.DTO.Request.WishlistRequest;
+import com.se1858.G5.LandAuction.DTO.WishlistDTO;
 import com.se1858.G5.LandAuction.Service.WishlistService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,18 +20,18 @@ public class WishlistController {
 
 
 
-    @GetMapping("/showWishlists{userId}")
+    @GetMapping("/showWishlists/{userId}")
     public String showWishlistPage(Model model, @PathVariable int userId) {
         model.addAttribute("wishlists", wishlistService.findAllWishlistByUserId(userId));
-        model.addAttribute("wishlist", new WishlistRequest());
-        return "redirect:/wishlistPage";
+        model.addAttribute("wishlist", new WishlistDTO());
+        return "Customer/wishlistPage";
     }
 
 
 
 
     @PostMapping("/save")
-    public String saveWishlist(@ModelAttribute WishlistRequest wishlistRequest) {
+    public String saveWishlist(@ModelAttribute WishlistDTO wishlistRequest) {
         wishlistService.update(wishlistRequest);
         return "redirect:/wishlistPage";
     }
@@ -40,9 +40,10 @@ public class WishlistController {
 
 
     @GetMapping("/delete{id}")
-    public String deleteAuction(@PathVariable int id) {
+    public String deleteAuction(@PathVariable String id) {
+        int userId = wishlistService.findUserByWishlistId(Integer.valueOf(id)).getUserId();
         wishlistService.deleteWishlistById(id);
-        return "redirect:/wishlistPage";
+        return "redirect:/wishlist/showWishlists/";
     }
 }
 
