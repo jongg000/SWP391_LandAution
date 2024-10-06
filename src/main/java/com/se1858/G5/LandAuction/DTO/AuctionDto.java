@@ -1,4 +1,4 @@
-package com.se1858.G5.LandAuction.DTO.Request;
+package com.se1858.G5.LandAuction.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,7 +11,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AuctionRequest {
+public class AuctionDto {
     private int auctionId;
     private int landId;
     private String status;

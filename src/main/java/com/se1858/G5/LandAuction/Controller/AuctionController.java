@@ -1,7 +1,7 @@
 package com.se1858.G5.LandAuction.Controller;
 
 
-import com.se1858.G5.LandAuction.DTO.Request.AuctionRequest;
+import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +18,13 @@ public class AuctionController {
     @GetMapping
     public String showAuctionPage(Model model) {
         model.addAttribute("auctions", auctionService.getAllAuctions());
-        model.addAttribute("auction", new AuctionRequest());
+        model.addAttribute("auction", new AuctionDto());
         return "Manager/Auction";
     }
 
     @PostMapping("/save")
-    public String saveAuction(@ModelAttribute AuctionRequest auctionRequest) {
-        auctionService.update(auctionRequest);
+    public String saveAuction(@ModelAttribute AuctionDto auctionDto) {
+        auctionService.update(auctionDto);
         return "redirect:/auction";
     }
 
