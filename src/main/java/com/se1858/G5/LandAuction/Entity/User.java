@@ -1,15 +1,13 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -29,7 +27,7 @@ public class User  {
     @Column(name = "Password", nullable = false)
     private String password;
 
-    @Column(name = "Name", nullable = false)
+    @Column(name = "Name", nullable = true)
     private String name;
 
     @Column(name = "Email", nullable = false, unique = true)
@@ -41,7 +39,7 @@ public class User  {
     @Column(name = "Avatar")
     private String avatar;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StatusID")
     private Status status;
 
@@ -55,7 +53,7 @@ public class User  {
     @Column(name = "Dob")
     private Date dob;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RoleID")
     private Roles role;
 
