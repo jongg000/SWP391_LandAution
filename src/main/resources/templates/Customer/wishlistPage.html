@@ -19,7 +19,6 @@
         <div class="col-12 mx-auto">
             <div class="d-flex justify-content-between">
                 <h3>Wishlist Page</h3>
-                <a href="#" class="btn btn-primary">Create a user</a>
             </div>
 
             <hr />
@@ -38,6 +37,7 @@
                     <td th:text="${wishlist.userId}"></td>
                     <td th:text="${wishlist.auctionId}"></td>
                     <td>
+                        <a th:href="@{/wishlist/showWishlists}" class="btn btn-success">View</a>
                         <a th:href="@{/wishlist/delete/{id}(id=${wishlist.wishlistId})}" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>

@@ -1,6 +1,5 @@
 package com.se1858.G5.LandAuction.Service;
 
-import com.se1858.G5.LandAuction.DTO.UserDTO;
 import com.se1858.G5.LandAuction.DTO.WishlistDTO;
 import com.se1858.G5.LandAuction.Entity.Wishlist;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
@@ -18,7 +17,6 @@ public class WishlistService {
     private final UserRepository userRepository;
     private final AuctionRepository auctionRepository;
 
-    private UserService userService;
 
 
     @Autowired
@@ -78,19 +76,16 @@ public class WishlistService {
     }
 
 
-
+    public List<WishlistDTO> findAllWishlist() {
+        return wishlistRepository.findAll().
+                stream().map(this::convertToDTO).
+                collect(Collectors.toList());
+    }
 
     public void deleteWishlistById(String wishlistId) {
         wishlistRepository.deleteById(Integer.valueOf(wishlistId));
     }
 
-
-    public UserDTO findUserByWishlistId(int wishlistId) {
-        return userService.convertToDTO(
-                wishlistRepository.findById(wishlistId).orElse(null).getUser()
-        );
-
-    }
 
     public WishlistDTO update(WishlistDTO wishlistRequest) {
         Wishlist wishlist = convertToEntity(wishlistRequest);
