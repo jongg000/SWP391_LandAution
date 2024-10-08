@@ -1,6 +1,7 @@
 package com.se1858.G5.LandAuction.Security;
 
 import com.se1858.G5.LandAuction.Entity.User;
+import com.se1858.G5.LandAuction.Exception.InvalidEmailException;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

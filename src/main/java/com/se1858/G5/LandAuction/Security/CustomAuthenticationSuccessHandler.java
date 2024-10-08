@@ -23,13 +23,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // Redirect theo vai trò
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
-            response.sendRedirect("/user/admin/create-account");
+            response.sendRedirect("/admin/create-account");
         } else if (roles.contains("ROLE_STAFF")) {
-            response.sendRedirect("/user/staff");
+            response.sendRedirect("/staff");
         } else if (roles.contains("ROLE_CUSTOMER_CARE")) {
-            response.sendRedirect("/user/customer-care");
+            response.sendRedirect("/customer-care");
         } else if (roles.contains("ROLE_CUSTOMER")) {
-            response.sendRedirect("/user/customer");
+            response.sendRedirect("/customer");
         } else {
             response.sendRedirect("/home");
         }
