@@ -1,4 +1,4 @@
-package com.se1858.G5.LandAuction.Security;
+package com.se1858.G5.LandAuction.Exception;
 
 
 import org.springframework.security.core.AuthenticationException;

@@ -28,7 +28,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
@@ -36,7 +36,7 @@ public class UserController {
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
     RolesRepository roleRepository;
-    private static final String UPLOAD_DIR = "D:/spring_swp/demo/uploads/";
+    private static final String UPLOAD_DIR = "C:\\Users\\ngoda\\Downloads\\LandAuction\\LandAuction\\src\\main\\resources\\static\\img";
     private final StatusRepository statusRepository;
 
     @GetMapping("/register")
@@ -78,7 +78,7 @@ public class UserController {
         User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser == null) {
             model.addAttribute("error", "User not found.");
-            return "redirect:/user/admin/getAllUser";
+            return "redirect:/admin/getAllUser";
         }
         List<Roles> role = roleRepository.findAll();
         List<Status> statuses = statusRepository.findAll();
@@ -96,7 +96,7 @@ public class UserController {
         User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
         if (existingUser == null) {
             model.addAttribute("error", "User not found.");
-            return "redirect:/user/admin/getAllUser";
+            return "redirect:/admin/getAllUser";
         }
 
         if (isUsernameOrEmailTaken(updatedUser, model, id)) {
@@ -137,7 +137,7 @@ public class UserController {
         }
 
         userRepository.save(existingUser);
-        return "redirect:/user/admin/getAllUser";
+        return "redirect:/admin/getAllUser";
     }
 
     @GetMapping("/admin/updatePassword/{id}")
@@ -145,7 +145,7 @@ public class UserController {
         User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser == null) {
             model.addAttribute("error", "User not found.");
-            return "redirect:/user/admin/getAllUser";
+            return "redirect:/admin/getAllUser";
         }
         model.addAttribute("existingUser", existingUser);
         return "update-password";
@@ -161,7 +161,7 @@ public class UserController {
         User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
         if (existingUser == null) {
             model.addAttribute("error", "User not found.");
-            return "redirect:/user/admin/getAllUser";
+            return "redirect:/admin/getAllUser";
         }
 
         if (!passwordEncoder.matches(currentPassword, existingUser.getPassword())) {
@@ -179,7 +179,7 @@ public class UserController {
         existingUser.setPassword(passwordEncoder.encode(newPassword));
         userService.save(existingUser);
 
-        return "redirect:/user/admin/getAllUser";
+        return "redirect:/admin/getAllUser";
     }
 
     private boolean isUsernameOrEmailTaken(User updatedUser, Model model, int userId) {
