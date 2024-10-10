@@ -38,4 +38,5 @@ public class AssetRegistration {
 
     @Column(name = "Path")
     private String path;
+
 }

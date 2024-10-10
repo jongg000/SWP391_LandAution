@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CodePen - Registration Form  in HTML and CSS</title>
+    <link rel="stylesheet" href="/css/Land_registration.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="wrapper">
+    <div class="title">
+        Đăng kí tài sản đấu giá
+    </div>
+    <form th:action="@{/postAsset/saveAssetRegistration}" th:object="${assetFrom}" method="post" enctype="multipart/form-data">
+        <div class="inputfield">
+            <label>Tỉnh/Thành phố</label>
+            <select  class="input" th:field="*{province}" id="province">
+                <option value="">Chọn thành phố</option>
+            </select>
+        </div>
+        <div class="inputfield">
+            <label>Quận/Huyện</label>
+            <select  class="input" th:field="*{district}" id="district">
+                <option value="">Chọn quận huyện</option>
+            </select>
+        </div>
+        <div class="inputfield">
+            <label>Phường Xã</label>
+            <select class="input" th:field="*{ward}" id="ward">
+                <option value="">Chọn Phường xã</option>
+            </select>
+        </div>
+        <div class="inputfield">
+            <label>Địa chỉ thực tế</label>
+            <input type="text" th:field="*{location}" placeholder="Nhập URL Google map"  class="input">
+        </div>
+        <div class="inputfield">
+            <label>Thông tin liên hệ</label>
+            <input th:field="*{contact}" type="text" placeholder="Số điện thoại" class="input">
+        </div>
+        <div class="inputfield">
+            <label>Giá khởi điểm</label>
+            <input th:field="*{price}" type="number" class="input">
+        </div>
+        <div class="inputfield">
+            <label>Mô tả thông tin</label>
+            <textarea th:field="*{description}" class="textarea"></textarea>
+        </div>
+        <div class="inputfield">
+            <label>Hồ sơ dự thầu</label>
+            <input type="file" th:field="*{document}" accept=".pdf,.doc,.docx" class="input">
+        </div>
+        <div class="inputfield upload-image">
+            <input type="file" th:field="*{images}" id="file" class="img_input" multiple accept="image/*">
+            <label class="label_img" for="file">
+                <i class="icon-upload"></i>
+                <p>Browse file to upload</p>
+            </label>
+        </div>
+        <div class="inputfield terms">
+            <label class="check">
+                <input type="checkbox">
+                <span class="checkmark"></span>
+            </label>
+            <p>Tôi cam kết với những thông tin được cung cấp</p>
+        </div>
+        <div class="inputfield">
+            <input type="submit" value="Register" class="btn">
+        </div>
+</form>
+</div>
+<!-- partial -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js" integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script th:src="@{/js/land-registration.js}"></script>
+</body>
+</html>
