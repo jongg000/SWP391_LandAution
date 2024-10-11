@@ -15,14 +15,12 @@ import lombok.Builder;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PaymentID")
     private int paymentId;
 
     @ManyToOne
     @JoinColumn(name = "UserId", nullable = false)
     private User user;
 
-    @Column(name = "Payment_Amount")
     private float paymentAmount;
 
     @ManyToOne

@@ -2,12 +2,9 @@ package com.se1858.G5.LandAuction.Controller;
 
 
 import com.se1858.G5.LandAuction.DTO.UserRegisterDTO;
-import com.se1858.G5.LandAuction.Entity.Roles;
-import com.se1858.G5.LandAuction.Entity.Status;
-import com.se1858.G5.LandAuction.Entity.User;
-import com.se1858.G5.LandAuction.Repository.RolesRepository;
-import com.se1858.G5.LandAuction.Repository.StatusRepository;
-import com.se1858.G5.LandAuction.Repository.UserRepository;
+import com.se1858.G5.LandAuction.Entity.*;
+import com.se1858.G5.LandAuction.Repository.*;
+import com.se1858.G5.LandAuction.Repository.AssetRegistrationRepository;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +20,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -53,10 +52,13 @@ public class UserController {
     @GetMapping("/admin/create-account")
     public String showCreateAccount(Model model) {
         List<Roles> roles = roleRepository.findAll();
+
         model.addAttribute("roles", roles);
         model.addAttribute("registerDTO", new UserRegisterDTO());
+
         return "create-account";
     }
+
 
     @PostMapping("/admin/create-account")
     public String createAccount(UserRegisterDTO userRegisterDTO, Model model, @RequestParam("avatarFile") MultipartFile avatarFile) {
@@ -80,10 +82,9 @@ public class UserController {
             model.addAttribute("error", "User not found.");
             return "redirect:/admin/getAllUser";
         }
-        List<Roles> role = roleRepository.findAll();
-        List<Status> statuses = statusRepository.findAll();
-        model.addAttribute("statuses", statuses);
-        model.addAttribute("roles", role);
+        List<Roles> roles = roleRepository.findAll();
+
+        model.addAttribute("roles", roles);
         model.addAttribute("existingUser", existingUser);
         return "update-user";
     }
@@ -109,6 +110,8 @@ public class UserController {
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
         existingUser.setDob(updatedUser.getDob());
+        existingUser.setNationalID(updatedUser.getNationalID());
+
 
         if (updatedUser.getRole() != null && updatedUser.getRole().getRoleID() != 0) {
             Roles role = roleRepository.findById(Math.toIntExact(updatedUser.getRole().getRoleID())).orElse(null);
@@ -135,7 +138,6 @@ public class UserController {
                 return "update-user";
             }
         }
-
         userRepository.save(existingUser);
         return "redirect:/admin/getAllUser";
     }
@@ -214,6 +216,8 @@ public class UserController {
         user.setEmail(userRegisterDTO.getEmail());
         user.setPhoneNumber(userRegisterDTO.getPhoneNumber());
         user.setDob(userRegisterDTO.getDob());
+        user.setWallet(0.0f);
+        user.setNationalID(userRegisterDTO.getNationalID());
 
         if (!avatarFile.isEmpty()) {
             try {
@@ -221,21 +225,25 @@ public class UserController {
             } catch (IOException e) {
                 e.printStackTrace();
                 model.addAttribute("error", "Avatar upload failed.");
+                return returnPage; // Return early on error
             }
         }
+
 
         Roles role = roleRepository.findById(roleId != 0 ? roleId : 1).orElse(null);
         if (role != null) {
             user.setRole(role);
         }
 
+
         Status status = new Status();
-        status.setStatusID(1);
+        status.setStatusID(1); // Assuming 1 is a valid status ID
         user.setStatus(status);
 
         userService.save(user);
         return returnPage;
     }
+
 
     @GetMapping("/login")
     public String showLoginPage() {
@@ -250,6 +258,6 @@ public class UserController {
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
         Path filePath = Paths.get(UPLOAD_DIR + fileName);
         Files.write(filePath, file.getBytes());
-        return "/uploads/" + fileName;
+        return fileName;
     }
 }

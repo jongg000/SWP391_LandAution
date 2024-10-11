@@ -15,7 +15,6 @@ import lombok.Builder;
 public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "WishlistID")
     private int wishlistId;
 
     @ManyToOne

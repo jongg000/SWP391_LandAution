@@ -18,47 +18,40 @@ import java.util.Set;
 public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
     private int userId;
 
-    @Column(name = "User_Name", nullable = false)
+    @Column(nullable = false)
     private String userName;
 
-    @Column(name = "Password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "Name", nullable = true)
+    @Column(nullable = true)
     private String name;
 
-    @Column(name = "Email", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "Phone_Number", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "Avatar")
     private String avatar;
+
+    private Float wallet;
+
+    @Column( nullable = true)
+    private String nationalID;
+
+    @Temporal(TemporalType.DATE)
+    private Date dob;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StatusID")
     private Status status;
 
-    @Column(name = "Wallet")
-    private Float wallet;
-
-    @Column(name = "NationalID", nullable = true, unique = true)
-    private Integer nationalID;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "Dob")
-    private Date dob;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RoleID")
     private Roles role;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Land> land;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -68,26 +61,12 @@ public class User  {
     )
     private Set<Auction> auction;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "User_Notification",
+            joinColumns = @JoinColumn(name = "UserID"),
+            inverseJoinColumns = @JoinColumn(name = "NotificationID")
+    )
     private Set<Notification> notification;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<News> news;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Wishlist> wishlist;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AssetRegistration> assetRegistration;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AuctionRegistration> auctionRegistration;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Payment> payment;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Task> task;
-
 }
 
