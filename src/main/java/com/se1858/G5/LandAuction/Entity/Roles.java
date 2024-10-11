@@ -16,10 +16,8 @@ import lombok.experimental.FieldDefaults;
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="RoleID")
     int roleID;
 
-    @Column(name = "Role_Name")
     @Enumerated(EnumType.STRING)
     ERole roleName;
 

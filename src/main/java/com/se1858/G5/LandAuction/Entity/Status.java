@@ -19,7 +19,6 @@ public class Status {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "StatusID")
     private int statusID;
 
     private String name;

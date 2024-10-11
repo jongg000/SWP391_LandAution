@@ -21,9 +21,9 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
 
         if (exception instanceof UsernameNotFoundException) {
-            // email not found
+            // Username not found
             error = "Email is not valid";
-            request.getSession().setAttribute("emailError", error);
+            request.getSession().setAttribute("usernameError", error);
             getRedirectStrategy().sendRedirect(request, response, "/login?error=email");
         }else {
             error = "Password is wrong";

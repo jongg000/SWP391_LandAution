@@ -15,17 +15,14 @@ import lombok.Builder;
 public class Bids {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "BidID")
     private int bidId;
 
     @ManyToOne
     @JoinColumn(name = "RegistrationID", nullable = false)
     private AuctionRegistration auctionRegistration;
 
-    @Column(name = "bid_amount")
     private float bidAmount;
 
-    @Column(name = "bid_time")
     private java.util.Date bidTime;
 }
 
