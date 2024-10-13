@@ -1,12 +1,12 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-
-import java.util.Date;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor

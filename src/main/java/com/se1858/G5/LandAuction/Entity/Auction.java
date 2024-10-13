@@ -1,11 +1,12 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import java.util.Set;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,21 +17,17 @@ import lombok.Builder;
 public class Auction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AuctionID")
     private int auctionId;
 
-    @Column(name = "end_time")
     private java.util.Date endTime;
 
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;
 
-    @Column(name = "start_time")
     private java.util.Date startTime;
 
 
-    @Column(name = "Highest_Bid")
     private Float highestBid;
 
     @ManyToOne

@@ -1,10 +1,10 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import java.util.Set;
-
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
