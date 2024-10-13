@@ -17,7 +17,6 @@ import java.util.Set;
 public class AuctionRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RegistrationID")
     private int registrationID;
 
     @ManyToOne

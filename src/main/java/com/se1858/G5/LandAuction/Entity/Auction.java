@@ -16,21 +16,16 @@ import lombok.Builder;
 public class Auction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AuctionID")
     private int auctionId;
 
-    @Column(name = "end_time")
     private java.util.Date endTime;
 
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;
 
-    @Column(name = "start_time")
     private java.util.Date startTime;
 
-
-    @Column(name = "highest_bid")
     private Float highestBid;
 
     @ManyToOne

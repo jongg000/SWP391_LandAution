@@ -16,17 +16,15 @@ import lombok.Builder;
 public class LandImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ImageID")
     private int imageId;
 
-    @Column(name = "Name")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "LandID", nullable = false)
+    @JoinColumn( nullable = false)
     private Land land;
 
-    @Column(name = "Image_URL", nullable = false)
+    @Column( nullable = false)
     private String imageUrl;
 }
 

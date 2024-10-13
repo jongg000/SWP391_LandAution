@@ -15,7 +15,6 @@ import lombok.Builder;
 public class AssetRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DocumentID")
     private int documentId;
 
     @ManyToOne
@@ -30,12 +29,11 @@ public class AssetRegistration {
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Column(name = "Approval_Date", nullable = true)
+    @Column(nullable = true)
     private java.util.Date approvalDate;
 
-    @Column(name = "Comments", columnDefinition = "TEXT")
+    @Column( columnDefinition = "TEXT")
     private String comments;
 
-    @Column(name = "Path")
     private String path;
 }
