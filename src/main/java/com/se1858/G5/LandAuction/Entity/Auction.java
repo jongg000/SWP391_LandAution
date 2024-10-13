@@ -26,7 +26,6 @@ public class Auction {
 
     private java.util.Date startTime;
 
-
     private Float highestBid;
 
     @ManyToOne
@@ -34,20 +33,11 @@ public class Auction {
     private Land land;
 
     @OneToMany(mappedBy = "auction")
-    private Set<AuctionRegistration> auctionRegistration;
-
-    @OneToMany(mappedBy = "auction")
-    private Set<Wishlist> wishlist;
+    private Set<AuctionRegistration> auctionRegistrations;
 
     @ManyToMany(mappedBy = "auction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> user;
 
     @OneToMany(mappedBy = "auction")
-    private Set<AuctionChangeLog> auctionChangeLog;
-
-    @OneToMany(mappedBy = "auction")
-    private Set<Payment> payment;
-
-    @OneToMany(mappedBy = "auction")
-    private Set<Task> task;
+    private Set<AuctionChangeLog> auctionChangeLogs;
 }
