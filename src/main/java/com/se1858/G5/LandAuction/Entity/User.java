@@ -39,7 +39,7 @@ public class User  {
 
     private Float wallet;
 
-    @Column( nullable = true)
+    @Column( nullable = false, unique = true)
     private String nationalID;
 
     @Temporal(TemporalType.DATE)
