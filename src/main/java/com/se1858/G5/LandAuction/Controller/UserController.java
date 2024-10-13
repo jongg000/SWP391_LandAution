@@ -4,7 +4,6 @@ package com.se1858.G5.LandAuction.Controller;
 import com.se1858.G5.LandAuction.DTO.UserRegisterDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
-import com.se1858.G5.LandAuction.Repository.AssetRegistrationRepository;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +19,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Controller
@@ -44,9 +41,23 @@ public class UserController {
         return "register";
     }
 
+    @GetMapping("/home")
+    public String showHomePage(Model model) {
+        return "customer/home"; // Trả về tên của file HTML home.html
+    }
+
     @PostMapping("/register")
-    public String register(UserRegisterDTO userRegisterDTO, Model model, @RequestParam("avatarFile") MultipartFile avatarFile) {
-        return createUser(userRegisterDTO, model, avatarFile, 1, "register");
+    public String register(UserRegisterDTO userRegisterDTO, Model model) {
+        // Gọi phương thức createUser để xử lý việc tạo người dùng
+        String resultPage = createUser(userRegisterDTO, model, 1, "register");
+
+        // Nếu đăng ký thành công, chuyển hướng đến trang login
+        if (!model.containsAttribute("error")) {
+            return "redirect:/login"; // Nếu không có lỗi, chuyển đến trang đăng nhập
+        }
+
+        // Nếu có lỗi, trả về trang hiện tại (trang đăng ký)
+        return resultPage;
     }
 
     @GetMapping("/admin/create-account")
@@ -61,8 +72,8 @@ public class UserController {
 
 
     @PostMapping("/admin/create-account")
-    public String createAccount(UserRegisterDTO userRegisterDTO, Model model, @RequestParam("avatarFile") MultipartFile avatarFile) {
-        return createUser(userRegisterDTO, model, avatarFile, 0, "create-account");
+    public String createAccount(UserRegisterDTO userRegisterDTO, Model model) {
+        return createUser(userRegisterDTO, model, 0, "create-account");
     }
 
     @GetMapping("/admin/getAllUser")
@@ -199,7 +210,7 @@ public class UserController {
         return false;
     }
 
-    private String createUser(UserRegisterDTO userRegisterDTO, Model model, MultipartFile avatarFile, int roleId, String returnPage) {
+    private String createUser(UserRegisterDTO userRegisterDTO, Model model, int roleId, String returnPage) {
         if (userService.existsByUserName(userRegisterDTO.getUserName())) {
             model.addAttribute("error", "Username already exists.");
             return returnPage;
@@ -214,20 +225,8 @@ public class UserController {
         user.setUserName(userRegisterDTO.getUserName());
         user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
         user.setEmail(userRegisterDTO.getEmail());
-        user.setPhoneNumber(userRegisterDTO.getPhoneNumber());
         user.setDob(userRegisterDTO.getDob());
         user.setWallet(0.0f);
-        user.setNationalID(userRegisterDTO.getNationalID());
-
-        if (!avatarFile.isEmpty()) {
-            try {
-                user.setAvatar(uploadAvatarFile(avatarFile));
-            } catch (IOException e) {
-                e.printStackTrace();
-                model.addAttribute("error", "Avatar upload failed.");
-                return returnPage; // Return early on error
-            }
-        }
 
 
         Roles role = roleRepository.findById(roleId != 0 ? roleId : 1).orElse(null);
@@ -235,13 +234,12 @@ public class UserController {
             user.setRole(role);
         }
 
-
         Status status = new Status();
         status.setStatusID(1); // Assuming 1 is a valid status ID
         user.setStatus(status);
 
         userService.save(user);
-        return returnPage;
+        return "redirect:/login";
     }
 
 

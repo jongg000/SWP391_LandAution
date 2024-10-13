@@ -19,10 +19,8 @@ public class UserRegisterDTO {
     String userName;
     @Size(min = 6, max = 12, message = "Password must be between 6 and 12 characters")
     String password;
+    String name;
     String email;
-    @Size(min = 10, max = 10, message = "Phone number must be 10 characters")
-    String phoneNumber;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date Dob;
-    String nationalID;
 }

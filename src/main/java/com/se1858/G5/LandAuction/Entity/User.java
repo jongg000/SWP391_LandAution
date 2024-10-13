@@ -32,14 +32,12 @@ public class User  {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     private String avatar;
 
     private Float wallet;
 
-    @Column( nullable = false, unique = true)
     private String nationalID;
 
     @Temporal(TemporalType.DATE)

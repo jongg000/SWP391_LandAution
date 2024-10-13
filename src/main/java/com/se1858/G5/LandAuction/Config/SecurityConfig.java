@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/perform_login")
+                .successForwardUrl("/home")
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
                 .and()
@@ -47,6 +48,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/perform_logout")
                 .deleteCookies("JSESSIONID")
                 .logoutSuccessUrl("/login")
+                .permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/403");
