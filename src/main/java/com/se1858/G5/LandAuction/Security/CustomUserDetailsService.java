@@ -22,12 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException  {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUserName(username);
         if (user == null || !user.getUserName().equalsIgnoreCase(username)) {
-            throw new UsernameNotFoundException("UserName is not valid");
+            throw new UsernameNotFoundException("Username is not valid");
         }
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName().name().toUpperCase());
+        // Return the hashed password from the database
         return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), List.of(authority));
     }
+
 }
