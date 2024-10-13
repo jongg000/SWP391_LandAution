@@ -1,11 +1,12 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import java.util.Set;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -26,6 +27,7 @@ public class Auction {
 
     private java.util.Date startTime;
 
+
     private Float highestBid;
 
     @ManyToOne
@@ -33,11 +35,20 @@ public class Auction {
     private Land land;
 
     @OneToMany(mappedBy = "auction")
-    private Set<AuctionRegistration> auctionRegistrations;
+    private Set<AuctionRegistration> auctionRegistration;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<Wishlist> wishlist;
 
     @ManyToMany(mappedBy = "auction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> user;
 
     @OneToMany(mappedBy = "auction")
-    private Set<AuctionChangeLog> auctionChangeLogs;
+    private Set<AuctionChangeLog> auctionChangeLog;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<Payment> payment;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<Task> task;
 }
