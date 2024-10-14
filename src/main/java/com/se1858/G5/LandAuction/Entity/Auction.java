@@ -19,13 +19,14 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int auctionId;
 
-    private java.util.Date endTime;
+    private java.time.LocalDateTime  endTime;
 
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;
 
-    private java.util.Date startTime;
+
+    private java.time.LocalDateTime startTime;
 
 
     private Float highestBid;
