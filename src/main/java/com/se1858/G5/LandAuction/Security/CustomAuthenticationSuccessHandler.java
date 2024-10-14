@@ -23,7 +23,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         // Redirect theo vai trò
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
-            response.sendRedirect("/admin/create-account");
+            response.sendRedirect("/dashboard");
         } else if (roles.contains("ROLE_STAFF")) {
             response.sendRedirect("/staff");
         } else if (roles.contains("ROLE_CUSTOMER_CARE")) {

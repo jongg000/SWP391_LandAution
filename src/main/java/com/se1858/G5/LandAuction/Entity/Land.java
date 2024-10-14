@@ -36,14 +36,15 @@ public class Land {
 
     private String contact;
 
+    private String path;
     @OneToMany(mappedBy = "land")
     private Set<Auction> auction;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<LandImage> images;
 
-    @OneToMany(mappedBy = "land")
-    private Set<AssetRegistration> assetRegistration;
+    @OneToOne(mappedBy = "land")
+    private AssetRegistration assetRegistration;
 
 
 
