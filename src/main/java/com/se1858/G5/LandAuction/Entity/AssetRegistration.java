@@ -18,7 +18,7 @@ public class AssetRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int documentId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
@@ -36,5 +36,4 @@ public class AssetRegistration {
     @Column( columnDefinition = "TEXT")
     private String comments;
 
-    private String path;
 }
