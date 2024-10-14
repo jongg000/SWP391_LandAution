@@ -60,6 +60,29 @@ public class UserController {
         return resultPage;
     }
 
+    @GetMapping("/getAllUser")
+    public String showAllUser(Model model) {
+        List<User> allUsers = userRepository.findAll();
+        List<User> filteredUsers = allUsers.stream()
+                .filter(user -> user.getRole().getRoleID() != 2)
+                .collect(Collectors.toList());
+        model.addAttribute("users", filteredUsers);
+        return "admin/manageAccount";
+    }
+
+    @PostMapping("/admin/banUser/{id}")
+    public String banUser(@PathVariable("id") int id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            Status banStatus = statusRepository.findById(3).orElse(null);
+            if (banStatus != null) {
+                user.setStatus(banStatus);
+                userRepository.save(user);
+            }
+        }
+        return "redirect:/getAllUser";
+    }
+
     @GetMapping("/admin/create-account")
     public String showCreateAccount(Model model) {
         List<Roles> roles = roleRepository.findAll();
@@ -76,22 +99,12 @@ public class UserController {
         return createUser(userRegisterDTO, model, 0, "create-account");
     }
 
-    @GetMapping("/admin/getAllUser")
-    public String showAllUser(Model model) {
-        List<User> allUsers = userRepository.findAll();
-        List<User> filteredUsers = allUsers.stream()
-                .filter(user -> user.getRole().getRoleID() != 2)
-                .collect(Collectors.toList());
-        model.addAttribute("users", filteredUsers);
-        return "all-user";
-    }
-
     @GetMapping("/admin/updateUser/{id}")
     public String showUpdateForm(@PathVariable("id") int id, Model model) {
         User existingUser = userRepository.findById(id).orElse(null);
         if (existingUser == null) {
             model.addAttribute("error", "User not found.");
-            return "redirect:/admin/getAllUser";
+            return "redirect:/getAllUser";
         }
         List<Roles> roles = roleRepository.findAll();
 
@@ -108,7 +121,7 @@ public class UserController {
         User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
         if (existingUser == null) {
             model.addAttribute("error", "User not found.");
-            return "redirect:/admin/getAllUser";
+            return "redirect:/getAllUser";
         }
 
         if (isUsernameOrEmailTaken(updatedUser, model, id)) {
@@ -150,7 +163,7 @@ public class UserController {
             }
         }
         userRepository.save(existingUser);
-        return "redirect:/admin/getAllUser";
+        return "redirect:/getAllUser";
     }
 
     @GetMapping("/admin/updatePassword/{id}")
@@ -174,7 +187,7 @@ public class UserController {
         User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
         if (existingUser == null) {
             model.addAttribute("error", "User not found.");
-            return "redirect:/admin/getAllUser";
+            return "redirect:/getAllUser";
         }
 
         if (!passwordEncoder.matches(currentPassword, existingUser.getPassword())) {
@@ -192,7 +205,7 @@ public class UserController {
         existingUser.setPassword(passwordEncoder.encode(newPassword));
         userService.save(existingUser);
 
-        return "redirect:/admin/getAllUser";
+        return "redirect:/getAllUser";
     }
 
     private boolean isUsernameOrEmailTaken(User updatedUser, Model model, int userId) {
