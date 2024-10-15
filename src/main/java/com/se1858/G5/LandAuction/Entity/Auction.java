@@ -1,11 +1,12 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import java.util.Set;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,21 +17,18 @@ import lombok.Builder;
 public class Auction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "AuctionID")
     private int auctionId;
 
-    @Column(name = "end_time")
-    private java.util.Date endTime;
+    private java.time.LocalDateTime  endTime;
 
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;
 
-    @Column(name = "start_time")
-    private java.util.Date startTime;
+
+    private java.time.LocalDateTime startTime;
 
 
-    @Column(name = "highest_bid")
     private Float highestBid;
 
     @ManyToOne
@@ -38,11 +36,20 @@ public class Auction {
     private Land land;
 
     @OneToMany(mappedBy = "auction")
-    private Set<AuctionRegistration> auctionRegistrations;
+    private Set<AuctionRegistration> auctionRegistration;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<Wishlist> wishlist;
 
     @ManyToMany(mappedBy = "auction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<User> user;
 
     @OneToMany(mappedBy = "auction")
-    private Set<AuctionChangeLog> auctionChangeLogs;
+    private Set<AuctionChangeLog> auctionChangeLog;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<Payment> payment;
+
+    @OneToMany(mappedBy = "auction")
+    private Set<Task> task;
 }

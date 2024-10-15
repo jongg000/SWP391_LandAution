@@ -1,11 +1,12 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import java.util.Set;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -16,36 +17,34 @@ import lombok.Builder;
 public class Land {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "LandID")
     private int landId;
 
-    @Column(name = "Name", nullable = false)
+    @Column( nullable = false)
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "UserID", nullable = false)
+    @JoinColumn( nullable = false)
     private User user;
 
-    @Column(name = "Location", columnDefinition = "TEXT")
+    @Column( columnDefinition = "TEXT")
     private String location;
 
-    @Column(name = "Description", columnDefinition = "TEXT")
+    @Column( columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "Price")
     private Float price;
 
-    @Column(name = "Contact")
     private String contact;
 
+    private String path;
     @OneToMany(mappedBy = "land")
     private Set<Auction> auction;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<LandImage> images;
 
-    @OneToMany(mappedBy = "land")
-    private Set<AssetRegistration> assetRegistration;
+    @OneToOne(mappedBy = "land")
+    private AssetRegistration assetRegistration;
 
 
 

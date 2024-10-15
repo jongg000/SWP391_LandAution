@@ -1,10 +1,11 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -15,14 +16,12 @@ import lombok.Builder;
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "PaymentID")
     private int paymentId;
 
     @ManyToOne
     @JoinColumn(name = "UserId", nullable = false)
     private User user;
 
-    @Column(name = "Payment_Amount")
     private float paymentAmount;
 
     @ManyToOne

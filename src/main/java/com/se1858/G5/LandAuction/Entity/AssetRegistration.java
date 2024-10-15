@@ -1,10 +1,11 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -15,10 +16,9 @@ import lombok.Builder;
 public class AssetRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "DocumentID")
     private int documentId;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "LandID", nullable = false)
     private Land land;
 
@@ -30,12 +30,10 @@ public class AssetRegistration {
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Column(name = "Approval_Date", nullable = true)
+    @Column(nullable = true)
     private java.util.Date approvalDate;
 
-    @Column(name = "Comments", columnDefinition = "TEXT")
+    @Column( columnDefinition = "TEXT")
     private String comments;
 
-    @Column(name = "Path")
-    private String path;
 }

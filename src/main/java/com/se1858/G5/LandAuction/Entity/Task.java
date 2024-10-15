@@ -1,11 +1,11 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Date;
 
 @Data
@@ -18,16 +18,12 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TaskID")
     private int taskId;
 
-    @Column(name = "task_name")
     private String task_name;
 
-    @Column(name = "description")
     private String description;
 
-    @Column(name = "request_time")
     private Date request_time;
 
     @ManyToOne

@@ -1,12 +1,12 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-
-import java.util.Date;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -17,16 +17,14 @@ import lombok.Builder;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NewsID")
     private int newsId;
 
-    @Column(name = "Title", nullable = false)
+    @Column(nullable = false)
     private String title;
 
-    @Column(name = "Content", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "Image")
     private String image;
 
     @ManyToOne

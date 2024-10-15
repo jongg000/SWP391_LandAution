@@ -1,11 +1,11 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -16,17 +16,15 @@ import lombok.Builder;
 public class LandImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ImageID")
     private int imageId;
 
-    @Column(name = "Name")
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "LandID", nullable = false)
+    @JoinColumn( nullable = false)
     private Land land;
 
-    @Column(name = "Image_URL", nullable = false)
+    @Column( nullable = false)
     private String imageUrl;
 }
 

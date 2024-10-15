@@ -1,11 +1,11 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import javax.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
 import java.util.Set;
 
 @Data
@@ -17,7 +17,6 @@ import java.util.Set;
 public class AuctionRegistration {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RegistrationID")
     private int registrationID;
 
     @ManyToOne

@@ -23,13 +23,13 @@ public class WishlistController {
     public String showWishlistPage(Model model) {
         model.addAttribute("wishlists", wishlistService.findAllWishlist());
         model.addAttribute("wishlist", new WishlistDTO());
-        return "Customer/wishlistPage";
+        return "customer/wishlistPage";
     }
     @GetMapping("/showWishlists/{userId}")
     public String showWishlistPage(Model model, @PathVariable int userId) {
         model.addAttribute("wishlists", wishlistService.findAllWishlistByUserId(userId));
         model.addAttribute("wishlist", new WishlistDTO());
-        return "Customer/wishlistPage";
+        return "customer/wishlistPage";
     }
 
 
