@@ -54,38 +54,38 @@ public class UploadFile {
             }
         }
     }
-    public void upLoadDocumentAsset(MultipartFile document, AssetRegistration assetRegistration) {
-        String imgUploadDir = "src/main/resources/static/doc/";
-        File directory = new File(imgUploadDir);
-        if (!directory.exists()) {
-            directory.mkdir();
-        }
-        if (!document.isEmpty()) {
-            try{
-                String originalFilename = document.getOriginalFilename();
-                if(originalFilename == null || originalFilename.isEmpty()) {
-                    return;
-                }
-                String nameFile = originalFilename.substring(0, originalFilename.lastIndexOf("."));
-                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-                String imgName = "Document" + nameFile + "." + fileExtension;
-                Path path = Paths.get(imgUploadDir + imgName);
-                // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
-                int version = 1;
-                while (Files.exists(path)) {
-                    imgName = "Document_" + nameFile + "(" + version + ")" + fileExtension;
-                    path = Paths.get(imgUploadDir + imgName);
-                    version++;
-                }
-                // Lưu tệp vào thư mục
-                byte[] bytes = document.getBytes();
-                Files.write(path, bytes);
-                // Tạo đối tượng Image và liên kết với Land
-               AssetRegistration assetRegistration1 = new AssetRegistration();
-               assetRegistration.setPath(nameFile);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+//    public void upLoadDocumentAsset(MultipartFile document, AssetRegistration assetRegistration) {
+//        String imgUploadDir = "src/main/resources/static/doc/";
+//        File directory = new File(imgUploadDir);
+//        if (!directory.exists()) {
+//            directory.mkdir();
+//        }
+//        if (!document.isEmpty()) {
+//            try{
+//                String originalFilename = document.getOriginalFilename();
+//                if(originalFilename == null || originalFilename.isEmpty()) {
+//                    return;
+//                }
+//                String nameFile = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+//                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+//                String imgName = "Document" + nameFile + "." + fileExtension;
+//                Path path = Paths.get(imgUploadDir + imgName);
+//                // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+//                int version = 1;
+//                while (Files.exists(path)) {
+//                    imgName = "Document_" + nameFile + "(" + version + ")" + fileExtension;
+//                    path = Paths.get(imgUploadDir + imgName);
+//                    version++;
+//                }
+//                // Lưu tệp vào thư mục
+//                byte[] bytes = document.getBytes();
+//                Files.write(path, bytes);
+//                // Tạo đối tượng Image và liên kết với Land
+//               AssetRegistration assetRegistration1 = new AssetRegistration();
+//               assetRegistration.setPath(nameFile);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//    }
 }

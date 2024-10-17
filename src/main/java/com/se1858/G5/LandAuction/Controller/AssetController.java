@@ -44,7 +44,7 @@ public class AssetController {
         AssetRegistration assetRegistration = new AssetRegistration();
         UploadFile uploadFile = new UploadFile();
         uploadFile.uploadImageForLand(images, land);
-        uploadFile.upLoadDocumentAsset(document ,assetRegistration);
+//        uploadFile.upLoadDocumentAsset(document ,assetRegistration);
         landRepository.save(land);
         assetRegistration.setLand(land);
         assetRegistrationRepository.save(assetRegistration);
