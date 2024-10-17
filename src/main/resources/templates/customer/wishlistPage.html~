@@ -36,7 +36,7 @@
                     <td th:text="${wishlistDetail.wishlist.wishlistId}"></td>
                     <td th:text="${wishlistDetail.wishlist.userId}"></td> <!-- Make sure userId is part of wishlist -->
                     <td th:text="${wishlistDetail.land.name}"></td> <!-- Accessing land name -->
-<!--                    <td th:text="${#dates.format(wishlistDetail.auction.startTime, 'yyyy-MM-dd HH:mm:ss')}"></td> &lt;!&ndash; Format start time &ndash;&gt;-->
+                    <td th:text="${wishlistDetail.auction.startTime}"></td> <!-- Format start time -->
                     <td>
                         <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}" class="btn btn-success">View</a>
                         <a th:href="@{/wishlist/delete/{id}(id=${wishlistDetail.wishlist.wishlistId})}" class="btn btn-danger">Delete</a>

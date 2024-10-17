@@ -87,7 +87,7 @@
 									<li><a href="services.html">Services</a></li>
 									<li><a href="#" class="has-submenu">Listing</a>
 										<ul class="sub-menu">
-											<li><a href="listing-right.html">Sidebar Right</a></li>
+											<li><a href="templates/customer/listing-right.html">Sidebar Right</a></li>
 											<li><a href="listing-left.html">Sidebar Left</a></li>
 											<li><a href="listing-grid.html">Grids System</a></li>
 											<li><a href="templates/customer/detailPage.html">Car Details</a></li>
@@ -138,11 +138,11 @@
 					</div>
 				</div>
 
-				<section class="listing-page">
+				<section class="listing-grid">
 					<div class="container">
 						<div class="row">
 							<div id="listing-cars" class="col-md-9">
-								<div class="pre-featured">
+								<div class="pre-featured clearfix">
 									<div class="info-text">
 										<h4>24 results founded</h4>
 									</div>
@@ -164,153 +164,151 @@
 		                                </div>
 									</div>
 								</div>
-								<div class="featured-item">
-									<img src="assets/images/01-featured.jpg" alt="">
-									<div class="right-content">
-										<a href="templates/customer/detailPage.html"><h2>Mercedes Amg 6.3</h2></a>
-										<span>52,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="view-details">
-											<a href="#">View Details</a>
+								<div id="featured-cars">
+									<div class="row">
+										<div class="featured-item col-md-4">
+											<img src="assets/images/01-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>Mercedes e class <br>amg 6.3</h2></a>
+												<span>52,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-										<div class="item-rate">
-											<ul>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star-o"></i></li>
-											</ul>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/02-featured-slide-310x210.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>volkswagen <br>passat</h2></a>
+												<span>30,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/03-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>Mercedes <br>amg Gt s 6.3</h2></a>
+												<span>65,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="featured-item">
-									<img src="assets/images/02-featured-slide-310x210.jpg" alt="">
-									<div class="right-content">
-										<a href="templates/customer/detailPage.html"><h2>volkswagen passat</h2></a>
-										<span>30,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="view-details">
-											<a href="#">View Details</a>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/04-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>bmw m4 <br>convertible</h2></a>
+												<span>64,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-										<div class="item-rate">
-											<ul>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star-o"></i></li>
-											</ul>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/05-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>audi a6 tfsi <br>s-line</h2></a>
+												<span>48,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/06-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>bmw m3 e92 <br>blue</h2></a>
+												<span>61,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-									</div>
-								</div>
-								<div class="featured-item">
-									<img src="assets/images/03-featured.jpg" alt="">
-									<div class="right-content">
-										<a href="templates/customer/detailPage.html"><h2>Mercedes amg Gt s 6.3</h2></a>
-										<span>65,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="view-details">
-											<a href="#">View Details</a>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/07-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>vencer sarthe <br>super auto</h2></a>
+												<span>41,500</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-										<div class="item-rate">
-											<ul>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star-o"></i></li>
-											</ul>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/08-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>aston martin <br>v12 vantage</h2></a>
+												<span>78,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="featured-item">
-									<img src="assets/images/04-featured.jpg" alt="">
-									<div class="right-content">
-										<a href="templates/customer/detailPage.html"><h2>bmw m4 convertible</h2></a>
-										<span>64,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="view-details">
-											<a href="#">View Details</a>
-										</div>
-										<div class="item-rate">
-											<ul>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star-o"></i></li>
-											</ul>
-										</div>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="featured-item last-featured">
-									<img src="assets/images/05-featured.jpg" alt="">
-									<div class="right-content">
-										<a href="templates/customer/detailPage.html"><h2>audi a6 tfsi s-line</h2></a>
-										<span>48,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="view-details">
-											<a href="#">View Details</a>
-										</div>
-										<div class="item-rate">
-											<ul>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star"></i></li>
-												<li><i class="fa fa-star-o"></i></li>
-											</ul>
-										</div>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
+										<div class="featured-item col-md-4">
+											<img src="assets/images/09-featured.jpg" alt="">
+											<div class="down-content">
+												<a href="templates/customer/detailPage.html"><h2>Mclaren mp4 <br>- 12c</h2></a>
+												<span>82,000</span>
+												<div class="light-line"></div>
+												<p>Donec eu nullas sapien pretium volutpat vel quis turpis.</p>
+												<div class="car-info">
+													<ul>
+														<li><i class="icon-gaspump"></i>Diesel</li>
+														<li><i class="icon-car"></i>Sport</li>
+														<li><i class="icon-road2"></i>12,000</li>
+													</ul>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -392,7 +390,7 @@
 		                                    </select>
 		                                </div>
 		                                <div class="advanced-button">
-											<a href="listing-right.html">Search Now<i class="fa fa-search"></i></a>
+											<a href="templates/customer/listing-right.html">Search Now<i class="fa fa-search"></i></a>
 										</div>
 									</div>
 								</div>
@@ -566,7 +564,7 @@
 							<li><a href="services.html">Services</a></li>
 							<li class="menu-item-has-children"><a href="#">Listing</a>
 								<ul class="sub-menu">
-									<li><a href="listing-right.html">Sidebar Right</a></li>
+									<li><a href="templates/customer/listing-right.html">Sidebar Right</a></li>
 									<li><a href="listing-left.html">Sidebar Left</a></li>
 									<li><a href="listing-grid.html">Grids System</a></li>
 									<li><a href="templates/customer/detailPage.html">Car Details</a></li>

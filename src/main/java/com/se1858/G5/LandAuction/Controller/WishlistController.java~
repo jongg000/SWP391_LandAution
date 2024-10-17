@@ -38,7 +38,7 @@ public class WishlistController {
     public String showWishlistPage(@RequestParam(defaultValue = "0") int page, Model model) {
         List<WishlistDTO> wishlists = wishlistService.findAllWishlist();
         List<Map<String, Object>> wishlistDetails = new ArrayList<>();
-        int pageSize = 6;
+        int pageSize = 2;
         int start = page * pageSize;
         int end = Math.min(start + pageSize, wishlists.size());
 

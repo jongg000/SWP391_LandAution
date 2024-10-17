@@ -34,9 +34,9 @@
                 <tbody>
                 <tr th:each="wishlistDetail : ${wishlistDetails}">
                     <td th:text="${wishlistDetail.wishlist.wishlistId}"></td>
-                    <td th:text="${wishlistDetail.wishlist.userId}"></td> <!-- Make sure userId is part of wishlist -->
-                    <td th:text="${wishlistDetail.land.name}"></td> <!-- Accessing land name -->
-                    <td th:text="${wishlistDetail.auction.startTime}"></td> <!-- Format start time -->
+                    <td th:text="${wishlistDetail.wishlist.userId}"></td>
+                    <td th:text="${wishlistDetail.land.name}"></td>
+                    <td th:text="${wishlistDetail.auction.startTime}"></td>x
                     <td>
                         <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}" class="btn btn-success">View</a>
                         <a th:href="@{/wishlist/delete/{id}(id=${wishlistDetail.wishlist.wishlistId})}" class="btn btn-danger">Delete</a>

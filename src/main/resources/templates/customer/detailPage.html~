@@ -34,12 +34,12 @@
 		.attended-label {
 			display: inline-block;
 			padding: 10px 20px;
-			background-color: #444; /* Màu nền tối */
-			color: #fff; /* Màu chữ trắng */
-			border: 2px solid #555; /* Khung viền màu xám đậm */
-			border-radius: 5px; /* Góc bo tròn */
-			font-size: 16px; /* Kích thước chữ */
-			font-weight: bold; /* Chữ đậm */
+			background-color: #444;
+			color: #fff;
+			border: 2px solid #555;
+			border-radius: 5px;
+			font-size: 16px;
+			font-weight: bold;
 		}
 	</style>
 </head>
@@ -99,7 +99,7 @@
 									<li><a href="#" class="has-submenu">Listing</a>
 										<ul class="sub-menu">
 											<li><a href="listing-right.html">Sidebar Right</a></li>
-											<li><a href="../../listing-left.html">Sidebar Left</a></li>
+											<li><a href="wishlist.html">Sidebar Left</a></li>
 											<li><a href="../../listing-grid.html">Grids System</a></li>
 											<li><a href="detailPage.html">Car Details</a></li>
 										</ul>
@@ -188,15 +188,21 @@
 									<div class="tabs">
 									    <ul class="tab-links">
 									        <li class="active"><a href="#tab2">description</a></li>
+											<li><a href="#tab3">Google maps</a></li>
 									    </ul>
 									    <div class="tab-content">
 									        <div id="tab2" class="tab active">
-									        	<p th:text="${land.description}"></p>									        </div>
+									        	<p th:text="${land.description}"></p>
+											</div>
+											<div id="tab3" class="tab">
+												<a th:href="#"></a>
+											</div>
 									    </div>
 									</div>
 								</div>
 							</div>
 							<div id="left-info" class="col-md-4">
+								<br><br><br>
 								<div class="details">
 									<div class="head-side-bar">
 										<h4>Auction Details</h4>
@@ -474,7 +480,7 @@
 							<li class="menu-item-has-children"><a href="#">Listing</a>
 								<ul class="sub-menu">
 									<li><a href="listing-right.html">Sidebar Right</a></li>
-									<li><a href="../../listing-left.html">Sidebar Left</a></li>
+									<li><a href="wishlist.html">Sidebar Left</a></li>
 									<li><a href="../../listing-grid.html">Grids System</a></li>
 									<li><a href="detailPage.html">Car Details</a></li>
 								</ul>

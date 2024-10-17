@@ -3,7 +3,6 @@ package com.se1858.G5.LandAuction.Controller;
 import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
-import com.se1858.G5.LandAuction.Service.AuctionRegistrationService;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import com.se1858.G5.LandAuction.Service.LandService;
 import com.se1858.G5.LandAuction.Service.WishlistService;
@@ -27,8 +26,6 @@ public class AuctionController {
     private LandService landService;
     @Autowired
     private WishlistService wishlistService;
-    @Autowired
-    private AuctionRegistrationService auctionRegistrationService;
 
     @GetMapping
     public String showAuctionPage(Model model) {
@@ -64,8 +61,6 @@ public class AuctionController {
         List<LandImageDTO> landImageDTO = landService.findAllLandImageByLandId(auctionDto.getLandId());
         boolean check = auctionService.checkExistUserInAuction((int) session.getAttribute("id")   , id);
         boolean wishCheck = wishlistService.checkExistAuctionInWishlist((int) session.getAttribute("id"), id);
-        boolean isAvailable = auctionRegistrationService.checkAvailableAttend((int) session.getAttribute("id"));
-        boolean isSeller = auctionRegistrationService.checkAvailableAttend((int) session.getAttribute("id"), auctionDto.getLandId());
         //        String dateCheck;
         //        Duration countdownTime = null;
         //
@@ -78,8 +73,6 @@ public class AuctionController {
         //            dateCheck = "is going on";
         //            countdownTime = Duration.between(LocalDateTime.now(), auctionDto.getEndTime());
         //        }
-        model.addAttribute("isAvailable",isAvailable);
-        model.addAttribute("isSeller",isSeller);
         model.addAttribute("check",check);
         model.addAttribute("auction", auctionDto);
         model.addAttribute("land", landDTO);

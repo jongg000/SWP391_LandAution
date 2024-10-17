@@ -18,9 +18,12 @@ public class Land {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int landId;
-
-    @Column( nullable = false)
     private String name;
+    private String province;
+
+    private String district;
+
+    private String ward;
 
     @ManyToOne
     @JoinColumn( nullable = false)
@@ -49,4 +52,3 @@ public class Land {
 
 
 }
-
