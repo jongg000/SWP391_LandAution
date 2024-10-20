@@ -1,66 +1,55 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
-import java.util.Date;
-import java.util.Set;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "Users")
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "UserID")
     private int userId;
 
-    @Column(name = "Password", nullable = false)
+    @Column(nullable = false, unique = true)
+    private String userName;
+
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "Name", nullable = false)
+    @Column(nullable = true)
     private String name;
 
-    @Column(name = "Email", nullable = false, unique = true)
+    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(name = "Phone_Number", nullable = false, unique = true)
+    
     private String phoneNumber;
 
-    @Column(name = "Avatar")
     private String avatar;
 
-    @Column(name = "Status")
-    private String status; // unverified, verified, or ban
-
-    @Column(name = "Wallet")
     private Float wallet;
 
-    @Column(name = "National_Front_Image", nullable = true)
-    private String nationalFrontImage;
-
-    @Column(name = "National_Back_Image",nullable = true)
-    private String nationalBackImage;
-
-    @Column(name = "NationalID", nullable = true, unique = true)
-    private Integer nationalID;
+    private String nationalID;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "Dob")
-    private Date dob; // Date of Birth
+    private Date dob;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "StatusID")
+    private Status status;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "RoleID")
-    private Roles role; // Liên kết đến bảng Roles
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Land> lands;
-
+    private Roles role;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -70,29 +59,12 @@ public class User {
     )
     private Set<Auction> auction;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(
+            name = "User_Notification",
+            joinColumns = @JoinColumn(name = "UserID"),
+            inverseJoinColumns = @JoinColumn(name = "NotificationID")
+    )
     private Set<Notification> notification;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<News> news;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Wishlist> wishlist;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AssetRegistration> assetRegistration;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AuctionRegistration> auctionRegistration;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Land> land;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Payment> payment;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private Set<Task> task;
-
 }
 

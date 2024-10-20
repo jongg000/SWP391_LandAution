@@ -1,10 +1,11 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
@@ -15,7 +16,6 @@ import lombok.Builder;
 public class Wishlist {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "WishlistID")
     private int wishlistId;
 
     @ManyToOne

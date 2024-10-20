@@ -18,7 +18,7 @@
             <h2 class="myclass">Add or Edit News</h2>
             <form th:action="@{/news/save}" th:object="${news}" method="post" enctype="multipart/form-data">
                 <div>
-<!--                    <label for="title">Title:</label>-->
+                    <label for="title">Title:</label>
                     <input type="text" hidden="hidden" id="newsId" th:field="*{newsId}" required/>
 <!--                    <input type="text" hidden="hidden" id="image" th:field="*{image}" required/>-->
                 </div>

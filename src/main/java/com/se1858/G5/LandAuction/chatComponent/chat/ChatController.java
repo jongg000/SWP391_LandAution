@@ -45,6 +45,6 @@ public class ChatController {
     public String chatPage(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
         model.addAttribute("username", username);  // Truyền biến username vào Model
-        return "chat";  // Trả về trang index
+        return "index";  // Trả về trang index
     }
 }

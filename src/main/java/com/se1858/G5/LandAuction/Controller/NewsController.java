@@ -1,17 +1,26 @@
 package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.Entity.News;
+import com.se1858.G5.LandAuction.Entity.Roles;
+import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.ModelMap;
+
+
 import com.se1858.G5.LandAuction.Service.NewsService;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.UUID;
 
 
 @Controller
@@ -32,6 +41,13 @@ public class NewsController {
         return "list-news";
     }
 
+    @GetMapping("/detail")
+    public String getNews(@RequestParam("id") Integer id, ModelMap model) {
+        News news = newsService.findByNewsId(id);
+        model.addAttribute("news", news);
+        return "news-detail";
+    }
+
     @GetMapping("/new")
     public String showCreateNewsForm(
             @RequestParam(value = "id", required = false) Integer id,
@@ -45,15 +61,14 @@ public class NewsController {
             news = new News(); // Nếu không có ID, tạo mới News
         }
         model.addAttribute("news", news);
-        model.addAttribute("users", null);
-        return "add-news";
-    }
+        User u = new User();
+        u.setUserId(1212);
+        u.setEmail("tungnm@gmail.coma");
+        u.setUserName("tungnm@gmail.coma");
+        u.setRole(new Roles());
 
-    @GetMapping("/detail")
-    public String getNews(@RequestParam("id") Integer id, ModelMap model) {
-        News news = newsService.findByNewsId(id);
-        model.addAttribute("news", news);
-        return "news-detail";
+        model.addAttribute("users", Arrays.asList(u));
+        return "add-news";
     }
 
     // Xử lý submit form với file upload

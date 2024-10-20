@@ -1,4 +1,3 @@
-package com.se1858.G5.LandAuction.chatComponent.user;
 //package com.se1858.G5.LandAuction.chatComponent.user;
 //
 //import org.springframework.data.jpa.repository.JpaRepository;

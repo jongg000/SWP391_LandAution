@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Account</title>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Username</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Status</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="users : ${userss}">
+    <td th:text="${users.userId}"></td>
+    <td th:text="${users.userName}"></td>
+    <td th:text="${users.email}"></td>
+    <td th:text="${users.role.roleName}"></td>
+    <td th:text="${users.status.statusName}"></td>
+    <td>
+      <a th:href="@{/admin/updateUser/{id}(id=${users.userId})}">Edit</a>
+      <form th:action="@{/admin/banUser/{id}(id=${users.userId})}" method="post" style="display: inline;">
+        <button type="submit" th:disabled="${users.status.statusID == 3}">Ban</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>

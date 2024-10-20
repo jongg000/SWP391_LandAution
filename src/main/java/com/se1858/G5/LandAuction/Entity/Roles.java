@@ -1,11 +1,10 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
+import javax.persistence.*;
 import java.util.Set;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 
 @Data
 @NoArgsConstructor
@@ -13,16 +12,16 @@ import lombok.Builder;
 @Builder
 @Entity
 @Table(name = "Roles")
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Roles {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RoleID")
-    private int roleId;
+    int roleID;
 
-    @Column(name = "Role_Name", nullable = false)
-    private String roleName;
-
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
+    @Enumerated(EnumType.STRING)
+    ERole roleName;
+//
+//    @OneToMany(mappedBy = "role")
+//    private Set<User> users;
 }
 

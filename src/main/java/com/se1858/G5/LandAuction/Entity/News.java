@@ -1,11 +1,13 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import jakarta.persistence.*;
-import java.util.Date;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -16,24 +18,24 @@ import lombok.Builder;
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "NewsID")
     private int newsId;
 
-    @Column(name = "Title", nullable = false)
+    @Column(nullable = false)
     private String title;
 
-    @Column(name = "Content", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Column(name = "Image")
+    @Column(columnDefinition = "TEXT")
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "UserID", nullable = false)
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "UserID", nullable = false)
+//    private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date time;
 }
 

@@ -3,7 +3,6 @@ package com.se1858.G5.LandAuction.Service;
 import com.se1858.G5.LandAuction.Entity.News;
 import java.util.List;
 import java.util.Optional;
-
 public interface NewsService {
 
     News save(News news);
