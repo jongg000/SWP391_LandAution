@@ -21,7 +21,7 @@ public class LandImage {
     private String name;
 
     @ManyToOne
-    @JoinColumn( nullable = false)
+    @JoinColumn(nullable = false)
     private Land land;
 
     @Column( nullable = false)

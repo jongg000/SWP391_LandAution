@@ -30,7 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/login", "/register", "/css/**", "/js/**", "/assets/**").permitAll()
+                .antMatchers( "/","/home", "/css/**", "/js/**", "/assets/**").permitAll()
+                .antMatchers("/login","/register").permitAll()
                 .antMatchers("/customer/**").hasRole("CUSTOMER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/staff/**").hasRole("STAFF")
@@ -39,15 +40,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .loginProcessingUrl("/perform_login")
+                .loginProcessingUrl("/login")
                 .successForwardUrl("/home")
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
                 .and()
                 .logout()
-                .logoutUrl("/perform_logout")
-                .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)  // Xóa session hiện tại
+                .clearAuthentication(true)    // Xóa thông tin xác thực
+                .deleteCookies("JSESSIONID")  // Xóa cookie session
+                .logoutUrl("/logout")         // URL để logout
+                .logoutSuccessUrl("/login?logout")  // Chuyển hướng sau khi logout thành công
                 .permitAll()
                 .and()
                 .exceptionHandling()

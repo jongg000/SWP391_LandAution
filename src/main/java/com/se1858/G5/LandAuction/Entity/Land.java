@@ -37,6 +37,7 @@ public class Land {
     private String contact;
 
     private String path;
+
     @OneToMany(mappedBy = "land")
     private Set<Auction> auction;
 

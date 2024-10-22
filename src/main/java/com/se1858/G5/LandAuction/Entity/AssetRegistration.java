@@ -33,7 +33,7 @@ public class AssetRegistration {
     @Column(nullable = true)
     private java.util.Date approvalDate;
 
-    @Column( columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String comments;
 
 }

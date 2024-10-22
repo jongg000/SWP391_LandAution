@@ -11,6 +11,7 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,24 +42,101 @@ public class UserController {
         return "register";
     }
 
-    @GetMapping("/home")
-    public String showHomePage(Model model) {
-        return "customer/home"; // Trả về tên của file HTML home.html
-    }
-
     @PostMapping("/register")
-    public String register(UserRegisterDTO userRegisterDTO, Model model) {
-        // Gọi phương thức createUser để xử lý việc tạo người dùng
-        String resultPage = createUser(userRegisterDTO, model, 1, "register");
-
-        // Nếu đăng ký thành công, chuyển hướng đến trang login
-        if (!model.containsAttribute("error")) {
-            return "redirect:/login"; // Nếu không có lỗi, chuyển đến trang đăng nhập
+    public String register(@ModelAttribute("registerDTO") UserRegisterDTO userRegisterDTO,BindingResult bindingResult,  Model model) {
+        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
+        if (userService.existsByEmail(userRegisterDTO.getEmail())) {
+                model.addAttribute("emailError", "This email address is already in use.");
         }
 
-        // Nếu có lỗi, trả về trang hiện tại (trang đăng ký)
-        return resultPage;
+        if (userService.existsByPhoneNumber(userRegisterDTO.getPhoneNumber())) {
+            model.addAttribute("phoneError", "This phone number is already in use.");
+        }
+
+        // Kiểm tra nếu có lỗi trong BindingResult (các thông báo lỗi từ validate)
+        if (bindingResult.hasErrors() || model.containsAttribute("emailError") || model.containsAttribute("phoneError")) {
+            return "register"; // Trả về trang đăng ký nếu có lỗi
+        }
+
+        // Gọi phương thức createUser để xử lý việc tạo người dùng
+        createUser(userRegisterDTO, 1);
+
+        // Nếu đăng ký thành công, chuyển hướng đến trang login
+        model.addAttribute("success", "Đăng ký thành công!");
+        return "redirect:/login";
     }
+
+    private void createUser(UserRegisterDTO userRegisterDTO, int roleId) {
+        // Tạo người dùng mới và gán các thuộc tính
+        User user = new User();
+        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
+        user.setEmail(userRegisterDTO.getEmail());
+        user.setFirstName(userRegisterDTO.getFirstName());
+        user.setLastName(userRegisterDTO.getLastName());
+        user.setPhoneNumber(userRegisterDTO.getPhoneNumber());
+        user.setWallet(0.0f);  // Khởi tạo số dư ban đầu
+
+        // Gán vai trò (role) cho người dùng
+        Roles role = roleRepository.findById(roleId).orElseThrow(() -> new IllegalArgumentException("Invalid role ID"));
+        user.setRole(role);
+
+        // Gán trạng thái mặc định cho người dùng
+        Status status = new Status();
+        status.setStatusID(1); // Ví dụ: 1 là trạng thái "Active" hoặc tương đương
+        user.setStatus(status);
+
+        // Lưu người dùng vào cơ sở dữ liệu
+        userService.save(user);
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login"; // tên file login.html trong thư mục templates
+    }
+
+
+    @GetMapping("/updatePassword/{id}")
+    public String showUpdatePasswordForm(@PathVariable("id") int id, Model model) {
+        User existingUser = userRepository.findById(id).orElse(null);
+        if (existingUser == null) {
+            model.addAttribute("error", "User not found.");
+            return "redirect:/getUser";
+        }
+        model.addAttribute("existingUser", existingUser);
+        return "update-password";
+    }
+
+    @PostMapping("/updatePassword/{id}")
+    public String updatePassword(@PathVariable("id") int id,
+                                 @RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 Model model) {
+
+        User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
+        if (existingUser == null) {
+            model.addAttribute("error", "User not found.");
+            return "redirect:/getUser";
+        }
+
+        if (!passwordEncoder.matches(currentPassword, existingUser.getPassword())) {
+            model.addAttribute("error", "Current password is incorrect.");
+            model.addAttribute("existingUser", existingUser);
+            return "update-password";
+        }
+
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "New passwords do not match.");
+            model.addAttribute("existingUser", existingUser);
+            return "update-password";
+        }
+
+        existingUser.setPassword(passwordEncoder.encode(newPassword));
+        userService.save(existingUser);
+
+        return "redirect:/getUser";
+    }
+
 
     @GetMapping("/getAllUser")
     public String showAllUser(Model model) {
@@ -96,7 +174,8 @@ public class UserController {
 
     @PostMapping("/admin/create-account")
     public String createAccount(UserRegisterDTO userRegisterDTO, Model model) {
-        return createUser(userRegisterDTO, model, 0, "create-account");
+//        return createUser(userRegisterDTO, model, 0);
+        return null;
     }
 
     @GetMapping("/admin/updateUser/{id}")
@@ -129,8 +208,6 @@ public class UserController {
             model.addAttribute("roles", roleRepository.findAll());
             return "update-user";
         }
-
-        existingUser.setUserName(updatedUser.getUserName());
         existingUser.setEmail(updatedUser.getEmail());
         existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
         existingUser.setDob(updatedUser.getDob());
@@ -166,54 +243,7 @@ public class UserController {
         return "redirect:/getAllUser";
     }
 
-    @GetMapping("/admin/updatePassword/{id}")
-    public String showUpdatePasswordForm(@PathVariable("id") int id, Model model) {
-        User existingUser = userRepository.findById(id).orElse(null);
-        if (existingUser == null) {
-            model.addAttribute("error", "User not found.");
-            return "redirect:/admin/getAllUser";
-        }
-        model.addAttribute("existingUser", existingUser);
-        return "update-password";
-    }
-
-    @PostMapping("/admin/updatePassword/{id}")
-    public String updatePassword(@PathVariable("id") int id,
-                                 @RequestParam("currentPassword") String currentPassword,
-                                 @RequestParam("newPassword") String newPassword,
-                                 @RequestParam("confirmPassword") String confirmPassword,
-                                 Model model) {
-
-        User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
-        if (existingUser == null) {
-            model.addAttribute("error", "User not found.");
-            return "redirect:/getAllUser";
-        }
-
-        if (!passwordEncoder.matches(currentPassword, existingUser.getPassword())) {
-            model.addAttribute("error", "Current password is incorrect.");
-            model.addAttribute("existingUser", existingUser);
-            return "update-password";
-        }
-
-        if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("error", "New passwords do not match.");
-            model.addAttribute("existingUser", existingUser);
-            return "update-password";
-        }
-
-        existingUser.setPassword(passwordEncoder.encode(newPassword));
-        userService.save(existingUser);
-
-        return "redirect:/getAllUser";
-    }
-
     private boolean isUsernameOrEmailTaken(User updatedUser, Model model, int userId) {
-        User userWithSameUsername = userRepository.findByUserName(updatedUser.getUserName());
-        if (userWithSameUsername != null && !Objects.equals(userWithSameUsername.getUserId(), userId)) {
-            model.addAttribute("error", "Username is already taken by another user.");
-            return true;
-        }
 
         User userWithSameEmail = userRepository.findByEmail(updatedUser.getEmail());
         if (userWithSameEmail != null && !Objects.equals(userWithSameEmail.getUserId(), userId)) {
@@ -221,44 +251,6 @@ public class UserController {
             return true;
         }
         return false;
-    }
-
-    private String createUser(UserRegisterDTO userRegisterDTO, Model model, int roleId, String returnPage) {
-        if (userService.existsByUserName(userRegisterDTO.getUserName())) {
-            model.addAttribute("error", "Username already exists.");
-            return returnPage;
-        }
-
-        if (userService.existsByEmail(userRegisterDTO.getEmail())) {
-            model.addAttribute("error", "Email already exists.");
-            return returnPage;
-        }
-
-        User user = new User();
-        user.setUserName(userRegisterDTO.getUserName());
-        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
-        user.setEmail(userRegisterDTO.getEmail());
-        user.setDob(userRegisterDTO.getDob());
-        user.setWallet(0.0f);
-
-
-        Roles role = roleRepository.findById(roleId != 0 ? roleId : 1).orElse(null);
-        if (role != null) {
-            user.setRole(role);
-        }
-
-        Status status = new Status();
-        status.setStatusID(1); // Assuming 1 is a valid status ID
-        user.setStatus(status);
-
-        userService.save(user);
-        return "redirect:/login";
-    }
-
-
-    @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";
     }
 
     private String uploadAvatarFile(MultipartFile file) throws IOException {

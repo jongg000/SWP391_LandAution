@@ -21,18 +21,17 @@ public class User  {
     private int userId;
 
     @Column(nullable = false)
-    private String userName;
-
-    @Column(nullable = false)
     private String password;
 
-    @Column(nullable = true)
-    private String name;
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String firstName;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false, unique = true)
     private String phoneNumber;
 
     private String avatar;
@@ -40,6 +39,11 @@ public class User  {
     private Float wallet;
 
     private String nationalID;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String address;
+    private String nationalFrontImage;
+    private String nationalBackImage;
 
     @Temporal(TemporalType.DATE)
     private Date dob;
