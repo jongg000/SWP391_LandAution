@@ -14,7 +14,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/auction")
@@ -66,18 +70,16 @@ public class AuctionController {
         boolean wishCheck = wishlistService.checkExistAuctionInWishlist((int) session.getAttribute("id"), id);
         boolean isAvailable = auctionRegistrationService.checkAvailableAttend((int) session.getAttribute("id"));
         boolean isSeller = auctionRegistrationService.checkAvailableAttend((int) session.getAttribute("id"), auctionDto.getLandId());
-        //        String dateCheck;
-        //        Duration countdownTime = null;
-        //
-        //        if (LocalDateTime.now().isBefore(auctionDto.getStartTime())) {
-        //            countdownTime = Duration.between(LocalDateTime.now(), auctionDto.getStartTime());
-        //            dateCheck = "upcoming";
-        //        } else if (LocalDateTime.now().isAfter(auctionDto.getEndTime())) {
-        //            dateCheck = "ended";
-        //        } else {
-        //            dateCheck = "is going on";
-        //            countdownTime = Duration.between(LocalDateTime.now(), auctionDto.getEndTime());
-        //        }
+        String dateCheck = null;
+        if(LocalDateTime.now().isAfter(auctionDto.getEndTime())) {
+            dateCheck = "ended";
+        } else if(LocalDateTime.now().isBefore(auctionDto.getStartTime())) {
+            dateCheck = "upcoming";
+        } else {
+            dateCheck = "is going on";
+        }
+        List<Map<String, Object>> auctionDetails = getTop4AuctionDetails();
+        model.addAttribute("auctionDetails", auctionDetails);
         model.addAttribute("isAvailable",isAvailable);
         model.addAttribute("isSeller",isSeller);
         model.addAttribute("check",check);
@@ -86,9 +88,27 @@ public class AuctionController {
         model.addAttribute("landImages", landImageDTO);
         model.addAttribute("userCheck", check);
         model.addAttribute("wishlistCheck", wishCheck);
-        //        model.addAttribute("dateCheck", dateCheck);
-        //        model.addAttribute("countdownTime", countdownTime.toMillis());
+        model.addAttribute("dateCheck", dateCheck);
         return "customer/detailPage";
+    }
+    private List<Map<String, Object>> getTop4AuctionDetails() {
+        List<AuctionDto> auctionDtos = auctionService.getTop4NewestAuctions();
+        List<Map<String, Object>> auctionDetails = new ArrayList<>();
+
+        for (AuctionDto auctionDto : auctionDtos) {
+            Map<String, Object> details = new HashMap<>();
+            LandDTO landDTO = landService.findLandById(auctionDto.getLandId());
+            List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auctionDto.getLandId());
+
+            details.put("auction", auctionDto);
+            details.put("land", landDTO);
+            if (!landImageList.isEmpty()) {
+                details.put("landImage", landImageList.get(0).getImageUrl());
+            }
+            auctionDetails.add(details);
+        }
+
+        return auctionDetails;
     }
 }
 

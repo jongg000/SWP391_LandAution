@@ -18,13 +18,14 @@ public class Land {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int landId;
-    private String name;
+
     private String province;
 
     private String district;
 
     private String ward;
 
+    private String name;
     @ManyToOne
     @JoinColumn( nullable = false)
     private User user;

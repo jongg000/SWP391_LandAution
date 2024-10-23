@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -42,7 +43,10 @@ public class AuctionRegistrationService {
                 .user(userRepository.findById(land.getUserId()).orElse(null))
                 .build();
     }
+    public AuctionRegistrationDTO getById(int id) {
+        return convertToDTO(Objects.requireNonNull(auctionRegistrationRepository.findById(id).orElse(null)));
 
+    }
     public AuctionRegistration save(AuctionRegistrationDTO auctionDto) {
         AuctionRegistration auction = convertToEntity(auctionDto);
         return auctionRegistrationRepository.save(auction);
@@ -52,6 +56,9 @@ public class AuctionRegistrationService {
         return auctionRegistrationRepository.findAllByAuction_AuctionId(auctionId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    public AuctionRegistrationDTO getByUser_UserIdAndAuction_AuctionId(int userId, int auctionId) {
+        return convertToDTO(auctionRegistrationRepository.findByUser_UserIdAndAuction_AuctionId(userId, auctionId));
+    }
     public List<AuctionRegistrationDTO> getAllAuctionRegistrationsByUserId(int userId) {
         return auctionRegistrationRepository.findAllByUser_UserId(userId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }

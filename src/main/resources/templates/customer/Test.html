@@ -205,34 +205,22 @@
 								<br><br><br>
 								<div class="details">
 									<div class="head-side-bar">
-										<h4>Auction Details</h4>
+										<h4>Send Bid Request</h4>
 									</div>
 									<div class="list-info">
 										<ul>
-											<li><span>Name:</span><span th:text="${land.name}"></span></li>
-											<li><span>Price: $</span><span th:text="${land.price}"></span></li>
-											<li><span>Description:</span><span th:text="${land.description}"></span></li>
-											<li><span>Location:</span><span th:text="${land.location}"></span></li>
-											<li><span>Start Time:</span><span th:text="${auction.startTime}"></span></li>
-											<li><span>End time:</span><span th:text="${auction.endTime}"></span></li>
+											<li><span><strong>Name:</strong></span><span th:text="${land.name}"></span></li>
+											<li><span><strong>Email:</strong></span><span th:text="${land.price}"></span></li>
+											<li><span><strong>Phone number:</strong></span><span th:text="${land.description}"></span></li>
+											<li><span><strong>AuctionId:</strong></span><span th:text="${land.location}"></span></li>
+											<li><span><strong>Bid_Amount:</strong></span><span th:text="${auction.startTime}"></span></li>
+											<li><span><strong>Date:</strong></span><span th:text="${auction.endTime}"></span></li>
 										</ul>
-									</div>
-								</div>
-								<div class="head-side-bar">
-									<div th:unless="${check}">
-										<div th:unless="${wishlistCheck}" class="advanced-button">
-											<a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Add to wishlist</a>
-										</div>
 									</div>
 								</div>
 								<br>
 								<div class="head-side-bar">
-									<div th:if="${check} == false" class="advanced-button">
-										<a th:href="@{/auctionRegistration/save/{id}(id=${auction.auctionId})}">Attend <i class="fa fa-paper-plane"></i></a>
-									</div>
-									<div th:if="${check} == true">
-										<div class="attended-label">Attended</div>
-									</div>
+										<div class="attended-label">Bid</div>
 								</div>
 
 							</div>

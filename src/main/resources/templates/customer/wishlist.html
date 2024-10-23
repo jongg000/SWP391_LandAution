@@ -208,7 +208,7 @@
                         <div id="listing-cars" class="col-md-12">
                             <div class="pre-featured">
                                 <div class="info-text">
-                                    <h4 th:text="${#lists.size(wishlistDetails)} + ' results found'"></h4>
+                                    <h4 th:text="${num} + ' results found'"></h4>
                                 </div>
                                 <div class="right-content">
                                     <div class="input-select">
@@ -222,8 +222,8 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}">
+<!--                            th:if="${wishlistDetail.dateCheck != 'ended'}"-->
+                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}" >
                                 <div class="featured-item">
                                     <img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image"
                                          style="width: 22%; height: 15%;"/>
@@ -240,15 +240,12 @@
                                             <ul>
                                                 <li>Start Time: [[${wishlistDetail.auction.startTime}]]</li>
                                                 <li>End Time: [[${wishlistDetail.auction.endTime}]]</li>
-
-                                                <li style="position: absolute; right: 0; color: black; font-weight: bold; background: #f4c23d; padding: calc(0.9%);    ">
-                                                    <a th:href="@{/wishlist/delete/{id}(id=${wishlistDetail.wishlist.wishlistId})}">Remove
-                                                        from wishlist</a>
+                                                <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
+                                                    <a th:href="@{/wishlist/delete/{id}(id=${wishlistDetail.wishlist.wishlistId})}">Remove from wishlist</a>
                                                 </li>
                                             </ul>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
@@ -261,23 +258,20 @@
                                 <div class="page-numbers">
                                     <ul>
                                         <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                                            <a th:href="@{/showWishlists(page=${i})}"
-                                               th:class="${i == currentPage} ? 'active' : ''">
+                                            <a th:href="@{/showWishlists(page=${i})}" th:class="${i == currentPage} ? 'active' : ''">
                                                 <span th:text="${i + 1}">1</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="next">
-                                    <a th:href="@{/showWishlists(page=${currentPage + 1})}"
-                                       th:if="${currentPage < totalPages - 1}">
+                                    <a th:href="@{/showWishlists(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}">
                                         Next <i class="fa fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </div>
-
-
                         </div>
+
                     </div>
                 </div>
             </section>

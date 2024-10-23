@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class WishlistController {
     public String showWishlistPage(@RequestParam(defaultValue = "0") int page, Model model) {
         List<WishlistDTO> wishlists = wishlistService.findAllWishlist();
         List<Map<String, Object>> wishlistDetails = new ArrayList<>();
-        int pageSize = 6;
+        int pageSize = 4; // Set the page size to 4
         int start = page * pageSize;
         int end = Math.min(start + pageSize, wishlists.size());
 
@@ -55,28 +56,51 @@ public class WishlistController {
             details.put("landImage", landImage);
             wishlistDetails.add(details);
         }
-
+        model.addAttribute("num", wishlists.size());
         model.addAttribute("wishlistDetails", wishlistDetails);
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", (int) Math.ceil((double) wishlists.size() / pageSize)); // Tổng số trang
+        model.addAttribute("totalPages", (int) Math.ceil((double) wishlists.size() / pageSize)); // Total number of pages
 
         return "customer/wishlist";
     }
 
+
     @GetMapping("/showWishlists/{userId}")
-    public String showWishlistPage(Model model, @PathVariable int userId) {
-        List<WishlistDTO> wishlists = wishlistService.findAllWishlistByUserId(userId);
+    public String showWishlistPage(@RequestParam(defaultValue = "0") int page, Model model, @PathVariable int userId) {
+        List<WishlistDTO> wishlists = wishlistService.findAllWishlistByUserId((int) userId);
         List<Map<String, Object>> wishlistDetails = new ArrayList<>();
-        for (WishlistDTO wishlist : wishlists) {
+        int pageSize = 6;
+        int start = page * pageSize;
+        int end = Math.min(start + pageSize, wishlists.size());
+        int j=0;
+        for (int i = start; i < end; i++) {
+            WishlistDTO wishlist = wishlists.get(i);
             AuctionDto auction = auctionService.findAuctionById(wishlist.getAuctionId());
             LandDTO land = landService.findLandById(auction.getLandId());
+            List<LandImageDTO> landImageDTOList = landService.findAllLandImageByLandId(auction.getLandId());
+            LandImageDTO landImage = landImageDTOList.isEmpty() ? null : landImageDTOList.get(0);
             Map<String, Object> details = new HashMap<>();
+            String dateCheck = null;
+            if(LocalDateTime.now().isAfter(auction.getEndTime())) {
+                dateCheck = "ended";
+                j++;
+            } else if(LocalDateTime.now().isBefore(auction.getStartTime())) {
+                dateCheck = "upcoming";
+            } else {
+                dateCheck = "is going on";
+            }
+            details.put("dateCheck", dateCheck);
             details.put("wishlist", wishlist);
             details.put("auction", auction);
             details.put("land", land);
+            details.put("landImage", landImage);
             wishlistDetails.add(details);
         }
+        model.addAttribute("num",wishlistDetails.size());
         model.addAttribute("wishlistDetails", wishlistDetails);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", (int) Math.ceil((double) wishlists.size() / pageSize)); // Tổng số trang
+
         return "customer/wishlist";
     }
 
@@ -87,12 +111,13 @@ public class WishlistController {
     @GetMapping("/save/{auctionId}")
     public String saveWishlist(@PathVariable int auctionId, HttpServletRequest request) {
         HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("id");
         WishlistDTO wishlistDTO = WishlistDTO.builder()
                 .userId((int) session.getAttribute("id"))
                 .auctionId(auctionId)
                 .build();
         wishlistService.saveWishlist(wishlistDTO);
-        return "redirect:/wishlist/showWishlists";
+        return "redirect:/wishlist/showWishlists/" + userId;
     }
 
 

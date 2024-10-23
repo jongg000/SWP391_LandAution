@@ -34,6 +34,11 @@ public class AuctionService {
                 stream().map(this::convertToDTO).
                 collect(Collectors.toList());
     }
+    public List<AuctionDto> getTop4NewestAuctions() {
+        return auctionRepository.findTop4ByOrderByStartTimeDesc().
+                stream().map(this::convertToDTO).
+                collect(Collectors.toList());
+    }
 
     public AuctionDto findAuctionById(int auctionId) {
         return auctionRepository.findById(auctionId)
@@ -51,7 +56,7 @@ public class AuctionService {
         return convertToDTO(auctionUpdate);
     }
 
-    private AuctionDto convertToDTO(Auction auction) {
+    AuctionDto convertToDTO(Auction auction) {
         return AuctionDto.builder().auctionId(auction.getAuctionId()).
                 landId(auction.getLand().getLandId()).
                 startTime(auction.getStartTime()).

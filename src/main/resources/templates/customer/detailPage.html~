@@ -195,7 +195,7 @@
 									        	<p th:text="${land.description}"></p>
 											</div>
 											<div id="tab3" class="tab">
-												<a th:href="#"></a>
+<!--												<a th:href="#"></a>-->
 											</div>
 									    </div>
 									</div>
@@ -216,12 +216,12 @@
 											<li><span>Start Time:</span><span th:text="${auction.startTime}"></span></li>
 											<li><span>End time:</span><span th:text="${auction.endTime}"></span></li>
 										</ul>
-									</div> 
+									</div>
 								</div>
 								<div class="head-side-bar">
 									<div th:unless="${check}">
 										<div th:unless="${wishlistCheck}" class="advanced-button">
-											<a href="#">Add to wishlist</a>
+											<a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Add to wishlist</a>
 										</div>
 									</div>
 								</div>
@@ -252,74 +252,25 @@
 								</div>
 							</div>
 						</div>
-						<div class="row">
-							<div id="featured-cars">
-								<div class="featured-item col-md-3">
-									<img src="../../assets/images/01-featured.jpg" alt="">
-									<div class="down-content">
-										<a href="detailPage.html"><h2>Mercedes Amg 6.3</h2></a>
-										<span>52,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="featured-item col-md-3">
-									<img src="../../assets/images/02-featured-slide-310x210.jpg" alt="">
-									<div class="down-content">
-										<a href="detailPage.html"><h2>vw golf VII GTI</h2></a>
-										<span>30,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="featured-item col-md-3">
-									<img src="../../assets/images/03-featured.jpg" alt="">
-									<div class="down-content">
-										<a href="detailPage.html"><h2>mercedes amg gt</h2></a>
-										<span>65,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-								<div class="featured-item col-md-3">
-									<img src="../../assets/images/04-featured.jpg" alt="">
-									<div class="down-content">
-										<a href="detailPage.html"><h2>bmw m4 430D</h2></a>
-										<span>64,000</span>
-										<div class="light-line"></div>
-										<p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-										<div class="car-info">
-											<ul>
-												<li><i class="icon-gaspump"></i>Diesel</li>
-												<li><i class="icon-car"></i>Sport</li>
-												<li><i class="icon-road2"></i>12,000</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+<!--						<div class="row" th:each="auctionDetail : ${auctionDetails}">&ndash;&gt;-->
+<!--														<div class="featured-item col-md-3">-->
+<!--															<img th:src="${auctionDetail.landImage.imageUrl}" alt="Image of ${auctionDetail.land1.name}" />-->
+<!--															<div class="down-content">-->
+<!--																<a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">-->
+<!--																	<h2 th:text="${auctionDetail.land.name}"></h2>-->
+<!--																</a>-->
+<!--																<span>$<span th:text="${auctionDetail.land.price}"></span></span>-->
+<!--																<div class="light-line"></div>-->
+<!--																<p th:text="${auctionDetail.land.description}"></p>-->
+<!--																<div class="car-info">-->
+<!--																	<ul>-->
+<!--																		<li>Start Time: <span th:text="${#dates.format(auctionDetail.auction.startTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
+<!--																		<li>End Time: <span th:text="${#dates.format(auctionDetail.auction.endTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
+<!--																	</ul>-->
+<!--																</div>-->
+<!--															</div>-->
+<!--														</div>-->
+<!--													</div>-->
 					</div>
 				</section>
 
