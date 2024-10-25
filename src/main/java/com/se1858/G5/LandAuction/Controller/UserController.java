@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.security.Principal;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -33,7 +35,7 @@ public class UserController {
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
     RolesRepository roleRepository;
-    private static final String UPLOAD_DIR = "C:\\Users\\ngoda\\Downloads\\LandAuction\\LandAuction\\src\\main\\resources\\static\\img";
+    private static final String uploadDir = "C:/Users/ngoda/Downloads/LandAuction/LandAuction/src/main/resources/static/images/";
     private final StatusRepository statusRepository;
 
     @GetMapping("/register")
@@ -94,49 +96,111 @@ public class UserController {
         return "login"; // tên file login.html trong thư mục templates
     }
 
+    @GetMapping("/profile")
+    public String showProfile(Model model, Principal principal) {
+        // Lấy thông tin người dùng hiện tại từ tên đăng nhập (email)
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
 
-    @GetMapping("/updatePassword/{id}")
-    public String showUpdatePasswordForm(@PathVariable("id") int id, Model model) {
-        User existingUser = userRepository.findById(id).orElse(null);
-        if (existingUser == null) {
-            model.addAttribute("error", "User not found.");
-            return "redirect:/getUser";
-        }
-        model.addAttribute("existingUser", existingUser);
-        return "update-password";
+        // Đưa thông tin người dùng vào model
+        model.addAttribute("user", user);
+
+        // Trả về trang profile
+        return "profile";
     }
 
-    @PostMapping("/updatePassword/{id}")
-    public String updatePassword(@PathVariable("id") int id,
-                                 @RequestParam("currentPassword") String currentPassword,
+    @GetMapping("/changePassword")
+    public String showChangePasswordForm(Model model, Principal principal) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Đưa thông tin người dùng vào model (nếu cần)
+        model.addAttribute("user", user);
+
+        return "changePassword";
+    }
+
+
+    @PostMapping("/changePassword")
+    public String changePassword(@RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
                                  @RequestParam("confirmPassword") String confirmPassword,
-                                 Model model) {
+                                 Principal principal, Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
 
-        User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
-        if (existingUser == null) {
-            model.addAttribute("error", "User not found.");
-            return "redirect:/getUser";
+        // Kiểm tra mật khẩu hiện tại có đúng không
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            model.addAttribute("error", "Mật khẩu hiện tại không đúng.");
+            return "changePassword";
         }
 
-        if (!passwordEncoder.matches(currentPassword, existingUser.getPassword())) {
-            model.addAttribute("error", "Current password is incorrect.");
-            model.addAttribute("existingUser", existingUser);
-            return "update-password";
-        }
-
+        // Kiểm tra xem mật khẩu mới có khớp với xác nhận mật khẩu không
         if (!newPassword.equals(confirmPassword)) {
-            model.addAttribute("error", "New passwords do not match.");
-            model.addAttribute("existingUser", existingUser);
-            return "update-password";
+            model.addAttribute("error", "Mật khẩu mới và xác nhận không khớp.");
+            return "changePassword";
         }
 
-        existingUser.setPassword(passwordEncoder.encode(newPassword));
-        userService.save(existingUser);
+        // Cập nhật mật khẩu mới
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userService.save(user);
 
-        return "redirect:/getUser";
+        model.addAttribute("success", "Password changed successfully.");
+        return "changePassword";
     }
 
+    @GetMapping("/profile/edit")
+    public String editProfile(Model model, Principal principal) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        model.addAttribute("user", user);
+        return "editProfile"; // Trả về trang cập nhật thông tin
+    }
+
+
+    @PostMapping("/profile/update")
+    public String updateProfile(@ModelAttribute("user") User userForm, @RequestParam("avatar") MultipartFile avatar,
+                                @RequestParam("nationalFrontImage") MultipartFile nationalFrontImage,
+                                @RequestParam("nationalBackImage") MultipartFile nationalBackImage,
+                                Principal principal, Model model) throws IOException {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Cập nhật thông tin cá nhân
+        user.setFirstName(userForm.getFirstName());
+        user.setLastName(userForm.getLastName());
+        user.setPhoneNumber(userForm.getPhoneNumber());
+        user.setAddress(userForm.getAddress());
+        user.setDob(userForm.getDob());
+        if (userService.existsByNationalID(userForm.getNationalID())) {
+            model.addAttribute("nationalID", "Hiện tại đã tồn tại CMND này");
+        }
+        user.setNationalID(userForm.getNationalID());
+
+        // Lưu avatar nếu có
+        if (!avatar.isEmpty()) {
+            String avatarFileName = saveFile(avatar);
+            user.setAvatar(avatarFileName);
+        }
+
+        // Lưu hình ảnh CMND nếu có
+        if (!nationalFrontImage.isEmpty()) {
+            String frontImageFileName = saveFile(nationalFrontImage);
+            user.setNationalFrontImage(frontImageFileName);
+        }
+
+        if (!nationalBackImage.isEmpty()) {
+            String backImageFileName = saveFile(nationalBackImage);
+            user.setNationalBackImage(backImageFileName);
+        }
+
+        // Lưu thông tin đã cập nhật
+        userService.save(user);
+
+        model.addAttribute("success", "Cập nhập thong tin cá nhân thành công.");
+        return "redirect:/profile"; // Trả về trang hồ sơ sau khi cập nhật
+    }
 
     @GetMapping("/getAllUser")
     public String showAllUser(Model model) {
@@ -158,7 +222,7 @@ public class UserController {
                 userRepository.save(user);
             }
         }
-        return "redirect:/getAllUser";
+        return "redirect:/manageAccount";
     }
 
     @GetMapping("/admin/create-account")
@@ -229,15 +293,7 @@ public class UserController {
         }
 
         if (!avatarFile.isEmpty()) {
-            try {
-                existingUser.setAvatar(uploadAvatarFile(avatarFile));
-            } catch (IOException e) {
-                e.printStackTrace();
-                model.addAttribute("error", "Avatar upload failed.");
-                model.addAttribute("existingUser", existingUser);
-                model.addAttribute("roles", roleRepository.findAll());
-                return "update-user";
-            }
+            existingUser.setAvatar(saveFile(avatarFile));
         }
         userRepository.save(existingUser);
         return "redirect:/getAllUser";
@@ -253,14 +309,18 @@ public class UserController {
         return false;
     }
 
-    private String uploadAvatarFile(MultipartFile file) throws IOException {
-        File uploadDir = new File(UPLOAD_DIR);
-        if (!uploadDir.exists()) {
-            uploadDir.mkdirs();
+    private String saveFile(MultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        try {
+            // Lưu file vào thư mục static/images/
+
+            Path path = Paths.get(uploadDir + fileName);
+            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
-        Path filePath = Paths.get(UPLOAD_DIR + fileName);
-        Files.write(filePath, file.getBytes());
         return fileName;
     }
+
+
 }

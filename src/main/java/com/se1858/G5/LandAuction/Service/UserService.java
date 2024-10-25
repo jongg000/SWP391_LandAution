@@ -8,4 +8,5 @@ public interface UserService {
     boolean existsByEmail(String email);
     User save(User user);
     boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByNationalID(String nationalID);
 }

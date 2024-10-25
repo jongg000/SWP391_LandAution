@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Profile</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+</head>
+<body>
+<div class="container mt-5">
+  <h2>Edit Profile</h2>
+
+  <!-- Hiển thị thông báo nếu có -->
+  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+  <!-- Form cập nhật thông tin -->
+  <form th:action="@{/profile/update}" th:object="${user}" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input type="text" id="firstName" th:field="*{firstName}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input type="text" id="lastName" th:field="*{lastName}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">Phone Number</label>
+      <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" id="address" th:field="*{address}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="dob">Date of Birth</label>
+      <input type="date" id="dob" th:field="*{dob}" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="avatar">Avatar</label>
+      <input type="file" id="avatar" name="avatar" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="nationalFrontImage">National Front Image</label>
+      <input type="file" id="nationalFrontImage" name="nationalFrontImage" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="nationalBackImage">National Back Image</label>
+      <input type="file" id="nationalBackImage" name="nationalBackImage" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary">Update Profile</button>
+  </form>
+</div>
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

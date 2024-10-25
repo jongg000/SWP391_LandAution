@@ -37,5 +37,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsByPhoneNumber(phoneNumber);
     }
 
+    @Override
+    public boolean existsByNationalID(String nationalID) {
+        return userRepository.existsByNationalID(nationalID);
+    }
+
 
 }

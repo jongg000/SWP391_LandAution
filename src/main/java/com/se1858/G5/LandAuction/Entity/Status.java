@@ -22,6 +22,7 @@ public class Status {
     private int statusID;
 
     private String name;
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)

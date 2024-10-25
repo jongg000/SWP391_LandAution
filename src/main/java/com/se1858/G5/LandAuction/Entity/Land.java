@@ -26,10 +26,10 @@ public class Land {
     @JoinColumn( nullable = false)
     private User user;
 
-    @Column( columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String location;
 
-    @Column( columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
 
     private Float price;

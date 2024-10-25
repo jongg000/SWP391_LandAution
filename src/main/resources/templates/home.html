@@ -13,6 +13,10 @@
         <nav class="space-x-4">
             <!-- Nếu người dùng đã đăng nhập -->
             <div th:if="${#httpServletRequest.remoteUser != null}">
+                <!-- Bọc lời chào trong thẻ <a> để nhảy tới trang profile -->
+                <a href="/profile" class="text-lg font-bold hover:text-blue-600">
+                    <i class="fas fa-user-circle fa-2x"></i> <!-- Icon người dùng -->
+                </a>
                 <a href="/logout" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"> Đăng xuất</a>
             </div>
 
