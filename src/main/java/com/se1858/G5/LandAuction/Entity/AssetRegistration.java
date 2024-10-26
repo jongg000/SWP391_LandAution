@@ -1,17 +1,16 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "Asset_Registration")
 public class AssetRegistration {
     @Id
@@ -33,7 +32,13 @@ public class AssetRegistration {
     @Column(nullable = true)
     private java.util.Date approvalDate;
 
-    @Column( columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String comments;
 
+    private double square;
+
+    private String postDate;
+    public AssetRegistration(User user) {
+        this.user = user;
+    }
 }

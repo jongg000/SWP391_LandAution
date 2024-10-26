@@ -22,13 +22,14 @@ public class Payment {
     @JoinColumn(name = "UserId", nullable = false)
     private User user;
 
-    private float paymentAmount;
+    private double paymentAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "StatusID")
-    private Status status;
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String paymentDescription;
 
-    @ManyToOne
-    @JoinColumn(name = "AuctionID", nullable = false)
-    private Auction auction;
+    public Payment(User user, String paymentDescription, double paymentAmount) {
+        this.user = user;
+        this.paymentDescription = paymentDescription;
+        this.paymentAmount = paymentAmount;
+    }
 }

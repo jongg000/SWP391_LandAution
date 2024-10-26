@@ -48,8 +48,5 @@ public class Auction {
     private Set<AuctionChangeLog> auctionChangeLog;
 
     @OneToMany(mappedBy = "auction")
-    private Set<Payment> payment;
-
-    @OneToMany(mappedBy = "auction")
     private Set<Task> task;
 }

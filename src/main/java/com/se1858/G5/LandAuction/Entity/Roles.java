@@ -23,5 +23,10 @@ public class Roles {
 
     @OneToMany(mappedBy = "role")
     private Set<User> users;
+
+    public Roles(int roleID, ERole roleName) {
+        this.roleID = roleID;
+        this.roleName = roleName;
+    }
 }
 

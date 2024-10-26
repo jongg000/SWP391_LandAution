@@ -32,7 +32,7 @@ public class UserController {
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
     RolesRepository roleRepository;
-    private static final String UPLOAD_DIR = "C:\\Users\\ngoda\\Downloads\\LandAuction\\LandAuction\\src\\main\\resources\\static\\img";
+    private static final String UPLOAD_DIR = "C:\\Users\\Admin\\Downloads\\LandAuction\\LandAuction\\src\\main\\resources\\static\\img";
     private final StatusRepository statusRepository;
 
     @GetMapping("/register")
@@ -239,7 +239,7 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
         user.setEmail(userRegisterDTO.getEmail());
         user.setDob(userRegisterDTO.getDob());
-        user.setWallet(0.0f);
+
 
 
         Roles role = roleRepository.findById(roleId != 0 ? roleId : 1).orElse(null);
@@ -261,7 +261,7 @@ public class UserController {
         return "login";
     }
 
-    private String uploadAvatarFile(MultipartFile file) throws IOException {
+    String uploadAvatarFile(MultipartFile file) throws IOException {
         File uploadDir = new File(UPLOAD_DIR);
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
