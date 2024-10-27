@@ -53,9 +53,6 @@ public class Land {
     @OneToMany(mappedBy = "land")
     private Set<Auction> auction;
 
-    @OneToMany(mappedBy = "land", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<LandImage> images;
-
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL)
     private List<LandImage> images;
 

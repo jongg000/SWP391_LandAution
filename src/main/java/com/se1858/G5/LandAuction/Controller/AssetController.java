@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpSession;
@@ -41,10 +43,10 @@ public class AssetController {
     }
 
     @PostMapping("saveForm")
-    public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, HttpSession session) {
+    public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal) {
         MultipartFile document  = landDTO.getDocument();
         List<MultipartFile> images = landDTO.getImages();
-        User user = (User) session.getAttribute("user");
+        User user = userService.findByEmail(principal.getName());
                 Land land = new Land(user.getPhoneNumber(),
                 landDTO.getPrice(),
                 landDTO.getDescription() , landDTO.getLocation(),
@@ -52,7 +54,8 @@ public class AssetController {
                 landDTO.getDistrict(), landDTO.getProvince(),landDTO.getSquare());
         UploadFile uploadFile = new UploadFile();
         uploadFile.upLoadDocumentAsset(document, land);
-        AssetRegistration assetRegistration = new AssetRegistration(user);
+        AssetRegistration assetRegistration = new AssetRegistration();
+        assetRegistration.setUser(user);
         assetRegistration.setLand(land);
         uploadFile.UploadImagesForLand(images, land);
         LocalDateTime createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));

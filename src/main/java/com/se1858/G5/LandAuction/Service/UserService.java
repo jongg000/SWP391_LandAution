@@ -11,4 +11,5 @@ public interface UserService {
     boolean existsByNationalID(String nationalID);
     String encodePassword(String password);
     String createPasswordResetToken(User user);
+
 }

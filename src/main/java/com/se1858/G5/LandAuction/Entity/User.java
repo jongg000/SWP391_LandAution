@@ -23,9 +23,6 @@ public class User  {
     private int userId;
 
     @Column(nullable = false)
-    private String userName;
-
-    @Column(nullable = false)
     private String password;
 
     @Column(columnDefinition = "NVARCHAR(MAX)")
