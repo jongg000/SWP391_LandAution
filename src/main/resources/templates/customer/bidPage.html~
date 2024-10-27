@@ -291,10 +291,12 @@
                                         alert(`Your bid must be greater than the latest bid of ${currentUserId} by user ID ${latestBidUserId}.`);
                                         return;
                                     }
-
+                                    let checkUserId =null;
                                     if (currentUserId === latestBidUserId) {
                                         alert("You cannot bid again until another user has placed a bid.");
                                         return;
+                                    }else{
+                                        checkUserId = currentUserId;
                                     }
 
                                     stompClient.send("/app/bids", {}, JSON.stringify({
@@ -303,8 +305,8 @@
                                         'bidTime': bidTime,
                                         'userId': currentUserId
                                     }));
-
                                     latestBidAmount = bidAmount;
+                                    document.getElementById('latestBidUserId').value = checkUserId;
                                     document.getElementById('bidAmount').value = '';
                                     document.forms['bidForm'].reset();
                                 }

@@ -21,10 +21,11 @@ public class BidWebSocketController {
 
     }
 
-    @MessageMapping("/bids")  // Maps messages sent to /app/bids
-    @SendTo("/topic/bids")    // Broadcasts to all subscribers of /topic/bids
+    @MessageMapping("/bids")
+    @SendTo("/topic/bids")
     public BidDTO handleBid(BidDTO bidDTO) {
         bidService.saveBid(bidDTO);
+
         return bidDTO;
     }
 

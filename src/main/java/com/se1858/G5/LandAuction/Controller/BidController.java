@@ -47,8 +47,6 @@ public class BidController {
     public String showBidsPage(Model model, @PathVariable int auctionId, HttpServletRequest request) {
         List<BidDTO> bids = bidService.getAllBids(auctionId);
         AuctionDto auctionDto = auctionService.findAuctionById(auctionId);
-
-
         BidDTO bidDTO = bids.isEmpty() ? null : bids.get(0);
 
         long latestBidAmount = bidDTO != null ? bidDTO.getBidAmount() : 0;
@@ -57,8 +55,6 @@ public class BidController {
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("id");
 
-
-        // Fetch land and user details
         LandDTO landDTO = landService.findLandById(auctionDto.getLandId());
         LandImageDTO landImageDTO = landService.findAllLandImageByLandId(auctionDto.getLandId()).get(0);
 
@@ -72,19 +68,14 @@ public class BidController {
             details.put("username", username);
             bidDetails.add(details);
         }
-
         User user = userRepository.findById(userId).orElse(null);
         String userName = user != null ? user.getName() : "Unknown"+userId;
         model.addAttribute("userName", userName);
         model.addAttribute("userId", userId);
         model.addAttribute("latestBidUserId", latestBidUserId);
         model.addAttribute("latestBidAmount", latestBidAmount);
-
-
-            AuctionRegistrationDTO auctionRegistration = auctionRegisterService.getByUser_UserIdAndAuction_AuctionId(userId, auctionId);
-            model.addAttribute("auctionRegistrationId", auctionRegistration.getRegistrationId());
-
-
+        AuctionRegistrationDTO auctionRegistration = auctionRegisterService.getByUser_UserIdAndAuction_AuctionId(userId, auctionId);
+        model.addAttribute("auctionRegistrationId", auctionRegistration.getRegistrationId());
         model.addAttribute("auction", auctionDto);
         model.addAttribute("land", landDTO);
         model.addAttribute("landImages", landImageDTO);
@@ -96,7 +87,7 @@ public class BidController {
 
 
     @PostMapping("/save/{auctionId}")
-    public String saveBids(@RequestParam long bidAmount, @PathVariable int auctionId, HttpServletRequest request) {
+    public String saveBids(@RequestParam long bidAmount, @PathVariable int auctionId, HttpServletRequest request, Model model) {
         HttpSession session = request.getSession();
         Integer userId = (Integer) session.getAttribute("id");
         AuctionRegistrationDTO auctionRegistrationDTO = auctionRegisterService.getByUser_UserIdAndAuction_AuctionId(userId, auctionId);
@@ -105,7 +96,6 @@ public class BidController {
                 .registrationId(auctionRegistrationDTO.getRegistrationId())
                 .bidTime(LocalDateTime.now())
                 .build();
-
         bidService.saveBid(bidDTO);
         return "redirect:/bids/showBidsPage/" + auctionId;
     }

@@ -308,7 +308,6 @@
                                     latestBidAmount = bidAmount;
                                     document.getElementById('latestBidUserId').value = checkUserId;
                                     document.getElementById('bidAmount').value = '';
-                                    document.forms['bidForm'].reset();
                                 }
 
                                 function connect() {
@@ -346,8 +345,6 @@
 
 
                                     bidList.innerHTML = newBid + bidList.innerHTML;
-
-
                                     latestBidAmount = parseFloat(bid.bidAmount);
                                     document.getElementById("latestBidUserId").value = bid.userId;
 
