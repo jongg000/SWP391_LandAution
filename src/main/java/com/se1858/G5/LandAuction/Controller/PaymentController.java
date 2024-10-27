@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("payment")
+@RequestMapping("/payment")
 public class PaymentController {
     private PaymentService paymentService;
     public UserService userService;
@@ -28,14 +29,15 @@ public class PaymentController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
-    public String handle(Model model, HttpSession session) {
-            User user = (User) session.getAttribute("user");
+    @GetMapping
+    public String handle(Model model, Principal principal) {
+            String username = principal.getName();
+            User user = userService.findByEmail(username);
             model.addAttribute("user", user);
-            return "customer/display";
+            return "/customer/display";
     }
     //dẫn đến đường link thanh toán
-    @RequestMapping("handle")
+    @RequestMapping("/handle")
     public String handle(HttpServletRequest request) {
         int amount  = 500000;
         VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back");
@@ -44,13 +46,14 @@ public class PaymentController {
     }
     //Sau khi thanh toán thành công
     @RequestMapping(value = "/back", method = RequestMethod.GET)
-    public String paymentCompleted(HttpServletRequest request, Model model, HttpSession session) {
+    public String paymentCompleted(HttpServletRequest request, Model model, Principal principal) {
         int paymentStatus =paymentService.orderReturn(request);
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
         String totalPrice = request.getParameter("vnp_Amount");
-        User user = (User) session.getAttribute("user");
+        String username = principal.getName();
+        User user = userService.findByEmail(username);
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice));
         paymentService.createPaymentBill(payment);

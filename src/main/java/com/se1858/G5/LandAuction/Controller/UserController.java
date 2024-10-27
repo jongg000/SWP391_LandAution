@@ -5,6 +5,7 @@ import com.se1858.G5.LandAuction.DTO.ProfileDTO;
 import com.se1858.G5.LandAuction.DTO.UserRegisterDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
+import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -173,10 +174,11 @@ public class UserController {
         user.setAddress(userProfileDTO.getAddress());
         user.setDob(userProfileDTO.getDob());
 
+        UploadFile uploadFile = new UploadFile();
+
         // Lưu avatar nếu có
         if (userProfileDTO.getAvatar() != null && !userProfileDTO.getAvatar().isEmpty()) {
-            String avatarFileName = saveFile(userProfileDTO.getAvatar());
-            user.setAvatar(avatarFileName);
+            uploadFile.upLoadDocumentAvata(userProfileDTO.getAvatar(),user);
         }
 
         // Lưu hình ảnh CMND nếu có
