@@ -50,8 +50,6 @@ public class Land {
     private double length;
 
     private String path;
-    @OneToMany(mappedBy = "land")
-    private Set<Auction> auction;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL)
     private List<LandImage> images;
