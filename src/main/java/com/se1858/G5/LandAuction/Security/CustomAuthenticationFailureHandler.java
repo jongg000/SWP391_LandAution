@@ -19,17 +19,17 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             throws IOException, SecurityException {
         String error = null;
 
-
         if (exception instanceof UsernameNotFoundException) {
-            // Username not found
-            error = "Email is not valid";
-            request.getSession().setAttribute("usernameError", error);
-            getRedirectStrategy().sendRedirect(request, response, "/login?error=email");
-        }else {
-            error = "Password is wrong";
-            request.getSession().setAttribute("passwordError", error);
-            getRedirectStrategy().sendRedirect(request, response, "/login?error=EmailOrPassword");
+            error = "Password or Email is wrong";
+        } else {
+            error = "Password or Email is wrong";
         }
+        // Đưa lỗi vào session
+        request.getSession().setAttribute("loginError", error);
 
+        // Chuyển hướng về trang login
+        getRedirectStrategy().sendRedirect(request, response, "/login");
     }
+
+
 }

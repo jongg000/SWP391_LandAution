@@ -6,10 +6,13 @@ import java.util.List;
 
 public interface UserService {
 
-    User findByUserName(String username);
-    boolean existsByUserName(String username);
+    User findByEmail(String email);
     boolean existsByEmail(String email);
     User save(User user);
+    boolean existsByPhoneNumber(String phoneNumber);
+    boolean existsByNationalID(String nationalID);
+    String encodePassword(String password);
+    String createPasswordResetToken(User user);
 
     List<User> findAll();
 }

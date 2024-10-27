@@ -2307,7 +2307,7 @@ img.tp-slider-alternative-image {
     min-width: 60px;
     min-height: 60px;
     background: #fff;
-;
+    ;
     border-radius: 30px;
     -moz-border-radius: 30px;
     -webkit-border-radius: 30px;
@@ -2576,7 +2576,7 @@ img.tp-slider-alternative-image {
     font-size: 30px;
     top: 0px;
     left: 0px;
-;
+    ;
     background: #fff;
     z-index: 100;
     width: 70px;
@@ -2783,17 +2783,12 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.preview4:after {
-    content: '\f061'; /* Font Awesome mũi tên sang phải */
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900; /* Đảm bảo font hiển thị đậm */
+    content: '\e825';
 }
 
 .tp-leftarrow.preview4:after {
-    content: '\f060'; /* Font Awesome mũi tên sang trái */
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900; /* Đảm bảo font hiển thị đậm */
+    content: '\e824';
 }
-
 
 .tparrows.preview4 .tp-arr-allwrapper {
     visibility: hidden;

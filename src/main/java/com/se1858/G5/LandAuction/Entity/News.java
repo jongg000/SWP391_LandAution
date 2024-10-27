@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -20,22 +19,20 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int newsId;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String title;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String content;
 
-    @Column(columnDefinition = "TEXT")
     private String image;
 
-//    @ManyToOne
-//    @JoinColumn(name = "UserID", nullable = false)
-//    private User user;
+    @ManyToOne
+    @JoinColumn(name = "UserID", nullable = false)
+    private User user;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Time")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date time;
 }
 

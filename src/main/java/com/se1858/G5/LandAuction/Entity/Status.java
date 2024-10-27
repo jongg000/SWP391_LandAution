@@ -22,6 +22,7 @@ public class Status {
     private int statusID;
 
     private String name;
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -31,15 +32,9 @@ public class Status {
     private Set<User> user;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Payment> payment;
-
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Auction> auction;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AssetRegistration> assetRegistration;
-
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AuctionRegistration> auctionRegistration;
 
 }

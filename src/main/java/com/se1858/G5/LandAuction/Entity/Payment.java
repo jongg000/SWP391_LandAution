@@ -6,13 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Payment")
 public class Payment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +22,17 @@ public class Payment {
     @JoinColumn(name = "UserId", nullable = false)
     private User user;
 
-    private float paymentAmount;
+    private long paymentAmount;
 
-    @ManyToOne
-    @JoinColumn(name = "StatusID")
-    private Status status;
+    @Column(nullable = true)
+    private LocalDateTime paymentDate;
 
-    @ManyToOne
-    @JoinColumn(name = "AuctionID", nullable = false)
-    private Auction auction;
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String paymentDescription;
+
+    public Payment(User user, String paymentDescription, long    paymentAmount) {
+        this.user = user;
+        this.paymentDescription = paymentDescription;
+        this.paymentAmount = paymentAmount;
+    }
 }

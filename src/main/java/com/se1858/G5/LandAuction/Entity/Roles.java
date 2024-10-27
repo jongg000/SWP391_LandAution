@@ -20,8 +20,6 @@ public class Roles {
 
     @Enumerated(EnumType.STRING)
     ERole roleName;
-//
-//    @OneToMany(mappedBy = "role")
-//    private Set<User> users;
+
 }
 

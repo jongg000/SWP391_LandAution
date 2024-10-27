@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Profile Page</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>User Profile</h1>
+
+<!-- Hiển thị thông tin người dùng -->
+<div>
+  <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
+  <p><strong>First Name:</strong> <span th:text="${user.firstName}"></span></p>
+  <p><strong>Last Name:</strong> <span th:text="${user.lastName}"></span></p>
+  <p><strong>Phone Number:</strong> <span th:text="${user.phoneNumber}"></span></p>
+  <p><strong>Address:</strong> <span th:text="${user.address}"></span></p>
+  <p><strong>Date of Birth:</strong> <span th:text="${#dates.format(user.dob, 'dd/MM/yyyy')}"></span></p>
+  <p><strong>Avatar:</strong>
+    <img th:src="@{'/images/' + ${user.avatar}}" alt="User Avatar" width="100" />
+  </p>
+  <p><strong>National ID:</strong>
+    <span th:text="${user.nationalID}"></span>
+  </p>
+  <p><strong>National Front Image:</strong>
+    <img th:src="@{'/images/' + ${user.getNationalFrontImage()}}" alt="National Front" width="100" />
+  </p>
+  <p><strong>National Back Image:</strong>
+    <img th:src="@{'/images/' + ${user.getNationalBackImage()}}" alt="National Back" width="100" />
+  </p>
+
+</div>
+
+<!-- Nút để chuyển đến trang cập nhật -->
+<a th:href="@{/profile/edit}" class="btn btn-primary">Edit Profile</a>
+
+<!-- Form đổi mật khẩu -->
+<a th:href="@{/changePassword}" class="btn btn-primary">Change Password</a>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</body>
+</html>

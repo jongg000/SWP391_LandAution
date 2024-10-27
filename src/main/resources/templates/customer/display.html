@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Table</title>
+</head>
+<body>
+<table>
+    <thead>
+    <tr>
+        <th>UserID</th>
+        <th>Username</th>
+        <th>Function</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${user.userId}"></td>
+        <td th:text="${user.name}"></td>
+        <td><a th:href="@{/payment/handle}">Nạp tiền</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,12 +1,13 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -16,19 +17,19 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "Users")
-public class User {
+public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    @Column(nullable = false, unique = true)
-    private String userName;
-
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = true)
-    private String name;
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String firstName;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -37,20 +38,28 @@ public class User {
 
     private String avatar;
 
-    private Float wallet;
+
+    @Column(name = "refund_money", nullable = false, columnDefinition = "NUMERIC(19,0) DEFAULT 0")
+    private BigDecimal refundMoney = BigDecimal.ZERO;
 
     private String nationalID;
+    private String gender;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String address;
+    private String nationalFrontImage;
+    private String nationalBackImage;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dob;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "StatusID")
     private Status status;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RoleID")
-    @JsonManagedReference
     private Roles role;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
