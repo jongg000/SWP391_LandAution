@@ -18,5 +18,5 @@ public class AuctionDto {
     private String status;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Float highestBid;
+    private long highestBid;
 }

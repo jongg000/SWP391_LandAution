@@ -1,3 +1,4 @@
+
 package com.se1858.G5.LandAuction.Security;
 
 import com.se1858.G5.LandAuction.Entity.User;
@@ -18,7 +19,7 @@ import java.util.List;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Override
     @Transactional

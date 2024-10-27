@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LandImageDTO {
     private int imageId;
-    private String name;
     private int landId;
     private String imageUrl;
 }

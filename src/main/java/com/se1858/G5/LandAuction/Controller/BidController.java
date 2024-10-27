@@ -65,7 +65,7 @@ public class BidController {
         List<Map<String, Object>> bidDetails = new ArrayList<>();
         for (BidDTO bid : bids) {
             AuctionRegistrationDTO auctionRegistrationDTO1 = auctionRegisterService.getById(bid.getRegistrationId());
-            String username = userRepository.getById(auctionRegistrationDTO1.getUserId()).getName();
+            String username = userRepository.getById(auctionRegistrationDTO1.getUserId()).getLastName();
             Map<String, Object> details = new HashMap<>();
             details.put("bidId", bid.getRegistrationId());
             details.put("bid", bid);
@@ -74,7 +74,7 @@ public class BidController {
         }
 
         User user = userRepository.findById(userId).orElse(null);
-        String userName = user != null ? user.getName() : "Unknown"+userId;
+        String userName = user != null ? user.getLastName() : "Unknown"+userId;
         model.addAttribute("userName", userName);
         model.addAttribute("userId", userId);
         model.addAttribute("latestBidUserId", latestBidUserId);

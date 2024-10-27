@@ -22,8 +22,8 @@ public class Bids {
     @JoinColumn(name = "RegistrationID", nullable = false)
     private AuctionRegistration auctionRegistration;
 
-    private float bidAmount;
+    private long bidAmount;
 
-    private java.util.Date bidTime;
+    private java.time.LocalDateTime bidTime;
 }
 

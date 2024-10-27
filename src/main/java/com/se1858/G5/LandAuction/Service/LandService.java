@@ -58,7 +58,6 @@ public class LandService {
     private LandImage convertToLEntity(LandImageDTO land) {
         return LandImage.builder()
                 .imageId(land.getImageId())
-                .name(land.getName())
                 .land(landRepository.findById(land.getLandId()).orElse(null))
                 .imageUrl(land.getImageUrl())
                 .build();
@@ -69,7 +68,6 @@ public class LandService {
                 .imageId(land.getImageId())
                 .landId(land.getLand().getLandId())
                 .imageUrl(land.getImageUrl())
-                .name(land.getName())
                 .build();
     }
 

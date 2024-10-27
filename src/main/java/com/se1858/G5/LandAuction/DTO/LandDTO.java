@@ -18,7 +18,7 @@ public class LandDTO {
     private String ward;
     private int userId;
     private String location;
-    private Float price;
+    private long price;
     private String contact;
     private String path;
 }
