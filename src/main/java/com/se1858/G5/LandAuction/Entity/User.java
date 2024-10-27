@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 
@@ -37,9 +38,12 @@ public class User  {
 
     private String avatar;
 
-    private Float wallet;
+
+    @Column(name = "refund_money", nullable = false, columnDefinition = "NUMERIC(19,0) DEFAULT 0")
+    private BigDecimal refundMoney = BigDecimal.ZERO;
 
     private String nationalID;
+    private String gender;
 
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String address;

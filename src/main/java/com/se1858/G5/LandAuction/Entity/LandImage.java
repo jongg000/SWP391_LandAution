@@ -18,8 +18,6 @@ public class LandImage {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int imageId;
 
-    private String name;
-
     @ManyToOne
     @JoinColumn(nullable = false)
     private Land land;

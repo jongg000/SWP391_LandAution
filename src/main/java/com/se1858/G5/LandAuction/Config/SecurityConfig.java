@@ -30,14 +30,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/","/home", "/css/**", "/js/**", "/assets/**").permitAll()
-                .antMatchers("/login","/register").permitAll()
-                .antMatchers("/profile", "/changePassword","/editProfile").authenticated()
-                .antMatchers("/customer/**").hasRole("CUSTOMER")
-                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/", "/home", "/forgot-password", "/reset-password**", "/css/**", "/js/**", "/assets/**").permitAll() // Cho phép truy cập không cần đăng nhập cho quên mật khẩu và đặt lại mật khẩu
+                .antMatchers("/login", "/register").permitAll()
+                .antMatchers("/customer/profile/**").hasRole("CUSTOMER")
+                .antMatchers("/customer/change-password/**").hasRole("CUSTOMER")
+                .antMatchers("/customer/edit-profile/**").hasRole("CUSTOMER")
+                .antMatchers("/admin/manage-account/**").hasRole("ADMIN")
+                .antMatchers("/admin/dashboard/**").hasRole("ADMIN")
+                .antMatchers("/admin/create-account/**").hasRole("ADMIN")
                 .antMatchers("/staff/**").hasRole("STAFF")
                 .antMatchers("/customer-care/**").hasRole("CUSTOMER_CARE")
-                .antMatchers("/profile").authenticated()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -48,11 +50,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(customAuthenticationFailureHandler)
                 .and()
                 .logout()
-                .invalidateHttpSession(true)  // Xóa session hiện tại
-                .clearAuthentication(true)    // Xóa thông tin xác thực
-                .deleteCookies("JSESSIONID")  // Xóa cookie session
-                .logoutUrl("/logout")         // URL để logout
-                .logoutSuccessUrl("/login?logout")  // Chuyển hướng sau khi logout thành công
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID")
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout")
                 .permitAll()
                 .and()
                 .exceptionHandling()

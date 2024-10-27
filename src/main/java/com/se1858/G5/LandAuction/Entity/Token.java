@@ -1,29 +1,31 @@
 package com.se1858.G5.LandAuction.Entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Bids")
-public class Bids {
+public class Token {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bidId;
+    private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "RegistrationID", nullable = false)
-    private AuctionRegistration auctionRegistration;
+    private String token;
 
-    private long bidAmount;
+    @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "user_id")
+    private User user;
 
-    private java.time.LocalDateTime bidTime;
+    private Date expiryDate;
 }
-

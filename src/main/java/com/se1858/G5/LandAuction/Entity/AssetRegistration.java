@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -25,6 +26,11 @@ public class AssetRegistration {
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;
+
+    private LocalDateTime registrationDate;
+
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String reason;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)

@@ -9,4 +9,6 @@ public interface UserService {
     User save(User user);
     boolean existsByPhoneNumber(String phoneNumber);
     boolean existsByNationalID(String nationalID);
+    String encodePassword(String password);
+    String createPasswordResetToken(User user);
 }
