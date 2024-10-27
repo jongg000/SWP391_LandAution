@@ -22,7 +22,7 @@ public class Payment {
     @JoinColumn(name = "UserId", nullable = false)
     private User user;
 
-    private double paymentAmount;
+    private long paymentAmount;
 
     @Column(nullable = true)
     private LocalDateTime paymentDate;
@@ -30,7 +30,7 @@ public class Payment {
     @Column(columnDefinition = "NVARCHAR(255)")
     private String paymentDescription;
 
-    public Payment(User user, String paymentDescription, double paymentAmount) {
+    public Payment(User user, String paymentDescription, long    paymentAmount) {
         this.user = user;
         this.paymentDescription = paymentDescription;
         this.paymentAmount = paymentAmount;
