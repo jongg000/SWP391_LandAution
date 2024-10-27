@@ -64,9 +64,10 @@ public class UserServiceImpl implements UserService {
         resetToken.setUser(user);
         resetToken.setExpiryDate(new Date(System.currentTimeMillis() + 3600 * 1000)); // Hết hạn sau 1 giờ
         tokenRepository.save(resetToken);
-
         return token;
     }
+
+
 
 
 }

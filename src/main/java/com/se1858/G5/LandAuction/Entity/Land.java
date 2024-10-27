@@ -25,6 +25,7 @@ public class Land {
     private String ward;
     @Column(columnDefinition = "NVARCHAR(255)")
     private String name;
+
     @ManyToOne
     @JoinColumn( nullable = false)
     private User user;
@@ -49,6 +50,8 @@ public class Land {
     private double length;
 
     private String path;
+    @OneToMany(mappedBy = "land")
+    private Set<Auction> auction;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL)
     private List<LandImage> images;
@@ -76,3 +79,4 @@ public class Land {
     }
 
 }
+
