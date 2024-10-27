@@ -5,6 +5,9 @@ import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.NewsService;
 import com.se1858.G5.LandAuction.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,12 +38,20 @@ public class LandController {
 
     @RequestMapping("/land-list")
     public String listNews(ModelMap model,
+//
+                           @RequestParam(value = "page", defaultValue = "0") int page,
                            @RequestParam(value = "s", required = false ) String s) {
 
-        List<Tuple> results = landRepository.findAuctionDetailsWithImages();
+
+        int pageSize = 6; // Số phần tử hiển thị mỗi trang
+
+        // Tạo đối tượng Pageable với trang hiện tại và số lượng phần tử trên mỗi trang
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<Tuple> pagedResults = landRepository.findAuctionDetailsWithImages(pageable);
+
         List<LandDTO> landDTOs = new ArrayList<>();
 
-        for (Tuple tuple : results) {
+        for (Tuple tuple : pagedResults.getContent()) {
             LandDTO landDTO = new LandDTO(
                     tuple.get(0, Integer.class), // auction_id
                     tuple.get(1, Integer.class), // statusid
@@ -63,6 +74,8 @@ public class LandController {
                     .collect(Collectors.toList());
         }
         model.addAttribute("LIST_LAND", landDTOs);
+        model.addAttribute("currentPage", page); // Trang hiện tại
+        model.addAttribute("totalPages", pagedResults.getTotalPages()); // Tổng số trang
         return "home";
     }
 

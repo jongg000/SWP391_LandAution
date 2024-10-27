@@ -1,6 +1,8 @@
 package com.se1858.G5.LandAuction.Repository;
 
 import com.se1858.G5.LandAuction.Entity.Land;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,6 +20,6 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
             "JOIN land l ON a.landid = l.land_id " +
             "WHERE a.start_time = (SELECT MAX(au.start_time) FROM auction au WHERE au.landid = l.land_id)",
             nativeQuery = true)
-    List<Tuple> findAuctionDetailsWithImages();
+    Page<Tuple> findAuctionDetailsWithImages(Pageable pageable);
 }
 
