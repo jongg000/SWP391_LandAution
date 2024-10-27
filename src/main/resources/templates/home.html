@@ -358,63 +358,75 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div id="featured-cars">
-<!--                                <div class="featured-item col-md-15 col-sm-6">-->
-<!--                                    <img src="assets/images/01-featured.jpg" alt="">-->
-<!--                                    <div class="down-content">-->
-<!--                                        <a href="single-list.html">-->
-<!--                                            <h2>Đất trung tâm Mercedes</h2>-->
-<!--                                        </a>-->
-<!--                                        <span>500 triệu</span>-->
-<!--                                        <div class="light-line"></div>-->
-<!--                                        <p>Vị trí đắc địa, tiềm năng phát triển, cơ hội đầu tư hấp dẫn.</p>-->
-<!--                                        <div class="car-info">-->
-<!--                                            <ul>-->
-<!--                                                <li><i class="icon-gaspump"></i>Thương mại</li>-->
-<!--                                                <li><i class="icon-car"></i>Trung tâm</li>-->
-<!--                                                <li><i class="icon-road2"></i>1000 m²</li>-->
-<!--                                            </ul>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                            <div id="featured-cars1" class="container text-center"> <!-- Thêm 'container' để căn giữa và làm responsive -->
+                                <div class="row justify-content-center"> <!-- Sử dụng justify-content-center để căn giữa -->
+                                    <div th:each="item : ${LIST_LAND}" class="featured-item col-md-6 col-lg-4 mb-4 d-flex align-items-stretch">
+                                        <!-- Hình ảnh -->
+                                        <img th:src="${item.imageNames == null ? '../assets/images/01-featured-50x50' : '../assets/images/' + item.imageUrls.split(',')[0]} +'.jpg'"
+                                             alt=""
+                                             class="img-fluid"
+                                             style="width: 100%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">
 
-                                <div th:each="item : ${LIST_LAND}" class="featured-item col-md-15 col-sm-6">
-                                    <!-- Hình ảnh -->
-                                    <img th:src="${item.imageNames == null ? '../assets/images/01-featured-50x50' : '../assets/images/' + item.imageUrls.split(',')[0]} +'.jpg'" alt="" style="width: 100%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">
+                                        <!-- Nội dung -->
+                                        <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
+                                            <a href="single-list.html">
+                                                <h2 th:text="${item.name}"
+                                                    style="font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
+                                            </a>
+                                            <span th:text="${item.price + ' $'}"
+                                                  style="font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;">
+                </span>
+                                            <div class="light-line1" style="width: 40px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
+                                            <p th:text="${item.description}" style="margin-top: 10px; margin-bottom: 20px;"></p>
 
-                                    <!-- Nội dung -->
-                                    <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
-                                        <a href="single-list.html">
-                                            <h2 th:text="${item.name}" style="font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
-                                        </a>
-                                        <span th:text="${item.price + ' $'}" style="font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
-                                        <div class="light-line1" style="width: 40px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
-                                        <p th:text="${item.description}" style="margin-top: 10px; margin-bottom: 20px;"></p>
-
-                                        <!-- Thời gian -->
-                                        <div style="margin-bottom: 15px;">
-                                            <div style="margin-bottom: 5px;">
-                                                <strong style="color: #f4c23d;">Bắt đầu: </strong>
-                                                <span th:text="${#temporals.format(item.startTime, 'yyyy-MM-dd HH:mm')}" style="color: #222; padding: 2px 5px;"></span>
+                                            <!-- Thời gian -->
+                                            <div style="margin-bottom: 15px;">
+                                                <div style="margin-bottom: 5px;">
+                                                    <strong style="color: #f4c23d;">Bắt đầu: </strong>
+                                                    <span th:text="${#temporals.format(item.startTime, 'yyyy-MM-dd HH:mm')}"
+                                                          style="color: #222; padding: 2px 5px;"></span>
+                                                </div>
+                                                <div style="margin-bottom: 5px;">
+                                                    <strong style="color: #f4c23d;">Kết thúc: </strong>
+                                                    <span th:text="${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm')}"
+                                                          style="color: #222; padding: 2px 5px;"></span>
+                                                </div>
                                             </div>
-                                            <div style="margin-bottom: 5px;">
-                                                <strong style="color: #f4c23d;">Kết thúc: </strong>
-                                                <span th:text="${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm')}" style="color: #222; padding: 2px 5px;"></span>
-                                            </div>
-                                        </div>
 
-                                        <!-- Trạng thái -->
-                                        <div>
-                                            <strong style="color: #f4c23d;">Trạng thái: </strong>
-                                            <span th:text="${item.statusId}" style="color: #222;"></span>
+                                            <!-- Trạng thái -->
+                                            <div>
+                                                <strong style="color: #f4c23d;">Trạng thái: </strong>
+                                                <span th:text="${item.statusId}" style="color: #222;"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+                            <!-- Thêm CSS trực tiếp vào trang HTML -->
+                            <style>
+                                /* Điều chỉnh thêm khoảng cách giữa các phần tử cho responsive */
+                                .featured-item {
+                                    margin-bottom: 30px;
+                                }
+
+                                .down-content1 {
+                                    text-align: left;
+                                    padding: 15px;
+                                }
+
+                                /* Căn giữa nội dung khi màn hình nhỏ */
+                                @media (max-width: 768px) {
+                                    .down-content1 {
+                                        text-align: center;
+                                    }
+                                }
+                            </style>
 
 
-                            </div>
+
+
+                        </div>
                     </div>
                 </section>
                 
@@ -623,33 +635,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="gallery">
-                    <h4>Thư viện</h4>
-                    <div class="gallery-item">
-                        <img src="/assets/images/01-blog-50x50.jpg" alt="">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/assets/images/02-blog-50x50.jpg" alt="">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/assets/images/03-featured-slide-50x50.jpg" alt="">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/assets/images/04-featured-slide-50x50.jpg" alt="">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/assets/images/05-blog-50x50.jpg" alt="">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/assets/images/02-featured-slide-50x50.jpg" alt="">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/assets/images/07-blog-50x50.jpg" alt="">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="/assets/images/08-blog-50x50.jpg" alt="">
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
