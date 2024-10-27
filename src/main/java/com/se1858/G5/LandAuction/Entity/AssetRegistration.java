@@ -35,5 +35,7 @@ public class AssetRegistration {
 
     @Column( columnDefinition = "TEXT")
     private String comments;
+    @Column(name = "Path")
+    private String path;
 
 }

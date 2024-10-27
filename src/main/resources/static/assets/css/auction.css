@@ -12,7 +12,7 @@
 	Typography
 	Elements [Forms, buttons etc..]
 	Other Plugins
-	
+
 [/Table of contents]
 -------------------------------------------------------------------*/
 
@@ -3298,29 +3298,38 @@ footer .gallery .gallery-item img {
     letter-spacing: 0px;
     text-transform: uppercase;
     font-weight: 700;
-    color: #fff;
-    background-color: #336699;
+    color: #ADD8E6; /* Màu xanh lam nhạt */
+    background-color: rgba(0, 0, 0, 0.5); /* Nền đen trong suốt */
     padding: 8px 16px;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Bóng đổ giúp dễ đọc hơn */
 }
 
 .second-line {
-    color: #fff;
+    color: #ADD8E6; /* Màu xanh lam nhạt */
     font-size: 50px;
     letter-spacing: 0px;
     text-transform: uppercase;
-    -webkit-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
-    -moz-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
-    -ms-filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+    text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.8); /* Bóng mạnh hơn để dễ đọc */
+    -webkit-filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5)); /* Thêm bóng */
+    -moz-filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+    -ms-filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
 }
 
 .third-line {
-    color: #fff;
+    color: #ADD8E6; /* Màu xanh lam nhạt */
     font-size: 18px;
     font-weight: 500;
     letter-spacing: 0px;
     text-transform: none;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Thêm bóng nhẹ */
 }
+
+.third-line em {
+    font-style: normal;
+    color: #ADD8E6; /* Màu xanh lam nhạt */
+}
+
 
 .third-line em {
     font-style: normal;
@@ -3985,7 +3994,7 @@ footer .gallery .gallery-item img {
     width: 80%;
 }
 
-/* 
+/*
  * 	Core Owl Carousel CSS File
  *	v1.3.3
  */
@@ -4161,7 +4170,7 @@ footer .gallery .gallery-item img {
     cursor: pointer;
     display: inline-block;
     zoom: 1;
-    *display: inline;
+
     /*IE7 life-saver */
 }
 
@@ -4345,7 +4354,7 @@ footer .gallery .gallery-item img {
  * http://www.gnu.org/licenses/gpl-2.0.html
  *
  * Contributing author: Tyler Smith (@mbmufffin)
- * 
+ *
  */
 
 /* ====================================================================================================================

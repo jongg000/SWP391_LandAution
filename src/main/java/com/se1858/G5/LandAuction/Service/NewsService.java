@@ -21,6 +21,8 @@ public interface NewsService {
     // Find all news entities
     Iterable<News> findAll();
 
+    List<News> findAllByTitle(String title);
+
     // Find all news entities by a list of IDs
     List<News> findAllById(List<Integer> ids);
 

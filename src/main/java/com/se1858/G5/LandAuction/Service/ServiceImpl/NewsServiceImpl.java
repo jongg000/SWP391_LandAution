@@ -47,6 +47,12 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
+    public List<News> findAllByTitle(String title) {
+        return newsRepository.findByTitleLike(title);
+    }
+
+
+    @Override
     public List<News> findAllById(List<Integer> ids) {
         return newsRepository.findAllById(ids);
     }

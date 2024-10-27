@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.Set;
 @Builder
 @Entity
 @Table(name = "Users")
-public class User  {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
@@ -31,7 +32,7 @@ public class User  {
 
     @Column(nullable = false, unique = true)
     private String email;
-    
+
     private String phoneNumber;
 
     private String avatar;
@@ -49,6 +50,7 @@ public class User  {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "RoleID")
+    @JsonManagedReference
     private Roles role;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})

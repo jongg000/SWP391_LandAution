@@ -36,8 +36,13 @@ public class NewsController {
     @Autowired
     private ServletContext servletContext;
     @RequestMapping("/newslist")
-    public String listNews(ModelMap model) {
-        model.addAttribute("LIST_NEWS", newsService.findAll());
+    public String listNews(ModelMap model,@RequestParam(value = "s", required = false) String s ) {
+        if(s == null || s.equals("")) {
+            model.addAttribute("LIST_NEWS", newsService.findAll());
+        } else {
+            model.addAttribute("LIST_NEWS", newsService.findAllByTitle(s));
+        }
+//        model.addAttribute("LIST_NEWS", newsService.findAll());
         return "list-news";
     }
 
@@ -62,11 +67,10 @@ public class NewsController {
         }
         model.addAttribute("news", news);
         User u = new User();
-        u.setUserId(1212);
-        u.setEmail("tungnm@gmail.coma");
-        u.setUserName("tungnm@gmail.coma");
-        u.setRole(new Roles());
+//
 
+        u.setRole(new Roles());
+//
         model.addAttribute("users", Arrays.asList(u));
         return "add-news";
     }

@@ -151,6 +151,7 @@
 										<a th:href="@{/news/new(id=${item.newsId})}">
 											<h2 th:text="${item.title}">Title here</h2>
 										</a>
+										<span th:text="'Posted by: ' + item.user.userName">Username</span>
 										<span th:text="${item.newsId}">News ID here</span>
 										<div class="light-line"></div>
 										<p th:text="${item.content}">Content here</p>
