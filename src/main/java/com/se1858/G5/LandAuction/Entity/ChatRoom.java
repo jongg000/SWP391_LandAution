@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,17 +13,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Land_Image")
-public class LandImage {
+public class ChatRoom {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int imageId;
-
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private Land land;
-
-    @Column( nullable = false)
-    private String imageUrl;
+    private int roomId;
+    private String sender;
+    private String receiver;
 }
-

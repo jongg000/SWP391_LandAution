@@ -19,13 +19,9 @@ public class Land {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int landId;
 
-    private String province;
-
-    private String district;
-
-    private String ward;
-
+    @Column( nullable = false)
     private String name;
+
     @ManyToOne
     @JoinColumn( nullable = false)
     private User user;
@@ -53,3 +49,4 @@ public class Land {
 
 
 }
+

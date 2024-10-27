@@ -1,28 +1,30 @@
 package com.se1858.G5.LandAuction.Entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Land_Image")
-public class LandImage {
+public class ChatMessage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int imageId;
+    private int messId;
+    private String content;
+    private Date timestamp;
+    private String sender;
+    private String receiver;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
-    private Land land;
-
-    @Column( nullable = false)
-    private String imageUrl;
+    @JoinColumn(name = "roomId")
+    private ChatRoom room;
 }
-
