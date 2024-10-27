@@ -3,6 +3,8 @@ package com.se1858.G5.LandAuction.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @NoArgsConstructor
@@ -36,7 +38,7 @@ public class AssetRegistration {
     private String comments;
 
     @Column(nullable = true)
-    private java.util.Date registrationDate;
+    private LocalDateTime registrationDate;
 
     @Column(columnDefinition = "NVARCHAR(255)", nullable = true)
     private String reason;

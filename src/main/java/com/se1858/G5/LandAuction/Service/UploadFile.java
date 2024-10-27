@@ -45,7 +45,7 @@ public class UploadFile {
                     Files.write(path, bytes);
                     // Tạo đối tượng Image và liên kết với Land
                     LandImage landImage = new LandImage();
-                    landImage.setName(nameFile);
+                    landImage.setImageUrl(imgName);
                     landImage.setLand(land);
 
                 } catch (IOException e) {
@@ -54,7 +54,7 @@ public class UploadFile {
             }
         }
     }
-    public void upLoadDocumentAsset(MultipartFile document, AssetRegistration assetRegistration) {
+    public void upLoadDocumentAsset(MultipartFile document, Land land) {
         String imgUploadDir = "src/main/resources/static/doc/";
         File directory = new File(imgUploadDir);
         if (!directory.exists()) {
@@ -68,21 +68,19 @@ public class UploadFile {
                 }
                 String nameFile = originalFilename.substring(0, originalFilename.lastIndexOf("."));
                 String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
-                String imgName = "Document" + nameFile + "." + fileExtension;
-                Path path = Paths.get(imgUploadDir + imgName);
+                String docName = "Document" + nameFile + "." + fileExtension;
+                Path path = Paths.get(imgUploadDir + docName);
                 // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
                 int version = 1;
                 while (Files.exists(path)) {
-                    imgName = "Document_" + nameFile + "(" + version + ")" + fileExtension;
-                    path = Paths.get(imgUploadDir + imgName);
+                    docName = "Document_" + nameFile + "(" + version + ")" + fileExtension;
+                    path = Paths.get(imgUploadDir + docName);
                     version++;
                 }
                 // Lưu tệp vào thư mục
                 byte[] bytes = document.getBytes();
                 Files.write(path, bytes);
-                // Tạo đối tượng Image và liên kết với Land
-               AssetRegistration assetRegistration1 = new AssetRegistration();
-               assetRegistration.setPath(nameFile);
+                land.setPath(docName);
             } catch (IOException e) {
                 e.printStackTrace();
             }

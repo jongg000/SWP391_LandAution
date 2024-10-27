@@ -29,7 +29,7 @@ public class Auction {
     private java.time.LocalDateTime startTime;
 
 
-    private Float highestBid;
+    private long highestBid;
 
     @ManyToOne
     @JoinColumn(name = "LandID", nullable = false)

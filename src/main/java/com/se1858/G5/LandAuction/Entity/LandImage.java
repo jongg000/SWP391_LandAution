@@ -24,8 +24,5 @@ public class LandImage {
     @Column( nullable = false)
     private String imageUrl;
 
-    public LandImage(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
 }
 

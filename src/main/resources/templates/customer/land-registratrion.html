@@ -118,6 +118,10 @@
             align-items: center;
             min-height: 100vh; /* Đảm bảo wrapper chiếm toàn bộ chiều cao */
         }
+        .single-field label, .single-field input{
+            display: block;
+            margin-bottom: 5px; /* khoảng cách giữa label và input */
+        }
     </style>
     <script src="/assets/js/scriptAsset.js"></script>
 
@@ -247,8 +251,19 @@
                             <input type="text" th:field="*{square}" id="square" placeholder="Diện tích" required>
                         </div>
                         <div class="form-group double">
-                            <input type="text" id="price" th:field="*{price}" placeholder="Giá khởi điểm" required>
-                            <input type="text" th:field="*{location}" placeholder="Vị trí bản đồ" required>
+                            <div class="single-field">
+                                <label>Giá khởi điểm</label>
+                                <input type="text" id="price" th:field="*{price}" placeholder="Giá khởi điểm" required>
+                            </div>
+                            <div class="single-field">
+                                <label>Địa vị địa lí</label>
+                                <input type="text" th:field="*{location}" placeholder="Vị trí bản đồ" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group double">
+                            <input type="number"  th:field="*{width}" placeholder="Chiều rộng" required>
+                            <input type="number" th:field="*{length}" placeholder="Chiều dài" required>
                         </div>
                         <div class="form-group double">
                             <label for="document">Hồ sơ tham gia đấu thầu</label>

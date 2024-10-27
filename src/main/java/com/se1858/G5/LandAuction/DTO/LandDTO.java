@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,10 +20,14 @@ public class LandDTO {
     private String ward;
     private String location;
     private String description;
-    private Float price;
+    private long price;
     private String contact;
     private MultipartFile document;
     private List<MultipartFile> images;
     private LandImage landImage;
     private double square;
+    private double width;
+    private double height;
+    private double length;
+    private LocalDateTime createdAt;
 }

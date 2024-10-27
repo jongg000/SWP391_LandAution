@@ -35,14 +35,21 @@ public class Land {
     @Column(columnDefinition = "NVARCHAR(255)")
     private String description;
 
-    private Float price;
+    private long price;
 
     private String contact;
 
     @Column(nullable = true)
     private double square;
 
+    @Column(nullable = true)
+    private double width;
+
+    @Column(nullable = true)
+    private double length;
+
     private String path;
+
     @OneToMany(mappedBy = "land")
     private Set<Auction> auction;
 
@@ -52,7 +59,8 @@ public class Land {
     @OneToOne(mappedBy = "land")
     private AssetRegistration assetRegistration;
 
-        public Land( String contact, Float price, String description, String location, User user, String name, String ward, String district, String province, double square) {
+
+        public Land( String contact, long price, String description, String location, User user, String name, String ward, String district, String province, double square) {
         this.contact = contact;
         this.price = price;
         this.description = description;

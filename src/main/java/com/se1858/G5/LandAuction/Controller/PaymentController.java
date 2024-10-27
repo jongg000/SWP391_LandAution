@@ -52,7 +52,7 @@ public class PaymentController {
         String totalPrice = request.getParameter("vnp_Amount");
         User user = (User) session.getAttribute("user");
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
-        Payment payment = new Payment(user, paymentInformation, Double.parseDouble(totalPrice));
+        Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice));
         paymentService.createPaymentBill(payment);
         return paymentStatus == 1 ? "/customer/Success" : "customer/Fail";
     }

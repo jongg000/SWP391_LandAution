@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
+import java.time.LocalDateTime;
 
 import javax.servlet.http.HttpSession;
+import java.time.ZoneId;
 import java.util.List;
 
 @Controller
@@ -53,6 +55,8 @@ public class AssetController {
         AssetRegistration assetRegistration = new AssetRegistration(user);
         assetRegistration.setLand(land);
         uploadFile.UploadImagesForLand(images, land);
+        LocalDateTime createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        assetRegistration.setRegistrationDate(createdDate);
         landService.save(land);
         assetRegistrationService.save(assetRegistration);
         return "/customer/single-list";
