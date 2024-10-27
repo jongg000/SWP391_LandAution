@@ -24,10 +24,6 @@ public class AuctionRegistration {
     private Auction auction;
 
     @ManyToOne
-    @JoinColumn(name = "StatusID")
-    private Status status;
-
-    @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 

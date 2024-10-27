@@ -37,7 +37,4 @@ public class Status {
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AssetRegistration> assetRegistration;
 
-    @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AuctionRegistration> auctionRegistration;
-
 }
