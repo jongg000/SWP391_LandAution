@@ -39,6 +39,9 @@ public class Land {
 
     private String contact;
 
+    @Column(nullable = true)
+    private double square;
+
     private String path;
     @OneToMany(mappedBy = "land")
     private Set<Auction> auction;
@@ -49,7 +52,7 @@ public class Land {
     @OneToOne(mappedBy = "land")
     private AssetRegistration assetRegistration;
 
-    public Land( String contact, Float price, String description, String location, User user, String name, String ward, String district, String province) {
+        public Land( String contact, Float price, String description, String location, User user, String name, String ward, String district, String province, double square) {
         this.contact = contact;
         this.price = price;
         this.description = description;
@@ -59,6 +62,7 @@ public class Land {
         this.ward = ward;
         this.district = district;
         this.province = province;
+        this.square = square;
     }
     public void addImg(LandImage image) {
         if (images == null) {

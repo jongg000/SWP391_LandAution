@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 
@@ -19,7 +20,7 @@ public class User  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String userName;
 
     @Column(nullable = false)
@@ -37,6 +38,9 @@ public class User  {
 
     private String nationalID;
 
+    @Column(nullable = true)
+    private double refundMoney;
+
     @Temporal(TemporalType.DATE)
     private Date dob;
 
@@ -47,6 +51,9 @@ public class User  {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RoleID")
     private Roles role;
+
+    @OneToMany(mappedBy = "user") //mappedBy phải trỏ tới "user" trong Violation
+    private List<Violation> violations;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(

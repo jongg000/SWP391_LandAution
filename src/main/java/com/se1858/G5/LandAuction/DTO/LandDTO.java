@@ -24,4 +24,5 @@ public class LandDTO {
     private MultipartFile document;
     private List<MultipartFile> images;
     private LandImage landImage;
+    private double square;
 }

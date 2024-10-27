@@ -22,6 +22,7 @@ public class Task {
 
     private String task_name;
 
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String description;
 
     private Date request_time;

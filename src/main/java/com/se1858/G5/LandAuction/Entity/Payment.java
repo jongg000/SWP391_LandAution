@@ -24,6 +24,9 @@ public class Payment {
 
     private double paymentAmount;
 
+    @Column(nullable = true)
+    private java.util.Date paymentDate;
+
     @Column(columnDefinition = "NVARCHAR(255)")
     private String paymentDescription;
 

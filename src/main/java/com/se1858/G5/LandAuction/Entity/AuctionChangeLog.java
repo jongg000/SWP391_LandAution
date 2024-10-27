@@ -27,8 +27,10 @@ public class AuctionChangeLog {
 
     private Date change_time;
 
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String description;
 
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String reason;
 
 }

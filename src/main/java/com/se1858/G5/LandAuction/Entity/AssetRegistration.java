@@ -35,9 +35,12 @@ public class AssetRegistration {
     @Column(columnDefinition = "NVARCHAR(255)")
     private String comments;
 
-    private double square;
+    @Column(nullable = true)
+    private java.util.Date registrationDate;
 
-    private String postDate;
+    @Column(columnDefinition = "NVARCHAR(255)", nullable = true)
+    private String reason;
+
     public AssetRegistration(User user) {
         this.user = user;
     }

@@ -34,26 +34,20 @@ public class AssetController {
     @GetMapping("form")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
-        model.addAttribute("assetFrom", landDTO);
+        model.addAttribute("land", landDTO);
         return "customer/land-registratrion";
     }
 
     @PostMapping("saveForm")
-    public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Model model, HttpSession session) {
+    public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, HttpSession session) {
         MultipartFile document  = landDTO.getDocument();
         List<MultipartFile> images = landDTO.getImages();
         User user = (User) session.getAttribute("user");
-        String contact = landDTO.getContact();
-        for(int i = 0; i < contact.length(); i++){
-            if (!Character.isDigit(contact.charAt(i))){
-
-            }
-        }
-        Land land = new Land(landDTO.getContact(),
+                Land land = new Land(user.getPhoneNumber(),
                 landDTO.getPrice(),
                 landDTO.getDescription() , landDTO.getLocation(),
                 user, landDTO.getLandName(), landDTO.getWard(),
-                landDTO.getDistrict(), landDTO.getProvince());
+                landDTO.getDistrict(), landDTO.getProvince(),landDTO.getSquare());
         UploadFile uploadFile = new UploadFile();
         uploadFile.upLoadDocumentAsset(document, land);
         AssetRegistration assetRegistration = new AssetRegistration(user);
