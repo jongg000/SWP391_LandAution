@@ -1,46 +1,59 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Getter
-@Setter
 @Table(name = "Users")
 public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int userId;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(nullable = false)
     private String userName;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = true)
-    private String name;
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String firstName;
+
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
-    
+
     private String phoneNumber;
 
     private String avatar;
 
+
+    @Column(name = "refund_money", nullable = false, columnDefinition = "NUMERIC(19,0) DEFAULT 0")
+    private BigDecimal refundMoney = BigDecimal.ZERO;
+
     private String nationalID;
+    private String gender;
 
-    @Column(nullable = true)
-    private double refundMoney;
+    @Column(columnDefinition = "NVARCHAR(MAX)")
+    private String address;
+    private String nationalFrontImage;
+    private String nationalBackImage;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date dob;
 
@@ -51,9 +64,6 @@ public class User  {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "RoleID")
     private Roles role;
-
-    @OneToMany(mappedBy = "user") //mappedBy phải trỏ tới "user" trong Violation
-    private List<Violation> violations;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(

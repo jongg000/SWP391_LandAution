@@ -21,12 +21,5 @@ public class Roles {
     @Enumerated(EnumType.STRING)
     ERole roleName;
 
-    @OneToMany(mappedBy = "role")
-    private Set<User> users;
-
-    public Roles(int roleID, ERole roleName) {
-        this.roleID = roleID;
-        this.roleName = roleName;
-    }
 }
 

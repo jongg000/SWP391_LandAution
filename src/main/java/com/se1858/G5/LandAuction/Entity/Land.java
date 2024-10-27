@@ -25,6 +25,7 @@ public class Land {
     private String ward;
     @Column(columnDefinition = "NVARCHAR(255)")
     private String name;
+
     @ManyToOne
     @JoinColumn( nullable = false)
     private User user;
@@ -49,18 +50,16 @@ public class Land {
     private double length;
 
     private String path;
-
     @OneToMany(mappedBy = "land")
     private Set<Auction> auction;
+
+    @OneToMany(mappedBy = "land", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<LandImage> images;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL)
     private List<LandImage> images;
 
-    @OneToOne(mappedBy = "land")
-    private AssetRegistration assetRegistration;
-
-
-        public Land( String contact, long price, String description, String location, User user, String name, String ward, String district, String province, double square) {
+    public Land( String contact, long price, String description, String location, User user, String name, String ward, String district, String province, double square) {
         this.contact = contact;
         this.price = price;
         this.description = description;
@@ -83,3 +82,4 @@ public class Land {
     }
 
 }
+

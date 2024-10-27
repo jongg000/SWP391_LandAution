@@ -23,14 +23,15 @@ public class AuctionChangeLog {
     @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String action_type;
 
     private Date change_time;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String reason;
 
 }

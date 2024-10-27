@@ -24,6 +24,6 @@ public class Bids {
 
     private long bidAmount;
 
-    private java.util.Date bidTime;
+    private java.time.LocalDateTime bidTime;
 }
 

@@ -18,10 +18,10 @@ public class Notification {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int notificationId;
-    @Column(columnDefinition = "NVARCHAR(255)")
+
     private String title;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String content;
 
     @ManyToMany(mappedBy = "notification", cascade = {CascadeType.PERSIST, CascadeType.MERGE})

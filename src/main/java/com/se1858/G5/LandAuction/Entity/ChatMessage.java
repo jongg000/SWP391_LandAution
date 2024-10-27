@@ -7,23 +7,24 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-public class Violation {
+public class ChatMessage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int vioId;
-
-    @Column(columnDefinition = "Nvarchar(MAX)")
-    private String detail;
+    private int messId;
+    private String content;
+    private Date timestamp;
+    private String sender;
+    private String receiver;
 
     @ManyToOne
-    @JoinColumn(name ="UserID")
-    private User user;
-
+    @JoinColumn(name = "roomId")
+    private ChatRoom room;
 }

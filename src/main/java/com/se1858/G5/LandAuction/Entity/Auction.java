@@ -25,9 +25,7 @@ public class Auction {
     @JoinColumn(name = "StatusID")
     private Status status;
 
-
     private java.time.LocalDateTime startTime;
-
 
     private long highestBid;
 

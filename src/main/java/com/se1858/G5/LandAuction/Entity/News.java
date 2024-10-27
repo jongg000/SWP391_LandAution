@@ -19,10 +19,10 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int newsId;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String title;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String content;
 
     private String image;

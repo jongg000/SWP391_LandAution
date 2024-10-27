@@ -13,17 +13,11 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-public class Violation {
+public class ChatRoom {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int vioId;
-
-    @Column(columnDefinition = "Nvarchar(MAX)")
-    private String detail;
-
-    @ManyToOne
-    @JoinColumn(name ="UserID")
-    private User user;
-
+    private int roomId;
+    private String sender;
+    private String receiver;
 }

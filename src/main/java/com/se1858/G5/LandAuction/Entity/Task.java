@@ -20,9 +20,10 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int taskId;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String task_name;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
 
     private Date request_time;
