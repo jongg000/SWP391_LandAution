@@ -266,6 +266,8 @@
                                         <input type="hidden" id="userId" name="userId" th:value="${userId}"/>
                                         <input type="hidden" id="latestBidUserId" name="latestBidUserId"
                                                th:value="${latestBidUserId}"/>
+                                        <input type="hidden" id="currrentTime" name="currentTime"
+                                               th:value="${currentTime}"/>
                                         <button type="submit" class="simple-button"
                                                 style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
                                             Bid <i class="fa fa-paper-plane"></i>
@@ -283,10 +285,11 @@
                                     const bidAmount = parseFloat(document.getElementById('bidAmount').value);
                                     const auctionRegistrationId = document.getElementById('auctionRegistrationId').value;
                                     const currentUserId = document.getElementById('userId').value;
-
-                                    const vietnamTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" });
-                                    const bidTime = new Date(vietnamTime).toISOString().split('.')[0];
-
+                                    const bidTime = new Date();
+                                    const currentTime = document.getElementById('currrentTime').value;
+                                    bidTime.setHours(bidTime.getHours() + 7);
+                                    const bidTimeISO = bidTime.toISOString();
+                                    alert(`${currentTime}`)
                                     if (bidAmount <= latestBidAmount) {
                                         alert(`Your bid must be greater than the latest bid of ${currentUserId} by user ID ${latestBidUserId}.`);
                                         return;
@@ -302,7 +305,7 @@
                                     stompClient.send("/app/bids", {}, JSON.stringify({
                                         'bidAmount': bidAmount,
                                         'registrationId': auctionRegistrationId,
-                                        'bidTime': bidTime,
+                                        'bidTime': bidTimeISO,
                                         'userId': currentUserId
                                     }));
                                     latestBidAmount = bidAmount;
@@ -339,7 +342,7 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="list-unstyled">
-                        <li>${new Date(bid.bidTime).toLocaleString()}</li>
+                        <li>${bid.bidTime}</li>
                     </ul>
                 </div>
             </div>`;

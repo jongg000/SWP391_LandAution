@@ -89,6 +89,7 @@ public class WishlistController {
             } else {
                 dateCheck = "is going on";
             }
+
             details.put("dateCheck", dateCheck);
             details.put("wishlist", wishlist);
             details.put("auction", auction);
