@@ -251,45 +251,68 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="head-side-bar">
-                                <form id="bidForm" onsubmit=" sendBid(); return false;">
-                                    <div>
-                                        <input type="number" id="bidAmount" name="bidAmount" step="10" placeholder="Enter bid amount" min="0" required />
-                                        <input type="hidden" id="auctionRegistrationId" name="auctionRegistrationId" th:value="${auctionRegistrationId}" />
-                                        <input type="hidden" id="userName" name="username" th:value="${userName}" />
-                                        <button type="submit">Bid <i class="fa fa-paper-plane"></i></button>
+                                <form id="bidForm" onsubmit="sendBid(); return false;">
+                                    <div style="display: flex; align-items: center; gap: 10px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; max-width: 400px;">
+                                        <input type="number" id="bidAmount" name="bidAmount" min="0" step="10"
+                                               placeholder="Enter bid amount" required
+                                               style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;"/>
+
+                                        <input type="hidden" id="auctionRegistrationId" name="auctionRegistrationId"
+                                               th:value="${auctionRegistrationId}"/>
+                                        <input type="hidden" id="latestBidAmount" name="latestBidAmount"
+                                               th:value="${latestBidAmount}"/>
+                                        <input type="hidden" id="userName" name="username" th:value="${userName}"/>
+                                        <input type="hidden" id="userId" name="userId" th:value="${userId}"/>
+                                        <input type="hidden" id="latestBidUserId" name="latestBidUserId"
+                                               th:value="${latestBidUserId}"/>
+                                        <button type="submit" class="simple-button"
+                                                style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
+                                            Bid <i class="fa fa-paper-plane"></i>
+                                        </button>
                                     </div>
                                 </form>
                             </div>
 
+
                             <script>
+                                var latestBidAmount = parseFloat(document.getElementById('latestBidAmount').value);
 
                                 function sendBid() {
-                                    const bidAmount = document.getElementById('bidAmount').value;
+                                    const latestBidUserId = document.getElementById('latestBidUserId').value;
+                                    const bidAmount = parseFloat(document.getElementById('bidAmount').value);
                                     const auctionRegistrationId = document.getElementById('auctionRegistrationId').value;
-                                    const now = new Date();
+                                    const currentUserId = document.getElementById('userId').value;
 
-                                    const vietnamTime = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" }));
+                                    const vietnamTime = new Date().toLocaleString("en-US", { timeZone: "Asia/Ho_Chi_Minh" });
+                                    const bidTime = new Date(vietnamTime).toISOString().split('.')[0];
 
-                                    const bidTime = vietnamTime.toISOString().split('.')[0];
+                                    if (bidAmount <= latestBidAmount) {
+                                        alert(`Your bid must be greater than the latest bid of ${currentUserId} by user ID ${latestBidUserId}.`);
+                                        return;
+                                    }
+                                    let checkUserId =null;
+                                    if (currentUserId === latestBidUserId) {
+                                        alert("You cannot bid again until another user has placed a bid.");
+                                        return;
+                                    }else{
+                                        checkUserId = currentUserId;
+                                    }
 
-                                    // Sending bid through WebSocket
                                     stompClient.send("/app/bids", {}, JSON.stringify({
                                         'bidAmount': bidAmount,
-                                        'auctionRegistrationId': auctionRegistrationId,
-                                        'bidTime': bidTime
+                                        'registrationId': auctionRegistrationId,
+                                        'bidTime': bidTime,
+                                        'userId': currentUserId
                                     }));
-
-                                    // Optionally clear the input field after submission
+                                    latestBidAmount = bidAmount;
+                                    document.getElementById('latestBidUserId').value = checkUserId;
                                     document.getElementById('bidAmount').value = '';
+                                    document.forms['bidForm'].reset();
                                 }
 
-                                // WebSocket connection and subscription
-                                var stompClient = null;
-
                                 function connect() {
-                                    var socket = new SockJS('/bid-websocket');
+                                    const socket = new SockJS('/bid-websocket');
                                     stompClient = Stomp.over(socket);
                                     stompClient.connect({}, function (frame) {
                                         console.log('Connected: ' + frame);
@@ -300,9 +323,9 @@
                                 }
 
                                 function showBid(bid) {
-                                    var bidList = document.getElementById("bidList");
-                                    var username = document.getElementById("userName").value;
-                                    var newBid = `
+                                    const bidList = document.getElementById("bidList");
+                                    const username = document.getElementById("userName").value;
+                                    const newBid = `
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-unstyled">
@@ -316,14 +339,20 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="list-unstyled">
-                        <li>${new Date(bid.bidTime).toLocaleString()}</li> <!-- Format bidTime for display -->
+                        <li>${new Date(bid.bidTime).toLocaleString()}</li>
                     </ul>
                 </div>
             </div>`;
-                                    bidList.innerHTML = newBid + bidList.innerHTML;
-                                }
 
-                                // Connect to WebSocket when the page loads
+
+                                    bidList.innerHTML = newBid + bidList.innerHTML;
+
+
+                                    latestBidAmount = parseFloat(bid.bidAmount);
+                                    document.getElementById("latestBidUserId").value = bid.userId;
+
+
+                                }
                                 window.onload = function () {
                                     connect();
                                 };

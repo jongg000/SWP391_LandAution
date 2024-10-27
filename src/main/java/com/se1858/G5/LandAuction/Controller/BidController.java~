@@ -1,6 +1,7 @@
 package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.DTO.*;
+import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.AuctionRegistrationRepository;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
