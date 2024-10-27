@@ -16,11 +16,11 @@ import java.util.Date;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRegisterDTO {
-    String userName;
+    String email;
     @Size(min = 6, max = 12, message = "Password must be between 6 and 12 characters")
     String password;
-    String name;
-    String email;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    Date Dob;
+    String firstName;
+    String lastName;
+    String phoneNumber;
+
 }

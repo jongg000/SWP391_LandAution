@@ -25,11 +25,9 @@ public class Auction {
     @JoinColumn(name = "StatusID")
     private Status status;
 
-
     private java.time.LocalDateTime startTime;
 
-
-    private Float highestBid;
+    private long highestBid;
 
     @ManyToOne
     @JoinColumn(name = "LandID", nullable = false)
@@ -46,9 +44,6 @@ public class Auction {
 
     @OneToMany(mappedBy = "auction")
     private Set<AuctionChangeLog> auctionChangeLog;
-
-    @OneToMany(mappedBy = "auction")
-    private Set<Payment> payment;
 
     @OneToMany(mappedBy = "auction")
     private Set<Task> task;

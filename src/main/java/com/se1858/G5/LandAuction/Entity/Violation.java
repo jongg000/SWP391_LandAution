@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,18 +13,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "Bids")
-public class Bids {
+public class Violation {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int bidId;
+    private int vioId;
+
+    @Column(columnDefinition = "Nvarchar(MAX)")
+    private String detail;
 
     @ManyToOne
-    @JoinColumn(name = "RegistrationID", nullable = false)
-    private AuctionRegistration auctionRegistration;
+    @JoinColumn(name ="UserID")
+    private User user;
 
-    private long bidAmount;
-
-    private java.time.LocalDateTime bidTime;
 }
-
