@@ -42,6 +42,12 @@ public class AdminController {
     private final StatusRepository statusRepository;
 
 
+    @GetMapping("/dashboard")
+    public String dashboard(Model model) {
+        model.addAttribute("users", userRepository.findAll());
+        model.addAttribute("roles", roleRepository.findAll());
+        return "admin/dashboard";
+    }
 
     @GetMapping("/getAllUser")
     public String showAllUser(Model model) {

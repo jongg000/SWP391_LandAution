@@ -30,15 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/forgot-password", "/reset-password**", "/css/**", "/js/**", "/assets/**", "/coffeescript/**").permitAll() // Cho phép truy cập không cần đăng nhập cho quên mật khẩu và đặt lại mật khẩu
+                .antMatchers("/", "/home", "/forgot-password", "/reset-password**", "/assets/**", "/css/**", "/js/**").permitAll() // Cho phép truy cập công khai vào tài nguyên tĩnh
                 .antMatchers("/login", "/register").permitAll()
-                .antMatchers("/customer/profile/**").hasRole("CUSTOMER")
-                .antMatchers("/customer/change-password/**").hasRole("CUSTOMER")
-                .antMatchers("/customer/edit-profile/**").hasRole("CUSTOMER")
-                .antMatchers("/customer/land-registratrion/**").hasRole("CUSTOMER")
-                .antMatchers("/admin/manage-account/**").hasRole("ADMIN")
-                .antMatchers("/admin/dashboard/**").hasRole("ADMIN")
-                .antMatchers("/admin/create-account/**").hasRole("ADMIN")
+                .antMatchers("/customer/profile/**", "/customer/change-password/**", "/customer/edit-profile/**").hasRole("CUSTOMER")
+                .antMatchers("/admin/manage-account/**", "/admin/dashboard/**", "/admin/create-account/**").hasRole("ADMIN")
                 .antMatchers("/staff/**").hasRole("STAFF")
                 .antMatchers("/customer-care/**").hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
