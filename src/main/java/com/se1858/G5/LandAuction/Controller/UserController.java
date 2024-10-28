@@ -173,6 +173,12 @@ public class UserController {
         user.setPhoneNumber(userProfileDTO.getPhoneNumber());
         user.setAddress(userProfileDTO.getAddress());
         user.setDob(userProfileDTO.getDob());
+        user.setGender(userProfileDTO.getGender());
+        if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
+            model.addAttribute("error", "Số CMND đã tồn tại.");
+            return "customer/edit-profile";
+        }
+        user.setNationalID(userProfileDTO.getNationalID());
 
         UploadFile uploadFile = new UploadFile();
 
@@ -183,19 +189,17 @@ public class UserController {
 
         // Lưu hình ảnh CMND nếu có
         if (userProfileDTO.getNationalFrontImage() != null && !userProfileDTO.getNationalFrontImage().isEmpty()) {
-            String frontImageFileName = saveFile(userProfileDTO.getNationalFrontImage());
-            user.setNationalFrontImage(frontImageFileName);
+            uploadFile.UploadImagesNationalF(userProfileDTO.getNationalFrontImage(),user);
         }
 
         if (userProfileDTO.getNationalBackImage() != null && !userProfileDTO.getNationalBackImage().isEmpty()) {
-            String backImageFileName = saveFile(userProfileDTO.getNationalBackImage());
-            user.setNationalBackImage(backImageFileName);
+            uploadFile.UploadImagesNationalB(userProfileDTO.getNationalBackImage(),user);
         }
 
         // Lưu thông tin đã cập nhật vào database
         userService.save(user);
         model.addAttribute("success", "Cập nhật thông tin cá nhân thành công.");
-        return "redirect:/customer/profile";
+        return "redirect:/profile";
     }
     private String saveFile(MultipartFile file) throws IOException {
         // Tạo tên file ngẫu nhiên để tránh trùng lặp

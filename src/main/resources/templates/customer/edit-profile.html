@@ -1,66 +1,270 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Edit Profile</title>
-  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+  <style>
+    /* Import Font */
+    @import url(https://fonts.googleapis.com/css?family=Roboto|Dancing+Script);
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      font-family: 'Roboto', sans-serif;
+      color: #333;
+    }
+
+    /* Navbar */
+    .navbar-top {
+      background-color: #ffffff;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar-top h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 28px;
+      color: #333;
+    }
+
+    /* Sidebar */
+    .sidenav {
+      background-color: #ffffff;
+      border-right: 1px solid #ddd;
+      height: 100vh;
+      width: 220px;
+      position: fixed;
+      top: 70px;
+      padding-top: 30px;
+      box-shadow: 3px 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile {
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .profile img {
+      border-radius: 50%;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    .profile .name {
+      font-size: 18px;
+      font-weight: bold;
+      color: #007bff;
+      margin-top: 10px;
+    }
+
+    .sidenav .url {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .sidenav .url a {
+      color: #555;
+      font-size: 16px;
+      margin: 10px 0;
+      padding: 10px 20px;
+      text-decoration: none;
+      width: 80%;
+      text-align: center;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidenav .url a:hover, .sidenav .url .active {
+      background-color: #e1ebf7;
+      color: #007bff;
+    }
+
+    /* Main content */
+    .main {
+      margin-left: 530px;
+      padding: 30px;
+      margin-top: 90px;
+      max-width: 700px;
+    }
+
+    .container {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .container h2 {
+      font-size: 24px;
+      text-align: center;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      color: #495057;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: #007bff;
+    }
+
+    .form-group img {
+      border-radius: 5px;
+      margin: 10px 0;
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      text-align: center;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-<div class="container mt-5">
-  <h2>Edit Profile</h2>
 
-  <!-- Hiển thị thông báo nếu có -->
-  <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
-  <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
-
-  <!-- Form cập nhật thông tin -->
-  <form th:action="@{/profile/edit}" th:object="${user}" method="post" enctype="multipart/form-data">
-    <div class="form-group">
-      <label for="firstName">First Name</label>
-      <input type="text" id="firstName" th:field="*{firstName}" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="lastName">Last Name</label>
-      <input type="text" id="lastName" th:field="*{lastName}" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="phoneNumber">Phone Number</label>
-      <input type="text" id="phoneNumber" th:field="*{phoneNumber}" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="address">Address</label>
-      <input type="text" id="address" th:field="*{address}" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="dob">Date of Birth</label>
-      <input type="date" id="dob" th:field="*{dob}" class="form-control" required>
-    </div>
-    <div class="form-group">
-      <label for="avatar">Avatar</label>
-      <div th:if="${user.avatar}" class="mb-2">
-        <img th:src="${user.avatar}" alt="Current Avatar" width="100" height="100">
-      </div>
-      <input type="file" id="avatar" name="avatar" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="nationalFrontImage">National Front Image</label>
-      <div th:if="${user.nationalFrontImage}" class="mb-2">
-        <img th:src="${user.nationalFrontImage}" alt="National Front Image" width="100" height="100">
-      </div>
-      <input type="file" id="nationalFrontImage" name="nationalFrontImage" class="form-control">
-    </div>
-    <div class="form-group">
-      <label for="nationalBackImage">National Back Image</label>
-      <div th:if="${user.nationalBackImage}" class="mb-2">
-        <img th:src="${user.nationalBackImage}" alt="National Back Image" width="100" height="100">
-      </div>
-      <input type="file" id="nationalBackImage" name="nationalBackImage" class="form-control">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Update Profile</button>
-  </form>
+<!-- Navbar -->
+<div class="navbar-top">
+  <h1>Edit Profile</h1>
 </div>
 
-<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<!-- Sidebar -->
+<div class="sidenav">
+  <div class="profile">
+    <img th:src="@{${user.avatar}}" alt="Avatar" width="80" height="80">
+    <div class="name" th:text="${user.lastName}">Doe</div>
+  </div>
+  <div class="url">
+    <a th:href="@{/profile}">Thông tin cá nhân</a>
+    <a th:href="@{/profile/edit}" class="active">Sửa thông tin</a>
+    <a th:href="@{/changePassword}">Đổi mật khẩu</a>
+  </div>
+</div>
+
+<!-- Main content -->
+<div class="main">
+  <div class="container">
+
+    <!-- Update Profile Form -->
+    <form th:action="@{/profile/edit}" th:object="${user}" method="post" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="firstName">Họ</label>
+        <input type="text" id="firstName" th:field="*{firstName}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Tên</label>
+        <input type="text" id="lastName" th:field="*{lastName}" required>
+      </div>
+      <div class="form-group">
+        <label for="lastName">Email</label>
+        <input type="email" id="email" th:field="*{email}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Số điện thoại</label>
+        <input type="text" id="phoneNumber" th:field="*{phoneNumber}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="address">Địa chỉ</label>
+        <input type="text" id="address" th:field="*{address}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="dob">Ngày sinh</label>
+        <input type="date" id="dob" th:field="*{dob}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="nationalID">Căn cước công dân</label>
+        <input type="text" id="nationalID" th:field="*{nationalID}" required>
+      </div>
+
+      <div class="form-group">
+        <label for="gender">Giới tính</label>
+        <select id="gender" th:field="*{gender}" required>
+          <option value="" disabled selected>Select Gender</option>
+          <option value="Male">Trai</option>
+          <option value="Female">Gái</option>
+          <option value="Other">Khác</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="avatar">Ảnh đại diện</label>
+        <div th:if="${user.avatar}">
+          <img th:src="${user.avatar}" alt="Current Avatar">
+        </div>
+        <input type="file" id="avatar" name="avatar">
+      </div>
+
+      <div class="form-group">
+        <label for="nationalFrontImage">Căn cước công dân mặt trước</label>
+        <div th:if="${user.nationalFrontImage}">
+          <img th:src="${user.nationalFrontImage}" alt="National Front Image">
+        </div>
+        <input type="file" id="nationalFrontImage" name="nationalFrontImage">
+      </div>
+
+      <div class="form-group">
+        <label for="nationalBackImage">Căn cước công dân mặt sau</label>
+        <div th:if="${user.nationalBackImage}">
+          <img th:src="${user.nationalBackImage}" alt="National Back Image">
+        </div>
+        <input type="file" id="nationalBackImage" name="nationalBackImage">
+      </div>
+
+      <button type="submit" class="btn-primary">Cập nhập</button>
+    </form>
+  </div>
+</div>
+
 </body>
 </html>

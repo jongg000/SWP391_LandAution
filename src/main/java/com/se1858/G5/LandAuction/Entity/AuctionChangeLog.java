@@ -1,9 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,8 +8,10 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Auction_Change_Log")
 public class AuctionChangeLog {
     @Id

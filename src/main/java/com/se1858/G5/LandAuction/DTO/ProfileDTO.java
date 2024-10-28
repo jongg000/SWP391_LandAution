@@ -29,5 +29,6 @@ public class ProfileDTO {
     private MultipartFile nationalBackImage;
     private String email;
     private String gender;
+    private String nationalID;
 
 }
