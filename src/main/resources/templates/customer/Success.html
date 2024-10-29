@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-
+<h1>Land Details</h1>
+    <a th:href="@{'/doc/' + ${land}}" class="download-link">Download</a>
+</div>
 </body>
 </html>

@@ -19,8 +19,8 @@ public class AssetRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int documentId;
 
-    @OneToOne
-    @JoinColumn(name = "LandID", nullable = false)
+
+    @OneToOne(mappedBy = "assetRegistration")
     private Land land;
 
     @ManyToOne
@@ -33,7 +33,7 @@ public class AssetRegistration {
     private String reason;
 
     @ManyToOne
-    @JoinColumn(name = "UserID", nullable = false)
+    @JoinColumn(name = "UserID", nullable = true)
     private User user;
 
     @Column(nullable = true)

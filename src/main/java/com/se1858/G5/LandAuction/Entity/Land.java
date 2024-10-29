@@ -51,10 +51,17 @@ public class Land {
 
     private String path;
 
+    @OneToOne
+    @JoinColumn(name = "land_id")
+    private AssetRegistration assetRegistration;
+
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL)
     private List<LandImage> images;
 
-    public Land( String contact, long price, String description, String location, User user, String name, String ward, String district, String province, double square) {
+    public Land(double length, double width, double square, String contact, long price, String description, String location, User user, String name, String ward, String district, String province) {
+        this.length = length;
+        this.width = width;
+        this.square = square;
         this.contact = contact;
         this.price = price;
         this.description = description;
@@ -64,8 +71,8 @@ public class Land {
         this.ward = ward;
         this.district = district;
         this.province = province;
-        this.square = square;
     }
+
     public void addImg(LandImage image) {
         if (images == null) {
             images = new ArrayList<>();
