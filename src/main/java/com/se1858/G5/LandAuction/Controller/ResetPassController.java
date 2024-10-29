@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.token.TokenService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,8 @@ public class ResetPassController {
 
     @Autowired
     private TokenRepository tokenRepository;
+
+    PasswordEncoder passwordEncoder;
 
     @GetMapping("/forgot-password")
     public String showForgotPasswordPage() {
@@ -89,7 +92,7 @@ public class ResetPassController {
         }
 
         User user = resetToken.getUser();
-        user.setPassword(userService.encodePassword(newPassword));
+        user.setPassword(passwordEncoder.encode(newPassword));
         userService.save(user);
         tokenRepository.delete(resetToken); // Xóa token sau khi sử dụng
 
