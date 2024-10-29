@@ -6,5 +6,4 @@ import lombok.Data;
 public class LandImageDTO {
     private Integer imageId;
     private String imageUrl;
-    private String name;
 }

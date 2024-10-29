@@ -1,10 +1,14 @@
 package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.DTO.AssetInfoDTO;
+import com.se1858.G5.LandAuction.DTO.AssetSearchDTO;
+import com.se1858.G5.LandAuction.DTO.FullAssetInfoDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.Entity.AssetRegistration;
 import com.se1858.G5.LandAuction.Repository.AssetRegistrationRepository;
 import com.se1858.G5.LandAuction.Service.AssetRegistrationService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -62,11 +66,21 @@ public class AssetRegistrationImpl implements AssetRegistrationService {
                 LandImageDTO image = new LandImageDTO();
                 image.setImageId((Integer) row[15]);
                 image.setImageUrl((String) row[16]);
-                image.setName((String) row[17]);
+//                image.setName((String) row[17]);
                 assetInfo.getImages().add(image);
             }
         }
 
         return new ArrayList<>(assetInfoMap.values());
+    }
+
+    @Override
+    public FullAssetInfoDTO findFullAssetInfoByDocumentId(Integer documentId) {
+        return assetRegistrationRepository.findFullAssetInfoById(documentId);
+    }
+
+    @Override
+    public Page<FullAssetInfoDTO> findFullAssetInfo(Pageable page, AssetSearchDTO search) {
+        return assetRegistrationRepository.findFullAssetInfo(page);
     }
 }

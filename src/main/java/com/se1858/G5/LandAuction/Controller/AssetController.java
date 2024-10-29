@@ -1,12 +1,18 @@
 
 package com.se1858.G5.LandAuction.Controller;
 
+import com.se1858.G5.LandAuction.DTO.FullAssetInfoDTO;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
-import com.se1858.G5.LandAuction.Entity.*;
+import com.se1858.G5.LandAuction.Entity.AssetRegistration;
+import com.se1858.G5.LandAuction.Entity.Land;
+import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Service.AssetRegistrationService;
 import com.se1858.G5.LandAuction.Service.LandService;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -15,8 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-
-import javax.servlet.http.HttpSession;
 import java.time.ZoneId;
 import java.util.List;
 
@@ -63,11 +67,23 @@ public class AssetController {
         return "/customer/single-list";
     }
 
-    @RequestMapping("/asset/{id}")
+    @RequestMapping("/asset")
     public String detail(ModelMap model,
-                         @RequestParam(value = "s", required = false ) String s) {
+                         @RequestParam(value = "id", required = true) int id) {
 
+        FullAssetInfoDTO  asset = assetRegistrationService.findFullAssetInfoByDocumentId(id);
+        model.addAttribute("asset", asset);
+        return "customer/historyRegister";
+    }
 
+    @RequestMapping("/asset/list")
+    public String list(ModelMap model, @RequestParam(value = "page", defaultValue = "0") int page) {
+        int pageSize = 10;
+        Pageable pageable = PageRequest.of(page, pageSize);
+        Page<FullAssetInfoDTO> list = assetRegistrationService.findFullAssetInfo(pageable, null);
+        model.addAttribute("LIST_ASSET", list);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", list.getTotalPages());
         return "customer/listAsset";
     }
 }

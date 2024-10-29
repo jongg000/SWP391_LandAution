@@ -144,8 +144,9 @@
           <div class="row">
             <div id="single-car" class="col-md-8">
               <div class="up-content clearfix">
-                <h2>Audi a6 tsi s-line</h2>
-                <span>$30.000</span>
+<!--                <h2>Audi a6 tsi s-line</h2>-->
+                <h2 th:text="${asset.name}">Tên tài sản</h2>
+                <span th:text="${asset.price}"></span>
               </div>
               <div class="flexslider">
                 <ul class="slides">
@@ -166,27 +167,12 @@
                   </li>
                 </ul>
               </div>
+              <p th:text="${asset.description}"></p>
               <div class="tab">
                 <div class="tabs">
-                  <ul class="tab-links">
-                    <li><a href="#tab1">vehicle overview</a></li>
-                    <li class="active"><a href="#tab2">description</a></li>
-                    <li><a href="#tab3">vehicle location</a></li>
-                    <li><a href="#tab4">contact dealer</a></li>
-                  </ul>
                   <div class="tab-content">
                     <div id="tab1" class="tab">
-                      <p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi in dolorem blanditiis voluptatibus quidem nisi eaque, cupiditate minus omnis, voluptatum corporis neque placeat quod temporibus mollitia. Quod accusamus iure eveniet laboriosam laudantium, saepe quidem incidunt, laboriosam aliquid quibusdam atque.</p>
-                    </div>
-                    <div id="tab2" class="tab active">
-                      <h6>The dealer's details will be emailed to you immediately after you submit your query</h6>
-                      <p>Selvage drinking vinegar roof party bitters beard wolf craft beer Blue Bottle, literally you probably haven't heard of them. Deep v jean shorts Williamsburg synth pork belly actually. Organic PBRB viral four loko Bushwick pork belly. Selvage fashion axe sartorial cliche before they sold out, mustache vinyl DIY gastropub fingerstache mlkshk. High Life lo-fi chillwave meggings.<br><br>Migas gluten-free ennui Truffaut ugh, listicle umami plaid lomo sustainable mumblecore street art biodiesel readymade. Polaroid ethical Pitchfork, sartorial bitters mlkshk cliche keytar tofu four loko pork belly High Life lomo listicle.<br><br>Semiotics Vice Wes Anderson Bushwick organic. Chambray twee Banksy, asymmetrical disrupt bitters selfies Helvetica. Gentrify direct trade disrupt Odd Future. Bespoke tote bag small batch, try-hard drinking vinegar cronut beard migas ethical. Seitan wolf Vice banh mi YOLO flannel. Banh mi pug cred church-key, cardigan drinking vinegar hella bicycle rights ugh sustainable. Marfa Bushwick aesthetic, locavore messenger bag 8-bit tote bag.</p>
-                    </div>
-                    <div id="tab3" class="tab">
-                      <p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi in dolorem blanditiis voluptatibus quidem nisi eaque, cupiditate minus omnis, voluptatum corporis neque placeat quod temporibus mollitia. Quod accusamus iure eveniet laboriosam laudantium.</p>
-                    </div>
-                    <div id="tab4" class="tab">
-                      <p>	Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi in dolorem blanditiis voluptatibus quidem nisi eaque, cupiditate minus omnis, voluptatum corporis neque placeat quod temporibus mollitia. Quod accusamus iure eveniet laboriosam laudantium.</p>
+                      <p th:text="${asset.description}"></p>
                     </div>
                   </div>
                   <div class="more-info">

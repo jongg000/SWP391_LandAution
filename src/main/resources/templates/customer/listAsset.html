@@ -164,15 +164,17 @@
                   </div>
                 </div>
               </div>
-              <div class="featured-item">
-                <img src="/assets/images/01-featured.jpg" alt="">
+              <div th:each="asset : ${LIST_ASSET.content}" class="featured-item">
+<!--              <div class="featured-item">-->
+                <img th:src="@{${asset.path}}">
                 <div class="right-content">
-                  <a href="single-list.html"><h2>Mercedes Amg 6.3</h2></a>
-                  <span>52,000</span>
+                  <h2 th:text="${asset.name}"></h2>
+
+                  <span th:text="${asset.price}"></span>
                   <div class="light-line"></div>
-                  <p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
+                  <p th:text="${asset.description}"></p>
                   <div class="view-details">
-                    <a href="#">View Details</a>
+                    <a th:href="@{/postAsset/asset(id=${asset.documentId})}">View Details</a>
                   </div>
                   <div class="item-rate">
                     <ul>
@@ -183,137 +185,9 @@
                       <li><i class="fa fa-star-o"></i></li>
                     </ul>
                   </div>
-                  <div class="car-info">
-                    <ul>
-                      <li><i class="icon-gaspump"></i>Diesel</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                    </ul>
-                  </div>
                 </div>
               </div>
-              <div class="featured-item">
-                <img src="/assets/images/02-featured-slide-310x210.jpg" alt="">
-                <div class="right-content">
-                  <a href="single-list.html"><h2>volkswagen passat</h2></a>
-                  <span>30,000</span>
-                  <div class="light-line"></div>
-                  <p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-                  <div class="view-details">
-                    <a href="#">View Details</a>
-                  </div>
-                  <div class="item-rate">
-                    <ul>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                    </ul>
-                  </div>
-                  <div class="car-info">
-                    <ul>
-                      <li><i class="icon-gaspump"></i>Diesel</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="featured-item">
-                <img src="/assets/images/03-featured.jpg" alt="">
-                <div class="right-content">
-                  <a href="single-list.html"><h2>Mercedes amg Gt s 6.3</h2></a>
-                  <span>65,000</span>
-                  <div class="light-line"></div>
-                  <p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-                  <div class="view-details">
-                    <a href="#">View Details</a>
-                  </div>
-                  <div class="item-rate">
-                    <ul>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                    </ul>
-                  </div>
-                  <div class="car-info">
-                    <ul>
-                      <li><i class="icon-gaspump"></i>Diesel</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="featured-item">
-                <img src="/assets/images/04-featured.jpg" alt="">
-                <div class="right-content">
-                  <a href="single-list.html"><h2>bmw m4 convertible</h2></a>
-                  <span>64,000</span>
-                  <div class="light-line"></div>
-                  <p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-                  <div class="view-details">
-                    <a href="#">View Details</a>
-                  </div>
-                  <div class="item-rate">
-                    <ul>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                    </ul>
-                  </div>
-                  <div class="car-info">
-                    <ul>
-                      <li><i class="icon-gaspump"></i>Diesel</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="featured-item last-featured">
-                <img src="/assets/images/05-featured.jpg" alt="">
-                <div class="right-content">
-                  <a href="single-list.html"><h2>audi a6 tfsi s-line</h2></a>
-                  <span>48,000</span>
-                  <div class="light-line"></div>
-                  <p>Donec eu nullas sapien pretium volutpat vel quis turpis. Donec vel risus lacinia euismod urna vel fringilla justo.</p>
-                  <div class="view-details">
-                    <a href="#">View Details</a>
-                  </div>
-                  <div class="item-rate">
-                    <ul>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star"></i></li>
-                      <li><i class="fa fa-star-o"></i></li>
-                    </ul>
-                  </div>
-                  <div class="car-info">
-                    <ul>
-                      <li><i class="icon-gaspump"></i>Diesel</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                      <li><i class="icon-car"></i>Sport</li>
-                      <li><i class="icon-road2"></i>12,000</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
+
               <div class="pagination">
                 <div class="prev">
                   <a href="#"><i class="fa fa-arrow-left"></i>Prev</a>
