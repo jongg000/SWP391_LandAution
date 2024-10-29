@@ -34,32 +34,6 @@ public class AuctionController {
     @Autowired
     private AuctionRegistrationService auctionRegistrationService;
 
-    @GetMapping
-    public String showAuctionPage(Model model) {
-        model.addAttribute("auctions", auctionService.getAllAuctions());
-        model.addAttribute("auction", new AuctionDto());
-        return "Manager/Auction";
-    }
-
-    @PostMapping("/save")
-    public String saveAuction(@ModelAttribute AuctionDto auctionDto) {
-        auctionService.update(auctionDto);
-        return "redirect:/auction";
-    }
-
-    @GetMapping("/edit{id}")
-    public String editAuction(@PathVariable int id, Model model) {
-        model.addAttribute("auction", auctionService.findAuctionById(id));
-        model.addAttribute("auctions", auctionService.getAllAuctions());
-        return "Manager/Auction";
-    }
-
-    @GetMapping("/delete{id}")
-    public String deleteAuction(@PathVariable int id) {
-        auctionService.deleteAuction(id);
-        return "redirect:/auction";
-    }
-
     @GetMapping("/showAuctionDetail/{id}")
     public String showAuctionDetail(@PathVariable int id, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();

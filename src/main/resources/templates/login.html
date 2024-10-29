@@ -270,6 +270,9 @@
             <span th:if="${session.loginError != null }" th:text="${session.loginError}" style="color: #ff3c00"></span>
             <input type="email" id="email" name="username" placeholder="Email" required>
             <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+            <label>
+                <input type="checkbox" name="remember-me" /> Ghi nhớ đăng nhập
+            </label>
             <a href="forgot-password">Quên mật khẩu?</a>
             <button type="submit">Đăng nhập</button>
         </form>

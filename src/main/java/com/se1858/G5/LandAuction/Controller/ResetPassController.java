@@ -62,27 +62,36 @@ public class ResetPassController {
     }
 
     @GetMapping("/reset-password")
-    public String showResetPasswordPage(@RequestParam("token") String token, Model model) {
+    public String showResetPasswordPage(@RequestParam(value = "token", required = false) String token, Model model) {
+        if (token == null || token.isEmpty()) {
+            model.addAttribute("error", "Missing or invalid token!");
+            return "reset-password";
+        }
         Optional<Token> resetToken = tokenRepository.findByToken(token);
         if (resetToken.isEmpty() || resetToken.get().getExpiryDate().before(new Date())) {
             model.addAttribute("error", "Token không hợp lệ hoặc đã hết hạn!");
-            return "error";
+            return "reset-password";
         }
         model.addAttribute("token", token);
         return "reset-password";
     }
 
+
     @PostMapping("/reset-password")
     public String processResetPassword(
-            @RequestParam("token") String token,
+            @RequestParam(name = "token", required = true) String token,
             @RequestParam("newPassword") String newPassword,
             @RequestParam("confirmPassword") String confirmPassword,
             Model model) {
 
+        if (token == null) {
+            model.addAttribute("error", "Missing required token.");
+            return "reset-password";
+        }
         Token resetToken = tokenRepository.findByToken(token).orElse(null);
         if (resetToken == null || resetToken.getExpiryDate().before(new Date())) {
             model.addAttribute("error", "Token không hợp lệ hoặc đã hết hạn!");
-            return "error";
+            return "reset-password";
         }
 
         if (!newPassword.equals(confirmPassword)) {
@@ -94,9 +103,8 @@ public class ResetPassController {
         User user = resetToken.getUser();
         user.setPassword(passwordEncoder.encode(newPassword));
         userService.save(user);
-        tokenRepository.delete(resetToken); // Xóa token sau khi sử dụng
-
         model.addAttribute("message", "Mật khẩu đã được thay đổi thành công!");
+        tokenRepository.delete(resetToken); // Xóa token sau khi sử dụng
         return "login";
     }
 
