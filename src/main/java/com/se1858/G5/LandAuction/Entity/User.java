@@ -1,9 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,8 +11,10 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Users")
 public class User  {
     @Id
@@ -37,7 +36,6 @@ public class User  {
     private String phoneNumber;
 
     private String avatar;
-
 
     @Column(name = "refund_money", nullable = false, columnDefinition = "NUMERIC(19,0) DEFAULT 0")
     private BigDecimal refundMoney = BigDecimal.ZERO;

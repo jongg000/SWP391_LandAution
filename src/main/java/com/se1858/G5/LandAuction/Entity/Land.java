@@ -70,10 +70,10 @@ public class Land {
         if (images == null) {
             images = new ArrayList<>();
         }
-        // Thêm hình ảnh vào danh sách
+
         images.add(image);
-        // Cập nhật mối quan hệ từ LandImage tới Land
-        image.setLand(this); // Thiết lập mối quan hệ ngược lại
+
+        image.setLand(this);
     }
 
 }

@@ -30,10 +30,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/forgot-password", "/reset-password**", "/assets/**", "/css/**", "/js/**").permitAll() // Cho phép truy cập công khai vào tài nguyên tĩnh
+                .antMatchers("/", "/home", "/forgot-password", "/reset-password**","/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**")
+                .permitAll() // Cho phép truy cập công khai vào tài nguyên tĩnh
                 .antMatchers("/login", "/register").permitAll()
-                .antMatchers("/customer/profile/**", "/customer/change-password/**", "/customer/edit-profile/**").hasRole("CUSTOMER")
+                .antMatchers("/customer/profile/**", "/customer/change-password/**", "/customer/edit-profile/**","/customer/display/**").hasRole("CUSTOMER")
                 .antMatchers("/admin/manage-account/**", "/admin/dashboard/**", "/admin/create-account/**").hasRole("ADMIN")
+                .antMatchers("/customer/wishlistPage/**").hasRole("CUSTOMER")
+                .antMatchers("/customer/listAuctionRegister/**").hasRole("CUSTOMER")
+                .antMatchers("/customer/bidPage/**").hasRole("CUSTOMER")
                 .antMatchers("/staff/**").hasRole("STAFF")
                 .antMatchers("/customer-care/**").hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
@@ -44,6 +48,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/home")
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
+                .and()
+                .rememberMe()
+                .key("uniqueAndSecretKey") // Secret key for remember-me
+                .rememberMeParameter("remember-me") // Matches the "remember-me" checkbox name
+                .tokenValiditySeconds(1209600) // Valid for 14 days
                 .and()
                 .logout()
                 .invalidateHttpSession(true)

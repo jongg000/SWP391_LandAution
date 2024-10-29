@@ -68,4 +68,5 @@ public interface AssetRegistrationRepository extends JpaRepository<AssetRegistra
             "JOIN ar.land l " +
             "WHERE ar.documentId = :documentId")
     FullAssetInfoDTO findFullAssetInfoById(@Param("documentId") Integer documentId);
+    AssetRegistration findAssetRegistrationByLand_LandId(int landId);
 }

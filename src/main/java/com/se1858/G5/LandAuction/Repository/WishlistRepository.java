@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface WishlistRepository extends JpaRepository<Wishlist, Integer> {
 
+    boolean existsByUser_UserIdAndAuction_AuctionId(int userId, int auctionId);
     List<Wishlist> findAllByUser(User user);
 }
 
