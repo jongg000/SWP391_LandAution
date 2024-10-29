@@ -19,7 +19,6 @@ public class Status {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int statusID;
-    
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String name;
     @Column(columnDefinition = "NVARCHAR(MAX)")

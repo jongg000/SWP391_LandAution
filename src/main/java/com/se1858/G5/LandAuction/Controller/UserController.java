@@ -175,6 +175,10 @@ public class UserController {
 
         String email = principal.getName();
         User user = userService.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("error", "User not found.");
+            return "customer/edit-profile";
+        }
 
         // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
@@ -183,10 +187,10 @@ public class UserController {
         user.setAddress(userProfileDTO.getAddress());
         user.setDob(userProfileDTO.getDob());
         user.setGender(userProfileDTO.getGender());
+        user.setEmail(userProfileDTO.getEmail());
 
         // Only check for existing National ID if it's different
-        if (!user.getNationalID().equals(userProfileDTO.getNationalID()) &&
-                userService.existsByNationalID(userProfileDTO.getNationalID())) {
+        if (!user.getNationalID().equals(userProfileDTO.getNationalID()) && userService.existsByNationalID(userProfileDTO.getNationalID())) {
             model.addAttribute("error", "Số CMND đã tồn tại.");
             model.addAttribute("user", user);
             return "customer/edit-profile";
