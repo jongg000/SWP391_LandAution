@@ -19,7 +19,7 @@ public class HomeController {
         return "redirect:/home"; // Chuyển hướng đến trang home
     }
 
-    @GetMapping("/home")
+    @GetMapping("/home1")
     public String showHomePage(Model model) {
         return "home"; // Trả về tên của file HTML home.html
     }

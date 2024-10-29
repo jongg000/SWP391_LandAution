@@ -14,6 +14,7 @@ import com.se1858.G5.LandAuction.Service.NewsService;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -78,7 +79,7 @@ public class NewsController {
     // Xử lý submit form với file upload
     @PostMapping("/save")
     public String saveNews(@ModelAttribute("news") News news,
-                           @RequestParam("imageFile") MultipartFile imageFile) {
+                           @RequestParam("imageFile") MultipartFile imageFile, HttpSession session) {
         // Xử lý upload file
         if (!imageFile.isEmpty()) {
             try {
@@ -93,6 +94,9 @@ public class NewsController {
 
         // Lưu news vào cơ sở dữ liệu
 //        news.setUser(userService.findByUserName("tung"));
+        String username = (String) session.getAttribute("username");
+        User u = userService.findByEmail(username);
+        news.setUser(u);
         newsService.save(news);
         return "redirect:/news/newslist";
     }

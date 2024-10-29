@@ -1,4 +1,4 @@
-package com.se1858.G5.LandAuction.chatComponent.chat;
+package com.se1858.G5.LandAuction.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,5 +1,6 @@
-package com.se1858.G5.LandAuction.chatComponent.chatroom;
+package com.se1858.G5.LandAuction.Repository;
 
+import com.se1858.G5.LandAuction.Entity.ChatRoom;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

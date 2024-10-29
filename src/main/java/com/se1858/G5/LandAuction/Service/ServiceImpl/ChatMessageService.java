@@ -1,6 +1,7 @@
-package com.se1858.G5.LandAuction.chatComponent.chat;
+package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
-import com.se1858.G5.LandAuction.chatComponent.chatroom.ChatRoomService;
+import com.se1858.G5.LandAuction.Entity.ChatMessage;
+import com.se1858.G5.LandAuction.Repository.ChatMessageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

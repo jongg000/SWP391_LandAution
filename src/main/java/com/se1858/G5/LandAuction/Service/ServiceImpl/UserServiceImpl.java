@@ -1,6 +1,8 @@
 package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 
+import com.se1858.G5.LandAuction.DTO.UsersChatDTO;
+import com.se1858.G5.LandAuction.Entity.ERole;
 import com.se1858.G5.LandAuction.Entity.Token;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.TokenRepository;
@@ -73,5 +75,22 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public void disconnect(User users) {
+        var storedUser = userRepository.findByEmail(users.getEmail());
+        if (storedUser != null) {
+//            storedUser.setStatus(Status.OFFLINE);
+            userRepository.save(storedUser);
+        }
+    }
 
+    @Override
+    public List<UsersChatDTO> findConnectedUsers(String email) {
+        User u = userRepository.findByEmail(email);
+        if(u.getRole().getRoleName().equals(ERole.ROLE_CUSTOMER_CARE)) {
+            return userRepository.findAllOtherCustomerCare();
+        } else {
+            return userRepository.findAllCustomerCare();
+        }
+    }
 }

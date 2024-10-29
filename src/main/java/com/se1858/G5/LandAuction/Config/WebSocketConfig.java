@@ -1,4 +1,4 @@
-package com.se1858.G5.LandAuction.chatComponent.config;
+package com.se1858.G5.LandAuction.Config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Configuration;

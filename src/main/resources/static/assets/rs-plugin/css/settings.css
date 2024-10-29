@@ -2079,7 +2079,7 @@ img.tp-slider-alternative-image {
 .tp-simpleresponsive>ul>li {
     list-style: none;
     position: absolute;
-    visibility: hidden
+    /*visibility: hidden*/
 }
 
 /*  CAPTION SLIDELINK   **/
@@ -2783,11 +2783,11 @@ img.tp-slider-alternative-image {
 }
 
 .tp-rightarrow.preview4:after {
-    content: '\e825';
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M10 17l5-5-5-5v10z"/></svg>');
 }
 
 .tp-leftarrow.preview4:after {
-    content: '\e824';
+    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="black"><path d="M14 7l-5 5 5 5V7z"/></svg>');
 }
 
 .tparrows.preview4 .tp-arr-allwrapper {

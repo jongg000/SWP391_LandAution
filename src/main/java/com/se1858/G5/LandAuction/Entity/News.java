@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,6 +26,7 @@ public class News {
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String content;
 
+    @Column(columnDefinition = "TEXT")
     private String image;
 
     @ManyToOne
@@ -33,6 +35,7 @@ public class News {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "Time")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private Date time;
 }
 

@@ -2,6 +2,7 @@ package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
+import com.se1858.G5.LandAuction.Service.LandService;
 import com.se1858.G5.LandAuction.Service.NewsService;
 import com.se1858.G5.LandAuction.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class LandController {
     private ServletContext servletContext;
 
     @Autowired
-    LandRepository landRepository;
+    LandService landService;
 
     @RequestMapping("/land-list")
     public String listNews(ModelMap model,
@@ -47,36 +48,19 @@ public class LandController {
 
         // Tạo đối tượng Pageable với trang hiện tại và số lượng phần tử trên mỗi trang
         Pageable pageable = PageRequest.of(page, pageSize);
-        Page<Tuple> pagedResults = landRepository.findAuctionDetailsWithImages(pageable);
+        Page<LandDTO> pagedResults = landService.findAuctionDetailsWithImages(pageable);
 
-        List<LandDTO> landDTOs = new ArrayList<>();
 
-        for (Tuple tuple : pagedResults.getContent()) {
-            LandDTO landDTO = new LandDTO(
-                    tuple.get(0, Integer.class), // auction_id
-                    tuple.get(1, Integer.class), // statusid
-                    tuple.get(2, Timestamp.class).toLocalDateTime(),     // start_time
-                    tuple.get(3, Timestamp.class).toLocalDateTime(),     // end_time
-                    tuple.get(4, Integer.class),   // land_id
-                    tuple.get(5, String.class),    // description
-                    tuple.get(6, Double.class),     // price
-                    tuple.get(7, String.class),     // location
-                    tuple.get(8, String.class),     // imageUrls
-                    tuple.get(9, String.class),      // imageNames
-                    tuple.get(10, String.class)      // imageNames
-            );
-            landDTOs.add(landDTO);
-        }
-        if(s != null) {
-            landDTOs = landDTOs.stream()
-//                    .map(LandDTO::getName) // Lấy ra giá trị name
-                    .filter(e -> e.getName() != null && e.getName().contains(s)) // Lọc những name chứa chuỗi search
-                    .collect(Collectors.toList());
-        }
-        model.addAttribute("LIST_LAND", landDTOs);
+//        if(s != null) {
+//            landDTOs = landDTOs.stream()
+////                    .map(LandDTO::getName) // Lấy ra giá trị name
+//                    .filter(e -> e.getName() != null && e.getName().contains(s)) // Lọc những name chứa chuỗi search
+//                    .collect(Collectors.toList());
+//        }
+        model.addAttribute("LIST_LAND", pagedResults);
         model.addAttribute("currentPage", page); // Trang hiện tại
         model.addAttribute("totalPages", pagedResults.getTotalPages()); // Tổng số trang
-        return "home";
+        return "home1";
     }
 
 

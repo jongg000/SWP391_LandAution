@@ -1,5 +1,7 @@
-package com.se1858.G5.LandAuction.chatComponent.user;
+package com.se1858.G5.LandAuction.Controller;
 
+import com.se1858.G5.LandAuction.Service.UserService;
+import com.se1858.G5.LandAuction.DTO.UsersChatDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -28,9 +30,8 @@ public class UserChatController {
             Authentication authentication
     ) {
         HttpSession session = request.getSession();
-        String name = (String) session.getAttribute("username"); // Lưu tên người dùng vào session
-
-        UsersChatDTO usersChatDTO = new UsersChatDTO(name, name);
+        String username = (String) session.getAttribute("username");
+        UsersChatDTO usersChatDTO = new UsersChatDTO(username, username);
         return usersChatDTO;
     }
 
@@ -46,7 +47,7 @@ public class UserChatController {
     @GetMapping("/users")
     public ResponseEntity<List<UsersChatDTO>> findConnectedUsers(@RequestParam(required = false) String nickname, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String name = (String) session.getAttribute("username"); // Lưu tên người dùng vào session
-        return ResponseEntity.ok(userService.findConnectedUsers(nickname));
+        String username = (String) session.getAttribute("username");
+        return ResponseEntity.ok(userService.findConnectedUsers(username));
     }
 }
