@@ -2,6 +2,7 @@ package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.LandImage;
+import com.se1858.G5.LandAuction.Entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -81,6 +82,108 @@ public class UploadFile {
                 Files.write(path, bytes);
                 // Tạo đối tượng Image và liên kết với Land
                land.setPath(docName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void upLoadDocumentAvata(MultipartFile document, User user) {
+        String imageUploadDir = "src/main/resources/static/User_images/";
+        File directory = new File(imageUploadDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        if (!document.isEmpty()) {
+            try{
+                String originalFilename = document.getOriginalFilename();
+                if(originalFilename == null || originalFilename.isEmpty()) {
+                    return;
+                }
+                String nameFile = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                String docName = "User" + nameFile + "." + fileExtension;
+                Path path = Paths.get(imageUploadDir + docName);
+                // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                int version = 1;
+                while (Files.exists(path)) {
+                    docName = "User_" + nameFile + "(" + version + ")" + fileExtension;
+                    path = Paths.get(imageUploadDir + docName);
+                    version++;
+                }
+                // Lưu tệp vào thư mục
+                byte[] bytes = document.getBytes();
+                Files.write(path, bytes);
+                // Tạo đối tượng Image và liên kết với Land
+                user.setAvatar(docName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void UploadImagesNationalF(MultipartFile document, User user) {
+        String imageUploadDir = "src/main/resources/static/User_images/";
+        File directory = new File(imageUploadDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        if (!document.isEmpty()) {
+            try{
+                String originalFilename = document.getOriginalFilename();
+                if(originalFilename == null || originalFilename.isEmpty()) {
+                    return;
+                }
+                String nameFile = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                String docName = "User" + nameFile + "." + fileExtension;
+                Path path = Paths.get(imageUploadDir + docName);
+                // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                int version = 1;
+                while (Files.exists(path)) {
+                    docName = "User_" + nameFile + "(" + version + ")" + fileExtension;
+                    path = Paths.get(imageUploadDir + docName);
+                    version++;
+                }
+                // Lưu tệp vào thư mục
+                byte[] bytes = document.getBytes();
+                Files.write(path, bytes);
+                // Tạo đối tượng Image và liên kết với Land
+                user.setNationalFrontImage(docName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void UploadImagesNationalB(MultipartFile document, User user) {
+        String imageUploadDir = "src/main/resources/static/User_images/";
+        File directory = new File(imageUploadDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        if (!document.isEmpty()) {
+            try{
+                String originalFilename = document.getOriginalFilename();
+                if(originalFilename == null || originalFilename.isEmpty()) {
+                    return;
+                }
+                String nameFile = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                String docName = "User" + nameFile + "." + fileExtension;
+                Path path = Paths.get(imageUploadDir + docName);
+                // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                int version = 1;
+                while (Files.exists(path)) {
+                    docName = "User_" + nameFile + "(" + version + ")" + fileExtension;
+                    path = Paths.get(imageUploadDir + docName);
+                    version++;
+                }
+                // Lưu tệp vào thư mục
+                byte[] bytes = document.getBytes();
+                Files.write(path, bytes);
+                // Tạo đối tượng Image và liên kết với Land
+                user.setNationalBackImage(docName);
             } catch (IOException e) {
                 e.printStackTrace();
             }
