@@ -15,7 +15,7 @@ import java.util.Date;
 public class AuctionDto {
     private int auctionId;
     private int landId;
-    private String status;
+    private int statusId;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private long highestBid;

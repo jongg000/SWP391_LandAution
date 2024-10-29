@@ -1793,23 +1793,83 @@ footer .gallery .gallery-item img {
     text-transform: uppercase;
     color: #222222;
     font-weight: 700;
-    width: 70%;
+    width: 65%;
     display: inline-block;
 }
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Darker background for contrast */
+    overflow: auto;
+    backdrop-filter: blur(5px); /* Adds a blur effect */
+}
+
+.modal-content {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    width: 400px;
+    margin: 100px auto;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Enhanced shadow */
+    transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition */
+}
+
+.congratulations {
+    font-size: 18px;
+    color: #333;
+    text-align: center; /* Center the text */
+    margin-bottom: 15px; /* Spacing below */
+}
+
+.winner, .bid-amount {
+    font-size: 22px;
+    font-weight: bold;
+    color: #444;
+    text-align: center; /* Center the text */
+}
+
+.highlight {
+    color: #4CAF50; /* Change highlight color for emphasis */
+}
+
+.close-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s; /* Adding transform for a pop effect */
+    display: block; /* Center the button */
+    margin: 20px auto 0; /* Margin for spacing */
+}
+
+.close-button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
 
 .featured-listing #featured-cars .featured-item .down-content span {
     font-family: 'Montserrat', sans-serif;
-    text-align: center;
+    /*text-align: center;*/
     line-height: 36px;
     padding: 0px 12px;
     display: inline-block;
-    margin-top: -15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
     margin-right: -15px;
     float: right;
     background-color: #f4c23d;
     font-size: 13px;
     text-transform: uppercase;
     color: #222222;
+
     font-weight: 700;
 }
 
@@ -3674,6 +3734,23 @@ footer .gallery .gallery-item img {
     text-transform: uppercase;
     font-weight: 700;
     margin-bottom: 0px;
+}
+.seller-restriction-message {
+    display: block; /* Makes the link behave like a block element */
+    margin: 10px 0; /* Adds some spacing around the message */
+    padding: 10px; /* Adds some padding for better appearance */
+    background-color: #f4c23d; /* Light red background color */
+    color: #222222; /* Dark red text color */
+    border: 1px solid #f5c6cb; /* Red border */
+    text-align: center; /* Center the text */
+    font-weight: bold; /* Make the text bold */
+    text-decoration: none; /* Remove underline */
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.seller-restriction-message:hover {
+    background-color: #f5c6cb; /* Change background on hover */
 }
 
 .testimonials #owl-testimonials .item span {

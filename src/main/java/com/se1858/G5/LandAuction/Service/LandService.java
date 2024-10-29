@@ -37,6 +37,9 @@ public class LandService {
                 .price(land.getPrice())
                 .location(land.getLocation())
                 .contact(land.getContact())
+                .length(land.getLength())
+                .width(land.getWidth())
+                .square(land.getSquare())
                 .build();
     }
 
@@ -45,6 +48,9 @@ public class LandService {
         return Land.builder()
                 .landId(land.getLandId())
                 .name(land.getName())
+                .width(land.getWidth())
+                .length(land.getLength())
+                .square(land.getSquare())
                 .ward(land.getWard())
                 .province(land.getProvince())
                 .district(land.getDistrict())

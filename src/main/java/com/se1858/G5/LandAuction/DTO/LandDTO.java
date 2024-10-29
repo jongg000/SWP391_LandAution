@@ -21,4 +21,7 @@ public class LandDTO {
     private long price;
     private String contact;
     private String path;
+    private double square;
+    private double width;
+    private double length;
 }

@@ -60,8 +60,8 @@
 									</ul>
 								</div>
 							</div>
-							<div class="col-md-6">
-								<div class="right-info hidden-sm">
+							<div class="col-md-6 hidden-sm">
+								<div class="right-info">
 									<ul>
 										<li>Call us: <em>570-694-4002</em></li>
 										<li><a href="#">Get Free Appointment →</a></li>
@@ -91,7 +91,7 @@
 											<li><a href="templates/customer/listing-right.html">Sidebar Right</a></li>
 											<li><a href="templates/customer/wishlistPage.html">Sidebar Left</a></li>
 											<li><a href="listing-grid.html">Grids System</a></li>
-											<li><a href="templates/auctionDetailPage.html">Car Details</a></li>
+											<li><a href="templates/customer/auctionDetailPage.html">Car Details</a></li>
 										</ul>
 									</li>
 									<li><a href="#" class="has-submenu">Blog</a>
@@ -124,14 +124,14 @@
 					<div class="container">
 						<div class="row">
 							<div class="col-md-12 text-center">
-								<h1>Blog Posts</h1>
+								<h1>Single Post</h1>
 								<div class="line"></div>
 								<span>Praesent volutpat nisi sed imperdiet facilisis felis turpis fermentum lectus</span>
 								<div class="page-active">
 									<ul>
 										<li><a href="index.html">Home</a></li>
 										<li><i class="fa fa-dot-circle-o"></i></li>
-										<li><a href="blog-right.html">Blog Posts</a></li>
+										<li><a href="single-blog.html">Blog Post</a></li>
 									</ul>
 								</div>
 							</div>
@@ -139,180 +139,153 @@
 					</div>
 				</div>
 
-				<section class="blog-grid">
+				<section class="single-blog">
 					<div class="container">
 						<div class="row">
-							<div id="blog-posts">
-								<div class="col-md-8">
-									<div class="blog-item col-md-6">
-										<img src="assets/images/01-blog-720x545.jpg" alt="">
-										<div class="down-content">
-											<div class="post-info">
-												<ul>
-													<li>May 14, 2015</li>
-													<li>Posted by <a href="#">Admin</a></li>
-												</ul>
-												<div class="tittle">
-													<a href="single-blog.html"><h2>Retro art party vinyl meditation</h2></a>
-												</div>
+							<div id="blog-post" class="col-md-8">
+								<div class="blog-item">
+									<img src="assets/images/04-blog-770x390.jpg" alt="">
+									<div class="down-content">
+										<div class="post-info">
+											<ul>
+												<li>May 14, 2015</li>
+												<li>Posted by <a href="#">Admin</a></li>
+											</ul>
+											<div class="tittle">
+												<a href="single-blog.html"><h2>Normcore pour-over taxidermy twee</h2></a>
 											</div>
-											<p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris.</p>
-											<a href="single-blog.html">Read More</a>
 										</div>
+										<p>Phasellus hendrerit eros eget massa maximus placerat. Etiam vel est tristique, iaculis orci rhoncus, faucibus orci. Fusce pharetra augue ac blandit posuere. Duis urna neque, posuere vitae facilisis et, sodales ac eros. Donec quis congue elit. Fusce ultrices ex vitae turpis cursus, eget venenatis tellus posuere.<br><br>Pellentesque iaculis fermentum augue, volutpat lobortis ipsum pretium in. Aliquam pulvinar lorem non ex malesuada, eget ultrices eros feugiat. Morbi in sollicitudin leo.</p><h6>Nam porttitor metus vitae faucibus cursus</h6><p>Vivamus et orci ac magna elementum faucibus rutrum vitae risus. Aenean turpis mi, efficitur ac enim ac, efficitur lobortis diam. Proin tempor egestas urna, blandit vestibulum purus volutpat ut.<br><br>Ut egestas consequat urna non sagittis. Nulla ut velit nec sapien sollicitudin convallis. Duis fermentum suscipit magna a eleifend. Duis in porta ipsum, eu condimentum felis. Quisque venenatis pretium quam, et sollicitudin massa sollicitudin sed. Donec condimentum risus at mattis venenatis.</p>
+										<blockquote><em>"</em>Vivamus et orci ac magna elementum faucibus rutrum vitae risus. Aenean turpis mi, efficitur enim ac, efficitur lobortis diam. Proin tempor egestas urna, blandit.</blockquote><h6>Nam porttitor metus vitae faucibus cursus</h6><p>Mauris vitae viverra metus. In hac habitasse platea dictumst. Integer commodo sapien massa, vitae consequat turpis efficitur nec. Sed eleifend magna ornare, vulputate lectus eu, maximus diam. Etiam congue, tellus posuere tincidunt dignissim, felis ante sollicitudin ante, ac porta risus orci quis ipsum. Donec purus sem, viverra vel convallis.</p>
 									</div>
-									<div class="blog-item col-md-6">
-										<img src="assets/images/02-blog-720x545.jpg" alt="">
-										<div class="down-content">
-											<div class="post-info">
-												<ul>
-													<li>May 14, 2015</li>
-													<li>Posted by <a href="#">Admin</a></li>
-												</ul>
-												<div class="tittle">
-													<a href="single-blog.html"><h2>Normcore pour-over taxidermy twee</h2></a>
-												</div>
+								</div>
+								<div class="author-writen">
+									<img src="assets/images/authorpng.png" alt="">
+									<div class="border-button">
+										<a href="#">Share Post</a>
+									</div>
+									<span>written by</span>
+									<h4>Scott Fisher</h4>
+								</div>
+								<div class="comments">
+									<h2>3 commentson this post</h2>
+									<div class="comment-item first-comment">
+										<img src="assets/images/authorpng.png" alt="">
+										<div class="reply-button">
+											<a href="#">Reply</a>
+										</div>
+										<h4>Lydia Billiot</h4>
+										<span><i class="fa fa-clock-o"></i>2m</span>
+										<p>Mauris vitae viverra metus. In hac habitasse platea dictumst. Integer commodo sapien massa, vitae consequat turs efficitur nec. Sed eleifend magna ornare.</p>
+									</div>
+									<div class="comment-item second-comment">
+										<img src="assets/images/authorpng.png" alt="">
+										<div class="reply-button">
+											<a href="#">Reply</a>
+										</div>
+										<h4>Thomas  Perez</h4>
+										<span><i class="fa fa-clock-o"></i>44m</span>
+										<p>Mauris vitae viverra metus. In hac habitasse platea dictumst.</p>
+									</div>
+									<div class="comment-item third-comment">
+										<img src="assets/images/authorpng.png" alt="">
+										<div class="reply-button">
+											<a href="#">Reply</a>
+										</div>
+										<h4>Curtis Reid</h4>
+										<span><i class="fa fa-clock-o"></i>2m</span>
+										<p>Mauris vitae viverra metus. In hac habitasse platea dictumst. Integer commodo sapien massa.</p>
+									</div>
+								</div>
+								<div class="leave-comment">
+									<h2>Leave a comment</h2>
+									<div class="row">
+										<div class="col-md-6">
+											<input type="text" class="name" name="s" placeholder="Your Name" value="">
+										</div>
+										<div class="col-md-6">
+											<input type="text" class="name" name="s" placeholder="Your Email" value="">
+										</div>
+										<div class="col-md-12">
+											<input type="text" class="name" name="s" placeholder="Website" value="">
+										</div>
+										<div class="col-md-12">
+											<textarea id="message" class="message" name="message" placeholder="Your Message"></textarea>
+										</div>
+										<div class="col-md-12">
+											<div class="advanced-button">
+												<a href="#">Submit Now<i class="fa fa-paper-plane"></i></a>
 											</div>
-											<p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris.</p>
-											<a href="single-blog.html">Read More</a>
-										</div>
-									</div>
-									<div class="blog-item col-md-6">
-										<img src="assets/images/03-blog-720x545.jpg" alt="">
-										<div class="down-content">
-											<div class="post-info">
-												<ul>
-													<li>May 14, 2015</li>
-													<li>Posted by <a href="#">Admin</a></li>
-												</ul>
-												<div class="tittle">
-													<a href="single-blog.html"><h2>Hella kogi whatever, small batch</h2></a>
-												</div>
-											</div>
-											<p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris.</p>
-											<a href="single-blog.html">Read More</a>
-										</div>
-									</div>
-									<div class="blog-item col-md-6">
-										<img src="assets/images/04-blog-720x545.jpg" alt="">
-										<div class="down-content">
-											<div class="post-info">
-												<ul>
-													<li>May 14, 2015</li>
-													<li>Posted by <a href="#">Admin</a></li>
-												</ul>
-												<div class="tittle">
-													<a href="single-blog.html"><h2>Hella kogi whatever, small batch</h2></a>
-												</div>
-											</div>
-											<p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris.</p>
-											<a href="single-blog.html">Read More</a>
-										</div>
-									</div>
-									<div class="blog-item col-md-6">
-										<img src="assets/images/05-blog-720x545.jpg" alt="">
-										<div class="down-content">
-											<div class="post-info">
-												<ul>
-													<li>May 14, 2015</li>
-													<li>Posted by <a href="#">Admin</a></li>
-												</ul>
-												<div class="tittle">
-													<a href="single-blog.html"><h2>Retro art party vinyl meditation</h2></a>
-												</div>
-											</div>
-											<p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris.</p>
-											<a href="single-blog.html">Read More</a>
-										</div>
-									</div>
-									<div class="blog-item col-md-6">
-										<img src="assets/images/07-blog-720x545.jpg" alt="">
-										<div class="down-content">
-											<div class="post-info">
-												<ul>
-													<li>May 14, 2015</li>
-													<li>Posted by <a href="#">Admin</a></li>
-												</ul>
-												<div class="tittle">
-													<a href="single-blog.html"><h2>Normcore pour-over taxidermy twee</h2></a>
-												</div>
-											</div>
-											<p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris.</p>
-											<a href="single-blog.html">Read More</a>
-										</div>
-									</div>
-									<div class="col-md-12 text-center">
-										<div class="load-more-button">
-											<a href="#">Load more</a><i class="fa fa-spinner"></i>
 										</div>
 									</div>
 								</div>
-								<div id="side-bar" class="col-md-4">
-									<div class="search-box">
-										<input type="text" class="name" name="s" placeholder="What are you looking for?" value="">
-										<div class="simple-button">
-											<a href="#">Search</a>
-										</div>
-										<i class="fa fa-search"></i>
+							</div>
+							<div id="side-bar" class="col-md-4">
+								<div class="search-box">
+									<input type="text" class="name" name="s" placeholder="What are you looking for?" value="">
+									<div class="simple-button">
+										<a href="#">Search</a>
 									</div>
-									<div class="sidebar-widget categories">
-										<h4>Categories</h4>
+									<i class="fa fa-search"></i>
+								</div>
+								<div class="sidebar-widget categories">
+									<h4>Categories</h4>
+									<ul>
+										<li><a href="#">Branding</a></li>
+										<li><a href="#">Company News</a></li>
+										<li><a href="#">Technology</a></li>
+										<li><a href="#">Development</a></li>
+										<li><a href="#">Business</a></li>
+									</ul>
+								</div>
+								<div class="sidebar-widget latest-posts">
+									<h4>Latest Posts</h4>
+									<div class="latest-item">
+										<img src="assets/images/01-blog-50x50.jpg" alt="">
+										<a href="single-blog.html">
+											<h6>Hella Kogi Whatever</h6>
+										</a>
 										<ul>
-											<li><a href="#">Branding</a></li>
-											<li><a href="#">Company News</a></li>
-											<li><a href="#">Technology</a></li>
-											<li><a href="#">Development</a></li>
-											<li><a href="#">Business</a></li>
+											<li>24 Sep,2015</li>
+											<li>2 comments</li>
 										</ul>
 									</div>
-									<div class="sidebar-widget latest-posts">
-										<h4>Latest Posts</h4>
-										<div class="latest-item">
-											<img src="assets/images/01-blog-50x50.jpg" alt="">
-											<a href="single-blog.html">
-												<h6>Hella Kogi Whatever</h6>
-											</a>
-											<ul>
-												<li>24 Sep,2015</li>
-												<li>2 comments</li>
-											</ul>
-										</div>
-										<div class="latest-item">
-											<img src="assets/images/02-blog-50x50.jpg" alt="">
-											<a href="single-blog.html">
-												<h6>Retro Art Party</h6>
-											</a>
-											<ul>
-												<li>21 Sep,2015</li>
-												<li>2 comments</li>
-											</ul>
-										</div>
-									</div>
-									<div class="sidebar-widget recent-tweets">
-										<h4>Recent Tweets</h4>
-										<div class="recent-item first-item">
-											<i class="fa fa-twitter"></i>
-											<p><a href="#">@Maecenasa</a> sapien gravida, vehicula tellus in sag felis. Aliquam massa</p>
-											<span>37 minutes ago</span>
-										</div>
-										<div class="recent-item">
-											<i class="fa fa-twitter"></i>
-											<p><a href="#">@Maecenasa</a> sapien gravida, vehicula tellus in sag felis. Aliquam massa</p>
-											<span>37 minutes ago</span>
-										</div>
-									</div>
-									<div class="sidebar-widget tags">
-										<h4>Tags Cloud</h4>
+									<div class="latest-item">
+										<img src="assets/images/02-blog-50x50.jpg" alt="">
+										<a href="single-blog.html">
+											<h6>Retro Art Party</h6>
+										</a>
 										<ul>
-											<li><a href="#">clean</a></li>
-											<li><a href="#">minimal</a></li>
-											<li><a href="#">technology</a></li>
-											<li><a href="#">videos</a></li>
-											<li><a href="#">illustration</a></li>
-											<li><a href="#">high resolution</a></li>
-											<li><a href="#">wallpaper</a></li>
-											<li><a href="#">reviews</a></li>
+											<li>21 Sep,2015</li>
+											<li>2 comments</li>
 										</ul>
 									</div>
+								</div>
+								<div class="sidebar-widget recent-tweets">
+									<h4>Recent Tweets</h4>
+									<div class="recent-item first-item">
+										<i class="fa fa-twitter"></i>
+										<p><a href="#">@Maecenasa</a> sapien gravida, vehicula tellus in sag felis. Aliquam massa</p>
+										<span>37 minutes ago</span>
+									</div>
+									<div class="recent-item">
+										<i class="fa fa-twitter"></i>
+										<p><a href="#">@Maecenasa</a> sapien gravida, vehicula tellus in sag felis. Aliquam massa</p>
+										<span>37 minutes ago</span>
+									</div>
+								</div>
+								<div class="sidebar-widget tags">
+									<h4>Tags Cloud</h4>
+									<ul>
+										<li><a href="#">clean</a></li>
+										<li><a href="#">minimal</a></li>
+										<li><a href="#">technology</a></li>
+										<li><a href="#">videos</a></li>
+										<li><a href="#">illustration</a></li>
+										<li><a href="#">high resolution</a></li>
+										<li><a href="#">wallpaper</a></li>
+										<li><a href="#">reviews</a></li>
+									</ul>
 								</div>
 							</div>
 						</div>
@@ -478,7 +451,7 @@
 									<li><a href="templates/customer/listing-right.html">Sidebar Right</a></li>
 									<li><a href="templates/customer/wishlistPage.html">Sidebar Left</a></li>
 									<li><a href="listing-grid.html">Grids System</a></li>
-									<li><a href="templates/auctionDetailPage.html">Car Details</a></li>
+									<li><a href="templates/customer/auctionDetailPage.html">Car Details</a></li>
 								</ul>
 							</li>
 							<li class="menu-item-has-children"><a href="#">Blog</a>

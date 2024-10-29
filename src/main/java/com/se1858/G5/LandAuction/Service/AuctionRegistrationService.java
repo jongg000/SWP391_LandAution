@@ -31,14 +31,12 @@ public class AuctionRegistrationService {
                 .registrationId(auction.getRegistrationID())
                 .auctionId(auction.getAuction().getAuctionId())
                 .userId(auction.getUser().getUserId())
-                .statusId(auction.getStatus().getStatusID())
                 .build();
     }
 
     private AuctionRegistration convertToEntity(AuctionRegistrationDTO land) {
         return AuctionRegistration.builder()
                 .registrationID(land.getRegistrationId())
-                .status(statusRepository.findById(land.getStatusId()).orElse(null))
                 .auction(auctionRepository.findById(land.getAuctionId()).orElse(null))
                 .user(userRepository.findById(land.getUserId()).orElse(null))
                 .build();
@@ -64,7 +62,7 @@ public class AuctionRegistrationService {
     }
     public boolean checkAvailableAttend(int userId, int landId) {
         AssetRegistration ar = assetRegistrationRepository.findAssetRegistrationByLand_LandId(landId);
-        return ar.getUser().getUserId() != userId;
+        return ar.getUser().getUserId() == userId;
     }
 
     public boolean checkAvailableAttend(int userId){

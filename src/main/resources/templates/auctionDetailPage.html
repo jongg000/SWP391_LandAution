@@ -85,33 +85,33 @@
                 <div id="main-header" class="main-header header-sticky">
                     <div class="inner-header container clearfix">
                         <div class="logo">
-                            <a href="../../index.html"><img src="../../assets/images/logo.png" alt=""></a>
+                            <a href="../index.html"><img src="../../assets/images/logo.png" alt=""></a>
                         </div>
                         <div class="header-right-toggle pull-right hidden-md hidden-lg">
                             <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
                         </div>
                         <nav class="main-navigation text-left hidden-xs hidden-sm">
                             <ul>
-                                <li><a href="../../index.html">Home</a></li>
-                                <li><a href="../../about.html">About Us</a></li>
-                                <li><a href="../../services.html">Services</a></li>
+                                <li><a href="../index.html">Home</a></li>
+                                <li><a href="../about.html">About Us</a></li>
+                                <li><a href="../services.html">Services</a></li>
                                 <li><a href="#" class="has-submenu">Listing</a>
                                     <ul class="sub-menu">
-                                        <li><a href="listing-right.html">Sidebar Right</a></li>
-                                        <li><a href="wishlist.html">Sidebar Left</a></li>
-                                        <li><a href="../../listing-grid.html">Grids System</a></li>
-                                        <li><a href="detailPage.html">Car Details</a></li>
+                                        <li><a href="customer/listing-right.html">Sidebar Right</a></li>
+                                        <li><a href="customer/wishlistPage.html">Sidebar Left</a></li>
+                                        <li><a href="../listing-grid.html">Grids System</a></li>
+                                        <li><a href="auctionDetailPage.html">Car Details</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#" class="has-submenu">Blog</a>
                                     <ul class="sub-menu">
-                                        <li><a href="../../blog-right.html">Classic</a></li>
-                                        <li><a href="../../blog-grid.html">Grids System</a></li>
-                                        <li><a href="../../grid-right.html">Grids Sidebar</a></li>
-                                        <li><a href="../../single-blog.html">Single Post</a></li>
+                                        <li><a href="../blog-right.html">Classic</a></li>
+                                        <li><a href="../blog-grid.html">Grids System</a></li>
+                                        <li><a href="../grid-right.html">Grids Sidebar</a></li>
+                                        <li><a href="../single-blog.html">Single Post</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="../../contact.html">Contact</a></li>
+                                <li><a href="../contact.html">Contact</a></li>
                                 <li>
                                     <p><a href="#" id="example-show" class="showLink"
                                           onclick="showHide('example');return false;"><i class="fa fa-search"></i></a>
@@ -136,13 +136,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Auction details</h1>
+                            <h1>Trang chi tiết sản phẩm đấu giá</h1>
                             <div class="line"></div>
                             <div class="page-active">
                                 <ul>
-                                    <li><a href="../../index.html">Home</a></li>
+                                    <li><a href="home.html">Home</a></li>
                                     <li><i class="fa fa-dot-circle-o"></i></li>
-                                    <li><a href="listing-right.html">Auction details</a></li>
+                                    <li><a href="customer/listing-right.html">Trang sản phẩm</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -189,8 +189,8 @@
                             <div class="tab">
                                 <div class="tabs">
                                     <ul class="tab-links">
-                                        <li class="active"><a href="#tab2">description</a></li>
-                                        <li><a href="#tab3">Google maps</a></li>
+                                        <li class="active"><a href="#tab2">Mô tả</a></li>
+                                        <li><a href="#tab3">Vị trí</a></li>
                                     </ul>
                                     <div class="tab-content">
                                         <div id="tab2" class="tab active">
@@ -207,30 +207,31 @@
                             <br><br><br>
                             <div class="details">
                                 <div class="head-side-bar">
-                                    <h4>Auction Details</h4>
+                                    <h4>Chi tiết sản phẩm</h4>
                                 </div>
                                 <div class="list-info">
                                     <ul>
-                                        <li><span>Name:</span><span th:text="${land.name}"></span></li>
-                                        <li><span>Price: $</span><span th:text="${land.price}"></span></li>
-                                        <li><span>Description:</span><span th:text="${land.description}"></span></li>
-                                        <li><span>Location:</span><span th:text="${land.location}"></span></li>
-                                        <li><span>Length:</span><span th:text="${land.length}"></span></li>
-                                        <li><span>Width:</span><span th:text="${land.width}"></span></li>
-                                        <li><span>Square:</span><span th:text="${land.square}"></span></li>
-
-                                        <li><span>Start Time:</span><span th:text="${auction.startTime}"></span></li>
-                                        <li><span>End time:</span><span th:text="${auction.endTime}"></span></li>
+                                        <li><span>Sản phẩm:</span><span th:text="${land.name}"></span></li>
+                                        <li><span>Giá: </span><span th:text="${land.price}"></span></li>
+                                        <li><span>Mô tả:</span><span th:text="${land.description}"></span></li>
+                                        <li><span>Vị trí:</span><span th:text="${land.location}"></span></li>
+                                        <li><span>Chiều dài:</span><span th:text="${land.length}"></span></li>
+                                        <li><span>Chiều rộng:</span><span th:text="${land.width}"></span></li>
+                                        <li><span>Diện tích:</span><span th:text="${land.square}"></span></li>
+                                        <li><span>Thời gian bắt đầu:</span><span th:text="${auction.startTime}"></span>
+                                        </li>
+                                        <li><span>Thời gian kết thúc:</span><span th:text="${auction.endTime}"></span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="head-side-bar">
                                 <!-- Check if the user is the seller -->
                                 <div th:if="${isSeller}">
-                                    <div class="advanced-button">
-                                        <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">View
-                                            <i class="fa fa-paper-plane"></i></a>
-                                    </div>
+                                    <br><a class="seller-restriction-message">Người bán không thể tham gia buổi đấu giá
+                                    sản phẩm của mình</a>
+
+
                                 </div>
 
                                 <!-- When user is not the seller -->
@@ -238,39 +239,48 @@
 
                                     <!-- For dateCheck = upcoming -->
                                     <div th:if="${dateCheck == 'upcoming'}">
-                                        <!-- Display "Attend" or "Attended" based on the check value -->
-                                        <div th:if="${check == false}" class="advanced-button">
-                                            <a th:href="@{/auctionRegistration/save/{id}(id=${auction.auctionId})}">Attend
-                                                <i class="fa fa-paper-plane"></i></a>
+                                        <div th:if="${check == false}">
+                                            <div th:if="${isAvailable}" class="advanced-button">
+                                                <a th:href="@{/auctionRegistration/save/{id}(id=${auction.auctionId})}">
+                                                    Tham gia <i class="fa fa-paper-plane"></i>
+                                                </a>
+                                            </div>
+                                            <div th:unless="${isAvailable}">
+                                                <br><a class="seller-restriction-message">Bạn cần cập nhật thông tin cá
+                                                nhân để tham gia</a>
+                                            </div>
                                         </div>
                                         <div th:if="${check == true}">
-                                            <div class="attended-label">Attended</div>
+                                            <div class="attended-label">Đã tham gia</div>
                                         </div>
-
-                                        <!-- Show "Add to wishlist" if wishlistCheck is false -->
+                                        <br>
                                         <div th:if="${wishlistCheck == false}" class="advanced-button">
-                                            <a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Add
-                                                to wishlist</a>
+                                            <a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Thêm
+                                                vào theo dõi</a>
                                         </div>
                                     </div>
 
                                     <!-- For dateCheck = isgoingon -->
-                                    <div th:if="${dateCheck == 'isgoingon'}">
+                                    <div th:if="${dateCheck == 'is going on'}">
                                         <!-- Hide "Add to wishlist" and show View button -->
-                                        <div class="advanced-button">
-                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">View
-                                                <i class="fa fa-paper-plane"></i></a>
-                                        </div>
-                                    </div>
-
-                                    <!-- For dateCheck = ended -->
-                                    <div th:if="${dateCheck == 'ended'}">
                                         <div th:if="${check == true}" class="advanced-button">
-                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">View
+                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
+                                                tiếp
                                                 <i class="fa fa-paper-plane"></i></a>
                                         </div>
                                         <div th:if="${check == false}">
-                                            <div class="ended-label">Ended</div>
+                                            <div class="attended-label">Đang diễn ra</div>
+                                        </div>
+                                    </div>
+
+                                    <div th:if="${dateCheck == 'ended'}">
+                                        <div th:if="${check == true}" class="advanced-button">
+                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
+                                                tiếp
+                                                <i class="fa fa-paper-plane"></i></a>
+                                        </div>
+                                        <div th:if="${check == false}">
+                                            <div class="attended-label">Đã kết thúc</div>
                                         </div>
                                     </div>
 
@@ -288,32 +298,31 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="heading-section-2 text-center">
-                                <h2>Recent Vehicles</h2>
-                                <span>Vivamus gravida magna massa in cursus mi vehicula at. Nunc sem quam suscipit</span>
-                                <div class="dec"><i class="fa fa-car"></i></div>
+                                <h2>New Auction</h2>
+                                <div class="dec"></div>
                                 <div class="line-dec"></div>
                             </div>
                         </div>
                     </div>
-                    <!--						<div class="row" th:each="auctionDetail : ${auctionDetails}">&ndash;&gt;-->
-                    <!--														<div class="featured-item col-md-3">-->
-                    <!--															<img th:src="${auctionDetail.landImage.imageUrl}" alt="Image of ${auctionDetail.land1.name}" />-->
-                    <!--															<div class="down-content">-->
-                    <!--																<a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">-->
-                    <!--																	<h2 th:text="${auctionDetail.land.name}"></h2>-->
-                    <!--																</a>-->
-                    <!--																<span>$<span th:text="${auctionDetail.land.price}"></span></span>-->
-                    <!--																<div class="light-line"></div>-->
-                    <!--																<p th:text="${auctionDetail.land.description}"></p>-->
-                    <!--																<div class="car-info">-->
-                    <!--																	<ul>-->
-                    <!--																		<li>Start Time: <span th:text="${#dates.format(auctionDetail.auction.startTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
-                    <!--																		<li>End Time: <span th:text="${#dates.format(auctionDetail.auction.endTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
-                    <!--																	</ul>-->
-                    <!--																</div>-->
-                    <!--															</div>-->
-                    <!--														</div>-->
-                    <!--													</div>-->
+                    <div class="row">
+                        <div id="featured-cars">
+                            <div class="featured-item col-md-3" th:each="auctionDetail : ${auctionDetails}">
+
+                                <img th:src="${auctionDetail.Image}" alt=""/>
+
+                                <div class="down-content">
+
+                                    <a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">
+                                        <h2 th:text="${auctionDetail.land.name}"></h2>
+                                    </a>
+                                    <span th:text="${auctionDetail.land.price}"></span>
+                                    <div class="light-line"></div>
+                                    <p th:text="${auctionDetail.land.description}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -385,7 +394,7 @@
                                 <h4>Latest News</h4>
                                 <div class="latest-item">
                                     <img src="../../assets/images/01-blog-50x50.jpg" alt="">
-                                    <a href="../../single-blog.html">
+                                    <a href="../single-blog.html">
                                         <h6>Hella Kogi Whatever</h6>
                                     </a>
                                     <ul>
@@ -395,7 +404,7 @@
                                 </div>
                                 <div class="latest-item">
                                     <img src="../../assets/images/02-blog-50x50.jpg" alt="">
-                                    <a href="../../single-blog.html">
+                                    <a href="../single-blog.html">
                                         <h6>Retro Art Party</h6>
                                     </a>
                                     <ul>
@@ -469,27 +478,27 @@
             <div class="content">
                 <nav class="responsive-menu">
                     <ul>
-                        <li><a href="../../index.html">Home</a></li>
-                        <li><a href="../../about.html">About Us</a></li>
-                        <li><a href="../../services.html">Services</a></li>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../services.html">Services</a></li>
                         <li class="menu-item-has-children"><a href="#">Listing</a>
                             <ul class="sub-menu">
-                                <li><a href="listing-right.html">Sidebar Right</a></li>
-                                <li><a href="wishlist.html">Sidebar Left</a></li>
-                                <li><a href="../../listing-grid.html">Grids System</a></li>
-                                <li><a href="detailPage.html">Car Details</a></li>
+                                <li><a href="customer/listing-right.html">Sidebar Right</a></li>
+                                <li><a href="customer/wishlistPage.html">Sidebar Left</a></li>
+                                <li><a href="../listing-grid.html">Grids System</a></li>
+                                <li><a href="auctionDetailPage.html">Car Details</a></li>
                             </ul>
                         </li>
                         <li class="menu-item-has-children"><a href="#">Blog</a>
                             <ul class="sub-menu">
-                                <li><a href="../../blog-right.html">Classic</a></li>
-                                <li><a href="../../blog-grid.html">Grids System</a></li>
-                                <li><a href="../../grid-right.html">Grids Sidebar</a></li>
-                                <li><a href="../../single-blog.html">Single Post</a></li>
+                                <li><a href="../blog-right.html">Classic</a></li>
+                                <li><a href="../blog-grid.html">Grids System</a></li>
+                                <li><a href="../grid-right.html">Grids Sidebar</a></li>
+                                <li><a href="../single-blog.html">Single Post</a></li>
                             </ul>
                         </li>
-                        <li><a href="../../about.html">About</a></li>
-                        <li><a href="../../contact.html">Contact</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
                     </ul>
                 </nav>
             </div>

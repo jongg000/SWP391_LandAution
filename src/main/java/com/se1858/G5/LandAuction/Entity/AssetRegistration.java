@@ -33,7 +33,7 @@ public class AssetRegistration {
     private String reason;
 
     @ManyToOne
-    @JoinColumn(name = "UserID", nullable = false)
+    @JoinColumn(name = "UserID", nullable = true)
     private User user;
 
     @Column(nullable = true)

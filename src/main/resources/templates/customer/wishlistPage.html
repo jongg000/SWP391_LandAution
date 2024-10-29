@@ -7,9 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>Auction - Car Dealer HTML Theme</title>
-
+    <title>Wishlist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
 
@@ -17,7 +17,6 @@
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
     <link rel="stylesheet" href="../../assets/css/animate.css">
     <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="../../assets/css/flexslider.css">
     <link rel="stylesheet" href="../../assets/css/simple-line-icons.css">
     <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
     <link rel="stylesheet" href="../../assets/css/icon-font.css">
@@ -29,18 +28,7 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    <style>
-        .attended-label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #444;
-            color: #fff;
-            border: 2px solid #555;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
+
 </head>
 <body>
 
@@ -98,9 +86,9 @@
                                 <li><a href="#" class="has-submenu">Listing</a>
                                     <ul class="sub-menu">
                                         <li><a href="listing-right.html">Sidebar Right</a></li>
-                                        <li><a href="wishlist.html">Sidebar Left</a></li>
+                                        <li><a href="wishlistPage.html">Sidebar Left</a></li>
                                         <li><a href="../../listing-grid.html">Grids System</a></li>
-                                        <li><a href="detailPage.html">Car Details</a></li>
+                                        <li><a href="../auctionDetailPage.html">Car Details</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#" class="has-submenu">Blog</a>
@@ -136,13 +124,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Auction details</h1>
+                            <h1>Danh sách theo dõi</h1>
                             <div class="line"></div>
                             <div class="page-active">
                                 <ul>
-                                    <li><a href="../../index.html">Home</a></li>
+                                    <li><a href="../../home">Home</a></li>
                                     <li><i class="fa fa-dot-circle-o"></i></li>
-                                    <li><a href="listing-right.html">Auction details</a></li>
+                                    <li><a href="wishlistPage.html">Danh sách theo dõi</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -150,170 +138,140 @@
                 </div>
             </div>
 
-            <section class="car-details">
+            <section class="listing-page">
                 <div class="container">
                     <div class="row">
-                        <div id="single-car" class="col-md-8">
-                            <div class="up-content clearfix">
-                                <h2 th:text="${land.name}"></h2>
-                                <span th:text="${land.price}"></span>
+                        <!--							<div id="sidebar" class="col-md-3">-->
+                        <!--								<div class="sidebar-content">-->
+                        <!--									<div class="head-side-bar">-->
+                        <!--										<h4>Refine Your Search</h4>-->
+                        <!--									</div>-->
+                        <!--									<div class="search-form">-->
+                        <!--										<div class="select">-->
+                        <!--		                                    <select name="mark" id="make">-->
+                        <!--		                                        <option value="-1">Select Makes</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="model">-->
+                        <!--		                                        <option value="-1">Select Car Model</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="style">-->
+                        <!--		                                        <option value="-1">Select Style</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="slider-range">-->
+                        <!--		                                	<p>-->
+                        <!--										    	<input type="text" class="range" id="amount" readonly>-->
+                        <!--										    </p>-->
+                        <!--											<div id="slider-range"></div>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="types">-->
+                        <!--		                                        <option value="-1">Select Car Types</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="color">-->
+                        <!--		                                        <option value="-1">Select Color</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="advanced-button">-->
+                        <!--											<a href="listing-right.html">Search Now<i class="fa fa-search"></i></a>-->
+                        <!--										</div>-->
+                        <!--									</div>-->
+                        <!--								</div>-->
+                        <!--							-->
+                        <!--							</div>-->
+                        <div id="listing-cars" class="col-md-12">
+                            <div class="pre-featured">
+                                <div class="info-text">
+                                    <h4 th:text="${num} + ' sản phẩm'"></h4>
+                                </div>
+                                <div class="right-content">
+                                    <div class="input-select">
+                                        <select name="mark" id="mark">
+                                            <option value="-1">Sorted by</option>
+                                            <option>Price</option>
+                                            <option>Miles</option>
+                                            <option>Year</option>
+                                            <option>Near</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="flexslider">
-                                <ul class="slides">
-                                    <!-- Loop through the list of LandImageDTO objects -->
-                                    <li th:each="image : ${landImages}"
-                                        th:data-thumb="${image.imageUrl}">
-                                        <img th:src="${image.imageUrl}" alt=""/>
-                                    </li>
-                                </ul>
-                            </div>
-
-                            <!-- Include FlexSlider CSS -->
-                            <link rel="stylesheet" href="../../assets/css/flexslider.css">
-
-                            <!-- Include jQuery and FlexSlider JS -->
-                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script src="path/to/jquery.flexslider-min.js"></script>
-
-                            <script>
-                                $(document).ready(function () {
-                                    $('.flexslider').flexslider({
-                                        animation: "slide", // Choose your animation type
-                                        controlNav: true, // Show navigation controls
-                                        directionNav: true, // Show next/prev controls
-                                    });
-                                });
-                            </script>
-
-
-                            <div class="tab">
-                                <div class="tabs">
-                                    <ul class="tab-links">
-                                        <li class="active"><a href="#tab2">description</a></li>
-                                        <li><a href="#tab3">Google maps</a></li>
-                                    </ul>
-                                    <div class="tab-content">
-                                        <div id="tab2" class="tab active">
-                                            <p th:text="${land.description}"></p>
+<!--                            th:if="${wishlistDetail.dateCheck != 'ended'}"-->
+                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}" >
+                                <div class="featured-item">
+                                    <img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image"
+                                         style="width: 22%; height: 15%;"/>
+                                    <div class="right-content">
+                                        <a href="#"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
+                                        <span th:text="${'$' + wishlistDetail.land.price}"></span>
+                                        <div class="light-line"></div>
+                                        <p th:text="${wishlistDetail.land.description}"></p>
+                                        <div class="view-details">
+                                            <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}">Xem chi tiết</a>
                                         </div>
-                                        <div id="tab3" class="tab">
-                                            <!--												<a th:href="#"></a>-->
+                                        <div class="car-info">
+                                            <ul>
+                                                <li>Thời gian bắt đầu: [[${wishlistDetail.auction.startTime}]]</li>
+                                                <li>Thời gian kêt thúc: [[${wishlistDetail.auction.endTime}]]</li>
+                                                <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
+                                                    <a th:href="@{/wishlist/delete/{id}(id=${wishlistDetail.wishlist.wishlistId})}">Xóa theo dõi</a>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div id="left-info" class="col-md-4">
-                            <br><br><br>
-                            <div class="details">
-                                <div class="head-side-bar">
-                                    <h4>Auction Details</h4>
+
+                            <div class="pagination">
+                                <div class="prev">
+                                    <a th:href="@{/showWishlists(page=${currentPage - 1})}" th:if="${currentPage > 0}">
+                                        <i class="fa fa-arrow-left"></i> Trang trước
+                                    </a>
                                 </div>
-                                <div class="list-info">
+                                <div class="page-numbers">
                                     <ul>
-                                        <li><span>Name:</span><span th:text="${land.name}"></span></li>
-                                        <li><span>Price: $</span><span th:text="${land.price}"></span></li>
-                                        <li><span>Description:</span><span th:text="${land.description}"></span></li>
-                                        <li><span>Location:</span><span th:text="${land.location}"></span></li>
-                                        <li><span>Length:</span><span th:text="${land.length}"></span></li>
-                                        <li><span>Width:</span><span th:text="${land.width}"></span></li>
-                                        <li><span>Square:</span><span th:text="${land.square}"></span></li>
-
-                                        <li><span>Start Time:</span><span th:text="${auction.startTime}"></span></li>
-                                        <li><span>End time:</span><span th:text="${auction.endTime}"></span></li>
+                                        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                                            <a th:href="@{/showWishlists(page=${i})}" th:class="${i == currentPage} ? 'active' : ''">
+                                                <span th:text="${i + 1}">1</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
-                            </div>
-                            <div class="head-side-bar">
-                                <!-- Check if the user is the seller -->
-                                <div th:if="${isSeller}">
-                                    <div class="advanced-button">
-                                        <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">View
-                                            <i class="fa fa-paper-plane"></i></a>
-                                    </div>
-                                </div>
-
-                                <!-- When user is not the seller -->
-                                <div th:unless="${isSeller}">
-
-                                    <!-- For dateCheck = upcoming -->
-                                    <div th:if="${dateCheck == 'upcoming'}">
-                                        <!-- Display "Attend" or "Attended" based on the check value -->
-                                        <div th:if="${check == false}" class="advanced-button">
-                                            <a th:href="@{/auctionRegistration/save/{id}(id=${auction.auctionId})}">Attend
-                                                <i class="fa fa-paper-plane"></i></a>
-                                        </div>
-                                        <div th:if="${check == true}">
-                                            <div class="attended-label">Attended</div>
-                                        </div>
-
-                                        <!-- Show "Add to wishlist" if wishlistCheck is false -->
-                                        <div th:if="${wishlistCheck == false}" class="advanced-button">
-                                            <a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Add
-                                                to wishlist</a>
-                                        </div>
-                                    </div>
-
-                                    <!-- For dateCheck = isgoingon -->
-                                    <div th:if="${dateCheck == 'isgoingon'}">
-                                        <!-- Hide "Add to wishlist" and show View button -->
-                                        <div class="advanced-button">
-                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">View
-                                                <i class="fa fa-paper-plane"></i></a>
-                                        </div>
-                                    </div>
-
-                                    <!-- For dateCheck = ended -->
-                                    <div th:if="${dateCheck == 'ended'}">
-                                        <div th:if="${check == true}" class="advanced-button">
-                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">View
-                                                <i class="fa fa-paper-plane"></i></a>
-                                        </div>
-                                        <div th:if="${check == false}">
-                                            <div class="ended-label">Ended</div>
-                                        </div>
-                                    </div>
-
+                                <div class="next">
+                                    <a th:href="@{/showWishlists(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}">
+                                        Trang sau <i class="fa fa-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
-
-
                         </div>
-                    </div>
-                </div>
-            </section>
 
-            <section class="featured-listing">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="heading-section-2 text-center">
-                                <h2>Recent Vehicles</h2>
-                                <span>Vivamus gravida magna massa in cursus mi vehicula at. Nunc sem quam suscipit</span>
-                                <div class="dec"><i class="fa fa-car"></i></div>
-                                <div class="line-dec"></div>
-                            </div>
-                        </div>
                     </div>
-                    <!--						<div class="row" th:each="auctionDetail : ${auctionDetails}">&ndash;&gt;-->
-                    <!--														<div class="featured-item col-md-3">-->
-                    <!--															<img th:src="${auctionDetail.landImage.imageUrl}" alt="Image of ${auctionDetail.land1.name}" />-->
-                    <!--															<div class="down-content">-->
-                    <!--																<a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">-->
-                    <!--																	<h2 th:text="${auctionDetail.land.name}"></h2>-->
-                    <!--																</a>-->
-                    <!--																<span>$<span th:text="${auctionDetail.land.price}"></span></span>-->
-                    <!--																<div class="light-line"></div>-->
-                    <!--																<p th:text="${auctionDetail.land.description}"></p>-->
-                    <!--																<div class="car-info">-->
-                    <!--																	<ul>-->
-                    <!--																		<li>Start Time: <span th:text="${#dates.format(auctionDetail.auction.startTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
-                    <!--																		<li>End Time: <span th:text="${#dates.format(auctionDetail.auction.endTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
-                    <!--																	</ul>-->
-                    <!--																</div>-->
-                    <!--															</div>-->
-                    <!--														</div>-->
-                    <!--													</div>-->
                 </div>
             </section>
 
@@ -475,9 +433,9 @@
                         <li class="menu-item-has-children"><a href="#">Listing</a>
                             <ul class="sub-menu">
                                 <li><a href="listing-right.html">Sidebar Right</a></li>
-                                <li><a href="wishlist.html">Sidebar Left</a></li>
+                                <li><a href="wishlistPage.html">Sidebar Left</a></li>
                                 <li><a href="../../listing-grid.html">Grids System</a></li>
-                                <li><a href="detailPage.html">Car Details</a></li>
+                                <li><a href="../auctionDetailPage.html">Car Details</a></li>
                             </ul>
                         </li>
                         <li class="menu-item-has-children"><a href="#">Blog</a>

@@ -86,9 +86,9 @@
 								<li><a href="#" class="has-submenu">Listing</a>
 									<ul class="sub-menu">
 										<li><a href="listing-right.html">Sidebar Right</a></li>
-										<li><a href="wishlist.html">Sidebar Left</a></li>
+										<li><a href="wishlistPage.html">Sidebar Left</a></li>
 										<li><a href="../../listing-grid.html">Grids System</a></li>
-										<li><a href="detailPage.html">Car Details</a></li>
+										<li><a href="../auctionDetailPage.html">Car Details</a></li>
 									</ul>
 								</li>
 								<li><a href="#" class="has-submenu">Blog</a>
@@ -124,13 +124,13 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12 text-center">
-							<h1>Your Auction Register List</h1>
+							<h1>Danh sách tham gia</h1>
 							<div class="line"></div>
 							<div class="page-active">
 								<ul>
 									<li><a href="../../home">Home</a></li>
 									<li><i class="fa fa-dot-circle-o"></i></li>
-									<li><a href="listAuctionRegister.html">List Auction Register</a></li>
+									<li><a href="listAuctionRegister.html">Danh sách tham gia</a></li>
 								</ul>
 							</div>
 						</div>
@@ -233,16 +233,25 @@
 										<div class="light-line"></div>
 										<p th:text="${wishlistDetail.land.description}"></p>
 										<div class="view-details">
-											<a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}">View
-												Details</a>
+											<a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}">Xem chi tiết</a>
 										</div>
 										<div class="car-info">
 											<ul>
 												<li>Start Time: [[${wishlistDetail.auction.startTime}]]</li>
 												<li>End Time: [[${wishlistDetail.auction.endTime}]]</li>
 												<li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
-<!--													<a th:href="#">Bid Now</a>-->
+													<th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
+														<a>Đã kết thúc</a>
+
+													</th:block>
+													<th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
+														<a>Sắp diễn ra</a>
+													</th:block>
+													<th:block th:if="${wishlistDetail.dateCheck == 'is going on'}">
+														<a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu giá ngay</a>
+													</th:block>
 												</li>
+
 											</ul>
 										</div>
 									</div>
@@ -252,7 +261,7 @@
 							<div class="pagination">
 								<div class="prev">
 									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage - 1})}" th:if="${currentPage > 0}">
-										<i class="fa fa-arrow-left"></i> Prev
+										<i class="fa fa-arrow-left"></i> Trang trước
 									</a>
 								</div>
 								<div class="page-numbers">
@@ -266,7 +275,7 @@
 								</div>
 								<div class="next">
 									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}">
-										Next <i class="fa fa-arrow-right"></i>
+										Trang sau <i class="fa fa-arrow-right"></i>
 									</a>
 								</div>
 							</div>
@@ -434,9 +443,9 @@
 						<li class="menu-item-has-children"><a href="#">Listing</a>
 							<ul class="sub-menu">
 								<li><a href="listing-right.html">Sidebar Right</a></li>
-								<li><a href="wishlist.html">Sidebar Left</a></li>
+								<li><a href="wishlistPage.html">Sidebar Left</a></li>
 								<li><a href="../../listing-grid.html">Grids System</a></li>
-								<li><a href="detailPage.html">Car Details</a></li>
+								<li><a href="../auctionDetailPage.html">Car Details</a></li>
 							</ul>
 						</li>
 						<li class="menu-item-has-children"><a href="#">Blog</a>

@@ -61,7 +61,7 @@ public class WishlistController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", (int) Math.ceil((double) wishlists.size() / pageSize)); // Total number of pages
 
-        return "customer/wishlist";
+        return "/customer/wishlistPage";
     }
 
 
@@ -102,7 +102,7 @@ public class WishlistController {
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", (int) Math.ceil((double) wishlists.size() / pageSize)); // Tổng số trang
 
-        return "customer/wishlist";
+        return "/customer/wishlistPage";
     }
 
 

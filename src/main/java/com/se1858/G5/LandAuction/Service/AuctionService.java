@@ -34,16 +34,17 @@ public class AuctionService {
                 stream().map(this::convertToDTO).
                 collect(Collectors.toList());
     }
-    public List<AuctionDto> getTop4NewestAuctions() {
-        return auctionRepository.findTop4ByOrderByStartTimeDesc().
-                stream().map(this::convertToDTO).
-                collect(Collectors.toList());
-    }
+
 
     public AuctionDto findAuctionById(int auctionId) {
         return auctionRepository.findById(auctionId)
                 .map(this::convertToDTO)
                 .orElse(null);
+    }
+    public List<AuctionDto> getTop4NewestAuctions(){
+        return auctionRepository.findTop4ByOrderByStartTimeDesc().
+                stream().map(this::convertToDTO).
+                collect(Collectors.toList());
     }
 
     public void deleteAuction(int auctionId) {
@@ -70,8 +71,7 @@ public class AuctionService {
                 .registrationId(auction.getRegistrationID())
                 .auctionId(auction.getAuction().getAuctionId())
                 .userId(auction.getUser().getUserId())
-                .statusId(auction.getStatus().getStatusID()).
-                build();
+                .build();
     }
 
     private Auction convertToEntity(AuctionDto auctionDto) {

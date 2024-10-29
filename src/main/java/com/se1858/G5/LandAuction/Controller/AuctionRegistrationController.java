@@ -79,7 +79,6 @@ public class AuctionRegistrationController {
         AuctionRegistrationDTO wishlistDTO = AuctionRegistrationDTO.builder()
                 .userId(userId)
                 .auctionId(id)
-                .statusId(1)
                 .build();
         auctionRegistrationService.save(wishlistDTO);
         return "redirect:/auctionRegistration/showAuctionRegistrationPage";

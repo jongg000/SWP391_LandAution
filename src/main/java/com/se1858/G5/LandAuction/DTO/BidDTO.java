@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class BidDTO {
+    private int bidId;
     private long bidAmount;
     private java.time.LocalDateTime bidTime;
     private int registrationId;

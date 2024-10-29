@@ -78,7 +78,17 @@ public class AuctionController {
         } else {
             dateCheck = "is going on";
         }
-        List<Map<String, Object>> auctionDetails = getTop4AuctionDetails();
+        List<AuctionDto> auctionDtos = auctionService.getTop4NewestAuctions();
+        List<Map<String, Object>> auctionDetails = new ArrayList<>();
+        for (AuctionDto a : auctionDtos) {
+            Map<String, Object> details = new HashMap<>();
+            LandDTO l = landService.findLandById(a.getLandId());
+            List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(a.getLandId());
+            details.put("auction", a);
+            details.put("land", l);
+            details.put("Image", landImageList.get(0).getImageUrl());
+            auctionDetails.add(details);
+        }
         model.addAttribute("auctionDetails", auctionDetails);
         model.addAttribute("isAvailable",isAvailable);
         model.addAttribute("isSeller",isSeller);
@@ -89,26 +99,8 @@ public class AuctionController {
         model.addAttribute("userCheck", check);
         model.addAttribute("wishlistCheck", wishCheck);
         model.addAttribute("dateCheck", dateCheck);
-        return "customer/detailPage";
+        return "customer/auctionDetailPage";
     }
-    private List<Map<String, Object>> getTop4AuctionDetails() {
-        List<AuctionDto> auctionDtos = auctionService.getTop4NewestAuctions();
-        List<Map<String, Object>> auctionDetails = new ArrayList<>();
 
-        for (AuctionDto auctionDto : auctionDtos) {
-            Map<String, Object> details = new HashMap<>();
-            LandDTO landDTO = landService.findLandById(auctionDto.getLandId());
-            List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auctionDto.getLandId());
-
-            details.put("auction", auctionDto);
-            details.put("land", landDTO);
-            if (!landImageList.isEmpty()) {
-                details.put("landImage", landImageList.get(0).getImageUrl());
-            }
-            auctionDetails.add(details);
-        }
-
-        return auctionDetails;
-    }
 }
 

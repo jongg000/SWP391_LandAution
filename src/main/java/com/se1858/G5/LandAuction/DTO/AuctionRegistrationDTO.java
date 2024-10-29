@@ -13,5 +13,4 @@ public class AuctionRegistrationDTO {
     private int registrationId;
     private int auctionId;
     private int userId;
-    private int statusId;
 }
