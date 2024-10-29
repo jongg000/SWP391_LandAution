@@ -37,7 +37,6 @@ public class User  {
 
     private String avatar;
 
-
     @Column(name = "refund_money", nullable = false, columnDefinition = "NUMERIC(19,0) DEFAULT 0")
     private BigDecimal refundMoney = BigDecimal.ZERO;
 

@@ -1,38 +1,731 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!--[if IE 9]>
+<html xmlns:th="http://www.thymeleaf.org">
+<![endif]-->
+<html lang="en-US">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Auction - Car Dealer HTML Theme</title>
+
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+
+
+
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
+    <!-- <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/icon-font.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <link rel="stylesheet" href="/assets/css/auction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
 </head>
-<body class="bg-gray-100">
-<header class="bg-white shadow">
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-        <h1 class="text-2xl font-bold text-blue-600">Land Auction</h1>
-        <nav class="space-x-4">
-            <!-- Nếu người dùng đã đăng nhập -->
-            <div th:if="${#httpServletRequest.remoteUser != null}">
-                <!-- Bọc lời chào trong thẻ <a> để nhảy tới trang profile -->
-                <a href="/profile" class="text-lg font-bold hover:text-blue-600">
-                    <i class="fas fa-user-circle fa-2x"></i> <!-- Icon người dùng -->
-                </a>
-                <a href="/logout" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700"> Đăng xuất</a>
+
+<body>
+
+<div class="sidebar-menu-container" id="sidebar-menu-container">
+
+    <div class="sidebar-menu-push">
+
+        <div class="sidebar-menu-overlay"></div>
+
+        <div class="sidebar-menu-inner">
+            <header class="site-header">
+                <div id="main-header" class="main-header header-sticky">
+                    <div class="inner-header container clearfix">
+                        <div class="logo">
+                            <a href="index.html"><img src="/assets/images/estate-logo%20(1).png" alt=""></a>
+                        </div>
+                        <div class="header-right-toggle pull-right hidden-md hidden-lg">
+                            <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <nav class="main-navigation text-left hidden-xs hidden-sm">
+                            <ul>
+                                <li><a href="index.html">Trang chủ</a></li>
+                                <li><a href="about.html">Về chúng tôi</a></li>
+                                <li><a href="services.html">Dịch vụ</a></li>
+                                <li><a href="#" class="has-submenu">Đấu giá</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="listing-right.html">Thanh bên phải</a></li>
+                                        <li><a href="listing-left.html">Thanh bên trái</a></li>
+                                        <li><a href="listing-grid.html">Hệ thống lưới</a></li>
+                                        <li><a href="single-list.html">Chi tiết lô đất</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#" class="has-submenu">Tin tức</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="blog-right.html">Cổ điển</a></li>
+                                        <li><a href="blog-grid.html">Hệ thống lưới</a></li>
+                                        <li><a href="grid-right.html">Lưới với thanh bên</a></li>
+                                        <li><a href="single-blog.html">Bài viết đơn</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Liên hệ</a></li>
+                                <li>
+                                    <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
+                                    <div id="example" class="more">
+                                        <form method="get" id="blog-search" class="blog-search">
+                                            <input type="text" class="blog-search-field" name="s" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                        </form>
+                                        <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
+
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </header>
+
+
+
+            <div class="slider">
+                <div class="fullwidthbanner-container">
+                    <div class="fullwidthbanner">
+                        <ul>
+                            <li class="first-slide" data-transition="fade" data-slotamount="10" data-masterspeed="300">
+                                <!-- Ảnh   -->
+                                <img src="/assets/images/fast.png" data-fullwidthcentering="on" alt="slide">
+                                <!--  -->
+                                <div class="tp-caption first-line lft tp-resizeme start" data-x="center" data-hoffset="0" data-y="160" data-speed="1000" data-start="200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Đấu Giá Đất Nền</div>
+                                <div class="tp-caption second-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="210" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Nền tảng tốt nhất để đầu tư đất</div>
+                                <div class="tp-caption third-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="280" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Chúng tôi hỗ trợ và <em>giúp đỡ</em> các thành viên của nhiều nhóm đầu tư đất</div>
+                                <div class="tp-caption slider-thumb sfb tp-resizeme start container hidden-xs hidden-sm" data-x="center" data-hoffset="0" data-y="460" data-speed="1000" data-start="2200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>500 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nền trung tâm</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Cơ hội phát triển thương mại.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>300 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nông nghiệp</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Phù hợp cho nông nghiệp hoặc nhà ở.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>450 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nhà ở</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Thích hợp cho nhà sang trọng.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="first-slide" data-transition="fade" data-slotamount="10" data-masterspeed="300">
+                                <!-- Ảnh  -->
+                                <img src="/assets/images/safe.jpg" data-fullwidthcentering="on" alt="slide">
+                                <!--  -->
+                                <div class="tp-caption first-line lft tp-resizeme start" data-x="center" data-hoffset="0" data-y="160" data-speed="1000" data-start="200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Chào mừng đến với Đấu Giá Đất</div>
+                                <div class="tp-caption second-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="210" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Tìm tài sản lý tưởng của bạn</div>
+                                <div class="tp-caption third-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="280" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Truy cập trang <em>Danh sách đất</em> để xem tất cả tài sản</div>
+                                <div class="tp-caption slider-thumb sfb tp-resizeme start container hidden-xs hidden-sm" data-x="center" data-hoffset="0" data-y="460" data-speed="1000" data-start="2200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>500 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nền trung tâm</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Phù hợp phát triển thương mại.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>300 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nông nghiệp</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Phù hợp nông nghiệp hoặc nhà ở.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>450 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nhà ở</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Thích hợp cho nhà sang trọng.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="first-slide" data-transition="fade" data-slotamount="10" data-masterspeed="300">
+                                <img src="/assets/images/Trust_Worthy.png" data-fullwidthcentering="on" alt="slide">
+                                <div class="tp-caption first-line lft tp-resizeme start" data-x="center" data-hoffset="0" data-y="160" data-speed="1000" data-start="200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Nhiều cơ hội hơn</div>
+                                <div class="tp-caption second-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="210" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Đăng bán tài sản của bạn</div>
+                                <div class="tp-caption third-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="280" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Tìm cơ hội tốt trên trang <em>danh sách gần đây</em></div>
+                                <div class="tp-caption slider-thumb sfb tp-resizeme start container hidden-xs hidden-sm" data-x="center" data-hoffset="0" data-y="460" data-speed="1000" data-start="2200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>500 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nền trung tâm</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Phù hợp phát triển thương mại.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>300 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nông nghiệp</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Phù hợp nông nghiệp hoặc nhà ở.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <a href="single-list.html">
+                                            <div class="thumb-item">
+                                                <div class="top-content">
+                                                    <span>450 triệu</span>
+                                                    <div class="span-bg"></div>
+                                                    <h2>Đất nhà ở</h2>
+                                                </div>
+                                                <div class="down-content">
+                                                    <p>Thích hợp cho nhà sang trọng.</p>
+                                                    <img src="/assets/images/01-featured-50x50.jpg" alt="">
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
 
-            <!-- Nếu người dùng chưa đăng nhập -->
-            <div th:if="${#httpServletRequest.remoteUser == null}">
-                <a href="/login" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"> Đăng nhập</a>
-                <a href="/register" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700"> Đăng ký</a>
+
+
+            <div id="cta-1">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p>Chủ sở hữu các lô đất đấu giá sẽ gặp một số vấn đề đặc thù.</p>
+                            <div class="advanced-button" style="width: auto;" >
+                                <a href="listing-right.html">Xem tất cả lô đất<i class="bi bi-map"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </nav>
+
+
+            <section class="why-us">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="left-content">
+                                <div class="heading-section">
+                                    <h2>Tại sao chọn chúng tôi?</h2>
+                                    <span>Chúng tôi cam kết mang đến các cơ hội đầu tư đất nền tốt nhất và dịch vụ chuyên nghiệp.</span>
+                                    <div class="line-dec"></div>
+                                </div>
+                                <div class="services">
+                                    <div class="col-md-6">
+                                        <div class="service-item">
+                                            <i class="bi bi-graph-up"></i> <!-- Icon biểu đồ tăng trưởng -->
+                                            <div class="tittle">
+                                                <h2>Kết quả rõ ràng</h2>
+                                            </div>
+                                            <p>Chúng tôi cung cấp thông tin minh bạch và chi tiết về từng lô đất.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="service-item">
+                                            <i class="bi bi-house-door"></i> <!-- Icon ngôi nhà -->
+                                            <div class="tittle">
+                                                <h2>Nâng cấp trải nghiệm</h2>
+                                            </div>
+                                            <p>Dịch vụ của chúng tôi liên tục được cải thiện để đáp ứng nhu cầu của nhà đầu tư.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="service-item second-row">
+                                            <i class="bi bi-people"></i> <!-- Icon người dùng -->
+                                            <div class="tittle">
+                                                <h2>Người bán uy tín</h2>
+                                            </div>
+                                            <p>Chúng tôi chỉ hợp tác với những người bán đáng tin cậy và có uy tín.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="service-item second-row last-service">
+                                            <i class="bi bi-speedometer2"></i> <!-- Icon đồng hồ tốc độ -->
+                                            <div class="tittle">
+                                                <h2>Dịch vụ nhanh chóng</h2>
+                                            </div>
+                                            <p>Chúng tôi đảm bảo quy trình đấu giá nhanh chóng và thuận tiện cho khách hàng.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="right-img">
+                                <img src="/assets/images/feature-image.jpg" alt="Đất đấu giá">
+                                <div class="img-bg"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+
+            <section class="featured-listing">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading-section-2 text-center">
+                                <h2>Danh sách lô đất nổi bật</h2>
+                                <span>Khám phá những cơ hội đầu tư đất nền tuyệt vời.</span>
+                                <div class="dec"><i class="fa fa-car"></i></div>
+                                <div class="line-dec"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="featured-cars">
+                            <!--                                <div class="featured-item col-md-15 col-sm-6">-->
+                            <!--                                    <img src="assets/images/01-featured.jpg" alt="">-->
+                            <!--                                    <div class="down-content">-->
+                            <!--                                        <a href="single-list.html">-->
+                            <!--                                            <h2>Đất trung tâm Mercedes</h2>-->
+                            <!--                                        </a>-->
+                            <!--                                        <span>500 triệu</span>-->
+                            <!--                                        <div class="light-line"></div>-->
+                            <!--                                        <p>Vị trí đắc địa, tiềm năng phát triển, cơ hội đầu tư hấp dẫn.</p>-->
+                            <!--                                        <div class="car-info">-->
+                            <!--                                            <ul>-->
+                            <!--                                                <li><i class="icon-gaspump"></i>Thương mại</li>-->
+                            <!--                                                <li><i class="icon-car"></i>Trung tâm</li>-->
+                            <!--                                                <li><i class="icon-road2"></i>1000 m²</li>-->
+                            <!--                                            </ul>-->
+                            <!--                                        </div>-->
+                            <!--                                    </div>-->
+                            <!--                                </div>-->
+
+                            <div th:each="item : ${LIST_LAND}" class="featured-item col-md-15 col-sm-6">
+                                <!-- Hình ảnh -->
+                                <img th:src="${item.imageNames == null ? '../assets/images/01-featured-50x50' : '../assets/images/' + item.imageUrls.split(',')[0]} +'.jpg'" alt="" style="width: 100%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">
+
+                                <!-- Nội dung -->
+                                <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
+                                    <a href="single-list.html">
+                                        <h2 th:text="${item.name}" style="font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
+                                    </a>
+                                    <span th:text="${item.price + ' $'}" style="font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
+                                    <div class="light-line1" style="width: 40px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
+                                    <p th:text="${item.description}" style="margin-top: 10px; margin-bottom: 20px;"></p>
+
+                                    <!-- Thời gian -->
+                                    <div style="margin-bottom: 15px;">
+                                        <div style="margin-bottom: 5px;">
+                                            <strong style="color: #f4c23d;">Bắt đầu: </strong>
+                                            <span th:text="${#temporals.format(item.startTime, 'yyyy-MM-dd HH:mm')}" style="color: #222; padding: 2px 5px;"></span>
+                                        </div>
+                                        <div style="margin-bottom: 5px;">
+                                            <strong style="color: #f4c23d;">Kết thúc: </strong>
+                                            <span th:text="${#temporals.format(item.endTime, 'yyyy-MM-dd HH:mm')}" style="color: #222; padding: 2px 5px;"></span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Trạng thái -->
+                                    <div>
+                                        <strong style="color: #f4c23d;">Trạng thái: </strong>
+                                        <span th:text="${item.statusId}" style="color: #222;"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </section>
+
+            <section class="blog-news">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading-section-2 text-center">
+                                <h2>Tin Tức Blog</h2>
+                                <span>Cập nhật những thông tin mới nhất về bất động sản và đầu tư đất nền.</span>
+                                <div class="dec"><i class="fa fa-file"></i></div>
+                                <div class="line-dec"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="left-video">
+                                <img src="/assets/images/01-blog-570x400.jpg" alt="">
+                                <div class="video-content">
+                                    <div class="inner-content">
+                                        <i class="fa fa-play"></i>
+                                        <div class="tittle">
+                                            <a href="single-blog.html">
+                                                <h2>Tổng quan về thị trường bất động sản</h2>
+                                            </a>
+                                            <ul>
+                                                <li>14 Tháng 5, 2015</li>
+                                                <li>Đăng bởi <a href="#">Admin</a></li>
+                                                <li>2 Bình luận</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="blog-item">
+                                <div class="up-content">
+                                    <ul>
+                                        <li>14 Tháng 5, 2015</li>
+                                        <li>Đăng bởi <a href="#">Admin</a></li>
+                                    </ul>
+                                    <div class="tittle">
+                                        <a href="single-blog.html">
+                                            <h2>Những cơ hội đầu tư đất tiềm năng</h2>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris iaculis blandit. Nulla facilisi. Quisque blandit magna nec.</p>
+                                <a href="single-blog.html">Xem Thêm</a>
+                            </div>
+                            <div class="blog-item">
+                                <div class="up-content">
+                                    <ul>
+                                        <li>14 Tháng 5, 2015</li>
+                                        <li>Đăng bởi <a href="#">Admin</a></li>
+                                    </ul>
+                                    <div class="tittle">
+                                        <a href="single-blog.html">
+                                            <h2>Cách chọn lô đất phù hợp để đầu tư</h2>
+                                        </a>
+                                    </div>
+                                </div>
+                                <p>Praesent mollis at odio in aliquam. Morbi sit amet enim ante. Phasellus commodo urna sed laoreet mauris iaculis blandit. Nulla facilisi. Quisque blandit magna nec.</p>
+                                <a href="single-blog.html">Xem Thêm</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <section class="clients">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading-section-2 text-center">
+                                <h2>Đơn Vị Hợp Tác</h2>
+                                <span>Chúng tôi tự hào hợp tác với các tổ chức uy tín trong lĩnh vực đấu giá đất và bất động sản.</span>
+                                <div class="line-dec"></div>
+                            </div>
+                            <div id="owl-demo">
+                                <div class="item">
+                                    <img src="/assets/images/client-1.png" alt="Đơn vị hợp tác 1">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-2.png" alt="Đơn vị hợp tác 2">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-3.png" alt="Đơn vị hợp tác 3">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-4.png" alt="Đơn vị hợp tác 4">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-5.png" alt="Đơn vị hợp tác 5">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-6.png" alt="Đơn vị hợp tác 6">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-3.png" alt="Đơn vị hợp tác 7">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-2.png" alt="Đơn vị hợp tác 8">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-1.png" alt="Đơn vị hợp tác 9">
+                                </div>
+                                <div class="item">
+                                    <img src="/assets/images/client-4.png" alt="Đơn vị hợp tác 10">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!--  -->
+            <div id="cta-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12">
+                            <div class="left-content">
+                                <h2>Đăng ký nhận thông tin đấu giá</h2>
+                                <form method="get" id="subscribe" class="blog-search">
+                                    <input type="text" class="blog-search-field" name="s" placeholder="Địa chỉ email" value="">
+                                    <div class="simple-button">
+                                        <a href="#">Đăng ký</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <div class="right-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="about-us">
+                                <img src="/assets/images/logo-2.png" alt="">
+                                <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
+                                <ul>
+                                    <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
+                                    <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
+                                    <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="featured-links">
+                                <h4>Liên kết nổi bật</h4>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Trang chủ</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Đất mới đấu giá</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Tính năng</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Khuyến mãi</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Liên hệ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="latest-news">
+                                <h4>Tin tức mới nhất</h4>
+                                <div class="latest-item">
+                                    <img src="/assets/images/01-blog-50x50.jpg" alt="">
+                                    <a href="single-blog.html">
+                                        <h6>Đấu giá đất nền khu đô thị</h6>
+                                    </a>
+                                    <ul>
+                                        <li>24 Tháng 9, 2023</li>
+                                        <li>2 bình luận</li>
+                                    </ul>
+                                </div>
+                                <div class="latest-item">
+                                    <img src="/assets/images/02-blog-50x50.jpg" alt="">
+                                    <a href="single-blog.html">
+                                        <h6>Cơ hội đầu tư đất ven biển</h6>
+                                    </a>
+                                    <ul>
+                                        <li>21 Tháng 9, 2023</li>
+                                        <li>2 bình luận</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="gallery">
+                                <h4>Thư viện</h4>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/01-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/02-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/03-featured-slide-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/04-featured-slide-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/05-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/02-featured-slide-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/07-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/08-blog-50x50.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <div id="sub-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <p>Bản quyền 2023 <em>Đấu Giá Đất</em>. Phát triển bởi Nhóm Robert</p>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <ul>
+                                <li><a href="#">Trang chủ</a></li>
+                                <li><a href="#">Về chúng tôi</a></li>
+                                <li><a href="#">Dịch vụ</a></li>
+                                <li><a href="#">Cửa hàng</a></li>
+                                <li><a href="#">Trang</a></li>
+                                <li><a href="#">Liên hệ</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+
+        </div>
 
     </div>
-</header>
 
-<main class="container mx-auto mt-10">
-    <h2 class="text-3xl font-bold text-center mb-5">Welcome to Land Auction</h2>
-    <p class="text-center text-gray-700">Here you can find the best properties for your needs.</p>
-</main>
+    <nav class="sidebar-menu slide-from-left">
+        <div class="nano">
+            <div class="content">
+                <nav class="responsive-menu">
+                    <ul>
+                        <li><a href="index.html">Trang chủ</a></li>
+                        <li><a href="about.html">Về chúng tôi</a></li>
+                        <li><a href="services.html">Dịch vụ</a></li>
+                        <li class="menu-item-has-children"><a href="#">Danh sách</a>
+                            <ul class="sub-menu">
+                                <li><a href="listing-right.html">Sidebar Phải</a></li>
+                                <li><a href="listing-left.html">Sidebar Trái</a></li>
+                                <li><a href="listing-grid.html">Hệ thống lưới</a></li>
+                                <li><a href="single-list.html">Chi tiết đất đấu giá</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children"><a href="#">Blog</a>
+                            <ul class="sub-menu">
+                                <li><a href="blog-right.html">Cổ điển</a></li>
+                                <li><a href="blog-grid.html">Hệ thống lưới</a></li>
+                                <li><a href="grid-right.html">Lưới với Sidebar</a></li>
+                                <li><a href="single-blog.html">Bài đăng đơn</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="about.html">Về chúng tôi</a></li>
+                        <li><a href="contact.html">Liên hệ</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </nav>
+
+    <!--  -->
+
+
+
+    <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+    <script src="/assets/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+    <script src="/assets/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+    <script type="text/javascript" src="/assets/js/plugins.js"></script>
+    <script type="text/javascript" src="/assets/js/custom.js"></script>
+</div>
 </body>
+
 </html>

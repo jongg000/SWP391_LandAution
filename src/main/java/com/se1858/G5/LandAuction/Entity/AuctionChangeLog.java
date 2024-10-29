@@ -3,6 +3,9 @@ package com.se1858.G5.LandAuction.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Data
@@ -25,7 +28,7 @@ public class AuctionChangeLog {
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String action_type;
 
-    private Date change_time;
+    private LocalDateTime change_time;
 
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;

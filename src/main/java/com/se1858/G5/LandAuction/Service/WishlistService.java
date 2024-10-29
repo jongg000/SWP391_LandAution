@@ -31,6 +31,9 @@ public class WishlistService {
 
 
 
+    public boolean checkExistAuctionInWishlist(int userId, int auctionId) {
+        return wishlistRepository.existsByUser_UserIdAndAuction_AuctionId(userId, auctionId);
+    }
 
     public void saveWishlist(WishlistDTO wishlistRequest) {
         Wishlist wishlist = convertToEntity(wishlistRequest);

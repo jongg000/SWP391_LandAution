@@ -50,7 +50,7 @@ public class AssetController {
                 Land land = new Land(user.getPhoneNumber(),
                 landDTO.getPrice(),
                 landDTO.getDescription() , landDTO.getLocation(),
-                user, landDTO.getLandName(), landDTO.getWard(),
+                user, landDTO.getName(), landDTO.getWard(),
                 landDTO.getDistrict(), landDTO.getProvince(),landDTO.getSquare());
         UploadFile uploadFile = new UploadFile();
         uploadFile.upLoadDocumentAsset(document, land);
