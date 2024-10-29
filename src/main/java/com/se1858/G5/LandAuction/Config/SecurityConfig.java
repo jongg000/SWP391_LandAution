@@ -30,6 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
+                .antMatchers("/", "/home", "/forgot-password", "/reset-password**", "/assets/**", "/css/**", "/js/**").permitAll() // Cho phép truy cập công khai vào tài nguyên tĩnh
+                .antMatchers("/login", "/register").permitAll()
+                .antMatchers("/customer/profile/**", "/customer/change-password/**", "/customer/edit-profile/**","/customer/display/**").hasRole("CUSTOMER")
+                .antMatchers("/admin/manage-account/**", "/admin/dashboard/**", "/admin/create-account/**").hasRole("ADMIN")
                 .antMatchers("/", "/home", "/forgot-password", "/reset-password**", "/css/**", "/js/**", "/assets/**").permitAll()
                 .antMatchers("/login", "/register","/auctionDetailPage").permitAll()
                 .antMatchers("/customer/profile/**").hasRole("CUSTOMER")

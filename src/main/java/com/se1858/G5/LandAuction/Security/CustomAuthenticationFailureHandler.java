@@ -21,9 +21,9 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         String error = null;
 
         if (exception instanceof UsernameNotFoundException) {
-            error = "Password or Email is wrong";
+            error = "Email của bạn chưa chính xác hoặc không tồn tại";
         } else {
-            error = "Password or Email is wrong";
+            error = "Mật khẩu của bạn chưa chính xác";
         }
         // Đưa lỗi vào session
         request.getSession().setAttribute("loginError", error);

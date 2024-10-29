@@ -1,4 +1,3 @@
-
 package com.se1858.G5.LandAuction.Security;
 
 import com.se1858.G5.LandAuction.Entity.User;
@@ -17,6 +16,8 @@ import java.util.Set;
 
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+
     private final UserRepository userRepository;
 
     public CustomAuthenticationSuccessHandler(UserRepository userRepository) {
@@ -25,7 +26,10 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+        // Lưu thông tin người dùng vào session
         HttpSession session = request.getSession();
+        session.setAttribute("username", authentication.getName()); // Lưu tên người dùng vào session
+        // Redirect theo vai trò
         session.setAttribute("username", authentication.getName());
         User user = userRepository.findByEmail(authentication.getName());
         session.setAttribute("id", user.getUserId());

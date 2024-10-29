@@ -25,6 +25,7 @@ public class Land {
     private String ward;
     @Column(columnDefinition = "NVARCHAR(255)")
     private String name;
+
     @ManyToOne
     @JoinColumn( nullable = false)
     private User user;
@@ -76,3 +77,4 @@ public class Land {
     }
 
 }
+

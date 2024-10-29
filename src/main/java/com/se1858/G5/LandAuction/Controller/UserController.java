@@ -5,6 +5,7 @@ import com.se1858.G5.LandAuction.DTO.ProfileDTO;
 import com.se1858.G5.LandAuction.DTO.UserRegisterDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
+import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,6 @@ public class UserController {
     PasswordEncoder passwordEncoder;
     UserRepository userRepository;
     RolesRepository roleRepository;
-    private static final String UPLOAD_DIR = "src/main/resources/static/images/";
     private final StatusRepository statusRepository;
 
     @GetMapping("/register")
@@ -132,12 +132,21 @@ public class UserController {
         // Kiểm tra mật khẩu hiện tại có đúng không
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
             model.addAttribute("error", "Mật khẩu hiện tại không đúng.");
+            model.addAttribute("user", user);
+            return "customer/change-password";
+        }
+
+        // Kiểm tra nếu mật khẩu mới giống với mật khẩu hiện tại
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            model.addAttribute("error", "Mật khẩu mới không được giống mật khẩu hiện tại.");
+            model.addAttribute("user", user);
             return "customer/change-password";
         }
 
         // Kiểm tra xem mật khẩu mới có khớp với xác nhận mật khẩu không
         if (!newPassword.equals(confirmPassword)) {
             model.addAttribute("error", "Mật khẩu mới và xác nhận không khớp.");
+            model.addAttribute("user", user);
             return "customer/change-password";
         }
 
@@ -145,15 +154,16 @@ public class UserController {
         user.setPassword(passwordEncoder.encode(newPassword));
         userService.save(user);
 
-        model.addAttribute("success", "Password changed successfully.");
+        model.addAttribute("success", "Mật khẩu đã được cập nhập.");
+        model.addAttribute("user", user);
         return "customer/change-password";
     }
+
 
     @GetMapping("/profile/edit")
     public String editProfile(Model model, Principal principal) {
         String email = principal.getName();
         User user = userService.findByEmail(email);
-
         model.addAttribute("user", user);
         return "customer/edit-profile"; // Trả về trang cập nhật thông tin
     }
@@ -166,41 +176,45 @@ public class UserController {
         String email = principal.getName();
         User user = userService.findByEmail(email);
 
-        // Cập nhật thông tin cá nhân
+        // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
         user.setLastName(userProfileDTO.getLastName());
         user.setPhoneNumber(userProfileDTO.getPhoneNumber());
         user.setAddress(userProfileDTO.getAddress());
         user.setDob(userProfileDTO.getDob());
+        user.setGender(userProfileDTO.getGender());
 
-        // Lưu avatar nếu có
+        // Only check for existing National ID if it's different
+        if (!user.getNationalID().equals(userProfileDTO.getNationalID()) &&
+                userService.existsByNationalID(userProfileDTO.getNationalID())) {
+            model.addAttribute("error", "Số CMND đã tồn tại.");
+            model.addAttribute("user", user);
+            return "customer/edit-profile";
+        }
+        user.setNationalID(userProfileDTO.getNationalID());
+
+        UploadFile uploadFile = new UploadFile();
+
+        // Save avatar if present
         if (userProfileDTO.getAvatar() != null && !userProfileDTO.getAvatar().isEmpty()) {
-            String avatarFileName = saveFile(userProfileDTO.getAvatar());
-            user.setAvatar(avatarFileName);
+            uploadFile.upLoadDocumentAvata(userProfileDTO.getAvatar(), user);
         }
 
-        // Lưu hình ảnh CMND nếu có
+        // Save ID images if present
         if (userProfileDTO.getNationalFrontImage() != null && !userProfileDTO.getNationalFrontImage().isEmpty()) {
-            String frontImageFileName = saveFile(userProfileDTO.getNationalFrontImage());
-            user.setNationalFrontImage(frontImageFileName);
+            uploadFile.UploadImagesNationalF(userProfileDTO.getNationalFrontImage(), user);
         }
-
         if (userProfileDTO.getNationalBackImage() != null && !userProfileDTO.getNationalBackImage().isEmpty()) {
-            String backImageFileName = saveFile(userProfileDTO.getNationalBackImage());
-            user.setNationalBackImage(backImageFileName);
+            uploadFile.UploadImagesNationalB(userProfileDTO.getNationalBackImage(), user);
         }
 
-        // Lưu thông tin đã cập nhật vào database
+        // Save updated user information to the database
         userService.save(user);
+
         model.addAttribute("success", "Cập nhật thông tin cá nhân thành công.");
-        return "redirect:/customer/profile";
+        model.addAttribute("user", user);
+        return "customer/edit-profile";
     }
-    private String saveFile(MultipartFile file) throws IOException {
-        // Tạo tên file ngẫu nhiên để tránh trùng lặp
-        String fileName = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
-        Path path = Paths.get(UPLOAD_DIR + fileName);
-        Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-        return "/images/" + fileName; // Đường dẫn trả về cho frontend
-    }
+
 
 }

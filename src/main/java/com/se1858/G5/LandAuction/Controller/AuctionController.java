@@ -99,7 +99,7 @@ public class AuctionController {
         model.addAttribute("userCheck", check);
         model.addAttribute("wishlistCheck", wishCheck);
         model.addAttribute("dateCheck", dateCheck);
-        return "customer/auctionDetailPage";
+        return "auctionDetailPage";
     }
 
 }

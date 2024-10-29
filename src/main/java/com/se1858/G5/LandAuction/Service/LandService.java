@@ -27,7 +27,6 @@ public class LandService {
 
     private LandDTO convertToDTO(Land land) {
         return LandDTO.builder()
-                .landId(land.getLandId())
                 .name(land.getName())
                 .ward(land.getWard())
                 .district(land.getDistrict())
@@ -46,7 +45,6 @@ public class LandService {
 
     private Land convertToEntity(LandDTO land) {
         return Land.builder()
-                .landId(land.getLandId())
                 .name(land.getName())
                 .width(land.getWidth())
                 .length(land.getLength())
@@ -78,6 +76,9 @@ public class LandService {
     }
 
 
+    public void save(Land land){
+        landRepository.save(land);
+    }
 
 
     public void saveLand(LandDTO wishlistRequest) {

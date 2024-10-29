@@ -9,8 +9,10 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Roles")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Roles {

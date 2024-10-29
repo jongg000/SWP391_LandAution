@@ -1,27 +1,31 @@
 package com.se1858.G5.LandAuction.DTO;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.se1858.G5.LandAuction.Entity.LandImage;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Data
-@Builder
+import java.time.LocalDateTime;
+import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
 public class LandDTO {
-    private int landId;
-    private String description;
     private String name;
     private String province;
     private String district;
     private String ward;
     private int userId;
     private String location;
+    private String description;
     private long price;
     private String contact;
-    private String path;
+    private MultipartFile document;
+    private List<MultipartFile> images;
+    private LandImage landImage;
     private double square;
     private double width;
     private double length;
+    private LocalDateTime createdAt;
 }
