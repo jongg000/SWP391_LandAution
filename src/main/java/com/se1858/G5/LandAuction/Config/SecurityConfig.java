@@ -11,6 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.springframework.security.web.session.HttpSessionEventPublisher;
 
 @Configuration
@@ -28,13 +30,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/home", "/forgot-password", "/reset-password**","/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**")
-                .permitAll() // Cho phép truy cập công khai vào tài nguyên tĩnh
-                .antMatchers("/login", "/register").permitAll()
-                .antMatchers("/customer/profile/**", "/customer/change-password/**", "/customer/edit-profile/**","/customer/display/**").hasRole("CUSTOMER")
-                .antMatchers("/admin/manage-account/**", "/admin/dashboard/**", "/admin/create-account/**").hasRole("ADMIN")
+                .antMatchers("/", "/forgot-password", "/reset-password**",
+                        "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**", "/doc/**").permitAll()
+                .antMatchers("/home").access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
+                .antMatchers("/register").permitAll()
+                .antMatchers("/profile", "/changePassword", "/profile/edit", "/customer/display/**").hasRole("CUSTOMER")
+                .antMatchers("/admin/manage-account/**", "/dashboard", "/management").hasRole("ADMIN")
                 .antMatchers("/customer/wishlistPage/**").hasRole("CUSTOMER")
                 .antMatchers("/customer/listAuctionRegister/**").hasRole("CUSTOMER")
                 .antMatchers("/customer/bidPage/**").hasRole("CUSTOMER")
@@ -48,11 +52,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successForwardUrl("/home")
                 .successHandler(customAuthenticationSuccessHandler)
                 .failureHandler(customAuthenticationFailureHandler)
+                .permitAll()
                 .and()
                 .rememberMe()
-                .key("uniqueAndSecretKey") // Secret key for remember-me
-                .rememberMeParameter("remember-me") // Matches the "remember-me" checkbox name
-                .tokenValiditySeconds(1209600) // Valid for 14 days
+                .key("uniqueAndSecretKey")
+                .rememberMeParameter("remember-me")
+                .tokenValiditySeconds(1209600)
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
@@ -64,11 +69,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/403");
+
     }
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(customUserDetailsService).passwordEncoder(bCryptPasswordEncoder());
+    }
+    @Bean
+    public HttpFirewall allowUrlEncodedDoubleSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        firewall.setAllowUrlEncodedDoubleSlash(true); // Cho phép chuỗi "//"
+        return firewall;
     }
 
     @Bean

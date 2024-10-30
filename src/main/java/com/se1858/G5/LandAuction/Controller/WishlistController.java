@@ -4,9 +4,9 @@ import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.DTO.WishlistDTO;
-import com.se1858.G5.LandAuction.Service.AuctionService;
 import com.se1858.G5.LandAuction.Service.LandService;
-import com.se1858.G5.LandAuction.Service.WishlistService;
+import com.se1858.G5.LandAuction.Service.AuctionService;
+import com.se1858.G5.LandAuction.Service.WishlistServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -23,12 +23,12 @@ import java.util.Map;
 @Controller
 @RequestMapping("/wishlist")
 public class WishlistController {
-    private final WishlistService wishlistService;
+    private final WishlistServiceImpl wishlistService;
     private final AuctionService auctionService;
     private final LandService landService;
 
 
-    public WishlistController(WishlistService wishlistService, AuctionService auctionService, LandService landService) {
+    public WishlistController(WishlistServiceImpl wishlistService, AuctionService auctionService, LandService landService) {
         this.wishlistService = wishlistService;
         this.auctionService = auctionService;
         this.landService = landService;

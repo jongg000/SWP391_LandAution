@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -90,10 +91,27 @@ public class UserController {
         // Lưu người dùng vào cơ sở dữ liệu
         userService.save(user);
     }
+    @GetMapping("/someProtectedPage")
+    public String someProtectedPage(HttpServletRequest request) {
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (request.getUserPrincipal() == null) {
+            // Lưu URL hiện tại vào session
+            request.getSession().setAttribute("redirectUrl", request.getRequestURI());
+            return "redirect:/login";
+        }
+        return "403";
+    }
+
 
     @GetMapping("/login")
-    public String login() {
-        return "login"; // tên file login.html trong thư mục templates
+    public String login(Principal principal, HttpServletRequest session) {
+        if (principal != null) {
+            // Lấy URL từ session và chuyển hướng nếu có, ngược lại thì về home
+            String redirectUrl = (String) session.getAttribute("redirectUrl");
+            session.removeAttribute("redirectUrl"); // Xóa URL khỏi session sau khi lấy
+            return "redirect:" + (redirectUrl != null ? redirectUrl : "/home");
+        }
+        return "login";
     }
 
     @GetMapping("/profile")

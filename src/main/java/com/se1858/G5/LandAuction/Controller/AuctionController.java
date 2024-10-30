@@ -6,7 +6,7 @@ import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.Service.AuctionRegistrationService;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import com.se1858.G5.LandAuction.Service.LandService;
-import com.se1858.G5.LandAuction.Service.WishlistService;
+import com.se1858.G5.LandAuction.Service.WishlistServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +30,7 @@ public class AuctionController {
     @Autowired
     private LandService landService;
     @Autowired
-    private WishlistService wishlistService;
+    private WishlistServiceImpl wishlistService;
     @Autowired
     private AuctionRegistrationService auctionRegistrationService;
 

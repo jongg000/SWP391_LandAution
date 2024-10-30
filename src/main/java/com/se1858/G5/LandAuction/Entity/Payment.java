@@ -29,9 +29,10 @@ public class Payment {
     @Column(columnDefinition = "NVARCHAR(255)")
     private String paymentDescription;
 
-    public Payment(User user, String paymentDescription, long    paymentAmount) {
+    public Payment(User user, String paymentDescription, long    paymentAmount , LocalDateTime paymentDate) {
         this.user = user;
         this.paymentDescription = paymentDescription;
         this.paymentAmount = paymentAmount;
+        this.paymentDate = paymentDate;
     }
 }

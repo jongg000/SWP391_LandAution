@@ -1,12 +1,10 @@
 package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.DTO.*;
-import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
-import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Service.AuctionRegistrationService;
-import com.se1858.G5.LandAuction.Service.AuctionService;
 import com.se1858.G5.LandAuction.Service.LandService;
 import com.se1858.G5.LandAuction.Service.UserService;
+import com.se1858.G5.LandAuction.Service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

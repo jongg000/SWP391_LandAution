@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
@@ -55,7 +56,7 @@ public class PaymentController {
         String username = principal.getName();
         User user = userService.findByEmail(username);
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
-        Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice));
+        Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
         return paymentStatus == 1 ? "/customer/Success" : "customer/Fail";
     }
