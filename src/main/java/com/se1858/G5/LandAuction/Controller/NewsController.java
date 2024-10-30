@@ -1,17 +1,27 @@
 package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.Entity.News;
+import com.se1858.G5.LandAuction.Entity.Roles;
+import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.ModelMap;
+
+
 import com.se1858.G5.LandAuction.Service.NewsService;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.UUID;
 
 
 @Controller
@@ -27,9 +37,21 @@ public class NewsController {
     @Autowired
     private ServletContext servletContext;
     @RequestMapping("/newslist")
-    public String listNews(ModelMap model) {
-        model.addAttribute("LIST_NEWS", newsService.findAll());
+    public String listNews(ModelMap model,@RequestParam(value = "s", required = false) String s ) {
+        if(s == null || s.equals("")) {
+            model.addAttribute("LIST_NEWS", newsService.findAll());
+        } else {
+            model.addAttribute("LIST_NEWS", newsService.findAllByTitle(s));
+        }
+//        model.addAttribute("LIST_NEWS", newsService.findAll());
         return "list-news";
+    }
+
+    @GetMapping("/detail")
+    public String getNews(@RequestParam("id") Integer id, ModelMap model) {
+        News news = newsService.findByNewsId(id);
+        model.addAttribute("news", news);
+        return "news-detail";
     }
 
     @GetMapping("/new")
@@ -45,21 +67,19 @@ public class NewsController {
             news = new News(); // Nếu không có ID, tạo mới News
         }
         model.addAttribute("news", news);
-        model.addAttribute("users", null);
-        return "add-news";
-    }
+        User u = new User();
+//
 
-    @GetMapping("/detail")
-    public String getNews(@RequestParam("id") Integer id, ModelMap model) {
-        News news = newsService.findByNewsId(id);
-        model.addAttribute("news", news);
-        return "news-detail";
+        u.setRole(new Roles());
+//
+        model.addAttribute("users", Arrays.asList(u));
+        return "add-news";
     }
 
     // Xử lý submit form với file upload
     @PostMapping("/save")
     public String saveNews(@ModelAttribute("news") News news,
-                           @RequestParam("imageFile") MultipartFile imageFile) {
+                           @RequestParam("imageFile") MultipartFile imageFile, HttpSession session) {
         // Xử lý upload file
         if (!imageFile.isEmpty()) {
             try {
@@ -74,6 +94,9 @@ public class NewsController {
 
         // Lưu news vào cơ sở dữ liệu
 //        news.setUser(userService.findByUserName("tung"));
+        String username = (String) session.getAttribute("username");
+        User u = userService.findByEmail(username);
+        news.setUser(u);
         newsService.save(news);
         return "redirect:/news/newslist";
     }

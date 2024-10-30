@@ -1,17 +1,16 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Bids")
 public class Bids {
     @Id
@@ -22,8 +21,8 @@ public class Bids {
     @JoinColumn(name = "RegistrationID", nullable = false)
     private AuctionRegistration auctionRegistration;
 
-    private float bidAmount;
+    private long bidAmount;
 
-    private java.util.Date bidTime;
+    private java.time.LocalDateTime bidTime;
 }
 

@@ -1,9 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,8 +8,10 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Auction_Registration")
 public class AuctionRegistration {
     @Id
@@ -22,10 +21,6 @@ public class AuctionRegistration {
     @ManyToOne
     @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
-
-    @ManyToOne
-    @JoinColumn(name = "StatusID")
-    private Status status;
 
     @ManyToOne
     @JoinColumn(name = "UserID", nullable = false)

@@ -1,9 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -11,8 +8,10 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Auction")
 public class Auction {
     @Id
@@ -25,11 +24,9 @@ public class Auction {
     @JoinColumn(name = "StatusID")
     private Status status;
 
-
     private java.time.LocalDateTime startTime;
 
-
-    private Float highestBid;
+    private long highestBid;
 
     @ManyToOne
     @JoinColumn(name = "LandID", nullable = false)
@@ -46,9 +43,6 @@ public class Auction {
 
     @OneToMany(mappedBy = "auction")
     private Set<AuctionChangeLog> auctionChangeLog;
-
-    @OneToMany(mappedBy = "auction")
-    private Set<Payment> payment;
 
     @OneToMany(mappedBy = "auction")
     private Set<Task> task;

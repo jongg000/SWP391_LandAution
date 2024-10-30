@@ -1,18 +1,20 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Auction_Change_Log")
 public class AuctionChangeLog {
     @Id
@@ -23,12 +25,15 @@ public class AuctionChangeLog {
     @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String action_type;
 
-    private Date change_time;
+    private LocalDateTime change_time;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
 
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String reason;
 
 }

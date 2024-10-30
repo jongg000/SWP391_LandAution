@@ -3,7 +3,6 @@ package com.se1858.G5.LandAuction.Service;
 import com.se1858.G5.LandAuction.Entity.News;
 import java.util.List;
 import java.util.Optional;
-
 public interface NewsService {
 
     News save(News news);
@@ -21,6 +20,8 @@ public interface NewsService {
 
     // Find all news entities
     Iterable<News> findAll();
+
+    List<News> findAllByTitle(String title);
 
     // Find all news entities by a list of IDs
     List<News> findAllById(List<Integer> ids);

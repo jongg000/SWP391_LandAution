@@ -1,17 +1,17 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Getter
+@Setter
 @Entity
+@Builder
 @Table(name = "Asset_Registration")
 public class AssetRegistration {
     @Id
@@ -26,14 +26,19 @@ public class AssetRegistration {
     @JoinColumn(name = "StatusID")
     private Status status;
 
+    private LocalDateTime registrationDate;
+
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String reason;
+
     @ManyToOne
-    @JoinColumn(name = "UserID", nullable = false)
+    @JoinColumn(name = "UserID", nullable = true)
     private User user;
 
     @Column(nullable = true)
     private java.util.Date approvalDate;
 
-    @Column( columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String comments;
 
 }

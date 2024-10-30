@@ -1,25 +1,29 @@
 package com.se1858.G5.LandAuction.Entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.*;
 
-@Data
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
+@Getter
+@Setter
 @Table(name = "Land")
 public class Land {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int landId;
-
-    @Column( nullable = false)
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String province;
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String district;
+    @Column(columnDefinition = "NVARCHAR(255)")
+    private String ward;
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String name;
 
     @ManyToOne
@@ -29,24 +33,48 @@ public class Land {
     @Column( columnDefinition = "TEXT")
     private String location;
 
-    @Column( columnDefinition = "TEXT")
+    @Column(columnDefinition = "NVARCHAR(255)")
     private String description;
 
-    private Float price;
+    private long price;
 
     private String contact;
 
+    @Column(nullable = true)
+    private double square;
+
+    @Column(nullable = true)
+    private double width;
+
+    @Column(nullable = true)
+    private double length;
+
     private String path;
-    @OneToMany(mappedBy = "land")
-    private Set<Auction> auction;
 
-    @OneToMany(mappedBy = "land", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<LandImage> images;
+    @OneToMany(mappedBy = "land", cascade = CascadeType.ALL)
+    private List<LandImage> images;
 
-    @OneToOne(mappedBy = "land")
-    private AssetRegistration assetRegistration;
+    public Land( String contact, long price, String description, String location, User user, String name, String ward, String district, String province, double square) {
+        this.contact = contact;
+        this.price = price;
+        this.description = description;
+        this.location = location;
+        this.user = user;
+        this.name = name;
+        this.ward = ward;
+        this.district = district;
+        this.province = province;
+        this.square = square;
+    }
+    public void addImg(LandImage image) {
+        if (images == null) {
+            images = new ArrayList<>();
+        }
 
+        images.add(image);
 
+        image.setLand(this);
+    }
 
 }
 

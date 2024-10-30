@@ -1,3 +1,4 @@
+
 package com.se1858.G5.LandAuction.Security;
 
 import com.se1858.G5.LandAuction.Entity.User;
@@ -22,14 +23,22 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     @Transactional
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(username);
-        if (user == null || !user.getUserName().equalsIgnoreCase(username)) {
-            throw new UsernameNotFoundException("Username is not valid");
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email);
+
+        if (user == null || !user.getEmail().equalsIgnoreCase(email)) {
+            throw new UsernameNotFoundException("Email is not valid");
         }
+
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Password cannot be null or empty");
+        }
+
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName().name().toUpperCase());
+
         // Return the hashed password from the database
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), List.of(authority));
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), List.of(authority));
     }
+
 
 }

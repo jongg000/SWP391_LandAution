@@ -150,8 +150,8 @@
                                 <div class="down-content">
                                     <div class="post-info">
                                         <ul>
-                                            <li>May 14, 2015</li>
-                                            <li>Posted by <a href="#">Admin</a></li>
+                                            <li th:text="${news.time}"></li>
+                                            <li>Posted by <a th:text="${news.user.lastName}" href="#"></a></li>
                                         </ul>
                                         <div class="tittle">
                                             <a href="single-blog.html"><h2 th:text="${news.title}"></h2></a>

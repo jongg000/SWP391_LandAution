@@ -141,25 +141,86 @@
 				<p>
 					<a class="btn btn-primary" th:href="@{/news/new}">Add News</a>
 				</p>
-				<section class="listing-page">
+<!--				<section class="listing-page">-->
+<!--					<div class="container">-->
+<!--						<div class="row">-->
+<!--							<div id="listing-cars" class="col-md-9">-->
+<!--								<div th:each="item : ${LIST_NEWS}" class="featured-item">-->
+<!--									<img th:src="${'data:image/png;base64,' + item.image}" >-->
+<!--									<div class="right-content">-->
+<!--										<a th:href="@{/news/new(id=${item.newsId})}">-->
+<!--											<h2 th:text="${item.title}">Title here</h2>-->
+<!--										</a>-->
+<!--										<span th:text="'Posted by: ' + item.user.userName">Username</span>-->
+<!--										<span th:text="${item.newsId}">News ID here</span>-->
+<!--										<div class="light-line"></div>-->
+<!--										<p th:text="${item.content}">Content here</p>-->
+<!--										<div class="view-details">-->
+<!--											<a th:href="@{/news/detail(id=${item.newsId})}">View Details</a>-->
+<!--										</div>-->
+<!--										<div class="item-rate">-->
+<!--											<ul>-->
+<!--												&lt;!&ndash; Placeholder for star ratings, adjust logic accordingly &ndash;&gt;-->
+<!--												<li><i class="fa fa-star"></i></li>-->
+<!--												<li><i class="fa fa-star"></i></li>-->
+<!--												<li><i class="fa fa-star"></i></li>-->
+<!--												<li><i class="fa fa-star"></i></li>-->
+<!--												<li><i class="fa fa-star-o"></i></li>-->
+<!--											</ul>-->
+<!--										</div>-->
+<!--&lt;!&ndash;										<div class="car-info">&ndash;&gt;-->
+<!--&lt;!&ndash;											<ul>&ndash;&gt;-->
+<!--&lt;!&ndash;												<li><i class="icon-calendar"></i><span th:text="${#dates.format(item.time, 'yyyy-MM-dd')}"></span></li>&ndash;&gt;-->
+<!--&lt;!&ndash;												<li><i class="icon-user"></i><a class="btn btn-primary btn-sm" th:href="@{/news/new(id=${item.newsId})}">Edit</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;												<li><i class="icon-trash"></i><a class="btn btn-danger btn-sm" href="javascript:void(0);" th:onclick="'deleteNews(' + ${item.newsId} + ')'">Delete</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;											</ul>&ndash;&gt;-->
+<!--&lt;!&ndash;										</div>&ndash;&gt;-->
+<!--									</div>-->
+<!--								</div>-->
+
+<!--								<div class="pagination">-->
+<!--									<div class="prev">-->
+<!--										<a href="#"><i class="fa fa-arrow-left"></i>Prev</a>-->
+<!--									</div>-->
+<!--									<div class="page-numbers">-->
+<!--										<ul>-->
+<!--											<li><a href="#">1</a></li>-->
+<!--											<li><a href="#">...</a></li>-->
+<!--											<li><a href="#">14</a></li>-->
+<!--											<li class="active"><a href="#">15</a></li>-->
+<!--											<li><a href="#">16</a></li>-->
+<!--											<li><a href="#">...</a></li>-->
+<!--											<li><a href="#">47</a></li>-->
+<!--										</ul>-->
+<!--									</div>-->
+<!--									<div class="next">-->
+<!--										<a href="#">Next<i class="fa fa-arrow-right"></i></a>-->
+<!--									</div>-->
+<!--								</div>-->
+<!--							</div>-->
+
+<!--						</div>-->
+<!--					</div>-->
+<!--				</section>-->
+				<section class="custom-listing-page">
 					<div class="container">
 						<div class="row">
-							<div id="listing-cars" class="col-md-9">
-								<div th:each="item : ${LIST_NEWS}" class="featured-item">
-									<img th:src="${'data:image/png;base64,' + item.image}" >
-									<div class="right-content">
+							<div id="custom-listing-cars" class="col-md-9">
+								<div th:each="item : ${LIST_NEWS}" class="custom-featured-item">
+									<img th:src="${'data:image/png;base64,' + item.image}" class="custom-image">
+									<div class="custom-right-content">
 										<a th:href="@{/news/new(id=${item.newsId})}">
-											<h2 th:text="${item.title}">Title here</h2>
+											<h2 class="custom-title" th:text="${item.title}">Title here</h2>
 										</a>
-										<span th:text="${item.newsId}">News ID here</span>
-										<div class="light-line"></div>
-										<p th:text="${item.content}">Content here</p>
-										<div class="view-details">
-											<a th:href="@{/news/detail(id=${item.newsId})}">View Details</a>
+										<span class="custom-username" th:text="'Posted by: ' + item.user.userName">Username</span>
+										<span class="custom-news-id" th:text="${item.newsId}">News ID here</span>
+										<div class="custom-light-line"></div>
+										<p class="custom-content" th:text="${item.content}">Content here</p>
+										<div class="custom-view-details">
+											<a th:href="@{/news/detail(id=${item.newsId})}" class="custom-btn-view-details">View Details</a>
 										</div>
-										<div class="item-rate">
-											<ul>
-												<!-- Placeholder for star ratings, adjust logic accordingly -->
+										<div class="custom-item-rate">
+											<ul class="custom-rating-stars">
 												<li><i class="fa fa-star"></i></li>
 												<li><i class="fa fa-star"></i></li>
 												<li><i class="fa fa-star"></i></li>
@@ -167,21 +228,14 @@
 												<li><i class="fa fa-star-o"></i></li>
 											</ul>
 										</div>
-<!--										<div class="car-info">-->
-<!--											<ul>-->
-<!--												<li><i class="icon-calendar"></i><span th:text="${#dates.format(item.time, 'yyyy-MM-dd')}"></span></li>-->
-<!--												<li><i class="icon-user"></i><a class="btn btn-primary btn-sm" th:href="@{/news/new(id=${item.newsId})}">Edit</a></li>-->
-<!--												<li><i class="icon-trash"></i><a class="btn btn-danger btn-sm" href="javascript:void(0);" th:onclick="'deleteNews(' + ${item.newsId} + ')'">Delete</a></li>-->
-<!--											</ul>-->
-<!--										</div>-->
 									</div>
 								</div>
 
-								<div class="pagination">
-									<div class="prev">
+								<div class="custom-pagination">
+									<div class="custom-prev">
 										<a href="#"><i class="fa fa-arrow-left"></i>Prev</a>
 									</div>
-									<div class="page-numbers">
+									<div class="custom-page-numbers">
 										<ul>
 											<li><a href="#">1</a></li>
 											<li><a href="#">...</a></li>
@@ -192,14 +246,137 @@
 											<li><a href="#">47</a></li>
 										</ul>
 									</div>
-									<div class="next">
+									<div class="custom-next">
 										<a href="#">Next<i class="fa fa-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
+
+					<style>
+						.custom-listing-page .custom-featured-item {
+							display: flex;
+							border: 1px solid #eeeeee;
+							background-color: #ffffff;
+							margin-bottom: 20px;
+							padding: 20px;
+							transition: box-shadow 0.3s ease;
+						}
+
+						.custom-listing-page .custom-featured-item:hover {
+							box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+						}
+
+						.custom-listing-page .custom-image {
+							max-width: 30%;
+							margin-right: 20px;
+						}
+
+						.custom-listing-page .custom-right-content {
+							flex: 1;
+							border-left: 1px solid #eeeeee;
+							padding-left: 20px;
+						}
+
+						.custom-listing-page .custom-title {
+							font-family: 'Montserrat', sans-serif;
+							font-size: 24px;
+							font-weight: 700;
+							margin-bottom: 10px;
+							color: #333;
+						}
+
+						.custom-listing-page .custom-username,
+						.custom-listing-page .custom-news-id {
+							font-family: 'Montserrat', sans-serif;
+							font-size: 13px;
+							font-weight: 700;
+							color: #222;
+							background-color: #f4c23d;
+							padding: 5px 10px;
+							display: inline-block;
+							margin-right: 10px;
+							text-transform: uppercase;
+						}
+
+						.custom-listing-page .custom-light-line {
+							width: 60px;
+							height: 2px;
+							background-color: #eeeeee;
+							margin-top: 15px;
+						}
+
+						.custom-listing-page .custom-content {
+							font-family: 'Roboto', sans-serif;
+							font-size: 14px;
+							color: #777;
+							margin-top: 15px;
+						}
+
+						.custom-listing-page .custom-view-details {
+							margin-top: 15px;
+						}
+
+						.custom-listing-page .custom-btn-view-details {
+							background-color: #007bff;
+							color: white;
+							padding: 10px 20px;
+							border-radius: 5px;
+							text-decoration: none;
+							transition: background-color 0.3s ease;
+						}
+
+						.custom-listing-page .custom-btn-view-details:hover {
+							background-color: #0056b3;
+						}
+
+						.custom-listing-page .custom-item-rate .custom-rating-stars {
+							list-style: none;
+							padding: 0;
+							margin-top: 10px;
+							display: flex;
+							gap: 5px;
+						}
+
+						.custom-listing-page .custom-pagination {
+							display: flex;
+							justify-content: space-between;
+							align-items: center;
+							margin-top: 20px;
+						}
+
+						.custom-listing-page .custom-page-numbers ul {
+							list-style: none;
+							padding: 0;
+							display: flex;
+							gap: 10px;
+						}
+
+						.custom-listing-page .custom-page-numbers ul li a {
+							padding: 8px 12px;
+							border: 1px solid #ddd;
+							border-radius: 4px;
+							color: #007bff;
+							text-decoration: none;
+						}
+
+						.custom-listing-page .custom-page-numbers ul li.active a {
+							background-color: #007bff;
+							color: #fff;
+						}
+
+						.custom-listing-page .custom-prev a,
+						.custom-listing-page .custom-next a {
+							color: #007bff;
+							text-decoration: none;
+						}
+
+						.custom-listing-page .custom-prev a:hover,
+						.custom-listing-page .custom-next a:hover {
+							text-decoration: underline;
+						}
+					</style>
 				</section>
 
 				<div id="cta-2">
