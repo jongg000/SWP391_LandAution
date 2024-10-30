@@ -273,9 +273,9 @@
                             <input type="file" id="images" th:field="*{images}" accept="image/png, image/jpeg, image/jpg, image/gif" multiple required>
                         </div>
 
-                        <div th:field="*{description}" class="form-group" >
+                        <div  class="form-group" >
                             <label for="images">Mô tả thêm thông tin chi tiết</label>
-                            <textarea placeholder="Mô tả chi tiết" required></textarea>
+                            <textarea th:field="*{description}" placeholder="Mô tả chi tiết" required></textarea>
                         </div>
                         <button type="submit" class="submit-btn">Hoàn thiện</button>
                     </form>

@@ -2,6 +2,8 @@ package com.se1858.G5.LandAuction.Service;
 
 import com.se1858.G5.LandAuction.Entity.User;
 
+import java.util.List;
+
 public interface UserService {
 
     User findByEmail(String email);
@@ -11,5 +13,5 @@ public interface UserService {
     boolean existsByNationalID(String nationalID);
     String encodePassword(String password);
     String createPasswordResetToken(User user);
-
+    List<User> findAll();
 }

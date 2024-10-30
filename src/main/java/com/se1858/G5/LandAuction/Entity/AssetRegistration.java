@@ -19,8 +19,8 @@ public class AssetRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int documentId;
 
-
-    @OneToOne(mappedBy = "assetRegistration")
+    @OneToOne
+    @JoinColumn(name = "land_id") // Đây là khóa ngoại trỏ đến Land
     private Land land;
 
     @ManyToOne

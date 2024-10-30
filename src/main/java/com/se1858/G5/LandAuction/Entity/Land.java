@@ -27,6 +27,7 @@ public class Land {
     private String name;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn( nullable = false)
     private User user;
 
@@ -51,8 +52,8 @@ public class Land {
 
     private String path;
 
-    @OneToOne
-    @JoinColumn(name = "land_id")
+
+    @OneToOne(mappedBy = "land", cascade = CascadeType.ALL)
     private AssetRegistration assetRegistration;
 
     @OneToMany(mappedBy = "land", cascade = CascadeType.ALL)

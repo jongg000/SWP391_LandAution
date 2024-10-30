@@ -26,7 +26,6 @@ public class LandDTO {
     private List<MultipartFile> images;
     private double square;
     private double width;
-    private double height;
     private double length;
     private LocalDateTime createdAt;
 }

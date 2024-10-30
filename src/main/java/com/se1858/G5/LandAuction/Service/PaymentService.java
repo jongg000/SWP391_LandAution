@@ -6,7 +6,7 @@ import com.se1858.G5.LandAuction.Entity.Payment;
 import javax.servlet.http.HttpServletRequest;
 
 public interface PaymentService {
-    public VNPayResponse createVnPayPayment(HttpServletRequest request, int orderTotal,  String vnPayReturnUrl);
+    public VNPayResponse createVnPayPayment(HttpServletRequest request, long orderTotal,  String vnPayReturnUrl);
     public int orderReturn(HttpServletRequest request);
     public void createPaymentBill(Payment payment);
 }

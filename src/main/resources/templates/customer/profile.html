@@ -17,7 +17,7 @@
   <p><strong>Address:</strong> <span th:text="${user.address}"></span></p>
   <p><strong>Date of Birth:</strong> <span th:text="${#dates.format(user.dob, 'dd/MM/yyyy')}"></span></p>
   <p><strong>Avatar:</strong>
-    <img th:src="@{'/images/' + ${user.avatar}}" alt="User Avatar" width="100" />
+    <img th:src="@{'/images/' + ${user.avatar}}" alt="User Avatar" width="100"/>
   </p>
   <p><strong>National ID:</strong>
     <span th:text="${user.nationalID}"></span>
