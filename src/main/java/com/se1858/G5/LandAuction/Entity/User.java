@@ -67,13 +67,5 @@ public class User  {
             inverseJoinColumns = @JoinColumn(name = "AuctionID")
     )
     private Set<Auction> auction;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "User_Notification",
-            joinColumns = @JoinColumn(name = "UserID"),
-            inverseJoinColumns = @JoinColumn(name = "NotificationID")
-    )
-    private Set<Notification> notification;
 }
 

@@ -2,6 +2,7 @@ package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.LandImage;
+import com.se1858.G5.LandAuction.Entity.News;
 import com.se1858.G5.LandAuction.Entity.User;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -82,6 +83,40 @@ public class UploadFile {
                 Files.write(path, bytes);
                 // Tạo đối tượng Image và liên kết với Land
                land.setPath(docName);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void upLoadImageForNews(MultipartFile image, News news) {
+        String imgUploadDir = "src/main/resources/static/News_images/";
+        File directory = new File(imgUploadDir);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        if (!image.isEmpty()) {
+            try{
+                String originalFilename = image.getOriginalFilename();
+                if(originalFilename == null || originalFilename.isEmpty()) {
+                    return;
+                }
+                String nameFile = originalFilename.substring(0, originalFilename.lastIndexOf("."));
+                String fileExtension = originalFilename.substring(originalFilename.lastIndexOf("."));
+                String docName = "News" + nameFile + "." + fileExtension;
+                Path path = Paths.get(imgUploadDir + docName);
+                // Kiểm tra file đã tồn tại hay chưa, nếu có thì thêm số phiên bản vào
+                int version = 1;
+                while (Files.exists(path)) {
+                    docName = "News_" + nameFile + "(" + version + ")" + fileExtension;
+                    path = Paths.get(imgUploadDir + docName);
+                    version++;
+                }
+                // Lưu tệp vào thư mục
+                byte[] bytes = image.getBytes();
+                Files.write(path, bytes);
+                // Tạo đối tượng Image và liên kết với Land
+                news.setImage(docName);
             } catch (IOException e) {
                 e.printStackTrace();
             }

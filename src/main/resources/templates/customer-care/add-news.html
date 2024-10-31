@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/bootstraps.css">
+
+    <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+
+    <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+<body>
+<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <div class="d-flex justify-content-between">
+                <div class="logo">
+                    <a href="/customer-care"><img src="/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                </div>
+                <div class="toggler">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-menu">
+            <ul class="menu">
+                <li class="sidebar-title"></li>
+
+                <li class="sidebar-item">
+                    <a href="/customer-care" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Thông tin cá nhân</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-stack"></i>
+                        <span>Quản lý tin tức</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item ">
+                            <a href="/customer-care">Danh sách tin tức</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="/customer-care/add">Tạo tin tức mới</a>
+                    </ul>
+                </li>
+
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-stack"></i>
+                        <span>Hồ sơ người dùng</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item ">
+                            <a href="component-alert.html">Chờ xác nhận</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a href="/logout">Đăng xuất</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+            </li>
+            </ul>
+        </div>
+        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
+</div>
+
+<div class="main-panel"> <!--  Day la phan ben phai cua trang  -->
+    <!-- Top Navbar, SUA TIEU DE TRANG CHO PHU HOP -->
+    <nav class="navbar navbar-expand-lg navbar-absolute fixed-top navbar-transparent">
+        <div class="container-fluid">
+            <span class="navbar-brand">Land Auction</span>
+        </div>
+    </nav>
+    <!-- End Top Navbar -->
+    <!-- Noi dung cua trang se nam trong phan content nay -->
+    <div class="content" style="padding-left: 400px;">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-user">
+                    <div class="card-header">
+                        <a th:href="@{/customer-care}"
+                           class="btn btn-sm">
+                            View all news
+                        </a>
+                        <a th:href="@{/customer-care/own-news}"
+                           class="btn btn-sm">
+                            View my own news
+                        </a>
+                    </div>
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="card card-user">
+                                    <div class="card-header">
+                                        <h5 class="card-title">Compose news</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form th:action="@{/customer-care/add}" th:method="post" th:object="${newsDTO}"
+                                              enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="title">Title</label>
+                                                        <input type="text" th:field="*{news.title}" id="title"
+                                                               class="form-control">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label for="content">Content</label>
+                                                        <textarea th:field="*{news.content}" id="content"
+                                                                  class="form-control"></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div>
+                                                        <label for="images">Choose cover photo</label>
+                                                        <input type="file" name="images" id="images" class="form-control"
+                                                               required
+                                                               accept="image/png, image/jpeg, image/jpg, image/gif">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="update ml-auto mr-auto">
+                                                    <button type="submit" class="btn btn-primary btn-round">Save</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--                            <span th:if="${param.message}" th:text="${param.message}" class="alert-message"></span>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Het phan noi dung cua trang -->
+</div>
+<script>
+    $(document).ready(function () {
+        <!-- script cho richtext-->
+        $('#content').summernote({
+            height: 300, // Chiều cao của editor
+            tabsize: 2,
+            placeholder: 'Enter content here...',
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'italic', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['fontsize', ['fontsize']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['height', ['height']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+</script>
+<!--Kiểm tra tỷ lệ khung ảnh-->
+<script>
+    document.getElementById('images').addEventListener('change', function(event) {
+        const file = event.target.files[0];
+
+        if (file) {
+            const img = new Image();
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                img.src = e.target.result;
+
+                img.onload = function() {
+                    const width = img.width;
+                    const height = img.height;
+
+                    // Kiểm tra xem ảnh có chiều rộng lớn hơn chiều cao không
+                    if (width < height) {
+                        alert('Image size is incorrect. Please use a rectangular image (width must be equal to or greater than height).');
+                        // Reset input nếu không đúng tỷ lệ
+                        event.target.value = '';
+                    }
+                };
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+<script src="/assets/js/pages/dashboard.js"></script>
+
+<script src="/assets/js/main.js"></script>
+<script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+</script>
+</body>
+</html>

@@ -34,16 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/forgot-password", "/reset-password**",
-                "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**", "/doc/**").permitAll()
+                "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**",
+                "/doc/**","/coffeeescripts/**","/icon/**","/images/**","/Land_images/**"
+                ,"/News_images/**","/User_images/**","/transfonts/**")
+                .permitAll()
                 .antMatchers("/home").access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
                 .antMatchers("/register").permitAll()
+                .antMatchers("/news","/news/search", "/news/search**", "/news/newsDetail**").permitAll()
                 .antMatchers("/profile", "/changePassword", "/profile/edit", "/customer/display/**").hasRole("CUSTOMER")
-                .antMatchers("/admin/manage-account/**", "/dashboard", "/management").hasRole("ADMIN")
+                .antMatchers("/dashboard", "/management").hasRole("ADMIN")
                 .antMatchers("/customer/wishlistPage/**").hasRole("CUSTOMER")
                 .antMatchers("/customer/listAuctionRegister/**").hasRole("CUSTOMER")
                 .antMatchers("/customer/bidPage/**").hasRole("CUSTOMER")
                 .antMatchers("/staff").hasRole("STAFF")
-                .antMatchers("/customer-care/**").hasRole("CUSTOMER_CARE")
+                .antMatchers("/customer-care/add","/customer-care","/customer-care/own-news"
+                ,"/customer-care/newsDetail**","/customer-care/deleteNews**")
+                .hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -55,7 +61,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .rememberMe()
-                .key("uniqueAndSecretKey")
                 .rememberMeParameter("remember-me")
                 .tokenValiditySeconds(1209600)
                 .and()

@@ -197,6 +197,18 @@ public class UserController {
             model.addAttribute("error", "User not found.");
             return "customer/edit-profile";
         }
+        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
+        if (userService.existsByEmail(userProfileDTO.getEmail())) {
+            model.addAttribute("emailError", "Email này đã tồn tại.");
+            model.addAttribute("user", user);
+            return "customer/edit-profile";
+        }
+
+        if (userService.existsByPhoneNumber(userProfileDTO.getPhoneNumber())) {
+            model.addAttribute("phoneError", "Số điện thoại đã tồn tại.");
+            model.addAttribute("user", user);
+            return "customer/edit-profile";
+        }
 
         // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
@@ -219,9 +231,6 @@ public class UserController {
             user.setNationalID(userProfileDTO.getNationalID());
         }
 
-
-
-
         UploadFile uploadFile = new UploadFile();
 
         // Save avatar if present
@@ -236,7 +245,6 @@ public class UserController {
         if (userProfileDTO.getNationalBackImage() != null && !userProfileDTO.getNationalBackImage().isEmpty()) {
             uploadFile.UploadImagesNationalB(userProfileDTO.getNationalBackImage(), user);
         }
-
         // Save updated user information to the database
         userService.save(user);
 

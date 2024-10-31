@@ -1,7 +1,10 @@
 package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.Entity.Land;
+import com.se1858.G5.LandAuction.Entity.News;
 import com.se1858.G5.LandAuction.Service.AssetService;
+import com.se1858.G5.LandAuction.Service.LandService;
+import com.se1858.G5.LandAuction.Service.NewsService;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +23,9 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class HomeController {
 
-
     private final AssetService assetService;
+    private final LandService landService;
+    private final NewsService newsService;
 
     @GetMapping("/")
     public String redirectToHome() {
@@ -30,16 +34,15 @@ public class HomeController {
 
     @GetMapping("/home")
     public String showHomePage(Model model) {
+        List<News> newsList = newsService.findTop4ByOrderByTimeDesc();
+        List<Land> allLands = assetService.findTop4ByOrderByLandIdDesc();
 
-        List<Land> allLands = assetService.findAll();
-      //  List<Land> landsByName = assetService.findAllByName("example"); // Adjust the keyword as needed
+        // Assuming `newsList` has images and we're picking the first image as "latestImage"
 
-        // Add data to the model
         model.addAttribute("allLands", allLands);
-//        model.addAttribute("landsByName", landsByName);
-
-
+        model.addAttribute("newsList", newsList);
         return "home"; // Trả về tên của file HTML home.html
     }
+
 
 }

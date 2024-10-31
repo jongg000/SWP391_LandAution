@@ -3,6 +3,7 @@ package com.se1858.G5.LandAuction.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -11,7 +12,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Builder
 @Table(name = "News")
 public class News {
     @Id
@@ -30,8 +30,6 @@ public class News {
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "Time")
-    private Date time;
+    private LocalDateTime time;
 }
 
