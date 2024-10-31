@@ -21,6 +21,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Autowired
     private AuctionRepository auctionRepository;
+
     @Autowired
     private LandRepository landRepository;
     @Autowired
