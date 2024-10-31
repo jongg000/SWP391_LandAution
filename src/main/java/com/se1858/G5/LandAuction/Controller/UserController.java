@@ -207,13 +207,20 @@ public class UserController {
         user.setGender(userProfileDTO.getGender());
         user.setEmail(userProfileDTO.getEmail());
 
-        // Only check for existing National ID if it's different
-        if (!user.getNationalID().equals(userProfileDTO.getNationalID()) && userService.existsByNationalID(userProfileDTO.getNationalID())) {
+    // Chỉ kiểm tra nếu National ID khác nhau và không phải là null
+        if (userProfileDTO.getNationalID() != null &&
+                (user.getNationalID() == null || !user.getNationalID().equals(userProfileDTO.getNationalID())) &&
+                userService.existsByNationalID(userProfileDTO.getNationalID())) {
+
             model.addAttribute("error", "Số CMND đã tồn tại.");
             model.addAttribute("user", user);
             return "customer/edit-profile";
+        } else {
+            user.setNationalID(userProfileDTO.getNationalID());
         }
-        user.setNationalID(userProfileDTO.getNationalID());
+
+
+
 
         UploadFile uploadFile = new UploadFile();
 

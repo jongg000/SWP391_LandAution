@@ -6,7 +6,7 @@ import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.DTO.WishlistDTO;
 import com.se1858.G5.LandAuction.Service.LandService;
 import com.se1858.G5.LandAuction.Service.AuctionService;
-import com.se1858.G5.LandAuction.Service.WishlistServiceImpl;
+import com.se1858.G5.LandAuction.Service.ServiceImpl.WishlistServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
