@@ -34,7 +34,6 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-
                         <li class="sidebar-item active ">
                             <a href="/dashboard" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
@@ -171,7 +170,7 @@
                                             <img th:src="'/User_images/' + ${user.getAvatar()}" alt="Avatar">
                                         </div>
                                         <div>
-                                            <h5 class="font-bold mb-0" th:text="${user.getFirstName() + user.getLastName()}"></h5>
+                                            <h5 class="font-bold mb-0" th:text="${user.getFirstName() + ' ' + user.getLastName()} "></h5>
                                             <h6 class="text-muted" th:text="${user.getEmail()}"></h6>
                                         </div>
                                     </div>
@@ -189,7 +188,7 @@
                                             </div>
                                             <div>
                                                 <!-- Hiển thị tên người dùng -->
-                                                <h5 class="mb-0" th:text="${ user.getFirstName() + u.getLastName()}"></h5>
+                                                <h5 class="mb-0" th:text="${ user.getFirstName() + ' ' + u.getLastName()}"></h5>
                                                 <!-- Hiển thị email người dùng -->
                                                 <h6 class="text-muted" th:text="${u.getEmail()}"></h6>
                                             </div>
