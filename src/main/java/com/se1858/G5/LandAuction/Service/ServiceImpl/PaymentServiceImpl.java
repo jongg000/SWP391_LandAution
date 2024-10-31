@@ -13,9 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.Month;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
@@ -97,5 +100,21 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void createPaymentBill(Payment payment) {
         paymentRepository.save(payment);
+    }
+
+    @Override
+    public long getTotalPaymentAmount() {
+        Long totalAmount = paymentRepository.getTotalPaymentAmount();
+        return (totalAmount != null) ? totalAmount : 0;
+    }
+
+    @Override
+    public Map<Month, Long> getMonthlyPaymentAmounts() {
+        List<Payment> payments = paymentRepository.findAllByOrderByPaymentDateAsc();
+        return payments.stream()
+                .collect(Collectors.groupingBy(
+                        payment -> payment.getPaymentDate().getMonth(),
+                        Collectors.summingLong(Payment::getPaymentAmount)
+                ));
     }
 }
