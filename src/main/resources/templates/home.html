@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--[if IE 9]>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <![endif]-->
 <html lang="en-US">
 
@@ -110,19 +110,6 @@
                                 </li>
                                 <li><a href="#">Liên hệ</a>
                                 </li>
-
-<!--                                <li th:if="${#httpServletRequest.remoteUser != null} ">-->
-<!--                                    <a href="/profile">Thông tin cá nhân</a>-->
-<!--                                </li>-->
-<!--                                <li th:if="${#httpServletRequest.remoteUser != null} ">-->
-<!--                                    <a href="/logout">Đăng xuất</a>-->
-<!--                                </li>-->
-<!--                                <li th:if="${#httpServletRequest.remoteUser == null} ">-->
-<!--                                    <a href="/login">Đăng nhập</a>-->
-<!--                                </li>-->
-<!--                                <li th:if="${#httpServletRequest.remoteUser == null} ">-->
-<!--                                    <a href="/register">Đăng ký</a>-->
-<!--                                </li>-->
                                 <li>
                                     <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
                                     <div id="example" class="more">
@@ -402,7 +389,10 @@
                         <div id="featured-cars">
                             <div th:each="land : ${allLands}" class="featured-item col-md-15 col-sm-6">
                                 <!-- Hình ảnh -->
-                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">
+<!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
+                                <div th:if="${land.getImages().size() > 0}">
+                                    <img th:src="'/Land_images/' + ${land.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">
+                                </div>
 
                                 <!-- Nội dung -->
                                 <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">

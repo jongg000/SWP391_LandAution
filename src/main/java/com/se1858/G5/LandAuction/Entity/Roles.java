@@ -23,5 +23,8 @@ public class Roles {
     @Enumerated(EnumType.STRING)
     ERole roleName;
 
+    @Column(columnDefinition = "NVARCHAR(255)")
+    String description;
+
 }
 

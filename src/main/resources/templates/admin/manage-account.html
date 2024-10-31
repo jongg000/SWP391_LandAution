@@ -1,35 +1,167 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Manage Account</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý tài khoản</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/bootstraps.css">
+
+  <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+
+  <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+  <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="/assets/css/app.css">
+  <style>
+      /* Style for the disabled ban button */
+    .ban-button[disabled] {
+      cursor: not-allowed;
+      position: relative;
+    }
+
+    /* Tooltip on hover when the button is disabled */
+    .ban-button[disabled]:hover::after {
+      content: "X";
+      position: absolute;
+      top: -20px; /* Position above the button */
+      right: 0;
+      background-color: red;
+      color: white;
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-size: 12px;
+      white-space: nowrap;
+      z-index: 1;
+    }
+  </style>
 </head>
 <body>
-<table>
-  <thead>
-  <tr>
-    <th>ID</th>
-    <th>Username</th>
-    <th>Email</th>
-    <th>Role</th>
-    <th>Status</th>
-    <th>Actions</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr th:each="user : ${users}">
-    <td th:text="${user.userId}"></td>
-    <td th:text="${user.email}"></td>
-    <td th:text="${user.role.roleName}"></td>
-    <td th:text="${user.status.statusName}"></td>
-    <td>
-      <a th:href="@{/admin/updateUser/{id}(id=${user.userId})}">Edit</a>
-      <form th:action="@{/admin/banUser/{id}(id=${user.userId})}" method="post" style="display: inline;">
-        <button type="submit" th:disabled="${user.status.statusID == 3}">Ban</button>
-      </form>
-    </td>
-  </tr>
-  </tbody>
-</table>
+<div id="app">
+  <div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+      <div class="sidebar-header">
+        <div class="d-flex justify-content-between">
+          <div class="logo" >
+            <a href="/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
+          </div>
+          <div class="toggler">
+            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul class="menu">
+          <li class="sidebar-item ">
+            <a href="/dashboard" class='sidebar-link'>
+              <i class="bi bi-grid-fill"></i>
+              <span>Trang thống kê</span>
+            </a>
+          </li>
+
+          <li class="sidebar-item  active ">
+            <a href="/management" class='sidebar-link'>
+              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+              <span>Quản lý tài khoản</span>
+            </a>
+          </li>
+          <li class="sidebar-item has-sub">
+            <a href="#" class="sidebar-link">
+              <i class="bi bi-person-badge-fill"></i>
+              <span>Bảo mật</span>
+            </a>
+            <ul class="submenu">
+              <li class="submenu-item">
+                <a href="auth-login.html">
+                  <i class="bi bi-person-circle"></i> <!-- Icon cho "Thông tin cá nhân" -->
+                  <span>Thông tin cá nhân</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="auth-register.html">
+                  <i class="bi bi-pencil-square"></i> <!-- Icon cho "Sửa thông tin cá nhân" -->
+                  <span>Sửa thông tin cá nhân</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="auth-forgot-password.html">
+                  <i class="bi bi-key-fill"></i> <!-- Icon cho "Đổi mật khẩu" -->
+                  <span>Đổi mật khẩu</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="application-checkout.html">
+                  <i class="bi bi-box-arrow-right"></i> <!-- Icon cho "Đăng xuất" -->
+                  <span>Đăng xuất</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
+  </div>
+  <div id="main">
+    <header class="mb-3">
+      <a href="#" class="burger-btn d-block d-xl-none">
+        <i class="bi bi-justify fs-3"></i>
+      </a>
+    </header>
+    <section class="section">
+      <div class="card">
+        <div class="card-header">
+          Danh sách người dùng
+        </div>
+        <div class="card-body">
+          <table class="table table-striped" id="table2">
+            <thead>
+            <tr>
+              <th>Tên người dùng</th>
+              <th>Email</th>
+              <th>Vai trò</th>
+              <th>Số điện thoại</th>
+              <th>Địa chỉ</th>
+              <th>Trạng thái tài khoản</th>
+              <th>Thao tác</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item1 : ${users}">
+              <td><span th:text="|${item1.firstName ?: ''} ${item1.lastName ?: ''}|"></span></td>
+              <td><span th:text="${item1.email ?: 'No email'}"></span></td>
+              <td><span th:text="${item1.role.description}"></span></td>
+              <td><span th:text="${item1.phoneNumber ?: 'No phone number'}"></span></td>
+              <td><span th:text="${item1.address != null ? item1.address : 'No address'}"></span></td>
+              <td><span th:text="${item1.status.name}"></span></td>
+              <td>
+                <form th:action="@{/banUser/{id}(id=${item1.userId})}" method="post" style="display: inline;">
+                  <button type="submit" th:disabled="${item1.status.statusID == 3}">Ban</button>
+                </form>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+</div>
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+  // Simple Datatable
+  let table1 = document.querySelector('#table1');
+  let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+
+<script src="/assets/js/main.js"></script>
 </body>
+
 </html>

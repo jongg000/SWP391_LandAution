@@ -70,6 +70,7 @@
 
                             </ul>
                         </li>
+                    </ul>
                 </div>
                 <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
@@ -144,13 +145,14 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="item2 : ${assetRegistration}">
-                                    <td>
+                                    <td th:if="${item2.getLand() != null}" >
                                         <span th:text="${item2.getLand().province + ', ' + item2.getLand().district + ', ' + item2.getLand().ward}"></span>
                                     </td>
-                                    <td><span th:text="${item2.getLand().square}"></span></td>
-                                    <td><span th:text="${item2.getLand().user.firstName+ ' ' +item2.getLand().user.lastName}"></span></td>
-                                    <td><span th:text="${item2.getLand().price}"></span></td>
-                                    <td><span th:text="${item2.getStatus().name}"></span></td>
+                                    <td><span th:text="${item2.getLand()?.square}">Square not available</span>
+                                    </td>
+                                    <td><span th:text="${item2.getLand()?.user.firstName+ ' ' +item2.getLand().user.lastName}"></span></td>
+                                    <td><span th:text="${item2.getLand()?.price}"></span></td>
+                                    <td><span th:text="${item2.getStatus()?.name}"></span></td>
                                     </td>
                                 </tr>
                                 </tbody>

@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers("/", "/forgot-password", "/reset-password**",
-                        "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**", "/doc/**").permitAll()
+                "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**", "/doc/**").permitAll()
                 .antMatchers("/home").access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
                 .antMatchers("/register").permitAll()
                 .antMatchers("/profile", "/changePassword", "/profile/edit", "/customer/display/**").hasRole("CUSTOMER")
@@ -42,8 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/customer/wishlistPage/**").hasRole("CUSTOMER")
                 .antMatchers("/customer/listAuctionRegister/**").hasRole("CUSTOMER")
                 .antMatchers("/customer/bidPage/**").hasRole("CUSTOMER")
-                .antMatchers("/staff/**").hasRole("STAFF")
-                .antMatchers("/staff/home/**").hasRole("STAFF")
+                .antMatchers("/staff").hasRole("STAFF")
                 .antMatchers("/customer-care/**").hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
                 .and()

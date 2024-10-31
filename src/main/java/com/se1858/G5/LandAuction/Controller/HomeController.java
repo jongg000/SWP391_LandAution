@@ -3,6 +3,7 @@ package com.se1858.G5.LandAuction.Controller;
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Service.AssetService;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
+@Getter
 @Controller
 @RequestMapping
 @RequiredArgsConstructor
@@ -40,7 +42,4 @@ public class HomeController {
         return "home"; // Trả về tên của file HTML home.html
     }
 
-    public AssetService getAssetService() {
-        return assetService;
-    }
 }

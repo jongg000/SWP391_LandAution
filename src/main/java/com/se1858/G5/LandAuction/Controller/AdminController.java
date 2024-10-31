@@ -93,7 +93,7 @@ public class AdminController {
                 userRepository.save(user);
             }
         }
-        return "redirect:/admin/manage-account";
+        return "redirect:/management";
     }
 
     @GetMapping("/create-account")
@@ -112,70 +112,5 @@ public class AdminController {
 //        return createUser(userRegisterDTO, model, 0);
         return null;
     }
-
-    @GetMapping("/admin/updateUser/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
-        User existingUser = userRepository.findById(id).orElse(null);
-        if (existingUser == null) {
-            model.addAttribute("error", "User not found.");
-            return "redirect:/getAllUser";
-        }
-        List<Roles> roles = roleRepository.findAll();
-
-        model.addAttribute("roles", roles);
-        model.addAttribute("existingUser", existingUser);
-        return "update-user";
-    }
-
-    @PostMapping("/admin/updateUser/{id}")
-    public String updateUser(@PathVariable("id") int id,
-                             @ModelAttribute User updatedUser,
-                             @RequestParam("avatarFile") MultipartFile avatarFile,
-                             Model model) {
-        User existingUser = userRepository.findById(Math.toIntExact(id)).orElse(null);
-        if (existingUser == null) {
-            model.addAttribute("error", "User not found.");
-            return "redirect:/getAllUser";
-        }
-
-        if (isUsernameOrEmailTaken(updatedUser, model, id)) {
-            model.addAttribute("existingUser", existingUser);
-            model.addAttribute("roles", roleRepository.findAll());
-            return "update-user";
-        }
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setPhoneNumber(updatedUser.getPhoneNumber());
-        existingUser.setDob(updatedUser.getDob());
-        existingUser.setNationalID(updatedUser.getNationalID());
-
-
-        if (updatedUser.getRole() != null && updatedUser.getRole().getRoleID() != 0) {
-            Roles role = roleRepository.findById(Math.toIntExact(updatedUser.getRole().getRoleID())).orElse(null);
-            if (role != null) {
-                existingUser.setRole(role);
-            }
-        }
-
-        if (updatedUser.getStatus() != null && updatedUser.getStatus().getStatusID() != 0) {
-            Status status = statusRepository.findById(updatedUser.getStatus().getStatusID()).orElse(null);
-            if (status != null) {
-                existingUser.setStatus(status);
-            }
-        }
-
-        userRepository.save(existingUser);
-        return "redirect:/getAllUser";
-    }
-
-    private boolean isUsernameOrEmailTaken(User updatedUser, Model model, int userId) {
-
-        User userWithSameEmail = userRepository.findByEmail(updatedUser.getEmail());
-        if (userWithSameEmail != null && !Objects.equals(userWithSameEmail.getUserId(), userId)) {
-            model.addAttribute("error", "Email is already taken by another user.");
-            return true;
-        }
-        return false;
-    }
-
 
 }
