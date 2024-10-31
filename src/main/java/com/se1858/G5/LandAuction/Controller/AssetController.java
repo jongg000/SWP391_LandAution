@@ -4,19 +4,13 @@ package com.se1858.G5.LandAuction.Controller;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
-import com.se1858.G5.LandAuction.Service.AssetRegistrationService;
-import com.se1858.G5.LandAuction.Service.LandService;
+import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
-import com.se1858.G5.LandAuction.Service.StatusService;
-import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
@@ -33,7 +27,7 @@ public class AssetController {
     @Autowired
     private  UserService userService;
     @Autowired
-    private  LandService landService;
+    private  AssetService assetService;
     @Autowired
     private  AssetRegistrationService assetRegistrationService;
     @Autowired
@@ -75,4 +69,5 @@ public class AssetController {
         model.addAttribute("land", land);
         return "/customer/Success";
     }
+
 }

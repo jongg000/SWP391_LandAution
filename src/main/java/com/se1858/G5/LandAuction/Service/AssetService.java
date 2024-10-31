@@ -13,4 +13,7 @@ public interface AssetService {
     List<Land> findAll();
     List<Land> findAllByName(String keyword);
 
+    List<Land> search(String keyword);
+    List<Land> findTop4ByOrderByLandIdDesc();
+
 }
