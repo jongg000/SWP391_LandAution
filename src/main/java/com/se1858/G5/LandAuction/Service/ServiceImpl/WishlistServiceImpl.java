@@ -1,10 +1,11 @@
-package com.se1858.G5.LandAuction.Service;
+package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.DTO.WishlistDTO;
 import com.se1858.G5.LandAuction.Entity.Wishlist;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Repository.WishlistRepository;
+import com.se1858.G5.LandAuction.Service.WishlisrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
