@@ -72,6 +72,7 @@ public class Land {
         this.ward = ward;
         this.district = district;
         this.province = province;
+        this.square = square;
     }
 
     public void addImg(LandImage image) {

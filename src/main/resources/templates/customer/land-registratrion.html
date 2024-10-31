@@ -234,7 +234,7 @@
                     <form th:action="@{/postAsset/saveForm}" th:object="${land}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                         <h1>Hồ sơ đăng kí đấu giá</h1>
                         <div class="form-group">
-                            <input th:field="*{landName}" type="text" placeholder="Tên mảnh đất" required>
+                            <input th:field="*{name}" type="text" placeholder="Tên mảnh đất" required>
                         </div>
                         <div class="form-group double">
                             <select th:field="*{province}" id="tinh" name="tinh" required>

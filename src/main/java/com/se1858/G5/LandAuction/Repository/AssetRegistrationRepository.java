@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface AssetRegistrationRepository extends JpaRepository<AssetRegistration,Integer> {
     List<AssetRegistration> findByStatus(Status status);
+    AssetRegistration findAssetRegistrationByLand_LandId(int landId);
 }

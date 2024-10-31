@@ -27,7 +27,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 @Controller
-@RequestMapping("postAsset")
+@RequestMapping()
 
 public class AssetController {
     @Autowired
@@ -41,7 +41,7 @@ public class AssetController {
     @Autowired
     private  StatusService statusService;
 
-    @GetMapping("form")
+    @GetMapping("post-asset")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
@@ -59,7 +59,7 @@ public class AssetController {
         User user = userService.findByEmail(principal.getName());
                 Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
-                                     landDTO.getLocation(), user, landDTO.getLandName(),landDTO.getWard(),
+                                     landDTO.getLocation(), user, landDTO.getName(),landDTO.getWard(),
                                      landDTO.getDistrict(), landDTO.getProvince());
         UploadFile uploadFile = new UploadFile();
         uploadFile.upLoadDocumentAsset(landDTO.getDocument(), land);

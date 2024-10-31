@@ -1,8 +1,13 @@
+
 package com.se1858.G5.LandAuction.Repository;
 
 import com.se1858.G5.LandAuction.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import org.springframework.data.domain.Pageable;
+import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -11,7 +16,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByEmail(String email);
     boolean existsByPhoneNumber(String phoneNumber);
     boolean existsByNationalID(String nationalID);
+    @Query("SELECT u FROM User u ORDER BY u.userId DESC")
+    List<User> findTop3UsersByOrderByIdDesc(Pageable pageable);
 
 
 }
-

@@ -21,7 +21,7 @@ public class HomeStaffController {
     private AssetRegistrationService assetRegistrationService;
     @Autowired
     private UserService userService;
-    @GetMapping("/home")
+    @GetMapping()
     public String homePage(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("user",users);
