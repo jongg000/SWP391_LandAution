@@ -402,7 +402,7 @@
                         <div id="featured-cars">
                             <div th:each="land : ${allLands}" class="featured-item col-md-15 col-sm-6">
                                 <!-- Hình ảnh -->
-                                <img th:src="${ '/Land_images/' + land.getImages()}" alt="" style="width: 100%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">
+                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">
 
                                 <!-- Nội dung -->
                                 <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">

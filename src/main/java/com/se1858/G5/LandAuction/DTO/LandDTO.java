@@ -23,7 +23,6 @@ public class LandDTO {
     private String contact;
     private MultipartFile document;
     private List<MultipartFile> images;
-    private LandImage landImage;
     private double square;
     private double width;
     private double length;

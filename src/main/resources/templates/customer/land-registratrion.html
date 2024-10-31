@@ -234,7 +234,7 @@
                     <form th:action="@{/postAsset/saveForm}" th:object="${land}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                         <h1>Hồ sơ đăng kí đấu giá</h1>
                         <div class="form-group">
-                            <input th:field="*{landName}" type="text" placeholder="Tên mảnh đất" required>
+                            <input th:field="*{name}" type="text" placeholder="Tên mảnh đất" required>
                         </div>
                         <div class="form-group double">
                             <select th:field="*{province}" id="tinh" name="tinh" required>
@@ -267,15 +267,15 @@
                         </div>
                         <div class="form-group double">
                             <label for="document">Hồ sơ tham gia đấu thầu</label>
-                            <input type="file" id="document" th:field="*{document}" accept=".doc, .docx, .pdf"  multiple required>
+                            <input type="file" id="document" th:field="*{document}" accept=".doc, .docx, .pdf" required>
 
                             <label for="images">Cung cấp hình ảnh thực tế</label>
-                            <input type="file" id="images" th:field="*{images}"  accept="image/png, image/jpeg, image/jpg, image/gif" multiple required>
+                            <input type="file" id="images" th:field="*{images}" accept="image/png, image/jpeg, image/jpg, image/gif" multiple required>
                         </div>
 
-                        <div th:field="*{description}" class="form-group" >
+                        <div  class="form-group" >
                             <label for="images">Mô tả thêm thông tin chi tiết</label>
-                            <textarea placeholder="Mô tả chi tiết" required></textarea>
+                            <textarea th:field="*{description}" placeholder="Mô tả chi tiết" required></textarea>
                         </div>
                         <button type="submit" class="submit-btn">Hoàn thiện</button>
                     </form>

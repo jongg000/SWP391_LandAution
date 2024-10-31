@@ -35,7 +35,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     @Override
-    public VNPayResponse createVnPayPayment(HttpServletRequest request, int orderTotal, String vnPayReturnUrl) {
+    public VNPayResponse createVnPayPayment(HttpServletRequest request, long orderTotal, String vnPayReturnUrl) {
 
         Map<String, String> vnpParamsMap;
         vnpParamsMap = vnPayConfig.getVNPayConfig(vnPayReturnUrl);

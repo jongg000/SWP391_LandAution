@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/customer/listAuctionRegister/**").hasRole("CUSTOMER")
                 .antMatchers("/customer/bidPage/**").hasRole("CUSTOMER")
                 .antMatchers("/staff/**").hasRole("STAFF")
+                .antMatchers("/staff/home/**").hasRole("STAFF")
                 .antMatchers("/customer-care/**").hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
                 .and()

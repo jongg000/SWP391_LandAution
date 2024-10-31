@@ -8,7 +8,7 @@ import java.time.Month;
 import java.util.Map;
 
 public interface PaymentService {
-    public VNPayResponse createVnPayPayment(HttpServletRequest request, int orderTotal,  String vnPayReturnUrl);
+    public VNPayResponse createVnPayPayment(HttpServletRequest request, long orderTotal,  String vnPayReturnUrl);
     public int orderReturn(HttpServletRequest request);
     public void createPaymentBill(Payment payment);
     public long getTotalPaymentAmount();

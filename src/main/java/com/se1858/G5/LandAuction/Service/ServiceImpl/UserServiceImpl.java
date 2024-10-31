@@ -79,6 +79,10 @@ public class UserServiceImpl implements UserService {
     public List<User> findTop3UsersByOrderByIdDesc() {
         return userRepository.findTop3UsersByOrderByIdDesc(PageRequest.of(0,3));
     }
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
 
 }

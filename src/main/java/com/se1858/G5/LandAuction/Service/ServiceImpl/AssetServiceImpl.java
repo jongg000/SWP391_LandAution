@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
+import com.se1858.G5.LandAuction.Entity.AssetRegistration;
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.AssetService;
@@ -22,6 +23,20 @@ public class AssetServiceImpl implements AssetService {
     private LandRepository landRepository;
 
 
+    @Override
+    public List<AssetRegistration> getAllAssets() {
+        return List.of();
+    }
+
+    @Override
+    public AssetRegistration getAssetByID(int id) {
+        return null;
+    }
+
+    @Override
+    public AssetRegistration addAsset(AssetRegistration asset) {
+        return null;
+    }
 
     @Override
     public List<Land> findAll() {
