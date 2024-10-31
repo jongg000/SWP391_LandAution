@@ -5,24 +5,27 @@ import com.se1858.G5.LandAuction.DTO.AssetInfoDTO;
 import com.se1858.G5.LandAuction.DTO.FullAssetInfoDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.Entity.AssetRegistration;
+import com.se1858.G5.LandAuction.Entity.LandImage;
 import com.se1858.G5.LandAuction.Repository.AssetRegistrationRepository;
+import com.se1858.G5.LandAuction.Repository.LandImageRepository;
 import com.se1858.G5.LandAuction.Service.AssetRegistrationService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class AssetRegistrationImpl implements AssetRegistrationService {
     private AssetRegistrationRepository assetRegistrationRepository;
+    private LandImageRepository landImageRepository;
 
-    public AssetRegistrationImpl(AssetRegistrationRepository assetRegistrationRepository) {
+    public AssetRegistrationImpl(AssetRegistrationRepository assetRegistrationRepository, LandImageRepository landImageRepository) {
         this.assetRegistrationRepository = assetRegistrationRepository;
+        this.landImageRepository = landImageRepository;
     }
 
     @Override
@@ -75,12 +78,40 @@ public class AssetRegistrationImpl implements AssetRegistrationService {
     }
 
     @Override
-    public FullAssetInfoDTO findFullAssetInfoByDocumentId(Integer documentId) {
-        return assetRegistrationRepository.findFullAssetInfoById(documentId);
+    public FullAssetInfoDTO findFullAssetInfoByDocumentId(Integer documentId, Integer userId) {
+        FullAssetInfoDTO asset = assetRegistrationRepository.findFullAssetInfoById(documentId, userId);
+        if(asset != null) {
+            List<LandImage> listImg = landImageRepository.findByLand_LandId(asset.getLandId());
+            List<LandImageDTO> imgs = listImg.stream().map(this::convertToDto).toList();
+            asset.setImages(imgs);
+        }
+        return asset;
     }
 
     @Override
-    public Page<FullAssetInfoDTO> findFullAssetInfo(Pageable page) {//, AssetSearchDTO search
-        return assetRegistrationRepository.findFullAssetInfo(page);
+    public Page<FullAssetInfoDTO> findFullAssetInfo(Pageable page, Integer userId, Integer status) {//, AssetSearchDTO search
+        Page<FullAssetInfoDTO> pageAsset = assetRegistrationRepository.findFullAssetInfo(page, userId, status);
+        pageAsset.getContent().forEach(asset -> {
+            List<LandImage> listImg = landImageRepository.findByLand_LandId(asset.getLandId());
+            if(!CollectionUtils.isEmpty(listImg)) {
+                LandImageDTO img = convertToDto(listImg.get(0)) ;
+                asset.setImagesUrl(img.getImageUrl());
+            }
+        });
+        return pageAsset;
     }
+
+    @Override
+    public AssetRegistration findAssetRegistrationByDocumentId(Integer documentId) {
+        return assetRegistrationRepository.findAssetRegistrationByDocumentId(documentId);
+    }
+
+    private LandImageDTO convertToDto(LandImage landImage) {
+        LandImageDTO image = new LandImageDTO();
+        image.setImageId(landImage.getImageId());
+        image.setImageUrl(landImage.getImageUrl());
+        return image;
+    }
+
+
 }

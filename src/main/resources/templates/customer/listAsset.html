@@ -148,12 +148,12 @@
                 </div>
                 <div class="right-content">
                   <div class="input-select">
-                    <select name="mark" id="mark">
-                      <option value="-1">Sorted by</option>
-                      <option>Price</option>
-                      <option>Miles</option>
-                      <option>Year</option>
-                      <option>Near</option>
+                    <select name="mark" id="mark" onchange="updateStatus()">
+                      <option value="-1" >Chon status</option>
+                      <option th:each="status : ${LIST_STATUS}"
+                              th:value="${status.statusID}"
+                              th:text="${status.name}">
+                      </option>
                     </select>
                   </div>
                   <div class="grid-list">
@@ -166,13 +166,17 @@
               </div>
               <div th:each="asset : ${LIST_ASSET.content}" class="featured-item">
 <!--              <div class="featured-item">-->
-                <img th:src="@{${asset.path}}">
+<!--                <img th:src="@{${asset.path}}">-->
+                <img th:src="${asset.imagesUrl}" alt="" />
                 <div class="right-content">
                   <h2 th:text="${asset.name}"></h2>
 
                   <span th:text="${asset.price}"></span>
+                  <br>
+<!--                  <span th:text="${asset.statusName}"></span>-->
                   <div class="light-line"></div>
                   <p th:text="${asset.description}"></p>
+                  <p th:text="${asset.statusName}"></p>
                   <div class="view-details">
                     <a th:href="@{/postAsset/asset(id=${asset.documentId})}">View Details</a>
                   </div>
@@ -463,7 +467,21 @@
   </nav>
 
 </div>
+<script>
+  function updateStatus() {
+    // Lấy giá trị của select
+    var statusValue = document.getElementById("mark").value;
 
+    // Kiểm tra nếu không phải giá trị mặc định
+    if (statusValue !== "-1") {
+      // Xây dựng URL mới với tham số status
+      var newUrl = "http://localhost:8080/postAsset/asset/list?status=" + statusValue;
+
+      // Chuyển hướng trang tới URL mới
+      window.location.href = newUrl;
+    }
+  }
+</script>
 
 
 

@@ -12,7 +12,8 @@ import java.util.List;
 public interface AssetRegistrationService {
     public void save(AssetRegistration assetRegistration);
     List<AssetInfoDTO> findAssetInfoByDocumentId(Integer documentId);
-    FullAssetInfoDTO findFullAssetInfoByDocumentId(Integer documentId);
+    FullAssetInfoDTO findFullAssetInfoByDocumentId(Integer documentId, Integer userId);
 
-    Page<FullAssetInfoDTO> findFullAssetInfo(Pageable page);//, AssetSearchDTO search
+    Page<FullAssetInfoDTO> findFullAssetInfo(Pageable page, Integer userId, Integer status);//, AssetSearchDTO search
+    AssetRegistration findAssetRegistrationByDocumentId(Integer documentId);
 }

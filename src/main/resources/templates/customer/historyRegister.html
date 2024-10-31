@@ -146,24 +146,15 @@
               <div class="up-content clearfix">
 <!--                <h2>Audi a6 tsi s-line</h2>-->
                 <h2 th:text="${asset.name}">Tên tài sản</h2>
+<!--                <h2 th:text="${asset.images.imageUrl}">Tên tài sản</h2>-->
                 <span th:text="${asset.price}"></span>
               </div>
               <div class="flexslider">
+<!--                <div th:each="asset : ${LIST_ASSET.content}" class="featured-item">-->
                 <ul class="slides">
-                  <li data-thumb="/assets/images/05-featured-slide-117x83.jpg">
-                    <img src="/assets/images/05-featured-slide.jpg" alt="" />
-                  </li>
-                  <li data-thumb="/assets/images/04-featured-slide-117x83.jpg">
-                    <img src="/assets/images/04-featured-slide.jpg" alt="" />
-                  </li>
-                  <li data-thumb="">
-                    <img src="" alt="" />
-                  </li>
-                  <li data-thumb="">
-                    <img src="" alt="" />
-                  </li>
-                  <li data-thumb="">
-                    <img src="" alt="" />
+                  <li th:each="img : ${assetImg}" th:data-thumb="${img.imageUrl}">
+                    <img th:src="${img.imageUrl}" alt="" />
+                    <!--      <h2 th:text="${img.imageUrl}">Tên tài sản</h2>-->
                   </li>
                 </ul>
               </div>
@@ -228,7 +219,7 @@
               </div>
               <div class="enquiry">
                 <div class="head-side-bar">
-                  <h4>Liên Lạc && Hủy Bỏ</h4>
+                  <h4><a href="/chat">Lien lac voi chung toi</a></h4>
                 </div>
 
 
@@ -236,7 +227,7 @@
 
 <!--                  -->
                   <div class="advanced-button">
-                    <a href="#">Hủy Bỏ<i class="fa fa-paper-plane"></i></a>
+                    <a href="" id="cancel-link">Hủy Bỏ<i class="fa fa-paper-plane"></i></a>
                   </div>
                 </div>
                 <div class="subhead-side-bar">
@@ -250,6 +241,7 @@
           </div>
         </div>
           </div>
+        </div>
       </section>
 
       <section class="featured-listing">
@@ -515,7 +507,15 @@
 
 </div>
 
-
+<script>
+  document.getElementById("cancel-link").addEventListener("click", function(event) {
+    event.preventDefault(); // Ngăn không cho link điều hướng mặc định
+    let currentUrl = window.location.href; // Lấy URL hiện tại
+    let newUrl = new URL(currentUrl); // Tạo một đối tượng URL từ URL hiện tại
+    newUrl.searchParams.set('action', 'cancel'); // Thêm hoặc thay đổi param 'action=cancel'
+    window.location.href = newUrl.href; // Điều hướng tới URL mới
+  });
+</script>
 
 
 <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>

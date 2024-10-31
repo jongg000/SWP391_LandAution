@@ -44,7 +44,7 @@ public interface AssetRegistrationRepository extends JpaRepository<AssetRegistra
             "ar.documentId, ar.registrationDate, ar.approvalDate, ar.reason, ar.comments, " +
             "ar.user.userId, " +
             "l.landId, l.province, l.district, l.ward, l.name, l.location, l.description, " +
-            "l.price, l.contact, l.square, l.width, l.length, l.path) " +
+            "l.price, l.contact, l.square, l.width, l.length, l.path, ar.status.name) " +
             "FROM AssetRegistration ar " +
             "JOIN ar.land l " +
             "WHERE ar.documentId = :documentId")
@@ -54,19 +54,22 @@ public interface AssetRegistrationRepository extends JpaRepository<AssetRegistra
             "ar.documentId, ar.registrationDate, ar.approvalDate, ar.reason, ar.comments, " +
             "ar.user.userId, " +
             "l.landId, l.province, l.district, l.ward, l.name, l.location, l.description, " +
-            "l.price, l.contact, l.square, l.width, l.length, l.path) " +
+            "l.price, l.contact, l.square, l.width, l.length, l.path, ar.status.name) " +
             "FROM AssetRegistration ar " +
-            "JOIN ar.land l ")
-    Page<FullAssetInfoDTO> findFullAssetInfo(Pageable pageable);
+            "JOIN ar.land l " +
+            "WHERE  ar.user.userId = :userId AND (:status IS NULL OR ar.status.statusID = :status) ")
+    Page<FullAssetInfoDTO> findFullAssetInfo(Pageable pageable,@Param("userId") Integer userId, @Param("status") Integer status);
 
     @Query(value = "SELECT new com.se1858.G5.LandAuction.DTO.FullAssetInfoDTO(" +
             "ar.documentId, ar.registrationDate, ar.approvalDate, ar.reason, ar.comments, " +
             "ar.user.userId, " +
             "l.landId, l.province, l.district, l.ward, l.name, l.location, l.description, " +
-            "l.price, l.contact, l.square, l.width, l.length, l.path) " +
+            "l.price, l.contact, l.square, l.width, l.length, l.path, ar.status.name) " +
             "FROM AssetRegistration ar " +
             "JOIN ar.land l " +
-            "WHERE ar.documentId = :documentId")
-    FullAssetInfoDTO findFullAssetInfoById(@Param("documentId") Integer documentId);
+            "WHERE ar.documentId = :documentId AND ar.user.userId = :userId")
+    FullAssetInfoDTO findFullAssetInfoById(@Param("documentId") Integer documentId, @Param("userId") Integer userId);
+
+    AssetRegistration findAssetRegistrationByDocumentId(Integer documentId);
     AssetRegistration findAssetRegistrationByLand_LandId(int landId);
 }

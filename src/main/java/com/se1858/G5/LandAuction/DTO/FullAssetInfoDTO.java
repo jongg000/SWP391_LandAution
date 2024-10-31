@@ -31,14 +31,15 @@ public class FullAssetInfoDTO {
     private String path;                   // từ Land
 
     // Danh sách hình ảnh
-    private List<LandImageDTO> images;    // từ Land_Image
-
+    public List<LandImageDTO> images;    // từ Land_Image
+    public String imagesUrl;    // từ Land_Image
+    public String statusName;
     // Constructor
     public FullAssetInfoDTO(Integer documentId, LocalDateTime registrationDate, Date approvalDate,
                             String reason, String comments, Integer userId,
                             Integer landId, String province, String district, String ward,
                             String name, String location, String description,
-                            Long price, String contact, Double square, Double width, Double length, String path) {
+                            Long price, String contact, Double square, Double width, Double length, String path, String statusName) {
         this.documentId = documentId;
         this.registrationDate = registrationDate;
         this.approvalDate = approvalDate;
@@ -58,5 +59,6 @@ public class FullAssetInfoDTO {
         this.width = width;
         this.length = length;
         this.path = path;
+        this.statusName = statusName;
     }
 }
