@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -20,7 +21,17 @@ public class RoleServiceImpl  implements RoleService {
     private RolesRepository rolesRepository;
 
     @Override
-    public Optional<Roles> findByRoleName(ERole roleName) {
+    public Roles findByRoleName(ERole roleName) {
         return rolesRepository.findByRoleName(roleName);
+    }
+
+    @Override
+    public List<Roles> findByRoleNameIn(List<ERole> roleNames) {
+        return rolesRepository.findByRoleNameIn(roleNames);
+    }
+
+    @Override
+    public Roles findByRoleID(int roleId) {
+        return rolesRepository.findById(roleId).orElse(null);
     }
 }
