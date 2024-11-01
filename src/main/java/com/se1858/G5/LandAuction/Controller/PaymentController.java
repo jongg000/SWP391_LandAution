@@ -7,19 +7,17 @@ import com.se1858.G5.LandAuction.Service.PaymentService;
 import com.se1858.G5.LandAuction.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.http.HttpRequest;
 import java.security.Principal;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/payment")
+@RequestMapping("payment")
 public class PaymentController {
     private PaymentService paymentService;
     public UserService userService;
@@ -37,8 +35,8 @@ public class PaymentController {
             return "/customer/display";
     }
     //dẫn đến đường link thanh toán
-    @RequestMapping("/handle")
-    public String handle(HttpServletRequest request) {
+    @RequestMapping("handle")
+    public String handle(HttpServletRequest request, @PathVariable long bidamount) {
         int amount  = 500000;
         VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back");
         String link =vnPayResponse.paymentUrl;
@@ -55,7 +53,7 @@ public class PaymentController {
         String username = principal.getName();
         User user = userService.findByEmail(username);
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
-        Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice));
+        Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
         return paymentStatus == 1 ? "/customer/Success" : "customer/Fail";
     }

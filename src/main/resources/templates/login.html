@@ -259,6 +259,46 @@
             color: #3c97bf;
             text-decoration: none;
         }
+        /* Tạo kiểu cho hộp checkbox và nhãn */
+        .form-container label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #333;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+
+        .form-container input[type="checkbox"] {
+            display: none; /* Ẩn checkbox mặc định */
+        }
+
+        .form-container input[type="checkbox"] + span {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            border: 2px solid #2bb5ff;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .form-container input[type="checkbox"]:checked + span {
+            background-color: #2bb5ff;
+        }
+
+        .form-container input[type="checkbox"]:checked + span::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 0;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
     </style>
 </head>
 
@@ -270,6 +310,10 @@
             <span th:if="${session.loginError != null }" th:text="${session.loginError}" style="color: #ff3c00"></span>
             <input type="email" id="email" name="username" placeholder="Email" required>
             <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
+            <label>
+                <input type="checkbox" name="remember-me" />
+                <span></span> Ghi nhớ đăng nhập
+            </label>
             <a href="forgot-password">Quên mật khẩu?</a>
             <button type="submit">Đăng nhập</button>
         </form>

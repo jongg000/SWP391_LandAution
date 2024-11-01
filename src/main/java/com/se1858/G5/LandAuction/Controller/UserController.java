@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -90,10 +91,27 @@ public class UserController {
         // Lưu người dùng vào cơ sở dữ liệu
         userService.save(user);
     }
+    @GetMapping("/someProtectedPage")
+    public String someProtectedPage(HttpServletRequest request) {
+        // Kiểm tra nếu người dùng chưa đăng nhập
+        if (request.getUserPrincipal() == null) {
+            // Lưu URL hiện tại vào session
+            request.getSession().setAttribute("redirectUrl", request.getRequestURI());
+            return "redirect:/login";
+        }
+        return "403";
+    }
+
 
     @GetMapping("/login")
-    public String login() {
-        return "login"; // tên file login.html trong thư mục templates
+    public String login(Principal principal, HttpServletRequest session) {
+        if (principal != null) {
+            // Lấy URL từ session và chuyển hướng nếu có, ngược lại thì về home
+            String redirectUrl = (String) session.getAttribute("redirectUrl");
+            session.removeAttribute("redirectUrl"); // Xóa URL khỏi session sau khi lấy
+            return "redirect:" + (redirectUrl != null ? redirectUrl : "/home");
+        }
+        return "login";
     }
 
     @GetMapping("/profile")
@@ -175,6 +193,22 @@ public class UserController {
 
         String email = principal.getName();
         User user = userService.findByEmail(email);
+        if (user == null) {
+            model.addAttribute("error", "User not found.");
+            return "customer/edit-profile";
+        }
+        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
+        if (userService.existsByEmail(userProfileDTO.getEmail())) {
+            model.addAttribute("emailError", "Email này đã tồn tại.");
+            model.addAttribute("user", user);
+            return "customer/edit-profile";
+        }
+
+        if (userService.existsByPhoneNumber(userProfileDTO.getPhoneNumber())) {
+            model.addAttribute("phoneError", "Số điện thoại đã tồn tại.");
+            model.addAttribute("user", user);
+            return "customer/edit-profile";
+        }
 
         // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
@@ -183,15 +217,19 @@ public class UserController {
         user.setAddress(userProfileDTO.getAddress());
         user.setDob(userProfileDTO.getDob());
         user.setGender(userProfileDTO.getGender());
+        user.setEmail(userProfileDTO.getEmail());
 
-        // Only check for existing National ID if it's different
-        if (!user.getNationalID().equals(userProfileDTO.getNationalID()) &&
+    // Chỉ kiểm tra nếu National ID khác nhau và không phải là null
+        if (userProfileDTO.getNationalID() != null &&
+                (user.getNationalID() == null || !user.getNationalID().equals(userProfileDTO.getNationalID())) &&
                 userService.existsByNationalID(userProfileDTO.getNationalID())) {
+
             model.addAttribute("error", "Số CMND đã tồn tại.");
             model.addAttribute("user", user);
             return "customer/edit-profile";
+        } else {
+            user.setNationalID(userProfileDTO.getNationalID());
         }
-        user.setNationalID(userProfileDTO.getNationalID());
 
         UploadFile uploadFile = new UploadFile();
 
@@ -207,7 +245,6 @@ public class UserController {
         if (userProfileDTO.getNationalBackImage() != null && !userProfileDTO.getNationalBackImage().isEmpty()) {
             uploadFile.UploadImagesNationalB(userProfileDTO.getNationalBackImage(), user);
         }
-
         // Save updated user information to the database
         userService.save(user);
 

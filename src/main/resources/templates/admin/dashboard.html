@@ -8,14 +8,14 @@
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/css/bootstraps.css">
+    <link rel="stylesheet" href="/assets/css/bootstraps.css">
+    <link rel="stylesheet" href="/assets/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
 
-    <link rel="stylesheet" href="../assets/vendors/iconly/bold.css">
-
-    <link rel="stylesheet" href="../assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
-    <link rel="stylesheet" href="../assets/vendors/bootstrap-icons/bootstrap-icons.css">
-    <link rel="stylesheet" href="../assets/css/app.css">
-    <link rel="shortcut icon" href="../assets/images/favicon.svg" type="image/x-icon">
 </head>
 
 <body>
@@ -24,8 +24,8 @@
             <div class="sidebar-wrapper active">
                 <div class="sidebar-header">
                     <div class="d-flex justify-content-between">
-                        <div class="logo">
-                            <a href="dashboard.html"><img src="../assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                        <div class="logo" >
+                                <a href="/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
                         </div>
                         <div class="toggler">
                             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -34,65 +34,42 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-
-                        <li class="sidebar-item active ">
-                            <a href="dashboard.html" class='sidebar-link'>
+                        <li class="sidebar-item active">
+                            <a href="/dashboard" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
-                                <span>Dashboard</span>
+                                <span>Trang thống kê</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item  ">
-                            <a href="table-datatable.html" class='sidebar-link'>
+                            <a href="/management" class='sidebar-link'>
                                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-                                <span>Datatable</span>
+                                <span>Quản lý tài khoản</span>
                             </a>
                         </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
-                                <i class="bi bi-bar-chart-fill"></i>
-                                <span>Charts</span>
-                            </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-chartjs.html">ChartJS</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="ui-chart-apexcharts.html">Apexcharts</a>
-                                </li>
-                            </ul>
-                        </li>
-
-
-                        <li class="sidebar-item  ">
-                            <a href="application-chat.html" class='sidebar-link'>
-                                <i class="bi bi-chat-dots-fill"></i>
-                                <span>Chat Application</span>
+                        <li class="sidebar-item ">
+                            <a href="/create-account" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>Tạo tài khoản nhân viên</span>
                             </a>
                         </li>
-
-                        <li class="sidebar-item  ">
-                            <a href="application-checkout.html" class='sidebar-link'>
-                                <i class="bi bi-basket-fill"></i>
-                                <span>Checkout Page</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item  has-sub">
-                            <a href="#" class='sidebar-link'>
+                        <li class="sidebar-item has-sub">
+                            <a href="#" class="sidebar-link">
                                 <i class="bi bi-person-badge-fill"></i>
-                                <span>Authentication</span>
+                                <span>Bảo mật</span>
                             </a>
-                            <ul class="submenu ">
-                                <li class="submenu-item ">
-                                    <a href="auth-login.html">Login</a>
+                            <ul class="submenu">
+                                <li class="submenu-item">
+                                    <a href="/adminChangePassword">
+                                        <i class="bi bi-key-fill"></i> <!-- Icon cho "Đổi mật khẩu" -->
+                                        <span>Đổi mật khẩu</span>
+                                    </a>
                                 </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-register.html">Register</a>
-                                </li>
-                                <li class="submenu-item ">
-                                    <a href="auth-forgot-password.html">Forgot Password</a>
+                                <li class="submenu-item">
+                                    <a href="/logot">
+                                        <i class="bi bi-box-arrow-right"></i> <!-- Icon cho "Đăng xuất" -->
+                                        <span>Đăng xuất</span>
+                                    </a>
                                 </li>
                             </ul>
                         </li>
@@ -109,7 +86,7 @@
             </header>
 
             <div class="page-heading">
-                <h3>Profile Statistics</h3>
+                <h3>Tổng Thống kê </h3>
             </div>
             <div class="page-content">
                 <section class="row">
@@ -125,8 +102,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Profile Views</h6>
-                                                <h6 class="font-extrabold mb-0">112.000</h6>
+                                                <h6 class="text-muted font-semibold">Cuộc đấu giá</h6>
+                                                <h6 class="font-extrabold mb-0" th:text="${totalAuctions}">112.000</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -142,25 +119,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Followers</h6>
-                                                <h6 class="font-extrabold mb-0">183.000</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon green">
-                                                    <i class="iconly-boldAdd-User"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Following</h6>
-                                                <h6 class="font-extrabold mb-0">80.000</h6>
+                                                <h6 class="text-muted font-semibold">Bất động sản</h6>
+                                                <h6 class="font-extrabold mb-0" th:text="${totalUsers}">183.000</h6>
                                             </div>
                                         </div>
                                     </div>
@@ -176,213 +136,119 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Saved Post</h6>
-                                                <h6 class="font-extrabold mb-0">112</h6>
+                                                <h6 class="text-muted font-semibold">Doanh thu</h6>
+                                                <h6 class="font-extrabold mb-0"  th:text="${totalPaymentAmount}"></h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4>Doanh thu theo tháng</h4>
+                                </div>
+                                <div class="card-body">
+                                    <div id="chart-payment"></div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 col-lg-3">
                                 <div class="card">
+                                    <div class="card-body d-flex align-items-center">
+                                        <div class="avatar avatar-xl me-3">
+                                            <img th:src="'/User_images/' + ${user.getAvatar()}" alt="Avatar">
+                                        </div>
+                                        <div>
+                                            <h5 class="font-bold mb-0" th:text="${user.getFirstName() + ' ' + user.getLastName()} "></h5>
+                                            <h6 class="text-muted" th:text="${user.getEmail()}"></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card mt-3">
                                     <div class="card-header">
-                                        <h4>Profile Visit</h4>
+                                        <h4>Tài khoản mới</h4>
                                     </div>
-                                    <div class="card-body">
-                                        <div id="chart-profile-visit"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-xl-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Profile Visit</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                                        style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Europe</h5>
-                                                </div>
+                                    <div class="card-content pb-4">
+                                        <!-- Lặp qua danh sách 3 người dùng -->
+                                        <div th:each="u : ${users}" class="recent-message d-flex align-items-center p-3">
+                                            <div class="avatar avatar-lg me-3">
+                                                <!-- Hiển thị ảnh đại diện người dùng -->
+                                                <img th:src="'/User_images/' + ${u.getAvatar()}" alt="User Avatar">
                                             </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">862</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-europe"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-success" width="32" height="32" fill="blue"
-                                                        style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">America</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">375</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-america"></div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="d-flex align-items-center">
-                                                    <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                                        style="width:10px">
-                                                        <use
-                                                            xlink:href="assets/vendors/bootstrap-icons/bootstrap-icons.svg#circle-fill" />
-                                                    </svg>
-                                                    <h5 class="mb-0 ms-3">Indonesia</h5>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <h5 class="mb-0">1025</h5>
-                                            </div>
-                                            <div class="col-12">
-                                                <div id="chart-indonesia"></div>
+                                            <div>
+                                                <!-- Hiển thị tên người dùng -->
+                                                <h5 class="mb-0" th:text="${ user.getFirstName() + ' ' + u.getLastName()}"></h5>
+                                                <!-- Hiển thị email người dùng -->
+                                                <h6 class="text-muted" th:text="${u.getEmail()}"></h6>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-xl-8">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4>Latest Comments</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-lg">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Name</th>
-                                                        <th>Comment</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="../assets/images/faces/5.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Congratulations on your graduation!</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="col-3">
-                                                            <div class="d-flex align-items-center">
-                                                                <div class="avatar avatar-md">
-                                                                    <img src="../assets/images/faces/2.jpg">
-                                                                </div>
-                                                                <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                            </div>
-                                                        </td>
-                                                        <td class="col-auto">
-                                                            <p class=" mb-0">Wow amazing design! Can you make another
-                                                                tutorial for
-                                                                this design?</p>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-lg-3">
-                        <div class="card">
-                            <div class="card-body py-4 px-5">
-                                <div class="d-flex align-items-center">
-                                    <div class="avatar avatar-xl">
-                                        <img src="../assets/images/faces/1.jpg" alt="Face 1">
-                                    </div>
-                                    <div class="ms-3 name">
-                                        <h5 class="font-bold">John Duck</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Recent Messages</h4>
-                            </div>
-                            <div class="card-content pb-4">
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="../assets/images/faces/4.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Hank Schrader</h5>
-                                        <h6 class="text-muted mb-0">@johnducky</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="../assets/images/faces/5.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">Dean Winchester</h5>
-                                        <h6 class="text-muted mb-0">@imdean</h6>
-                                    </div>
-                                </div>
-                                <div class="recent-message d-flex px-4 py-3">
-                                    <div class="avatar avatar-lg">
-                                        <img src="../assets/images/faces/1.jpg">
-                                    </div>
-                                    <div class="name ms-4">
-                                        <h5 class="mb-1">John Dodol</h5>
-                                        <h6 class="text-muted mb-0">@dodoljohn</h6>
-                                    </div>
-                                </div>
-                                <div class="px-4">
-                                    <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                                        Conversation</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Visitors Profile</h4>
-                            </div>
-                            <div class="card-body">
-                                <div id="chart-visitors-profile"></div>
-                            </div>
+
                         </div>
                     </div>
                 </section>
             </div>
         </div>
     </div>
-    <script src="../assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="../assets/js/bootstrap.bundle.min.js"></script>
 
-    <script src="../assets/vendors/apexcharts/apexcharts.js"></script>
-    <script src="../assets/js/pages/dashboard.js"></script>
+    <script th:inline="javascript">
+        // Lấy dữ liệu từ server (chuyển đổi sang chuỗi JSON nếu cần)
+        const monthlyPaymentAmounts = /*[[${monthlyPaymentAmounts}]]*/ '{}';
 
-    <script src="../assets/js/main.js"></script>
+        // Chuẩn bị dữ liệu cho biểu đồ
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const months = monthNames.map((name, index) => {
+            const amount = monthlyPaymentAmounts[index + 1] || 0; // Lấy giá trị từ monthlyPaymentAmounts hoặc 0 nếu không có dữ liệu
+            return { name, amount };
+        });
+
+        const data = months.map(m => m.amount);
+
+        // Cấu hình biểu đồ
+        const options = {
+            chart: {
+                type: 'bar',
+                height: 350
+            },
+            series: [{
+                name: 'Doanh thu (VND)',
+                data: data
+            }],
+            xaxis: {
+                categories: monthNames
+            },
+            title: {
+                text: "Doanh thu theo tháng",
+                align: 'center'
+            },
+            yaxis: {
+                labels: {
+                    formatter: function (value) {
+                        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+                    }
+                }
+            }
+        };
+
+        // Khởi tạo biểu đồ
+        const chart = new ApexCharts(document.querySelector("#chart-payment"), options);
+        chart.render();
+    </script>
+    <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+    <script src="/assets/js/pages/dashboard.js"></script>
+
+    <script src="/assets/js/main.js"></script>
+    <script src="/assets/vendors/apexcharts/apexcharts.js"></script>
 </body>
 
 </html>

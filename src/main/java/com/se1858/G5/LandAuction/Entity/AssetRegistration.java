@@ -19,7 +19,7 @@ public class AssetRegistration {
     private int documentId;
 
     @OneToOne
-    @JoinColumn(name = "LandID", nullable = false)
+    @JoinColumn(name = "land_id")
     private Land land;
 
     @ManyToOne

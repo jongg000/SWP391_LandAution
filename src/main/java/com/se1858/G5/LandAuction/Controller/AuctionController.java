@@ -29,6 +29,7 @@ public class AuctionController {
 
     @Autowired
     private LandService landService;
+
     @Autowired
     private WishlistService wishlistService;
     @Autowired

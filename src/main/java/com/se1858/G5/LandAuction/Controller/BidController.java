@@ -6,9 +6,9 @@ import com.se1858.G5.LandAuction.Repository.AuctionRegistrationRepository;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Service.AuctionRegistrationService;
-import com.se1858.G5.LandAuction.Service.AuctionService;
 import com.se1858.G5.LandAuction.Service.BidService;
 import com.se1858.G5.LandAuction.Service.LandService;
+import com.se1858.G5.LandAuction.Service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 

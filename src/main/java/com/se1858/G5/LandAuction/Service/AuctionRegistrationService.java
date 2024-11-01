@@ -3,6 +3,7 @@ package com.se1858.G5.LandAuction.Service;
 import com.se1858.G5.LandAuction.DTO.AuctionRegistrationDTO;
 import com.se1858.G5.LandAuction.Entity.AssetRegistration;
 import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
+import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,8 @@ public class AuctionRegistrationService {
     private AuctionRepository auctionRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private LandRepository landRepository;
 
     private AuctionRegistrationDTO convertToDTO(AuctionRegistration auction) {
         return AuctionRegistrationDTO.builder()
@@ -61,8 +64,9 @@ public class AuctionRegistrationService {
         return auctionRegistrationRepository.findAllByUser_UserId(userId).stream().map(this::convertToDTO).collect(Collectors.toList());
     }
     public boolean checkAvailableAttend(int userId, int landId) {
-        AssetRegistration ar = assetRegistrationRepository.findAssetRegistrationByLand_LandId(landId);
-        return ar.getUser().getUserId() == userId;
+        Land land = landRepository.findById(landId).orElse(null);
+
+        return land.getUser().getUserId() == userId;
     }
 
     public boolean checkAvailableAttend(int userId){

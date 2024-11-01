@@ -7,19 +7,18 @@ INSERT [dbo].[Roles] ([RoleID], [Role_Name]) VALUES (4, N'ROLE_CUSTOMER_CARE')
 SET IDENTITY_INSERT [dbo].[Roles] OFF
 GO
 SET IDENTITY_INSERT [dbo].[status] ON 
-
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (1, NULL, N'Chua xác minh ')
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (2, NULL, N'Ðã xác minh ')
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (3, NULL, N'Khóa')
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (4, NULL, N'Ch? xét duy?t') --registration
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (5, NULL, N'Ðang d?u giá') --registration
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (6, NULL, N'Ðã d?u giá')  --registration
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (7, NULL, N'Ð?u giá thành công')
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (8, NULL, N'Chua d?u giá')
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (9, NULL, N'Ðã h?y')
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (10, NULL, N'Sắp diễn ra') --auction
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (11, NULL, N'Ðã hoàn thành') --auction
-INSERT [dbo].[status] ([statusid], [description], [name]) VALUES (12, NULL, N'Ðang tiến hành') --auction
+INSERT INTO dbo.status (statusid, description, name) VALUES (1, NULL, N'Chưa xác minh');
+INSERT INTO dbo.status (statusid, description, name) VALUES (2, NULL, N'Đã xác minh');
+INSERT INTO dbo.status (statusid, description, name) VALUES (3, NULL, N'Khóa');
+INSERT INTO dbo.status (statusid, description, name) VALUES (4, NULL, N'Chờ xét duyệt');
+INSERT INTO dbo.status (statusid, description, name) VALUES (5, NULL, N'Đang đấu giá');
+INSERT INTO dbo.status (statusid, description, name) VALUES (6, NULL, N'Đã đấu giá');
+INSERT INTO dbo.status (statusid, description, name) VALUES (7, NULL, N'Đấu giá thành công');
+INSERT INTO dbo.status (statusid, description, name) VALUES (8, NULL, N'Chưa đấu giá');
+INSERT INTO dbo.status (statusid, description, name) VALUES (9, NULL, N'Đã hủy');
+INSERT INTO dbo.status (statusid, description, name) VALUES (10, NULL, N'Chưa hoàn thành');
+INSERT INTO dbo.status (statusid, description, name) VALUES (11, NULL, N'Đã hoàn thành');
+INSERT INTO dbo.status (statusid, description, name) VALUES (12, NULL, N'Đang tiến hành');
 SET IDENTITY_INSERT [dbo].[status] OFF
 GO
 

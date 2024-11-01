@@ -9,17 +9,19 @@ import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
-
 
     private UserRepository userRepository;
 
@@ -67,7 +69,19 @@ public class UserServiceImpl implements UserService {
         return token;
     }
 
+    @Override
+    public long getTotalUsers() {
+        return userRepository.count();
+    }
 
+    @Override
+    public List<User> findTop3UsersByOrderByIdDesc() {
+        return userRepository.findTop3UsersByOrderByIdDesc(PageRequest.of(0,3));
+    }
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
 
 
 }

@@ -86,9 +86,6 @@ public class LandService {
         landRepository.save(wishlist);
     }
 
-
-
-
     public List<LandDTO> findAllLand() {
         return landRepository.findAll().
                 stream().map(this::convertToDTO).
@@ -119,6 +116,8 @@ public class LandService {
         Land udLand = landRepository.save(land);
         return convertToDTO(udLand);
     }
+
+
 
 }
 
