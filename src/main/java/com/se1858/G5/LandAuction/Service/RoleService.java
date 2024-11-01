@@ -5,6 +5,6 @@ import com.se1858.G5.LandAuction.Entity.Roles;
 
 import java.util.Optional;
 
-public interface RoleService {
+public interface  RoleService {
     Optional<Roles> findByRoleName(ERole roleName);
 }

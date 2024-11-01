@@ -60,6 +60,59 @@ public class AuctionController {
         return "redirect:/auction";
     }
 
+    @GetMapping("/showAuctions")
+    public String showAuctions(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "2") int size,
+            Model model) {
+
+        List<AuctionDto> allAuctions = auctionService.getAllAuctions();
+        int totalAuctions = allAuctions.size();
+        int totalPages = (int) Math.ceil((double) totalAuctions / size);
+
+        int fromIndex = page * size;
+        int toIndex = Math.min(fromIndex + size, totalAuctions);
+        if (fromIndex >= totalAuctions || fromIndex < 0) {
+            page = 0;
+            fromIndex = 0;
+            toIndex = Math.min(size, totalAuctions);
+        }
+
+        List<AuctionDto> paginatedAuctions = allAuctions.subList(fromIndex, toIndex);
+        List<Map<String, Object>> auctionDetails = new ArrayList<>();
+        LocalDateTime now = LocalDateTime.now();
+
+        for (AuctionDto auction : paginatedAuctions) {
+            Map<String, Object> details = new HashMap<>();
+            LandDTO land = landService.findLandById(auction.getLandId());
+            List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLandId());
+            details.put("auction", auction);
+            details.put("land", land);
+            details.put("Image", landImageList.isEmpty() ? null : landImageList.get(0).getImageUrl());
+
+            // Determine the status of the auction
+            String dateCheck;
+            if (now.isAfter(auction.getEndTime())) {
+                dateCheck = "ended";
+            } else if (now.isBefore(auction.getStartTime())) {
+                dateCheck = "comingSoon";
+            } else {
+                dateCheck = "isGoingOn";
+            }
+            details.put("dateCheck", dateCheck); // Add the dateCheck status
+
+            auctionDetails.add(details);
+        }
+
+        model.addAttribute("auctionDetails", auctionDetails);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", totalPages);
+
+        return "auctionPage";
+    }
+
+
+
     @GetMapping("/showAuctionDetail/{id}")
     public String showAuctionDetail(@PathVariable int id, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();

@@ -212,21 +212,21 @@
 								</div>
 								<div class="right-content">
 									<div class="input-select">
-										<select name="mark" id="mark">
-											<option value="-1">Sorted by</option>
-											<option>Price</option>
-											<option>Miles</option>
-											<option>Year</option>
-											<option>Near</option>
+										<select name="mark" id="mark" onchange="filterAuctionRegistration()">
+											<option value="" disabled selected>-- Lọc theo --</option>
+											<option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra</option>
+											<option value="is going on" th:selected="${currentFilter == 'is going on'}">Đang diễn ra</option>
+											<option value="upcoming" th:selected="${currentFilter == 'upcoming'}">Sắp diễn ra</option>
+											<option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
 										</select>
+										<input type="hidden" name="userId" id="userId" th:value="${userId}"/>
 									</div>
 								</div>
 							</div>
-							<!--                            th:if="${wishlistDetail.dateCheck != 'ended'}"-->
-							<div class="row" th:each="wishlistDetail : ${wishlistDetails}" >
+
+							<div class="row" th:each="wishlistDetail : ${wishlistDetails}">
 								<div class="featured-item">
-									<img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image"
-										 style="width: 22%; height: 15%;"/>
+									<img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image" style="width: 22%; height: 15%;"/>
 									<div class="right-content">
 										<a href="#"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
 										<span th:text="${'$' + wishlistDetail.land.price}"></span>
@@ -237,12 +237,11 @@
 										</div>
 										<div class="car-info">
 											<ul>
-												<li>Start Time: [[${wishlistDetail.auction.startTime}]]</li>
-												<li>End Time: [[${wishlistDetail.auction.endTime}]]</li>
+												<li>Thời gian bắt đầu:  [[${wishlistDetail.auction.startTime}]]</li>
+												<li>Thời gian kết thúc:  [[${wishlistDetail.auction.endTime}]]</li>
 												<li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
 													<th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
 														<a>Đã kết thúc</a>
-
 													</th:block>
 													<th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
 														<a>Sắp diễn ra</a>
@@ -251,7 +250,6 @@
 														<a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu giá ngay</a>
 													</th:block>
 												</li>
-
 											</ul>
 										</div>
 									</div>
@@ -260,26 +258,35 @@
 
 							<div class="pagination">
 								<div class="prev">
-									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage - 1})}" th:if="${currentPage > 0}">
+									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage - 1}, filter=${currentFilter})}" th:if="${currentPage > 0}">
 										<i class="fa fa-arrow-left"></i> Trang trước
 									</a>
 								</div>
 								<div class="page-numbers">
 									<ul>
 										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-											<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${i})}" th:class="${i == currentPage} ? 'active' : ''">
-												<span th:text="${i + 1}">1</span>
+											<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${i}, filter=${currentFilter})}" th:class="${i == currentPage} ? 'active' : ''">
+												<span th:text="${i + 1}"></span>
 											</a>
 										</li>
 									</ul>
 								</div>
 								<div class="next">
-									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}">
+									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage + 1}, filter=${currentFilter})}" th:if="${currentPage < totalPages - 1}">
 										Trang sau <i class="fa fa-arrow-right"></i>
 									</a>
 								</div>
 							</div>
 						</div>
+
+						<script>
+							function filterAuctionRegistration() {
+								const filter = document.getElementById("mark").value;
+								const userId = document.getElementById("userId").value;
+								window.location.href = `/auctionRegistration/showAuctionRegistrationPage?page=0&filter=${filter}&userId=${userId}`;
+							}
+						</script>
+
 
 					</div>
 				</div>

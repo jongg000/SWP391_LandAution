@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>Auction - Car Dealer HTML Theme</title>
+    <title>Auction Detail Page</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -197,7 +197,13 @@
                                             <p th:text="${land.description}"></p>
                                         </div>
                                         <div id="tab3" class="tab">
-                                            <!--												<a th:href="#"></a>-->
+                                            <iframe th:src="${land.location}"
+                                                    width="800"
+                                                    height="450"
+                                                    style="border:0;"
+                                                    allowfullscreen=""
+                                                    loading="lazy">
+                                            </iframe>
                                         </div>
                                     </div>
                                 </div>
@@ -214,7 +220,7 @@
                                         <li><span>Sản phẩm:</span><span th:text="${land.name}"></span></li>
                                         <li><span>Giá: </span><span th:text="${land.price}"></span></li>
                                         <li><span>Mô tả:</span><span th:text="${land.description}"></span></li>
-                                        <li><span>Vị trí:</span><span th:text="${land.location}"></span></li>
+                                        <li><span>Vị trí:</span><span th:text="${land.province}"></span></li>
                                         <li><span>Chiều dài:</span><span th:text="${land.length}"></span></li>
                                         <li><span>Chiều rộng:</span><span th:text="${land.width}"></span></li>
                                         <li><span>Diện tích:</span><span th:text="${land.square}"></span></li>

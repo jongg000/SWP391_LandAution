@@ -212,21 +212,21 @@
                                 </div>
                                 <div class="right-content">
                                     <div class="input-select">
-                                        <select name="mark" id="mark" onchange="filterWishlist()">
-                                            <option value="" disabled selected>-- Lọc theo --</option>                                            <option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra</option>
-                                            <option value="isGoingOn" th:selected="${currentFilter == 'isGoingOn'}">Đang diễn ra</option>
-                                            <option value="comingSoon" th:selected="${currentFilter == 'comingSoon'}">Sắp diễn ra</option>
-                                            <option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
+                                        <select name="mark" id="mark">
+                                            <option value="-1">Sorted by</option>
+                                            <option>Price</option>
+                                            <option>Miles</option>
+                                            <option>Year</option>
+                                            <option>Near</option>
                                         </select>
-                                        <input type="hidden" name="userId" id="userId" th:value="${userId}"/>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}">
-                                <div class="featured-item"
-                                     th:if="${wishlistDetail.dateCheck == 'comingSoon' || wishlistDetail.dateCheck == 'isGoingOn' || wishlistDetail.dateCheck == 'ended' || (selectedFilter == 'all')}">
-                                    <img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image" style="width: 22%; height: 15%;"/>
+<!--                            th:if="${wishlistDetail.dateCheck != 'ended'}"-->
+                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}" >
+                                <div class="featured-item">
+                                    <img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image"
+                                         style="width: 22%; height: 15%;"/>
                                     <div class="right-content">
                                         <a href="#"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
                                         <span th:text="${'$' + wishlistDetail.land.price}"></span>
@@ -238,7 +238,7 @@
                                         <div class="car-info">
                                             <ul>
                                                 <li>Thời gian bắt đầu: [[${wishlistDetail.auction.startTime}]]</li>
-                                                <li>Thời gian kết thúc: [[${wishlistDetail.auction.endTime}]]</li>
+                                                <li>Thời gian kêt thúc: [[${wishlistDetail.auction.endTime}]]</li>
                                                 <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
                                                     <a th:href="@{/wishlist/delete/{id}(id=${wishlistDetail.wishlist.wishlistId})}">Xóa theo dõi</a>
                                                 </li>
@@ -248,44 +248,28 @@
                                 </div>
                             </div>
 
-                            <script>
-                                function filterWishlist() {
-                                    const userId = document.getElementById("userId").value;
-                                    const selectElement = document.getElementById("mark");
-                                    const selectedValue = selectElement.value;
-                                    const baseUrl = "/wishlist/showWishlists/"+userId; // Ensure this is your correct endpoint
-                                    let url = baseUrl;
-
-                                    if (selectedValue !== "-1") {
-                                        url += `?filter=${selectedValue}`;
-                                    }
-                                    window.location.href = url;
-                                }
-                            </script>
-
                             <div class="pagination">
                                 <div class="prev">
-                                    <a th:href="@{/wishlist/showWishlists/{userId}(page=${currentPage - 1}, userId=${userId})}" th:if="${currentPage > 0}">
+                                    <a th:href="@{/showWishlists(page=${currentPage - 1})}" th:if="${currentPage > 0}">
                                         <i class="fa fa-arrow-left"></i> Trang trước
                                     </a>
                                 </div>
                                 <div class="page-numbers">
                                     <ul>
                                         <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                                            <a th:href="@{/wishlist/showWishlists/{userId}(page=${i}, userId=${userId})}" th:class="${i == currentPage} ? 'active' : ''">
-                                                <span th:text="${i + 1}"></span>
+                                            <a th:href="@{/showWishlists(page=${i})}" th:class="${i == currentPage} ? 'active' : ''">
+                                                <span th:text="${i + 1}">1</span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="next">
-                                    <a th:href="@{/wishlist/showWishlists/{userId}(page=${currentPage + 1}, userId=${userId})}" th:if="${currentPage < totalPages - 1}">
+                                    <a th:href="@{/showWishlists(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}">
                                         Trang sau <i class="fa fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
-
 
                     </div>
                 </div>
