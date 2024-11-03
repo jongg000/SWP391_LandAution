@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class HomeController {
     public String showHomePage(Model model) {
         List<News> newsList = newsService.findTop4ByOrderByTimeDesc();
         List<Land> allLands = assetService.findTop4ByOrderByLandIdDesc();
+
+        // Assuming `newsList` has images and we're picking the first image as "latestImage"
+
         model.addAttribute("allLands", allLands);
         model.addAttribute("newsList", newsList);
         return "home"; // Trả về tên của file HTML home.html
@@ -45,5 +49,14 @@ public class HomeController {
 
         return "aboutUs"; // Trả về tên của file HTML home.html
     }
+    @GetMapping("/search")
+    public String searchLandByKey(@RequestParam("keyword") String keyword, Model model) {
+        List<Land> allLands = assetService.findAllByName(keyword);
+        // Assuming `newsList` has images and we're picking the first image as "latestImage"
+
+        model.addAttribute("allLands", allLands);
+        return "asset"; // Name of the view for displaying search results
+    }
+
 
 }

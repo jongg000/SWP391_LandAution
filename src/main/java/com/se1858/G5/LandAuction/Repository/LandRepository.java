@@ -23,5 +23,7 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
             "LOWER(l.ward) LIKE LOWER(CONCAT('%', :keyword, '%')) OR " +
             "LOWER(l.name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
     List<Land> searchLandsByKeyword(@Param("keyword") String keyword);
+
+
 }
 
