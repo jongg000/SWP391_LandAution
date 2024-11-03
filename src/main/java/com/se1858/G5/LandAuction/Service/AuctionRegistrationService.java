@@ -1,10 +1,7 @@
 package com.se1858.G5.LandAuction.Service;
 
 import com.se1858.G5.LandAuction.DTO.AuctionRegistrationDTO;
-import com.se1858.G5.LandAuction.Entity.AssetRegistration;
-import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
-import com.se1858.G5.LandAuction.Entity.Land;
-import com.se1858.G5.LandAuction.Entity.User;
+import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -67,6 +64,9 @@ public class AuctionRegistrationService {
         Land land = landRepository.findById(landId).orElse(null);
 
         return land.getUser().getUserId() == userId;
+    }
+    public AuctionRegistration getByAuctionAndBidAmount( Auction auction, long bidAmount) {
+        return auctionRegistrationRepository.findByAuctionAndBids_BidAmount( auction, bidAmount);
     }
 
     public boolean checkAvailableAttend(int userId){

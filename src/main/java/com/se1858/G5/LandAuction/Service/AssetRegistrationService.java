@@ -12,4 +12,6 @@ public interface AssetRegistrationService {
     public void updateAssetRegistration(AssetRegistration assetRegistration);
     public List<AssetRegistration> findByStatus(Status status);
     public List<AssetRegistration> findAll();
+
+
 }

@@ -20,4 +20,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     List<User> findTop3UsersByOrderByIdDesc(Pageable pageable);
 
 
+    User findByUserId(int userId);
 }

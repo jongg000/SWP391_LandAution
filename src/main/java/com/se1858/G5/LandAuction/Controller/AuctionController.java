@@ -3,12 +3,11 @@ package com.se1858.G5.LandAuction.Controller;
 import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
-import com.se1858.G5.LandAuction.Service.AuctionRegistrationService;
-import com.se1858.G5.LandAuction.Service.AuctionService;
-import com.se1858.G5.LandAuction.Service.LandService;
-import com.se1858.G5.LandAuction.Service.WishlistService;
+import com.se1858.G5.LandAuction.Entity.*;
+import com.se1858.G5.LandAuction.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,6 +33,12 @@ public class AuctionController {
     private WishlistService wishlistService;
     @Autowired
     private AuctionRegistrationService auctionRegistrationService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private AssetRegistrationService assetRegistrationService;
+    @Autowired
+    private BidService bidService;
 
     @GetMapping
     public String showAuctionPage(Model model) {
@@ -111,9 +116,40 @@ public class AuctionController {
 
         return "auctionPage";
     }
+    @GetMapping("/showAuctionResults")
+    @Transactional(readOnly = true)
+    public String showAuctionResults(Model model) {
+        List<Auction> auctions = auctionService.findAllAuctionEnd();
+        List<Map<String, Object>> auctionDetails = getAuctionDetailsList(auctions);
 
+        model.addAttribute("auctionDetails", auctionDetails);
+        return "staff/home-staff";
+    }
 
+    private List<Map<String, Object>> getAuctionDetailsList(List<Auction> auctions) {
+        List<Map<String, Object>> auctionDetailsList = new ArrayList<>();
+        for (Auction auction : auctions) {
+            auctionDetailsList.add(createAuctionDetailMap(auction));
+        }
+        return auctionDetailsList;
+    }
 
+    private Map<String, Object> createAuctionDetailMap(Auction auction) {
+        Map<String, Object> details = new HashMap<>();
+        Bids bids = bidService.findBidByAuctionAndBidAmount(auction, auction.getHighestBid());
+        AuctionRegistration auctionRegistration = bids != null ? bids.getAuctionRegistration() : null;
+        User bidder = (auctionRegistration != null) ? auctionRegistration.getUser() : null;
+        LandDTO land = landService.findLandById(auction.getLand().getLandId());
+        List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLand().getLandId());
+        String imageUrl = (!landImageList.isEmpty()) ? landImageList.get(0).getImageUrl() : null;
+        details.put("auction", auction);
+        details.put("land", land);
+        details.put("Image", imageUrl);
+        details.put("highestBid", auction.getHighestBid());
+        details.put("bidder", bidder);
+
+        return details;
+    }
     @GetMapping("/showAuctionDetail/{id}")
     public String showAuctionDetail(@PathVariable int id, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>Wishlist</title>
+    <title>List Auction Result</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -60,8 +60,19 @@
                         <div class="col-md-6 hidden-sm">
                             <div class="right-info">
                                 <ul>
-                                    <li>Call us: <em>570-694-4002</em></li>
-                                    <li><a href="#">Get Free Appointment →</a></li>
+                                    <li>Call us: <em>0659-694-002</em></li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/logout">Đăng xuất</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/login">Đăng nhập</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/register">Đăng ký</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -73,49 +84,47 @@
                 <div id="main-header" class="main-header header-sticky">
                     <div class="inner-header container clearfix">
                         <div class="logo">
-                            <a href="../../index.html"><img src="../../assets/images/logo.png" alt=""></a>
+                            <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
                         </div>
                         <div class="header-right-toggle pull-right hidden-md hidden-lg">
                             <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
                         </div>
                         <nav class="main-navigation text-left hidden-xs hidden-sm">
                             <ul>
-                                <li><a href="../../index.html">Home</a></li>
-                                <li><a href="../../about.html">About Us</a></li>
-                                <li><a href="../../services.html">Services</a></li>
-                                <li><a href="#" class="has-submenu">Listing</a>
+                                <li><a href="/home">Trang chủ</a></li>
+                                <li><a href="about.html">Về chúng tôi</a></li>
+                                <li><a href="#" class="has-submenu">Đấu giá</a>
                                     <ul class="sub-menu">
-                                        <li><a href="listing-right.html">Sidebar Right</a></li>
-                                        <li><a href="wishlistPage.html">Sidebar Left</a></li>
-                                        <li><a href="../../listing-grid.html">Grids System</a></li>
-                                        <li><a href="../auctionDetailPage.html">Car Details</a></li>
+                                        <li><a href="listing-right.html">Thanh bên phải</a></li>
+                                        <li><a href="listing-left.html">Thanh bên trái</a></li>
+                                        <li><a href="listing-grid.html">Hệ thống lưới</a></li>
+                                        <li><a href="single-list.html">Chi tiết lô đất</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#" class="has-submenu">Blog</a>
+                                <li><a href="#" class="has-submenu">Tài sản</a>
                                     <ul class="sub-menu">
-                                        <li><a href="../../blog-right.html">Classic</a></li>
-                                        <li><a href="../../blog-grid.html">Grids System</a></li>
-                                        <li><a href="../../grid-right.html">Grids Sidebar</a></li>
-                                        <li><a href="../../single-blog.html">Single Post</a></li>
+                                        <li><a href="listing-right.html">Thanh bên phải</a></li>
+                                        <li><a href="listing-left.html">Thanh bên trái</a></li>
+                                        <li><a href="listing-grid.html">Hệ thống lưới</a></li>
+                                        <li><a href="single-list.html">Chi tiết lô đất</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="../../contact.html">Contact</a></li>
+                                <li><a href="/news">Tin tức</a>
+                                </li>
+                                <li><a href="#">Liên hệ</a>
+                                </li>
                                 <li>
-                                    <p><a href="#" id="example-show" class="showLink"
-                                          onclick="showHide('example');return false;"><i class="fa fa-search"></i></a>
-                                    </p>
+                                    <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
                                     <div id="example" class="more">
                                         <form method="get" id="blog-search" class="blog-search">
-                                            <input type="text" class="blog-search-field" name="s"
-                                                   placeholder="Type to search" value="">
+                                            <input type="text" class="blog-search-field" name="s" placeholder="Nhập từ khóa tìm kiếm" value="">
                                         </form>
-                                        <p><a href="#" id="example-hide" class="hideLink"
-                                              onclick="showHide('example');return false;"><i class="
-											fa fa-close"></i></a></p>
+                                        <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
                                     </div>
                                 </li>
                             </ul>
                         </nav>
+
                     </div>
                 </div>
             </header>
@@ -124,13 +133,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Danh sách theo dõi</h1>
+                            <h1>Danh sách tham gia</h1>
                             <div class="line"></div>
                             <div class="page-active">
                                 <ul>
                                     <li><a href="../../home">Home</a></li>
                                     <li><i class="fa fa-dot-circle-o"></i></li>
-                                    <li><a href="wishlistPage.html">Danh sách theo dõi</a></li>
+                                    <li><a href="listAuctionRegister.html">Danh sách tham gia</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -208,25 +217,25 @@
                         <div id="listing-cars" class="col-md-12">
                             <div class="pre-featured">
                                 <div class="info-text">
-                                    <h4 th:text="${num} + ' sản phẩm'"></h4>
+                                    <h4 th:text="${num} + ' results found'"></h4>
                                 </div>
                                 <div class="right-content">
                                     <div class="input-select">
-                                        <select name="mark" id="mark">
-                                            <option value="-1">Sorted by</option>
-                                            <option>Price</option>
-                                            <option>Miles</option>
-                                            <option>Year</option>
-                                            <option>Near</option>
+                                        <select name="mark" id="mark" onchange="filterAuctionRegistration()">
+                                            <option value="" disabled selected>-- Lọc theo --</option>
+                                            <option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra</option>
+                                            <option value="is going on" th:selected="${currentFilter == 'is going on'}">Đang diễn ra</option>
+                                            <option value="upcoming" th:selected="${currentFilter == 'upcoming'}">Sắp diễn ra</option>
+                                            <option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
                                         </select>
+                                        <input type="hidden" name="userId" id="userId" th:value="${userId}"/>
                                     </div>
                                 </div>
                             </div>
-<!--                            th:if="${wishlistDetail.dateCheck != 'ended'}"-->
-                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}" >
+
+                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}">
                                 <div class="featured-item">
-                                    <img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image"
-                                         style="width: 22%; height: 15%;"/>
+                                    <img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image" style="width: 22%; height: 15%;"/>
                                     <div class="right-content">
                                         <a href="#"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
                                         <span th:text="${'$' + wishlistDetail.land.price}"></span>
@@ -237,10 +246,18 @@
                                         </div>
                                         <div class="car-info">
                                             <ul>
-                                                <li>Thời gian bắt đầu: [[${wishlistDetail.auction.startTime}]]</li>
-                                                <li>Thời gian kêt thúc: [[${wishlistDetail.auction.endTime}]]</li>
+                                                <li>Thời gian bắt đầu:  [[${wishlistDetail.auction.startTime}]]</li>
+                                                <li>Thời gian kết thúc:  [[${wishlistDetail.auction.endTime}]]</li>
                                                 <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
-                                                    <a th:href="@{/wishlist/delete/{id}(id=${wishlistDetail.wishlist.wishlistId})}">Xóa theo dõi</a>
+                                                    <th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
+                                                        <a>Đã kết thúc</a>
+                                                    </th:block>
+                                                    <th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
+                                                        <a>Sắp diễn ra</a>
+                                                    </th:block>
+                                                    <th:block th:if="${wishlistDetail.dateCheck == 'is going on'}">
+                                                        <a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu giá ngay</a>
+                                                    </th:block>
                                                 </li>
                                             </ul>
                                         </div>
@@ -250,26 +267,35 @@
 
                             <div class="pagination">
                                 <div class="prev">
-                                    <a th:href="@{/showWishlists(page=${currentPage - 1})}" th:if="${currentPage > 0}">
+                                    <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage - 1}, filter=${currentFilter})}" th:if="${currentPage > 0}">
                                         <i class="fa fa-arrow-left"></i> Trang trước
                                     </a>
                                 </div>
                                 <div class="page-numbers">
                                     <ul>
                                         <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                                            <a th:href="@{/showWishlists(page=${i})}" th:class="${i == currentPage} ? 'active' : ''">
-                                                <span th:text="${i + 1}">1</span>
+                                            <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${i}, filter=${currentFilter})}" th:class="${i == currentPage} ? 'active' : ''">
+                                                <span th:text="${i + 1}"></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </div>
                                 <div class="next">
-                                    <a th:href="@{/showWishlists(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}">
+                                    <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage + 1}, filter=${currentFilter})}" th:if="${currentPage < totalPages - 1}">
                                         Trang sau <i class="fa fa-arrow-right"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
+
+                        <script>
+                            function filterAuctionRegistration() {
+                                const filter = document.getElementById("mark").value;
+                                const userId = document.getElementById("userId").value;
+                                window.location.href = `/auctionRegistration/showAuctionRegistrationPage?page=0&filter=${filter}&userId=${userId}`;
+                            }
+                        </script>
+
 
                     </div>
                 </div>

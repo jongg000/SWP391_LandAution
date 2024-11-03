@@ -36,13 +36,14 @@ public class HomeController {
     public String showHomePage(Model model) {
         List<News> newsList = newsService.findTop4ByOrderByTimeDesc();
         List<Land> allLands = assetService.findTop4ByOrderByLandIdDesc();
-
-        // Assuming `newsList` has images and we're picking the first image as "latestImage"
-
         model.addAttribute("allLands", allLands);
         model.addAttribute("newsList", newsList);
         return "home"; // Trả về tên của file HTML home.html
     }
+    @GetMapping("/aboutUs")
+    public String showAboutUs() {
 
+        return "aboutUs"; // Trả về tên của file HTML home.html
+    }
 
 }

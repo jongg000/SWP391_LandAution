@@ -99,7 +99,6 @@ public class AuctionRegistrationController {
         return "customer/listAuctionRegister";
     }
 
-
     @RequestMapping("/save/{id}")
     public String saveAuctionRegistration(@PathVariable int id, HttpServletRequest request) {
         HttpSession session = request.getSession();

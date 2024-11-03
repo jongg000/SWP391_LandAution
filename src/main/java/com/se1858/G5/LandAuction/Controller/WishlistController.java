@@ -36,11 +36,12 @@ public class WishlistController {
     }
 
 
-    @GetMapping("/showWishlists/{userId}")
+    @GetMapping("/showWishlists")
     public String showWishlistPage(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(required = false) String filter,
-                                   Model model,
-                                   @PathVariable int userId) {
+                                   Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("id");
         List<WishlistDTO> wishlists = wishlistService.findAllWishlistByUserId(userId);
         List<WishlistDTO> filteredWishlists;
         if (filter != null && !filter.equals("all")) {
@@ -50,7 +51,6 @@ public class WishlistController {
                         LocalDateTime now = LocalDateTime.now();
                         String dateCheck;
 
-                        // Determine the status of the auction
                         if (now.isAfter(auction.getEndTime())) {
                             dateCheck = "ended";
                         } else if (now.isBefore(auction.getStartTime())) {

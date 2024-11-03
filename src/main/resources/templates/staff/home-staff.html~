@@ -93,8 +93,8 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Trang nhân viên</h3>
-                        <p class="text-subtitle text-muted">Thông tin hồ sơ người dùng, đất đai và lịch sử đấu giá</p> <!-- Adjust subtitle as needed -->
+                        <h3>Kết quả đấu giá</h3>
+                        <p class="text-subtitle text-muted">Thông tin hồ sơ người dùng và đất đai</p> <!-- Adjust subtitle as needed -->
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
@@ -104,6 +104,7 @@
             <!-- User Data Table -->
             <section class="section">
                 <div class="card">
+                    <div class="card-header">Thông tin hiển thị</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12" th:if="${users != null}">

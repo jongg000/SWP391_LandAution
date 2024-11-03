@@ -1,46 +1,31 @@
 <!DOCTYPE html>
-<!--[if IE 9]>
-<html class="ie ie9" lang="en-US">
-<![endif]-->
-<html lang="en-US">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
-    <title>Auction Page</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title> About Us</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/icon-font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <link rel="stylesheet" href="/assets/css/auction.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../../assets/css/animate.css">
-    <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="../../assets/css/flexslider.css">
-    <link rel="stylesheet" href="../../assets/css/simple-line-icons.css">
-    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../assets/css/icon-font.css">
-    <link rel="stylesheet" href="../../assets/css/auction.css">
-
-    <link rel="stylesheet" href="../../assets/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-    <style>
-        .attended-label {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #444;
-            color: #fff;
-            border: 2px solid #555;
-            border-radius: 5px;
-            font-size: 16px;
-            font-weight: bold;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
 <div id="sub-header">
@@ -138,167 +123,97 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
-                <h1>Danh sách buổi đấu giá</h1>
+                <h1>Về chúng tôi</h1>
                 <div class="line"></div>
                 <div class="page-active">
                     <ul>
                         <li><a href="../../home">Home</a></li>
                         <li><i class="fa fa-dot-circle-o"></i></li>
-                        <li><a href="listAuctionRegister.html">Danh sách buổi đấu giá</a></li>
+                        <li><a href="/aboutUs">Về chúng tôi</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<section id="about" class="about section" style="padding-top: 10px; padding-bottom: 60px;">
 
-<div class="sidebar-menu-container" id="sidebar-menu-container">
-    <div class="pre-featured">
-        <div class="info-text">
-            <h4 th:text="${num} + ' results found'"></h4>
-        </div>
-        <div class="right-content">
-            <div class="input-select">
-                <select name="mark" id="mark" onchange="filterAuctionRegistration()">
-                    <option value="" disabled selected>-- Lọc theo --</option>
-                    <option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra</option>
-                    <option value="is going on" th:selected="${currentFilter == 'is going on'}">Đang diễn ra</option>
-                    <option value="upcoming" th:selected="${currentFilter == 'upcoming'}">Sắp diễn ra</option>
-                    <option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
-                </select>
-                <input type="hidden" name="userId" id="userId" th:value="${userId}"/>
-            </div>
-        </div>
+    <div class="container section-title" data-aos="fade-up">
+        <h2>Về chúng tôi</h2>
     </div>
-    <div class="sidebar-menu-push">
 
-        <div class="sidebar-menu-overlay"></div>
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-lg-6 content" data-aos="fade-right" data-aos-delay="100">
+                <p style="font-size: 15px; line-height: 1.6;">
+                    Chào mừng bạn đến với <strong>LandAuction</strong>, nền tảng đấu giá đất trực tuyến tiên phong,
+                    nơi chúng tôi kết nối hàng ngàn người mua và người bán bất động sản mỗi ngày. Với tiêu chí minh
+                    bạch, an toàn, và tiện lợi, LandAuction đem đến giải pháp đấu giá hiện đại giúp bạn tiếp cận những
+                    cơ hội đầu tư bất động sản dễ dàng và nhanh chóng hơn bao giờ hết.
+                </p>
+                <ul style="font-size: 14px;">
+                    <li><i class="bi bi-check2-circle icon"></i>
+                        <span>Đấu giá minh bạch và công bằng trong mọi phiên giao dịch, đảm bảo mọi người tham gia đều có cơ hội ngang bằng và quyền lợi được bảo vệ.</span>
+                    </li>
+                    <li><i class="bi bi-check2-circle icon"></i>
+                        <span>Cung cấp thông tin chi tiết và chính xác về từng bất động sản, bao gồm vị trí, diện tích, giá trị ước tính và các thông tin pháp lý cần thiết.</span>
+                    </li>
+                    <li><i class="bi bi-check2-circle icon"></i>
+                        <span>Cam kết bảo mật tuyệt đối thông tin cá nhân của người dùng và an toàn trong mọi giao dịch, giúp bạn hoàn toàn yên tâm khi sử dụng dịch vụ.</span>
+                    </li>
+                    <li><i class="bi bi-check2-circle icon"></i>
+                        <span>Hỗ trợ khách hàng tận tâm với đội ngũ chuyên nghiệp, sẵn sàng giải đáp mọi thắc mắc và hỗ trợ xuyên suốt quá trình đấu giá.</span>
+                    </li>
+                </ul>
+            </div>
 
-        <div class="sidebar-menu-inner">
-            <div class="featured-listing">
-                <div class="container">
-                    <div id="sidebar" class="col-md-3">
-                        <div class="sidebar-content">
-                            <div class="head-side-bar">
-                                <h4>Refine Your Search</h4>
-                            </div>
-                            <div class="search-form">
-                                <div class="select">
-                                    <select name="mark" id="make">
-                                        <option value="-1">Select Makes</option>
-                                        <option>Price</option>
-                                        <option>Miles</option>
-                                        <option>Year</option>
-                                        <option>Near</option>
-                                    </select>
-                                </div>
-                                <div class="select">
-                                    <select name="mark" id="model">
-                                        <option value="-1">Select Car Model</option>
-                                        <option>Price</option>
-                                        <option>Miles</option>
-                                        <option>Year</option>
-                                        <option>Near</option>
-                                    </select>
-                                </div>
-                                <div class="select">
-                                    <select name="mark" id="style">
-                                        <option value="-1">Select Style</option>
-                                        <option>Price</option>
-                                        <option>Miles</option>
-                                        <option>Year</option>
-                                        <option>Near</option>
-                                    </select>
-                                </div>
-                                <div class="slider-range">
-                                    <p>
-                                        <input type="text" class="range" id="amount" readonly>
-                                    </p>
-                                    <div id="slider-range"></div>
-                                </div>
-                                <div class="select">
-                                    <select name="mark" id="types">
-                                        <option value="-1">Select Car Types</option>
-                                        <option>Price</option>
-                                        <option>Miles</option>
-                                        <option>Year</option>
-                                        <option>Near</option>
-                                    </select>
-                                </div>
-                                <div class="select">
-                                    <select name="mark" id="color">
-                                        <option value="-1">Select Color</option>
-                                        <option>Price</option>
-                                        <option>Miles</option>
-                                        <option>Year</option>
-                                        <option>Near</option>
-                                    </select>
-                                </div>
-                                <div class="advanced-button">
-                                    <a href="listing-right.html">Search Now<i class="fa fa-search"></i></a>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-lg-6" data-aos="fade-left" data-aos-delay="200">
+                <p style="font-size: 15px; line-height: 1.6;">
+                    Đội ngũ chuyên gia giàu kinh nghiệm của chúng tôi luôn sẵn sàng hỗ trợ bạn trong quá trình tìm kiếm
+                    và đầu tư bất động sản, từ khâu tư vấn đến hoàn tất giao dịch. Với LandAuction, bạn không chỉ mua
+                    bán mà còn tham gia vào một cộng đồng đầu tư chuyên nghiệp.
+                </p>
 
-                    </div>
-                    <div class="col-md-9">
-                        <div id="featured-cars">
-                            <div class="featured-item col-md-4" style="margin-bottom: 3%"
-                                 th:each="auctionDetail : ${auctionDetails}">
 
-                                <img style="width: 100%; height: 150px; overflow: hidden;"
-                                     th:src="${auctionDetail.Image}" alt=""/>
-
-                                <div class="down-content" style="height:100px;">
-
-                                    <a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">
-                                        <h2 th:text="${auctionDetail.land.name}"></h2>
-                                    </a>
-                                    <span th:text="${auctionDetail.land.price}"></span>
-                                    <div class="light-line"></div>
-                                    <p th:text="${auctionDetail.land.description}"></p>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="col-md-12">
-                        <div class="col-md-4 col-md-offset-4"> <!-- Centering the pagination -->
-                            <div class="pagination">
-                                <ul class="pagination-list">
-                                    <li th:if="${currentPage > 0}">
-                                        <a th:href="@{/auction/showAuctions(page=${currentPage - 1})}">Previous<i
-                                                class="fa fa-arrow-left"></i></a>
-                                    </li>
-                                    <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
-                                        <a th:href="@{/auction/showAuctions(page=${pageNum})}"
-                                           th:text="${pageNum + 1}"
-                                           th:classappend="${pageNum == currentPage} ? 'active' : ''">
-                                        </a>
-                                    </li>
-                                    <li th:if="${currentPage < totalPages - 1}">
-                                        <a th:href="@{/auction/showAuctions(page=${currentPage + 1})}">Next<i
-                                                class="fa fa-arrow-right"></i></a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
+                <div id="more-content" style="display: none;">
+                    <p style="font-size: 15px; line-height: 1.6; margin-top: 15px;">
+                        LandAuction tự hào với kho dữ liệu bất động sản phong phú từ các khu vực chiến lược trên cả
+                        nước, bao gồm
+                        các khu vực đô thị, ngoại thành và vùng nông thôn. Chúng tôi hiểu rằng mỗi người mua có nhu cầu
+                        riêng, và vì thế, chúng tôi mang đến các tính năng giúp bạn lọc và tìm kiếm tài sản phù hợp nhất
+                        với nhu cầu của mình.
+                    </p>
+                    <p style="font-size: 15px; line-height: 1.6; margin-top: 15px;">
+                        Ngoài ra, hệ thống cảnh báo giá thầu và cập nhật trực tiếp của chúng tôi giúp bạn theo dõi diễn
+                        biến đấu giá một cách chủ động, giúp bạn có lợi thế và đưa ra quyết định nhanh chóng, kịp thời.
+                        Với sự cam kết bảo mật và quy trình đấu giá minh bạch, bạn hoàn toàn yên tâm khi giao dịch tại
+                        LandAuction.
+                    </p>
                 </div>
+
+                <a href="#" class="read-more" onclick="showMoreContent(event)" style="font-size: 15px;">
+                    <span>Read More</span> <i class="bi bi-arrow-right"></i>
+                </a>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<script type="text/javascript" src="../../assets/js/jquery-1.11.1.min.js"></script>
-<script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
+<script>
+    function showMoreContent(event) {
+        event.preventDefault();
+        const moreContent = document.getElementById("more-content");
 
-<script src="../../assets/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
-<script src="../../assets/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+        if (moreContent.style.display === "none") {
+            moreContent.style.display = "block";
+            event.target.innerHTML = '<span>Read Less</span>';
+        } else {
+            moreContent.style.display = "none";
+            event.target.innerHTML = '<span>Read More</span>';
+        }
+    }
+</script>
 
-<script type="text/javascript" src="../../assets/js/plugins.js"></script>
-<script type="text/javascript" src="../../assets/js/custom.js"></script>
 
 <footer>
     <div class="container">

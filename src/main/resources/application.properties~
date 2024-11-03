@@ -2,12 +2,12 @@ spring.application.name=LandAuction
 
 spring.datasource.url=jdbc:sqlserver://localhost:1433;databaseName=LandAuction;encrypt=true;trustServerCertificate=true
 spring.datasource.username=sa
-spring.datasource.password=jong011004
+spring.datasource.password=123
 spring.datasource.driver-class-name=com.microsoft.sqlserver.jdbc.SQLServerDriver
 
 # JPA properties
 spring.main.banner-mode=off
-spring.jpa.show-sql=true
+
 spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.SQLServerDialect
 spring.jpa.properties.hibernate.format_sql=true
 spring.jpa.hibernate.ddl-auto=update
@@ -34,3 +34,10 @@ spring.mail.password=ghpnxwsmqexbfwnc
 spring.mail.port=587
 spring.mail.properties.mail.smtp.auth=true
 spring.mail.properties.mail.smtp.starttls.enable=true
+
+# Disable SQL logs
+spring.jpa.show-sql=false
+
+# Set the Hibernate logging level to ERROR or WARN to suppress SQL output
+logging.level.org.hibernate.SQL=ERROR
+logging.level.org.hibernate.type.descriptor.sql.BasicBinder=ERROR
