@@ -9,6 +9,7 @@ import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,6 +30,7 @@ public class CustomerCareController {
 
     private final NewsService newsService;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping
     public String news(Model model) {
@@ -68,6 +70,18 @@ public class CustomerCareController {
         return "customer-care/add-news";
     }
 
+    @PostMapping("/upload")
+    public String upAvatar(@RequestParam("avatar") MultipartFile images,
+                          RedirectAttributes redirectAttributes, Principal principal,Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.upLoadDocumentAvata(images, user);
+        userService.save(user);
+        model.addAttribute("user", user);
+        return "redirect:/customer-care/profile";
+    }
+
     @GetMapping("/deleteNews")
     public String deleteNews(@RequestParam("newsId") int newsId) {
         newsService.deleteNewsById(newsId);
@@ -80,6 +94,69 @@ public class CustomerCareController {
         News news = newsService.getNewsById(newsId);
         model.addAttribute("news", news);
         return "customer-care/news-detail";
+    }
+
+    @GetMapping("/profile")
+    public String showProfile(Model model, Principal principal) {
+        // Lấy thông tin người dùng hiện tại từ tên đăng nhập (email)
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Đưa thông tin người dùng vào model
+        model.addAttribute("user", user);
+
+        // Trả về trang profile
+        return "customer-care/profile";
+    }
+
+    @GetMapping("/change")
+    public String showChangePasswordForm(Model model, Principal principal) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Đưa thông tin người dùng vào model (nếu cần)
+        model.addAttribute("user", user);
+
+        return "customer-care/change";
+    }
+
+
+    @PostMapping("/change")
+    public String changePassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 Principal principal, Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Kiểm tra mật khẩu hiện tại có đúng không
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            model.addAttribute("error", "Mật khẩu hiện tại không đúng.");
+            model.addAttribute("user", user);
+            return "customer/change-password";
+        }
+
+        // Kiểm tra nếu mật khẩu mới giống với mật khẩu hiện tại
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            model.addAttribute("error", "Mật khẩu mới không được giống mật khẩu hiện tại.");
+            model.addAttribute("user", user);
+            return "customer/change-password";
+        }
+
+        // Kiểm tra xem mật khẩu mới có khớp với xác nhận mật khẩu không
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "Mật khẩu mới và xác nhận không khớp.");
+            model.addAttribute("user", user);
+            return "customer/change-password";
+        }
+
+        // Cập nhật mật khẩu mới
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userService.save(user);
+
+        model.addAttribute("success", "Mật khẩu đã được cập nhập.");
+        model.addAttribute("user", user);
+        return "customer-care/change";
     }
 
 
