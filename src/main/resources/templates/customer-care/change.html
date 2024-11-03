@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,6 +19,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-lite.min.js"></script>
 </head>
 <body>
+
 <div id="sidebar" class="active">
     <div class="sidebar-wrapper active">
         <div class="sidebar-header">
@@ -48,7 +49,7 @@
                         <span>Quản lý tin tức</span>
                     </a>
                     <ul class="submenu ">
-                        <li class="submenu-item active">
+                        <li class="submenu-item ">
                             <a href="/customer-care">Danh sách tin tức</a>
                         </li>
                         <li class="submenu-item ">
@@ -57,12 +58,12 @@
                 </li>
 
                 <li class="sidebar-item  has-sub">
-                    <a href="#" class='sidebar-link'>
+                    <a href="" class='sidebar-link'>
                         <i class="bi bi-stack"></i>
                         <span>Hồ sơ người dùng</span>
                     </a>
                     <ul class="submenu">
-                        <li class="submenu-item ">
+                        <li class="submenu-item active">
                             <a href="/customer-care/change">Đổi mật khẩu</a>
                         </li>
                         <li class="submenu-item ">
@@ -75,57 +76,72 @@
         <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
     </div>
 </div>
-<div class="main-panel">
-    <div class="content"  style="padding-left: 330px; padding-top: 30px;">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card card-user">
-                    <div class="card-header">
-                        <a href="/customer-care"
-                           class="btn btn-sm">
-                            Xem tất cả tin tức
-                        </a>
-                        <a href="/customer-care/own-news"
-                           class="btn btn-sm">
-                            Xem tic tức của tôi
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div th:each="news : ${newsList}" class="col-md-3">
 
-                                <div class="card"
-                                     style="border: 1px solid rgba(0, 0, 0, 0.2); border-radius: 15px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
-                                    <img th:src="${'/News_images/' + news.image}" class="card-img-top" alt="Cover Photo"
-                                         style="height: 200px; object-fit: cover; border-top-left-radius: 15px; border-top-right-radius: 15px;">
-                                    <div class="card-body" style="padding: 15px;">
-                                        <h6 class="card-title" th:text="${news.title.length() > 100 ? news.title.substring(0, 100) + '...' : news.title}"></h6>
-                                        <p class="card-text">
-                                            <span class="text-muted" th:text="'By ' + ${news.user.lastName} + ' on ' + ${news.time}"></span>
-                                        </p>
-                                    </div>
-                                    <div class="update ml-auto mr-auto card-footer">
-                                        <a th:href="@{/customer-care/newsDetail(newsId=${news.newsId})}"
-                                           class="btn btn-primary btn-round" style="margin-top: 5px;">
-                                            View detail
-                                        </a>
-                                        <a th:if="${deletePermission == 'true'}"
-                                           th:href="@{/customer-care/deleteNews(newsId=${news.newsId})}"
-                                           class="btn btn-danger btn-round"
-                                           onclick="return confirmDelete();"
-                                           style="margin-top: 5px;">
-                                            Delete
-                                        </a>
-                                    </div>
-                                </div>
+<div class="container mt-5" style="padding-left: 280px; padding-bottom: 30px;">
+    <div class="row">
+        <div class="col-lg-4">
+            <!-- Profile Picture with Small Icon -->
+            <div class="card mb-4">
+                <div class="card-body text-center position-relative">
+                    <!-- Main profile picture -->
+                    <img th:src="'/User_images/' + ${ user.getAvatar() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                </div>
+                <!-- Centered, uppercase name -->
+                <p  class="text-muted mb-0 mt-3" th:text="${user.firstName.toUpperCase()} + ' ' + ${user.lastName.toUpperCase()}" style="font-weight: bold; padding-left: 60px;">
+                    JOHN DOE
+                </p>
+            </div>
+            <div style="margin-top: 30px;" >
+                <form th:action="@{/customer-care/upload}" method="post" enctype="multipart/form-data">
+                    <a href="#" >
+                        <input type="file" name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                    </a>
+                    <button type="submit"  style="margin-top: 30px" class="btn btn-primary mt-3">Tải ảnh đại diện</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <!-- Profile Details -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h6 class="text-primary">Đổi mật khẩu</h6>
+                    <hr>
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Mật khẩu cũ</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="password" id="currentPassword" name="currentPassword" class="form-control" required>
                             </div>
                         </div>
-                    </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Mật khẩu mới</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="password" id="newPassword" name="newPassword" class="form-control" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Xác nhận</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit">Đổi mật khẩu</button>
+                    </form>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <script>
     function confirmDelete() {
         return confirm("Are you sure you want to delete this news?");

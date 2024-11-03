@@ -61,7 +61,6 @@ public class UserController {
         if (bindingResult.hasErrors() || model.containsAttribute("emailError") || model.containsAttribute("phoneError")) {
             return "register"; // Trả về trang đăng ký nếu có lỗi
         }
-
         // Gọi phương thức createUser để xử lý việc tạo người dùng
         createUser(userRegisterDTO, 1);
 
