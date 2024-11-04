@@ -5,7 +5,7 @@ import com.se1858.G5.LandAuction.DTO.ProfileDTO;
 import com.se1858.G5.LandAuction.DTO.UserRegisterDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
-import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -16,21 +16,14 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 import java.security.Principal;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping
+@RequestMapping()
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
@@ -40,85 +33,22 @@ public class UserController {
     RolesRepository roleRepository;
     private final StatusRepository statusRepository;
 
-    @GetMapping("/register")
-    public String showRegisterForm(Model model) {
-        model.addAttribute("registerDTO", new UserRegisterDTO());
-        return "register";
-    }
-
-    @PostMapping("/register")
-    public String register(@ModelAttribute("registerDTO") UserRegisterDTO userRegisterDTO,BindingResult bindingResult,  Model model) {
-        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
-        if (userService.existsByEmail(userRegisterDTO.getEmail())) {
-                model.addAttribute("emailError", "Email này đã tồn tại.");
-        }
-
-        if (userService.existsByPhoneNumber(userRegisterDTO.getPhoneNumber())) {
-            model.addAttribute("phoneError", "Số điện thoại đã tồn tại.");
-        }
-
-        // Kiểm tra nếu có lỗi trong BindingResult (các thông báo lỗi từ validate)
-        if (bindingResult.hasErrors() || model.containsAttribute("emailError") || model.containsAttribute("phoneError")) {
-            return "register"; // Trả về trang đăng ký nếu có lỗi
-        }
-        // Gọi phương thức createUser để xử lý việc tạo người dùng
-        createUser(userRegisterDTO, 1);
-
-        // Nếu đăng ký thành công, chuyển hướng đến trang login
-        model.addAttribute("success", "Đăng ký thành công!");
-        return "redirect:/login";
-    }
-
-    private void createUser(UserRegisterDTO userRegisterDTO, int roleId) {
-        // Tạo người dùng mới và gán các thuộc tính
-        User user = new User();
-        user.setPassword(passwordEncoder.encode(userRegisterDTO.getPassword()));
-        user.setEmail(userRegisterDTO.getEmail());
-        user.setFirstName(userRegisterDTO.getFirstName());
-        user.setLastName(userRegisterDTO.getLastName());
-        user.setPhoneNumber(userRegisterDTO.getPhoneNumber());
-
-        // Gán vai trò (role) cho người dùng
-        Roles role = roleRepository.findById(roleId).orElseThrow(() -> new IllegalArgumentException("Invalid role ID"));
-        user.setRole(role);
-
-        // Gán trạng thái mặc định cho người dùng
-        Status status = new Status();
-        status.setStatusID(1); // Ví dụ: 1 là trạng thái "Active" hoặc tương đương
-        user.setStatus(status);
-
-        // Lưu người dùng vào cơ sở dữ liệu
-        userService.save(user);
-    }
-    @GetMapping("/someProtectedPage")
-    public String someProtectedPage(HttpServletRequest request) {
-        // Kiểm tra nếu người dùng chưa đăng nhập
-        if (request.getUserPrincipal() == null) {
-            // Lưu URL hiện tại vào session
-            request.getSession().setAttribute("redirectUrl", request.getRequestURI());
-            return "redirect:/login";
-        }
-        return "403";
-    }
-
-
-    @GetMapping("/login")
-    public String login(Principal principal, HttpServletRequest session) {
-        if (principal != null) {
-            // Lấy URL từ session và chuyển hướng nếu có, ngược lại thì về home
-            String redirectUrl = (String) session.getAttribute("redirectUrl");
-            session.removeAttribute("redirectUrl"); // Xóa URL khỏi session sau khi lấy
-            return "redirect:" + (redirectUrl != null ? redirectUrl : "/home");
-        }
-        return "login";
-    }
-
     @GetMapping("/profile")
     public String showProfile(Model model, Principal principal) {
         // Lấy thông tin người dùng hiện tại từ tên đăng nhập (email)
         String email = principal.getName();
         User user = userService.findByEmail(email);
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setFirstName(user.getFirstName());
+        profileDTO.setLastName(user.getLastName());
+        profileDTO.setPhoneNumber(user.getPhoneNumber());
+        profileDTO.setAddress(user.getAddress());
+        profileDTO.setEmail(email);
+        profileDTO.setGender(user.getGender());
+        profileDTO.setNationalID(user.getNationalID());
+        profileDTO.setDob(user.getDob());
 
+        model.addAttribute("profileDTO",profileDTO);
         // Đưa thông tin người dùng vào model
         model.addAttribute("user", user);
 
@@ -126,19 +56,7 @@ public class UserController {
         return "customer/profile";
     }
 
-    @GetMapping("/changePassword")
-    public String showChangePasswordForm(Model model, Principal principal) {
-        String email = principal.getName();
-        User user = userService.findByEmail(email);
-
-        // Đưa thông tin người dùng vào model (nếu cần)
-        model.addAttribute("user", user);
-
-        return "customer/change-password";
-    }
-
-
-    @PostMapping("/changePassword")
+    @PostMapping("/profile/change-password")
     public String changePassword(@RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
                                  @RequestParam("confirmPassword") String confirmPassword,
@@ -150,21 +68,21 @@ public class UserController {
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
             model.addAttribute("error", "Mật khẩu hiện tại không đúng.");
             model.addAttribute("user", user);
-            return "customer/change-password";
+            return "customer/profile";
         }
 
         // Kiểm tra nếu mật khẩu mới giống với mật khẩu hiện tại
         if (passwordEncoder.matches(newPassword, user.getPassword())) {
             model.addAttribute("error", "Mật khẩu mới không được giống mật khẩu hiện tại.");
             model.addAttribute("user", user);
-            return "customer/change-password";
+            return "customer/profile";
         }
 
         // Kiểm tra xem mật khẩu mới có khớp với xác nhận mật khẩu không
         if (!newPassword.equals(confirmPassword)) {
             model.addAttribute("error", "Mật khẩu mới và xác nhận không khớp.");
             model.addAttribute("user", user);
-            return "customer/change-password";
+            return "customer/profile";
         }
 
         // Cập nhật mật khẩu mới
@@ -173,40 +91,31 @@ public class UserController {
 
         model.addAttribute("success", "Mật khẩu đã được cập nhập.");
         model.addAttribute("user", user);
-        return "customer/change-password";
-    }
-
-
-    @GetMapping("/profile/edit")
-    public String editProfile(Model model, Principal principal) {
-        String email = principal.getName();
-        User user = userService.findByEmail(email);
-        model.addAttribute("user", user);
-        return "customer/edit-profile"; // Trả về trang cập nhật thông tin
+        return "customer/profile";
     }
 
 
     @PostMapping("/profile/edit")
-    public String updateProfile(@ModelAttribute ProfileDTO userProfileDTO,
-                                Principal principal, Model model) throws IOException {
+    public String updateProfile(@ModelAttribute("profileDTO") ProfileDTO userProfileDTO,
+                                Principal principal, Model model){
 
         String email = principal.getName();
         User user = userService.findByEmail(email);
         if (user == null) {
             model.addAttribute("error", "User not found.");
-            return "customer/edit-profile";
+            return "customer/profile";
         }
         // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
         if (userService.existsByEmail(userProfileDTO.getEmail())) {
             model.addAttribute("emailError", "Email này đã tồn tại.");
             model.addAttribute("user", user);
-            return "customer/edit-profile";
+            return "customer/profile";
         }
 
         if (userService.existsByPhoneNumber(userProfileDTO.getPhoneNumber())) {
-            model.addAttribute("phoneError", "Số điện thoại đã tồn tại.");
+            model.addAttribute("error", "Số điện thoại đã tồn tại.");
             model.addAttribute("user", user);
-            return "customer/edit-profile";
+            return "customer/profile";
         }
 
         // Update personal information
@@ -225,32 +134,45 @@ public class UserController {
 
             model.addAttribute("error", "Số CMND đã tồn tại.");
             model.addAttribute("user", user);
-            return "customer/edit-profile";
+            return "customer/profile";
         } else {
             user.setNationalID(userProfileDTO.getNationalID());
         }
 
-        UploadFile uploadFile = new UploadFile();
-
-        // Save avatar if present
-        if (userProfileDTO.getAvatar() != null && !userProfileDTO.getAvatar().isEmpty()) {
-            uploadFile.upLoadDocumentAvata(userProfileDTO.getAvatar(), user);
-        }
-
-        // Save ID images if present
-        if (userProfileDTO.getNationalFrontImage() != null && !userProfileDTO.getNationalFrontImage().isEmpty()) {
-            uploadFile.UploadImagesNationalF(userProfileDTO.getNationalFrontImage(), user);
-        }
-        if (userProfileDTO.getNationalBackImage() != null && !userProfileDTO.getNationalBackImage().isEmpty()) {
-            uploadFile.UploadImagesNationalB(userProfileDTO.getNationalBackImage(), user);
-        }
         // Save updated user information to the database
         userService.save(user);
 
         model.addAttribute("success", "Cập nhật thông tin cá nhân thành công.");
         model.addAttribute("user", user);
-        return "customer/edit-profile";
+        return "redirect:/profile";
     }
+
+    @PostMapping("/profile/upload")
+    public String upAvatar(@RequestParam("avatar") MultipartFile images,
+                           RedirectAttributes redirectAttributes, Principal principal, Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.upLoadDocumentAvata(images, user);
+        userService.save(user);
+        model.addAttribute("user", user);
+        return "customer/profile";
+    }
+
+    @PostMapping("/profile/uploadNational")
+    public String upNation(@RequestParam("nationalBackImage") MultipartFile nationalBackImage,
+                           @RequestParam("nationalFrontImage") MultipartFile nationalFrontImage,
+                           RedirectAttributes redirectAttributes, Principal principal, Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.UploadImagesNationalF(nationalFrontImage, user);
+        uploadFile.UploadImagesNationalB(nationalBackImage, user);
+        userService.save(user);
+        model.addAttribute("user", user);
+        return "customer/profile";
+    }
+
 
 
 }

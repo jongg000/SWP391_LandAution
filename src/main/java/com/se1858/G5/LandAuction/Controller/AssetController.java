@@ -5,8 +5,7 @@ import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.*;
-import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
-import lombok.RequiredArgsConstructor;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,15 +33,20 @@ public class AssetController {
 
     private  StatusService statusService;
 
+    @Autowired
+    public AssetController(UserService userService, LandService landService, AssetService assetService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
+        this.userService = userService;
+        this.landService = landService;
+        this.assetService = assetService;
+        this.assetRegistrationService = assetRegistrationService;
+        this.landRepository = landRepository;
+        this.statusService = statusService;
+    }
+
     @GetMapping("post-asset")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
-        return "customer/land-registratrion";
-    }
-
-    @GetMapping("/image")
-    public String testImage(Model model) {
         return "customer/land-registratrion";
     }
 

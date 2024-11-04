@@ -1,4 +1,4 @@
-package com.se1858.G5.LandAuction.Service.ServiceImpl;
+package com.se1858.G5.LandAuction.util;
 
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.LandImage;

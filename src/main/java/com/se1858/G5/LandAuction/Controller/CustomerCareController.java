@@ -5,7 +5,7 @@ import com.se1858.G5.LandAuction.DTO.NewsDTO;
 import com.se1858.G5.LandAuction.Entity.News;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Service.NewsService;
-import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,9 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -133,21 +131,21 @@ public class CustomerCareController {
         if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
             model.addAttribute("error", "Mật khẩu hiện tại không đúng.");
             model.addAttribute("user", user);
-            return "customer/change-password";
+            return "customer-care/change";
         }
 
         // Kiểm tra nếu mật khẩu mới giống với mật khẩu hiện tại
         if (passwordEncoder.matches(newPassword, user.getPassword())) {
             model.addAttribute("error", "Mật khẩu mới không được giống mật khẩu hiện tại.");
             model.addAttribute("user", user);
-            return "customer/change-password";
+            return "customer-care/change";
         }
 
         // Kiểm tra xem mật khẩu mới có khớp với xác nhận mật khẩu không
         if (!newPassword.equals(confirmPassword)) {
             model.addAttribute("error", "Mật khẩu mới và xác nhận không khớp.");
             model.addAttribute("user", user);
-            return "customer/change-password";
+            return "customer-care/change";
         }
 
         // Cập nhật mật khẩu mới

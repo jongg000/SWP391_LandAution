@@ -36,22 +36,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/forgot-password", "/reset-password**",
                 "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**",
                 "/doc/**","/coffeescripts/**","/icon/**","/images/**","/Land_images/**"
-                ,"/News_images/**","/User_images/**","/transfonts/**")
+                ,"/News_images/**","/User_images/**","/transfonts/**"
+                ,"/auction/showAuctionDetail/**","/bids/showBidsPage/**"
+                ,"/land")
                 .permitAll()
                 .antMatchers("/home").access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
                 .antMatchers("/register").permitAll()
+                .antMatchers("/news/**").permitAll()
+                .antMatchers("/profile/**").hasRole("CUSTOMER")
                 .antMatchers("/auction/showAuctionResults").hasRole("STAFF")
-                .antMatchers("/auction/showAuctionDetail/**").hasAnyRole("CUSTOMER", "STAFF", "ADMIN", "CUSTOMER_CARE")
-                .antMatchers("/news","/news/search", "/news/search**", "/news/newsDetail**").permitAll()
-                .antMatchers("/profile", "/changePassword", "/profile/edit", "/customer/display/**").hasRole("CUSTOMER")
+                .antMatchers("/changePassword",  "/customer/display/**").hasRole("CUSTOMER")
                 .antMatchers("/dashboard", "/management").hasRole("ADMIN")
+                .antMatchers("/customer/**").hasRole("CUSTOMER")
                 .antMatchers(("/auction/showAuctions/**")).permitAll()
                 .antMatchers("/wishlist/**").hasRole("CUSTOMER")
                 .antMatchers("/auctionRegistration/showAuctionRegistrationPage").hasRole("CUSTOMER")
-                .antMatchers("/bids/showBidsPage/**").hasAnyRole("CUSTOMER", "STAFF", "ADMIN", "CUSTOMER_CARE")
                 .antMatchers("/staff").hasRole("STAFF")
-                .antMatchers("/customer-care/add","/customer-care","/customer-care/own-news"
-                ,"/customer-care/newsDetail**","/customer-care/deleteNews**")
+                .antMatchers("/customer-care/**")
                 .hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
                 .and()

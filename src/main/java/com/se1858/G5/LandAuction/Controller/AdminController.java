@@ -2,8 +2,6 @@ package com.se1858.G5.LandAuction.Controller;
 
 
 import com.se1858.G5.LandAuction.DTO.AdminCreateDTO;
-import com.se1858.G5.LandAuction.Entity.ERole;
-import com.se1858.G5.LandAuction.Entity.Roles;
 import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.RolesRepository;
@@ -12,7 +10,7 @@ import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import com.se1858.G5.LandAuction.Service.PaymentService;
 import com.se1858.G5.LandAuction.Service.RoleService;
-import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;

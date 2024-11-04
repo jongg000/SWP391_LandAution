@@ -12,7 +12,6 @@ public interface AssetService {
     AssetRegistration addAsset(AssetRegistration asset);
     List<Land> findAll();
     List<Land> findAllByName(String keyword);
-
     List<Land> search(String keyword);
     List<Land> findTop4ByOrderByLandIdDesc();
 
