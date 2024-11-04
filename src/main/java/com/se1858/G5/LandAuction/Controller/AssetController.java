@@ -5,20 +5,16 @@ import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.*;
-import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
-import lombok.RequiredArgsConstructor;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 
-import javax.servlet.http.HttpSession;
 import java.time.ZoneId;
-import java.util.List;
 
 @Controller
 @RequestMapping()

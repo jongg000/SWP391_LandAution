@@ -2,186 +2,427 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Profile Page</title>
-  <style>
-    /* General Styling */
-    body {
-      margin: 0;
-      padding-top: 40px;
-      color: #2e323c;
-      background: #f5f6fa;
-      font-family: Arial, sans-serif;
-    }
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title> Land Auction</title>
+  <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/assets/css/bootstrap.css">
+  <link rel="stylesheet" href="/assets/css/animate.css">
+  <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+  <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
+  <!-- <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/icon-font.css"> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 0 15px;
-    }
+  <link rel="stylesheet" href="/assets/css/auction.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
-    /* Card Styling */
-    .card {
-      background: #ffffff;
-      border-radius: 5px;
-      border: 0;
-      margin-bottom: 1.5rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+  <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
 
-    .card h6.text-primary {
-      color: #007bff;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-
-    /* User Profile Styling */
-    .user-profile {
-      text-align: center;
-      padding: 2rem 1rem;
-    }
-
-    .user-avatar img {
-      width: 100px;
-      height: 100px;
-      border-radius: 50%;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Sidebar Links */
-    .url {
-      text-align: center;
-      margin-top: 20px;
-    }
-
-    .url a {
-      color: #818181;
-      display: block;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      text-decoration: none;
-      transition: all 0.3s ease;
-    }
-
-    .url a:hover, .url .active {
-      background-color: #e8f5ff;
-      color: #007bff;
-      border-radius: 28px;
-    }
-
-    /* Profile Information Styling */
-    .form-control-static {
-      border: 1px solid #ced4da;
-      border-radius: 5px;
-      padding: 0.5rem 1rem;
-      font-size: 1rem;
-      background-color: #f8f9fa;
-      color: #2e323c;
-      margin-bottom: 1rem;
-    }
-
-    /* Responsive Adjustments */
-    @media (max-width: 768px) {
-      .user-avatar img {
-        width: 80px;
-        height: 80px;
-      }
-
-      .url a {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
-  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css'>
-  <script src='https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js'></script>
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
-<div class="container">
-  <div class="row gutters">
-    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="account-settings">
-            <div class="user-profile">
-              <div class="user-avatar">
-                <img th:src="'/User_images/' + ${user.avatar}" alt="User Avatar">
+<div class="sidebar-menu-container" id="sidebar-menu-container">
+  <div class="sidebar-menu-push">
+    <div class="sidebar-menu-inner">
+      <div id="sub-header">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 col-sm-12">
+              <div class="social-icons">
+                <ul>
+                  <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                  <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                  <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                  <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                  <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                  <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                </ul>
               </div>
-              <h5 class="user-name" th:text="${user.lastName}">User Last Name</h5>
-              <h6 class="user-email" th:text="${user.email}">user@example.com</h6>
             </div>
-            <div class="sidenav-url">
-              <div class="url">
-                <a th:href="@{/profile}" class="active">Thông tin</a>
-                <a th:href="@{/profile/edit}">Chỉnh sửa</a>
-                <a th:href="@{/changePassword}">Đổi mật khẩu</a>
+            <div class="col-md-6 hidden-sm">
+              <div class="right-info">
+                <ul>
+                  <li>Call us: <em>0659-694-002</em></li>
+                  <li th:if="${#httpServletRequest.remoteUser != null}">
+                    <a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
+                  </li>
+                  <li th:if="${#httpServletRequest.remoteUser != null}">
+                    <a href="/logout">Đăng xuất</a>
+                  </li>
+                  <li th:if="${#httpServletRequest.remoteUser == null}">
+                    <a href="/login">Đăng nhập</a>
+                  </li>
+                  <li th:if="${#httpServletRequest.remoteUser == null}">
+                    <a href="/register">Đăng ký</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <header class="site-header">
+        <div id="main-header" class="main-header header-sticky">
+          <div class="inner-header container clearfix">
+            <div class="logo">
+              <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+            </div>
+            <div class="header-right-toggle pull-right hidden-md hidden-lg">
+              <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
+            </div>
+            <nav class="main-navigation text-left hidden-xs hidden-sm">
+              <ul>
+                <li><a href="/home">Trang chủ</a></li>
+                <li><a href="about.html">Về chúng tôi</a></li>
+                <li><a href="#" class="has-submenu">Đấu giá</a>
+                  <ul class="sub-menu">
+                    <li><a href="listing-right.html">Thanh bên phải</a></li>
+                    <li><a href="listing-left.html">Thanh bên trái</a></li>
+                    <li><a href="listing-grid.html">Hệ thống lưới</a></li>
+                    <li><a href="single-list.html">Chi tiết lô đất</a></li>
+                  </ul>
+                </li>
+                <li><a href="#" class="has-submenu">Tài sản</a>
+                  <ul class="sub-menu">
+                    <li><a href="listing-right.html">Thanh bên phải</a></li>
+                    <li><a href="listing-left.html">Thanh bên trái</a></li>
+                    <li><a href="listing-grid.html">Hệ thống lưới</a></li>
+                    <li><a href="single-list.html">Chi tiết lô đất</a></li>
+                  </ul>
+                </li>
+                <li><a href="/news">Tin tức</a>
+                </li>
+                <li>
+                  <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
+                  <div id="example" class="more">
+                    <form method="get" id="asset-search" class="blog-search">
+                      <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
+                    </form>
+                    <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
+                  </div>
+                </li>
+              </ul>
+            </nav>
+
+          </div>
+        </div>
+      </header>
+      <div class="container mt-5" style="padding-left: 200px; padding-bottom: 100px; padding-top: 200px;">
+        <div class="row">
+          <div class="col-lg-4">
+            <!-- Profile Picture with Small Icon -->
+            <div class="card mb-4">
+              <div class="card-body text-center position-relative">
+                <!-- Main profile picture -->
+                <img th:src="'/User_images/' + ${ user.getAvatar() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+              </div>
+            </div>
+            <div style="margin-top: 30px;">
+              <form th:action="@{profile/upload}" method="post" enctype="multipart/form-data">
+                <a href="#" >
+                  <input type="file" name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                </a>
+                <button type="submit"  style="margin-top: 30px" class="btn btn-primary mt-3">Tải ảnh đại diện</button>
+              </form>
+            </div>
+          </div>
+          <div class="col-lg-8">
+            <!-- Profile Details -->
+            <div class="card mb-4">
+              <div class="card-body">
+                <h2 class="text-primary">Thông tin cá nhân</h2>
                 <hr>
+
+                <!-- Form for editing personal information -->
+                <form th:action="@{profile/edit}"  method="post" enctype="multipart/form-data">
+                  <div class="form-group row mb-4">
+                    <label for="firstName" class="col-sm-3 col-form-label">Họ và tên đệm</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="firstName" name="firstName" class="form-control" th:value="${user.firstName}" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="lastName" class="col-sm-3 col-form-label">Tên</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="lastName" name="lastName" class="form-control" th:value="${user.lastName}" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="email" class="col-sm-3 col-form-label">Email</label>
+                    <div class="col-sm-9">
+                      <input type="email" id="email" name="email" class="form-control" th:value="${user.email}" readonly>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="phoneNumber" class="col-sm-3 col-form-label">Số điện thoại</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" th:value="${user.phoneNumber}" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="address" class="col-sm-3 col-form-label">Địa chỉ</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="address" name="address" class="form-control" th:value="${user.address}" required>
+                    </div>
+                  </div>
+
+                  <h3 class="text-primary mt-5">Các thông tin khác</h3>
+                  <hr>
+
+                  <div class="form-group row mb-4">
+                    <label for="gender" class="col-sm-3 col-form-label">Giới tính</label>
+                    <div class="col-sm-9">
+                      <select id="gender" name="gender" class="form-control">
+                        <option value="Male" th:selected="${user.gender == 'Nam'}">Nam</option>
+                        <option value="Female" th:selected="${user.gender == 'Nữ'}">Nữ</option>
+                        <option value="Other" th:selected="${user.gender == 'Khác'}">Khác</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="dob" class="col-sm-3 col-form-label">Ngày sinh</label>
+                    <div class="col-sm-9">
+                      <input type="date" id="dob" name="dob" class="form-control" th:value="${#dates.format(user.dob, 'yyyy-MM-dd')}" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="nationalID" class="col-sm-3 col-form-label">Căn cước công dân</label>
+                    <div class="col-sm-9">
+                      <input type="text" id="nationalID" name="nationalID" class="form-control" th:value="${user.nationalID}" required>
+                    </div>
+                  </div>
+
+                  <!-- National ID Card Front Image Display and Upload -->
+<!--                  <div class="form-group row mb-4">-->
+<!--                    <label for="nationalFrontImage" class="col-sm-3 col-form-label">Ảnh CCCD Mặt Trước</label>-->
+<!--                    <div class="col-sm-9">-->
+<!--                      &lt;!&ndash; Display previous front image if available &ndash;&gt;-->
+<!--                      <div th:if="${user.nationalFrontImage != null}">-->
+<!--                        <img th:src="'/User_images/' +${user.getNationalFrontImage()}" alt="Front of National ID" class="img-fluid mb-3" style="max-width: 200px;">-->
+<!--                      </div>-->
+<!--                      <input type="file" id="nationalFrontImage" name="nationalFrontImage" class="form-control"  required>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--                  &lt;!&ndash; National ID Card Back Image Display and Upload &ndash;&gt;-->
+<!--                  <div class="form-group row mb-4">-->
+<!--                    <label for="nationalBackImage" class="col-sm-3 col-form-label">Ảnh CCCD Mặt Sau</label>-->
+<!--                    <div class="col-sm-9">-->
+<!--                      &lt;!&ndash; Display previous back image if available &ndash;&gt;-->
+<!--                      <div th:if="${user.nationalBackImage != null}">-->
+<!--                        <img th:src="'/User_images/' + ${user.getNationalBackImage()}" alt="Back of National ID" class="img-fluid mb-3" style="max-width: 200px;">-->
+<!--                      </div>-->
+<!--                      <input type="file" id="nationalBackImage" name="nationalBackImage" class="form-control"  required>-->
+<!--                    </div>-->
+<!--                  </div>-->
+                  <div th:if="${error!= null}" th:text="${error}"></div>
+
+                  <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
+                    <button type="button" class="btn btn-secondary" onclick="toggleChangePassword()">Đổi mật khẩu</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Change Password Form (Initially Hidden) -->
+            <div class="card mb-4" id="changePasswordForm" style="display: none;">
+              <div class="card-body">
+                <h6 class="text-primary">Đổi mật khẩu</h6>
+                <hr>
+                <form th:action="@{profile/change-password}" method="post">
+                  <div class="form-group row mb-4">
+                    <label for="currentPassword" class="col-sm-3 col-form-label">Mật khẩu hiện tại</label>
+                    <div class="col-sm-9">
+                      <input type="password" id="currentPassword" name="currentPassword" class="form-control" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="newPassword" class="col-sm-3 col-form-label">Mật khẩu mới</label>
+                    <div class="col-sm-9">
+                      <input type="password" id="newPassword" name="newPassword" class="form-control" required>
+                    </div>
+                  </div>
+
+                  <div class="form-group row mb-4">
+                    <label for="confirmPassword" class="col-sm-3 col-form-label">Xác nhận mật khẩu</label>
+                    <div class="col-sm-9">
+                      <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                    </div>
+                  </div>
+
+                  <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Xác nhận</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
+
+          <!-- JavaScript to Toggle Change Password Form -->
+          <script>
+            function toggleChangePassword() {
+              var form = document.getElementById("changePasswordForm");
+              form.style.display = (form.style.display === "none" || form.style.display === "") ? "block" : "none";
+            }
+          </script>
+
+
         </div>
       </div>
-    </div>
-
-    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-      <div class="card h-100">
-        <div class="card-body">
-          <div class="row gutters">
-            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-              <h6 class="text-primary">Thông tin cá nhân</h6>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label>Họ và tên</label>
-                <p class="form-control-static" th:text="${user.firstName} + ' ' + ${user.lastName}">Full Name</p>
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label>Email</label>
-                <p class="form-control-static" th:text="${user.email}">user@example.com</p>
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label>Số điện thoại</label>
-                <p class="form-control-static" th:text="${user.phoneNumber}">Phone Number</p>
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label>Địa chỉ</label>
-                <p class="form-control-static" th:text="${user.address}">Address</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="row gutters">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label>Giới tính</label>
-                <p class="form-control-static" th:text="${user.gender == 'Male' ? 'Trai' : (user.gender == 'Female' ? 'Gái' : 'Khác')}">Gender</p>
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label>Ngày sinh</label>
-                <p class="form-control-static" th:text="${#dates.format(user.dob, 'dd/MM/yyyy')}">Date of Birth</p>
-              </div>
-            </div>
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-              <div class="form-group">
-                <label>Căn cước công dân</label>
-                <p class="form-control-static" th:text="${user.nationalID}">National ID</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
   </div>
 </div>
+
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="about-us">
+          <img src="/assets/images/logo-2.png" alt="">
+          <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
+          <ul>
+            <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
+            <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
+            <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="featured-links">
+          <h4>Liên kết nổi bật</h4>
+          <ul>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
+          </ul>
+          <ul>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Trang chủ</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Đất mới đấu giá</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Tính năng</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Khuyến mãi</a></li>
+            <li><a href="#"><i class="fa fa-caret-right"></i>Liên hệ</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="latest-news">
+          <h4>Tin tức mới nhất</h4>
+          <div class="latest-item">
+            <img src="/assets/images/logo.png" alt="">
+            <a href="#">
+              <h6>Đấu giá đất nền khu đô thị</h6>
+            </a>
+            <ul>
+              <li>24 Tháng 9, 2023</li>
+              <li>2 bình luận</li>
+            </ul>
+          </div>
+          <div class="latest-item">
+            <img src="/assets/images/logo.png" alt="">
+            <a href="#">
+              <h6>Cơ hội đầu tư đất ven biển</h6>
+            </a>
+            <ul>
+              <li>21 Tháng 9, 2023</li>
+              <li>2 bình luận</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="gallery">
+          <h4>Thư viện</h4>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="/assets/images/logo.png" alt="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+
+</div>
+
+</div>
+
+<nav class="sidebar-menu slide-from-left">
+  <div class="nano">
+    <div class="content">
+      <nav class="responsive-menu">
+        <ul>
+          <li><a href="#">Trang chủ</a></li>
+          <li><a href="#">Về chúng tôi</a></li>
+          <li><a href="#">Dịch vụ</a></li>
+          <li class="menu-item-has-children"><a href="#">Danh sách</a>
+            <ul class="sub-menu">
+              <li><a href="#">Sidebar Phải</a></li>
+              <li><a href="#">Sidebar Trái</a></li>
+              <li><a href="#">Hệ thống lưới</a></li>
+              <li><a href="#">Chi tiết đất đấu giá</a></li>
+            </ul>
+          </li>
+          <li class="menu-item-has-children"><a href="#">Blog</a>
+            <ul class="sub-menu">
+              <li><a href="#">Cổ điển</a></li>
+              <li><a href="#">Hệ thống lưới</a></li>
+              <li><a href="#">Lưới với Sidebar</a></li>
+              <li><a href="#">Bài đăng đơn</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">Về chúng tôi</a></li>
+          <li><a href="#">Liên hệ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</nav>
+
+<script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+<!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+<script src="/assets/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="/assets/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<script type="text/javascript" src="/assets/js/plugins.js"></script>
+<script type="text/javascript" src="/assets/js/custom.js"></script>
 
 </body>
 </html>
