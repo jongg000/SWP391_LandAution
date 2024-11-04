@@ -119,7 +119,7 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr th:each="item1 : ${users}">
+                                    <tr th:each="item1 : ${user}">
                                         <td><span th:text="|${item1.firstName ?: ''} ${item1.lastName ?: ''}|"></span></td>
                                         <td><span th:text="${item1.email ?: 'No email'}"></span></td>
                                         <td><span th:text="${item1.phoneNumber ?: 'No phone number'}"></span></td>
@@ -130,7 +130,7 @@
                                 </table>
                             </div>
 
-                            <div class="col-12" th:if="${landProfiles != null}">
+                            <div class="col-12" th:if="${assetRegistration != null}">
                                 <h5>Hồ sơ đất đai</h5>
                                 <table class="table table-striped" id="table3">
                                     <thead>
