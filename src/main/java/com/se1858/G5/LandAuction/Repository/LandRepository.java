@@ -1,7 +1,7 @@
 package com.se1858.G5.LandAuction.Repository;
 
 import com.se1858.G5.LandAuction.Entity.Land;
-import com.se1858.G5.LandAuction.Entity.News;
+import com.se1858.G5.LandAuction.Entity.User;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,5 +25,6 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
     List<Land> searchLandsByKeyword(@Param("keyword") String keyword);
 
 
+    List<Land> findByUser(User user);
 }
 
