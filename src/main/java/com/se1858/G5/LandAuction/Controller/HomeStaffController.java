@@ -25,7 +25,7 @@ public class HomeStaffController {
     public String homePage(Model model) {
         List<User> users = userService.findAll();
         model.addAttribute("user",users);
-        List<AssetRegistration> assetRegistrations = assetRegistrationService.findAll();
+        List<AssetRegistration> assetRegistrations = assetRegistrationService.getAssetRegistrations();
         model.addAttribute("assetRegistration", assetRegistrations);
         return "/staff/home-staff";
     }

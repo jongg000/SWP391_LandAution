@@ -36,7 +36,7 @@ public class PaymentController {
     }
     //dẫn đến đường link thanh toán
     @RequestMapping("handle")
-    public String handle(HttpServletRequest request, @PathVariable long bidamount) {
+    public String handle(HttpServletRequest request) {
         int amount  = 500000;
         VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back");
         String link =vnPayResponse.paymentUrl;

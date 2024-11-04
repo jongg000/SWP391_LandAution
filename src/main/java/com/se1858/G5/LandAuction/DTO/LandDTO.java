@@ -27,4 +27,5 @@ public class LandDTO {
     private double width;
     private double length;
     private LocalDateTime createdAt;
+    private LocalDateTime createdDate;
 }
