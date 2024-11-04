@@ -33,15 +33,20 @@ public class AssetController {
 
     private  StatusService statusService;
 
+    @Autowired
+    public AssetController(UserService userService, LandService landService, AssetService assetService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
+        this.userService = userService;
+        this.landService = landService;
+        this.assetService = assetService;
+        this.assetRegistrationService = assetRegistrationService;
+        this.landRepository = landRepository;
+        this.statusService = statusService;
+    }
+
     @GetMapping("post-asset")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
-        return "customer/land-registratrion";
-    }
-
-    @GetMapping("/image")
-    public String testImage(Model model) {
         return "customer/land-registratrion";
     }
 
