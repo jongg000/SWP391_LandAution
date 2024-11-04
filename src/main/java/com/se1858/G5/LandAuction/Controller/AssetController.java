@@ -24,6 +24,8 @@ import java.util.List;
 @RequestMapping("asset")
 public class AssetController {
     @Autowired
+    private  LandService landService;
+    @Autowired
     private  UserService userService;
     @Autowired
     private  AssetService assetService;
