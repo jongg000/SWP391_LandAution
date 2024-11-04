@@ -36,7 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/forgot-password", "/reset-password**",
                 "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**",
                 "/doc/**","/coffeescripts/**","/icon/**","/images/**","/Land_images/**"
-                ,"/News_images/**","/User_images/**","/transfonts/**","/auction/showAuctionDetail/**","/bids/showBidsPage/**")
+                ,"/News_images/**","/User_images/**","/transfonts/**"
+                ,"/auction/showAuctionDetail/**","/bids/showBidsPage/**"
+                ,"/land")
                 .permitAll()
                 .antMatchers("/home").access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
                 .antMatchers("/register").permitAll()

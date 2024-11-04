@@ -66,7 +66,7 @@ public class HomeController {
         // Assuming `newsList` has images and we're picking the first image as "latestImage"
 
         model.addAttribute("allLands", allLands);
-        return "asset"; // Name of the view for displaying search results
+        return "land"; // Name of the view for displaying search results
     }
 
 
@@ -142,6 +142,15 @@ public class HomeController {
             return "redirect:" + (redirectUrl != null ? redirectUrl : "/home");
         }
         return "login";
+    }
+
+
+    @GetMapping("/land")
+    public String land(Model model) {
+        List<Land> allLands = assetService.findAll();
+        // Assuming `newsList` has images and we're picking the first image as "latestImage"
+        model.addAttribute("allLands", allLands);
+        return "land"; // Trả về tên của file HTML home.html
     }
 
 
