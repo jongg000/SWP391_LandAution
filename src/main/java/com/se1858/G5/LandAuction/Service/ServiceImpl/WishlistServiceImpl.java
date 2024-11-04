@@ -5,7 +5,7 @@ import com.se1858.G5.LandAuction.Entity.Wishlist;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Repository.WishlistRepository;
-import com.se1858.G5.LandAuction.Service.WishlisrService;
+import com.se1858.G5.LandAuction.Service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class WishlistServiceImpl implements WishlisrService {
+public class WishlistServiceImpl implements WishlistService {
     private final WishlistRepository wishlistRepository;
     private final UserRepository userRepository;
     private final AuctionRepository auctionRepository;

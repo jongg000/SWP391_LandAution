@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -36,58 +37,65 @@ public class WishlistController {
 
 
     @GetMapping("/showWishlists")
-    public String showWishlistPage(@RequestParam(defaultValue = "0") int page, Model model) {
-        List<WishlistDTO> wishlists = wishlistService.findAllWishlist();
-        List<Map<String, Object>> wishlistDetails = new ArrayList<>();
-        int pageSize = 4; // Set the page size to 4
-        int start = page * pageSize;
-        int end = Math.min(start + pageSize, wishlists.size());
+    public String showWishlistPage(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(required = false) String filter,
+                                   Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        int userId = (int) session.getAttribute("id");
+        List<WishlistDTO> wishlists = wishlistService.findAllWishlistByUserId(userId);
+        List<WishlistDTO> filteredWishlists;
+        if (filter != null && !filter.equals("all")) {
+            filteredWishlists = wishlists.stream()
+                    .filter(wishlist -> {
+                        AuctionDto auction = auctionService.findAuctionById(wishlist.getAuctionId());
+                        LocalDateTime now = LocalDateTime.now();
+                        String dateCheck;
 
-        for (int i = start; i < end; i++) {
-            WishlistDTO wishlist = wishlists.get(i);
-            AuctionDto auction = auctionService.findAuctionById(wishlist.getAuctionId());
-            LandDTO land = landService.findLandById(auction.getLandId());
-            List<LandImageDTO> landImageDTOList = landService.findAllLandImageByLandId(auction.getLandId());
-            LandImageDTO landImage = landImageDTOList.isEmpty() ? null : landImageDTOList.get(0);
-            Map<String, Object> details = new HashMap<>();
-            details.put("wishlist", wishlist);
-            details.put("auction", auction);
-            details.put("land", land);
-            details.put("landImage", landImage);
-            wishlistDetails.add(details);
+                        if (now.isAfter(auction.getEndTime())) {
+                            dateCheck = "ended";
+                        } else if (now.isBefore(auction.getStartTime())) {
+                            dateCheck = "comingSoon";
+                        } else {
+                            dateCheck = "isGoingOn";
+                        }
+                        switch (filter) {
+                            case "ended":
+                                return "ended".equals(dateCheck);
+                            case "isGoingOn":
+                                return "isGoingOn".equals(dateCheck);
+                            case "comingSoon":
+                                return "comingSoon".equals(dateCheck);
+                            default:
+                                return true; // In case of an unexpected filter value, show all
+                        }
+                    })
+                    .collect(Collectors.toList());
+        } else {
+            // If no filter is applied, show all wishlists
+            filteredWishlists = wishlists;
         }
-        model.addAttribute("num", wishlists.size());
-        model.addAttribute("wishlistDetails", wishlistDetails);
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", (int) Math.ceil((double) wishlists.size() / pageSize)); // Total number of pages
 
-        return "/customer/wishlistPage";
-    }
-
-
-    @GetMapping("/showWishlists/{userId}")
-    public String showWishlistPage(@RequestParam(defaultValue = "0") int page, Model model, @PathVariable int userId) {
-        List<WishlistDTO> wishlists = wishlistService.findAllWishlistByUserId((int) userId);
-        List<Map<String, Object>> wishlistDetails = new ArrayList<>();
-        int pageSize = 6;
+        int pageSize = 6; // Change as necessary
+        int totalFilteredWishlists = filteredWishlists.size();
         int start = page * pageSize;
-        int end = Math.min(start + pageSize, wishlists.size());
-        int j=0;
+        int end = Math.min(start + pageSize, totalFilteredWishlists);
+
+        List<Map<String, Object>> wishlistDetails = new ArrayList<>();
         for (int i = start; i < end; i++) {
-            WishlistDTO wishlist = wishlists.get(i);
+            WishlistDTO wishlist = filteredWishlists.get(i);
             AuctionDto auction = auctionService.findAuctionById(wishlist.getAuctionId());
             LandDTO land = landService.findLandById(auction.getLandId());
             List<LandImageDTO> landImageDTOList = landService.findAllLandImageByLandId(auction.getLandId());
             LandImageDTO landImage = landImageDTOList.isEmpty() ? null : landImageDTOList.get(0);
             Map<String, Object> details = new HashMap<>();
-            String dateCheck = null;
-            if(LocalDateTime.now().isAfter(auction.getEndTime())) {
+
+            String dateCheck;
+            if (LocalDateTime.now().isAfter(auction.getEndTime())) {
                 dateCheck = "ended";
-                j++;
-            } else if(LocalDateTime.now().isBefore(auction.getStartTime())) {
-                dateCheck = "upcoming";
+            } else if (LocalDateTime.now().isBefore(auction.getStartTime())) {
+                dateCheck = "comingSoon";
             } else {
-                dateCheck = "is going on";
+                dateCheck = "isGoingOn";
             }
 
             details.put("dateCheck", dateCheck);
@@ -97,13 +105,16 @@ public class WishlistController {
             details.put("landImage", landImage);
             wishlistDetails.add(details);
         }
-        model.addAttribute("num",wishlistDetails.size());
+        model.addAttribute("num", totalFilteredWishlists); // Number of filtered wishlists
         model.addAttribute("wishlistDetails", wishlistDetails);
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", (int) Math.ceil((double) wishlists.size() / pageSize)); // Tổng số trang
+        model.addAttribute("totalPages", (int) Math.ceil((double) totalFilteredWishlists / pageSize)); // Total pages based on filtered list
+        model.addAttribute("currentFilter", filter); // Maintain the current filter for the view
 
         return "/customer/wishlistPage";
     }
+
+
 
 
 

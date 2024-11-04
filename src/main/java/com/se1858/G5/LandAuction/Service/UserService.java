@@ -19,4 +19,5 @@ public interface UserService {
     List<User> findAll();
     public long getTotalUsers();
     public List<User> findTop3UsersByOrderByIdDesc();
+    User findByUserId(int userId);
 }

@@ -10,25 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 
+
 import java.time.ZoneId;
+import java.util.List;
 
 @Controller
-@RequestMapping()
-
+@RequestMapping("asset")
 public class AssetController {
-    @Autowired
+
     private  UserService userService;
-    @Autowired
+   private  LandService landService;
     private  AssetService assetService;
-    @Autowired
+
     private  AssetRegistrationService assetRegistrationService;
-    @Autowired
+
     private  LandRepository landRepository;
-    @Autowired
+
     private  StatusService statusService;
 
     @GetMapping("post-asset")
@@ -52,18 +54,38 @@ public class AssetController {
                                      landDTO.getLocation(), user, landDTO.getName(),landDTO.getWard(),
                                      landDTO.getDistrict(), landDTO.getProvince());
         UploadFile uploadFile = new UploadFile();
+        land.setContact(user.getPhoneNumber());
         uploadFile.upLoadDocumentAsset(landDTO.getDocument(), land);
         AssetRegistration assetRegistration = new AssetRegistration();
         uploadFile.UploadImagesForLand(landDTO.getImages(), land);
         LocalDateTime createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
+        landDTO.setCreatedDate(createdDate);
         assetRegistration.setRegistrationDate(createdDate);
         assetRegistration.setLand(land);
         land.setAssetRegistration(assetRegistration);
         assetRegistration.setStatus(statusService.getStatusById(4));
         landRepository.save(land);
         assetRegistrationService.save(assetRegistration);
-        model.addAttribute("land", land);
-        return "/customer/Success";
+        model.addAttribute("land", landDTO);
+        return "redirect:/payment/handle";
+    }
+
+    @GetMapping()
+    public String list(Principal principal, Model model) {
+        User user = userService.findByEmail(principal.getName());
+        List<Land> list = landService.findByUser(user);
+        long count = assetRegistrationService.countAssetRegistrationsByUser(user);
+        model.addAttribute("list", list);
+        model.addAttribute("count", count);
+        System.out.println(count);
+        return "customer/asset-list";
+    }
+    @GetMapping("/asset-detail/{id}")
+    public String detail(Principal principal, @PathVariable int id, Model model) {
+        AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
+        System.out.println(assetRegistration.getLand().getName());
+        model.addAttribute("assetRegistration", assetRegistration);
+        return "customer/asset-detail";
     }
 
 }

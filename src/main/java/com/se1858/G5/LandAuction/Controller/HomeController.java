@@ -55,7 +55,11 @@ public class HomeController {
         model.addAttribute("newsList", newsList);
         return "home"; // Trả về tên của file HTML home.html
     }
+    @GetMapping("/aboutUs")
+    public String showAboutUs() {
 
+        return "aboutUs"; // Trả về tên của file HTML home.html
+    }
     @GetMapping("/search")
     public String searchLandByKey(@RequestParam("keyword") String keyword, Model model) {
         List<Land> allLands = assetService.findAllByName(keyword);

@@ -19,7 +19,7 @@ public class AssetRegistration {
     private int documentId;
 
     @OneToOne
-    @JoinColumn(name = "land_id") // Đây là khóa ngoại trỏ đến Land
+    @JoinColumn(name = "land_id")
     private Land land;
 
     @ManyToOne

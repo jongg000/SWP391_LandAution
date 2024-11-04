@@ -27,7 +27,7 @@ public class PaymentController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/user")
     public String handle(Model model, Principal principal) {
             String username = principal.getName();
             User user = userService.findByEmail(username);
@@ -35,16 +35,16 @@ public class PaymentController {
             return "/customer/display";
     }
     //dẫn đến đường link thanh toán
-    @RequestMapping("handle")
-    public String handle(HttpServletRequest request, @PathVariable long bidamount) {
+    @RequestMapping("handle/{id}")
+    public String handle(HttpServletRequest request, @PathVariable int id) {
         int amount  = 500000;
-        VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back");
+        VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back/"+id);
         String link =vnPayResponse.paymentUrl;
         return "redirect:" + link;
     }
     //Sau khi thanh toán thành công
-    @RequestMapping(value = "/back", method = RequestMethod.GET)
-    public String paymentCompleted(HttpServletRequest request, Model model, Principal principal) {
+    @RequestMapping(value = "/back/{id}", method = RequestMethod.GET)
+    public String paymentCompleted(HttpServletRequest request, Model model, Principal principal,@PathVariable int id) {
         int paymentStatus =paymentService.orderReturn(request);
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
@@ -55,6 +55,7 @@ public class PaymentController {
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
-        return paymentStatus == 1 ? "/customer/Success" : "customer/Fail";
+        return paymentStatus == 1 ? "redirect:/auctionRegistration/save/" + id : "redirect:/auction/showAuctionDetail/" + id;
+
     }
 }

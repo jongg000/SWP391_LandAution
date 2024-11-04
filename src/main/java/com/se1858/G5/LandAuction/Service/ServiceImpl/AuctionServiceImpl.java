@@ -4,16 +4,19 @@ import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.AuctionRegistrationDTO;
 import com.se1858.G5.LandAuction.Entity.Auction;
 import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
+import com.se1858.G5.LandAuction.Entity.Bids;
 import com.se1858.G5.LandAuction.Entity.Land;
-import com.se1858.G5.LandAuction.Repository.AuctionRegistrationRepository;
-import com.se1858.G5.LandAuction.Repository.AuctionRepository;
-import com.se1858.G5.LandAuction.Repository.LandRepository;
-import com.se1858.G5.LandAuction.Repository.UserRepository;
+import com.se1858.G5.LandAuction.Repository.*;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,14 +24,14 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Autowired
     private AuctionRepository auctionRepository;
-
     @Autowired
     private LandRepository landRepository;
     @Autowired
     private AuctionRegistrationRepository auctionRegistration;
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private AuctionBidUpdateServiceImpl auctionBidUpdateService;
 
     public AuctionDto findAuctionById(int auctionId) {
         return auctionRepository.findById(auctionId)
@@ -99,8 +102,16 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRegistration.existsByUser_UserIdAndAuction_AuctionId(userId, auctionId);
     }
 
+    @Scheduled(fixedRate = 1000)
+    public void scheduledUpdateHighestBid() {
+        auctionBidUpdateService.updateHighestBidForEndedAuctions();
+    }
     @Override
     public long getTotalAuctions() {
         return auctionRepository.count();
+    }
+    public List<Auction> findAllAuctionEnd() {
+        return auctionRepository.findAllByEndTimeBefore(LocalDateTime.now());
+
     }
 }

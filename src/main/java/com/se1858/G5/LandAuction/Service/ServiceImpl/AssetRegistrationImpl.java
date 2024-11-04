@@ -2,7 +2,9 @@ package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.Entity.AssetRegistration;
 import com.se1858.G5.LandAuction.Entity.Status;
+import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.AssetRegistrationRepository;
+import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.AssetRegistrationService;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +12,12 @@ import java.util.List;
 
 @Service
 public class AssetRegistrationImpl implements AssetRegistrationService {
-    private AssetRegistrationRepository assetRegistrationRepository;
+    private final AssetRegistrationRepository assetRegistrationRepository;
+    private final LandRepository landRepository;
 
-    public AssetRegistrationImpl(AssetRegistrationRepository assetRegistrationRepository) {
+    public AssetRegistrationImpl(AssetRegistrationRepository assetRegistrationRepository, LandRepository landRepository) {
         this.assetRegistrationRepository = assetRegistrationRepository;
+        this.landRepository = landRepository;
     }
 
     @Override
@@ -42,13 +46,15 @@ public class AssetRegistrationImpl implements AssetRegistrationService {
         return assetRegistrationRepository.findByStatus(status);
     }
 
-
     @Override
-    public List<AssetRegistration> findAll() {
-        return assetRegistrationRepository.findAll();
+    public List<AssetRegistration> findByUser(User user) {
+        return assetRegistrationRepository.findByUser(user);
     }
 
-
+    @Override
+    public long countAssetRegistrationsByUser(User user) {
+        return assetRegistrationRepository.count();
+    }
 
 
 }

@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet" href="/assets/css/jquery-ui.css">
     <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
-    <!-- <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/icon-font.css"> -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/icon-font.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <link rel="stylesheet" href="/assets/css/auction.css">
@@ -80,13 +80,12 @@
                         <nav class="main-navigation text-left hidden-xs hidden-sm">
                             <ul>
                                 <li><a href="/home">Trang chủ</a></li>
-                                <li><a href="about.html">Về chúng tôi</a></li>
+                                <li><a href="/aboutUs">Về chúng tôi</a></li>
                                 <li><a href="#" class="has-submenu">Đấu giá</a>
                                     <ul class="sub-menu">
-                                        <li><a href="listing-right.html">Thanh bên phải</a></li>
-                                        <li><a href="listing-left.html">Thanh bên trái</a></li>
-                                        <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                                        <li><a href="single-list.html">Chi tiết lô đất</a></li>
+                                        <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+                                        <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+                                        <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                                     </ul>
                                 </li>
                                 <li><a href="#" class="has-submenu">Tài sản</a>
@@ -114,6 +113,7 @@
                     </div>
                 </div>
             </header>
+
             <div class="slider">
                 <div class="fullwidthbanner-container">
                     <div class="fullwidthbanner">
@@ -294,7 +294,7 @@
                         <div class="col-md-12">
                             <p>Chủ sở hữu các lô đất đấu giá sẽ gặp một số vấn đề đặc thù.</p>
                             <div class="advanced-button" style="width: auto;" >
-                                <a href="#">Xem tất cả lô đất<i class="bi bi-map"></i></a>
+                                <a th:href="@{/auction/showAuctions(page=0)}">Xem tất cả lô đất<i class="bi bi-map"></i></a>
                             </div>
                         </div>
                     </div>
