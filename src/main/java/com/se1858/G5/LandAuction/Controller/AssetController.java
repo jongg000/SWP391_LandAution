@@ -26,16 +26,19 @@ import java.util.List;
 @Controller
 @RequestMapping("asset")
 public class AssetController {
-    @Autowired
     private  UserService userService;
-    @Autowired
     private  LandService landService;
-    @Autowired
     private  AssetRegistrationService assetRegistrationService;
-    @Autowired
     private  LandRepository landRepository;
-    @Autowired
     private  StatusService statusService;
+
+    public AssetController(UserService userService, LandService landService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
+        this.userService = userService;
+        this.landService = landService;
+        this.assetRegistrationService = assetRegistrationService;
+        this.landRepository = landRepository;
+        this.statusService = statusService;
+    }
 
     @GetMapping("post-asset")
     public String formAsset(Model model) {
@@ -44,10 +47,6 @@ public class AssetController {
         return "customer/land-registratrion";
     }
 
-    @GetMapping("/image")
-    public String testImage(Model model) {
-        return "customer/land-registratrion";
-    }
 
     @PostMapping("saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
@@ -73,6 +72,7 @@ public class AssetController {
         model.addAttribute("land", landDTO);
         return "redirect:/payment/handle";
     }
+
 
     @GetMapping()
     public String list(Principal principal, Model model) {
