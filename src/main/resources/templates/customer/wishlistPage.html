@@ -234,7 +234,7 @@
                             <div class="row" th:each="wishlistDetail : ${wishlistDetails}">
                                 <div class="featured-item"
                                      th:if="${wishlistDetail.dateCheck == 'comingSoon' || wishlistDetail.dateCheck == 'isGoingOn' || wishlistDetail.dateCheck == 'ended' || (selectedFilter == 'all')}">
-                                    <img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image" style="width: 22%; height: 15%;"/>
+                                    <img th:src="@{'/Land_images/' + ${wishlistDetail.landImage.imageUrl}}" alt="Land Image" style="width: 22%; height: 15%;"/>
                                     <div class="right-content">
                                         <a href="#"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
                                         <span th:text="${'$' + wishlistDetail.land.price}"></span>
@@ -261,7 +261,7 @@
                                     const userId = document.getElementById("userId").value;
                                     const selectElement = document.getElementById("mark");
                                     const selectedValue = selectElement.value;
-                                    const baseUrl = "/wishlist/showWishlists/"+userId; // Ensure this is your correct endpoint
+                                    const baseUrl = "/wishlist/showWishlists"; // Ensure this is your correct endpoint
                                     let url = baseUrl;
 
                                     if (selectedValue !== "-1") {
@@ -273,7 +273,7 @@
 
                             <div class="pagination">
                                 <div class="prev">
-                                    <a th:href="@{/wishlist/showWishlists/{userId}(page=${currentPage - 1}, userId=${userId})}" th:if="${currentPage > 0}">
+                                    <a th:href="@{/wishlist/showWishlists(page=${currentPage - 1})}" th:if="${currentPage > 0}">
                                         <i class="fa fa-arrow-left"></i> Trang trước
                                     </a>
                                 </div>
@@ -287,7 +287,7 @@
                                     </ul>
                                 </div>
                                 <div class="next">
-                                    <a th:href="@{/wishlist/showWishlists/{userId}(page=${currentPage + 1}, userId=${userId})}" th:if="${currentPage < totalPages - 1}">
+                                    <a th:href="@{/wishlist/showWishlists(page=${currentPage + 1})}" th:if="${currentPage < totalPages - 1}">
                                         Trang sau <i class="fa fa-arrow-right"></i>
                                     </a>
                                 </div>

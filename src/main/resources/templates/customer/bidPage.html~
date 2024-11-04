@@ -169,7 +169,7 @@
                             </div>
                             <div class="flexslider">
                                 <ul class="slides">
-                                    <li th:each="landImage : ${landImages}" th:data-thumb="${'/Land_images/'+landImage.imageUrl}">
+                                    <li th:each="landImage : ${landImages}" th:data-thumb="${landImage.imageUrl}">
                                         <img th:src="@{'/Land_images/' + ${landImage.imageUrl}}" alt=""/>
                                     </li>
                                 </ul>

@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <!--[if IE 9]>
-<html class="ie ie9" lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<html class="ie ie9" lang="en-US">
 <![endif]-->
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>Bid Page</title>
+    <title>Auction Detail Page</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 
     <link rel="stylesheet" href="../../assets/css/bootstrap.css">
@@ -122,7 +121,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="/news">Tin tức</a>
-  s                              </li>
+                                </li>
                                 <li><a href="#">Liên hệ</a>
                                 </li>
                                 <li>
@@ -145,13 +144,13 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Trực tiếp đấu giá</h1>
+                            <h1>Trang chi tiết sản phẩm đấu giá</h1>
                             <div class="line"></div>
                             <div class="page-active">
                                 <ul>
-                                    <li><a href="../../index.html">Home</a></li>
+                                    <li><a href="../../home">Home</a></li>
                                     <li><i class="fa fa-dot-circle-o"></i></li>
-                                    <li><a href="listing-right.html">Trực tiếp đấu giá</a></li>
+                                    <li><a href="customer/listing-right.html">Trang sản phẩm</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -162,18 +161,28 @@
             <section class="car-details">
                 <div class="container">
                     <div class="row">
-                        <div id="single-car" class="col-md-12">
+                        <div id="single-car" class="col-md-8">
                             <div class="up-content clearfix">
                                 <h2 th:text="${land.name}"></h2>
                                 <span th:text="${land.price}"></span>
                             </div>
                             <div class="flexslider">
                                 <ul class="slides">
-                                    <li th:each="landImage : ${landImages}" th:data-thumb="${'/Land_images/'+landImage.imageUrl}">
-                                        <img th:src="@{'/Land_images/' + ${landImage.imageUrl}}" alt=""/>
+                                    <!-- Loop through the list of LandImageDTO objects -->
+                                    <li th:each="image : ${landImages}"
+                                        th:data-thumb="${image.imageUrl}">
+                                        <img th:src="${image.imageUrl}" alt=""/>
                                     </li>
                                 </ul>
                             </div>
+
+                            <!-- Include FlexSlider CSS -->
+                            <link rel="stylesheet" href="../../assets/css/flexslider.css">
+
+                            <!-- Include jQuery and FlexSlider JS -->
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="path/to/jquery.flexslider-min.js"></script>
+
                             <script>
                                 $(document).ready(function () {
                                     $('.flexslider').flexslider({
@@ -183,14 +192,6 @@
                                     });
                                 });
                             </script>
-                            <!-- Include FlexSlider CSS -->
-                            <link rel="stylesheet" href="../../assets/css/flexslider.css">
-
-                            <!-- Include jQuery and FlexSlider JS -->
-                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                            <script src="path/to/jquery.flexslider-min.js"></script>
-
-
 
 
                             <div class="tab">
@@ -198,250 +199,267 @@
                                     <ul class="tab-links">
                                         <li class="active"><a href="#tab2">Mô tả</a></li>
                                         <li><a href="#tab3">Vị trí</a></li>
-
                                     </ul>
                                     <div class="tab-content">
                                         <div id="tab2" class="tab active">
                                             <p th:text="${land.description}"></p>
                                         </div>
                                         <div id="tab3" class="tab">
-<!--                                           <&#45;&#45; <a th:href="#"></a>&ndash;&gt;-->
+                                            <iframe th:src="${land.location}"
+                                                    width="800"
+                                                    height="450"
+                                                    style="border:0;"
+                                                    allowfullscreen=""
+                                                    loading="lazy">
+                                            </iframe>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div id="left-info" class="col-md-12">
+                        <div id="left-info" class="col-md-4">
                             <br><br><br>
                             <div class="details">
                                 <div class="head-side-bar">
-                                    <h4>Danh sách đấu giá</h4>
-                                    <div hidden id="endTime" name="endTime" th:attr="value=${auction.endTime}"></div>
-                                    <h4 id="countdown" name="countdown">
-                                    Thời gian còn lại: <span id="timer"></span>
-                                </h4>
+                                    <h4>Chi tiết sản phẩm</h4>
                                 </div>
-
                                 <div class="list-info">
-                                    <!-- Table headers -->
-                                    <div class="row">
-                                        <div class="col-md-3">
-                                            <ul class="list-unstyled">
-                                                <li><h5><strong>Người đấu giá</strong></h5></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-5">
-                                            <ul class="list-unstyled">
-                                                <li><h5><strong>Số tiền đặt</strong></h5></li>
-                                            </ul>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <ul class="list-unstyled">
-                                                <li><h5><strong>Thời gian đặt</strong></h5></li>
-                                            </ul>
-                                        </div>
-                                    </div>
-
-                                    <!-- Loop through bid details -->
-                                    <div id="scrollableBidList" style="max-height: 300px;overflow-x: hidden;  overflow-y: scroll;">
-                                        <div id="bidList" class="bid-list" th:each="bid : ${bidDetails}">
-                                            <div class="row" style="border-bottom: 1px solid #ddd;">
-                                                <div class="col-md-3">
-                                                    <ul class="list-unstyled">
-                                                        <li><span th:text="${bid.username}"></span></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <ul class="list-unstyled">
-                                                        <li><span th:text="${bid.bid.bidAmount}"></span></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <ul class="list-unstyled">
-                                                        <li><span th:text="${bid.bid.bidTime}"></span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
+                                    <ul>
+                                        <li><span>Sản phẩm:</span><span th:text="${land.name}"></span></li>
+                                        <li><span>Giá: </span><span th:text="${land.price}"></span></li>
+                                        <li><span>Mô tả:</span><span th:text="${land.description}"></span></li>
+                                        <li><span>Vị trí:</span><span th:text="${land.province}"></span></li>
+                                        <li><span>Chiều dài:</span><span th:text="${land.length}"></span></li>
+                                        <li><span>Chiều rộng:</span><span th:text="${land.width}"></span></li>
+                                        <li><span>Diện tích:</span><span th:text="${land.square}"></span></li>
+                                        <li><span>Thời gian bắt đầu:</span><span th:text="${auction.startTime}"></span>
+                                        </li>
+                                        <li><span>Thời gian kết thúc:</span><span th:text="${auction.endTime}"></span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                             <div class="head-side-bar">
-                                <form id="bidForm" onsubmit="sendBid(); return false;">
-                                    <div style="display: flex; align-items: center; gap: 10px; padding: 20px; border: 1px solid #ddd; border-radius: 8px; max-width: 400px;">
-                                        <input type="number" id="bidAmount" name="bidAmount"
-                                               th:min="${land.price}"
-                                               th:step="${land.price * 0.1}"
-                                               th:value="${land.price}"
-                                               placeholder="Nhập số tiền đặt" required
-                                               style="flex: 1; padding: 8px; border: 1px solid #ccc; border-radius: 5px; font-size: 16px;" />
+                                <!-- Check if the user is the seller -->
+                                <div th:if="${isSeller}">
+                                    <br><a class="seller-restriction-message">Người bán không thể tham gia buổi đấu giá
+                                    sản phẩm của mình</a>
 
-                                        <input type="hidden" id="auctionRegistrationId" name="auctionRegistrationId" th:value="${auctionRegistrationId}"/>
-                                        <input type="hidden" id="latestBidAmount" name="latestBidAmount" th:value="${latestBidAmount}"/>
-                                        <input type="hidden" id="userName" name="username" th:value="${userName}"/>
-                                        <input type="hidden" id="userId" name="userId" th:value="${userId}"/>
-                                        <input type="hidden" id="latestBidUserId" name="latestBidUserId" th:value="${latestBidUserId}"/>
-                                        <button type="submit" id="bidButton" class="simple-button"
-                                                style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer;">
-                                            Đặt giá <i class="fa fa-paper-plane"></i>
-                                        </button>
+
+                                </div>
+
+                                <!-- When user is not the seller -->
+                                <div th:unless="${isSeller}">
+
+                                    <!-- For dateCheck = upcoming -->
+                                    <div th:if="${dateCheck == 'upcoming'}">
+                                        <div th:if="${check == false}">
+                                            <div th:if="${isAvailable}" class="advanced-button">
+                                                <a th:href="@{/auctionRegistration/save/{id}(id=${auction.auctionId})}">
+                                                    Tham gia <i class="fa fa-paper-plane"></i>
+                                                </a>
+                                            </div>
+                                            <div th:unless="${isAvailable}">
+                                                <br><a class="seller-restriction-message">Bạn cần cập nhật thông tin cá
+                                                nhân để tham gia</a>
+                                            </div>
+                                        </div>
+                                        <div th:if="${check == true}">
+                                            <div class="attended-label">Đã tham gia</div>
+                                        </div>
+                                        <br>
+                                        <div th:if="${wishlistCheck == false}" class="advanced-button">
+                                            <a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Thêm
+                                                vào theo dõi</a>
+                                        </div>
                                     </div>
-                                </form>
-                            </div>
-                            <div id="winnerModal" class="modal">
-                                <div class="modal-content">
-                                    <p class="bid-amount">Auction Ended</p>
-                                    <p class="congratulations">Congratulations!</p>
-                                    <p class="winner">Winner: <span id="winnerNameModal" class="highlight"></span><i class="fas fa-crown" aria-hidden="true"></i></p>
-                                    <p class="bid-amount">Bid Amount: <span id="winnerBidAmountModal" class="highlight"></span></p>
-                                    <button onclick="closeModal()" class="close-button">Close</button>
+
+                                    <!-- For dateCheck = isgoingon -->
+                                    <div th:if="${dateCheck == 'is going on'}">
+                                        <!-- Hide "Add to wishlist" and show View button -->
+                                        <div th:if="${check == true}" class="advanced-button">
+                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
+                                                tiếp
+                                                <i class="fa fa-paper-plane"></i></a>
+                                        </div>
+                                        <div th:if="${check == false}">
+                                            <div class="attended-label">Đang diễn ra</div>
+                                        </div>
+                                    </div>
+
+                                    <div th:if="${dateCheck == 'ended'}">
+                                        <div th:if="${check == true}" class="advanced-button">
+                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
+                                                tiếp
+                                                <i class="fa fa-paper-plane"></i></a>
+                                        </div>
+                                        <div th:if="${check == false}">
+                                            <div class="attended-label">Đã kết thúc</div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
-                            <script>
-                                let latestBidAmount = parseFloat(document.getElementById('latestBidAmount').value);
-                                let winnerName = document.getElementById("userName").value;
 
-                                function startCountdown(endTime) {
-                                    const countdownElement = document.getElementById("timer");
-                                    const bidButton = document.getElementById("bidButton");
-
-                                    function updateCountdown() {
-                                        const now = new Date().getTime();
-                                        const distance = new Date(endTime).getTime() - now;
-
-                                        if (distance < 0) {
-                                            clearInterval(interval);
-                                            countdownElement.innerHTML = "Auction Ended";
-                                            bidButton.disabled = true;
-
-                                            // Show winner information
-                                            showModal(winnerName, latestBidAmount);
-                                            return;
-                                        }
-
-                                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                                        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-                                    }
-
-                                    const interval = setInterval(updateCountdown, 1000);
-                                    updateCountdown();
-                                }
-
-                                const endTime = document.getElementById("endTime").getAttribute("value");
-
-                                startCountdown(endTime);
-
-                                function closeModal() {
-                                    document.getElementById("winnerModal").style.display = "none";
-                                }
-
-                                function showModal(winnerName, winnerBidAmount) {
-                                    document.getElementById("winnerNameModal").innerText = winnerName;
-                                    document.getElementById("winnerBidAmountModal").innerText = winnerBidAmount;
-                                    document.getElementById("winnerModal").style.display = "block";
-                                }
-
-                                function checkAuctionStatus() {
-                                    const auctionEnded = false;
-
-                                    if (auctionEnded) {
-                                        showModal(winnerName, latestBidAmount);
-                                    }
-                                }
-
-                                function sendBid() {
-                                    const latestBidUserId = document.getElementById('latestBidUserId').value;
-                                    const bidAmount = parseFloat(document.getElementById('bidAmount').value);
-                                    const auctionRegistrationId = document.getElementById('auctionRegistrationId').value;
-                                    const currentUserId = document.getElementById('userId').value;
-                                    const registrationTime = new Date();
-                                    registrationTime.setHours(registrationTime.getHours() + 7);
-                                    const bidTimeISO = registrationTime.toISOString().slice(0, -1);
-
-                                    if (bidAmount <= latestBidAmount) {
-                                        alert(`Your bid must be greater than the latest bid of ${latestBidAmount}`);
-                                        return;
-                                    }
-
-                                    stompClient.send("/app/bids", {}, JSON.stringify({
-                                        'bidAmount': bidAmount,
-                                        'registrationTime': bidTimeISO,
-                                        'registrationId': auctionRegistrationId,
-                                        'userId': currentUserId,
-                                        'lastName': null
-                                    }));
-
-                                    latestBidAmount = bidAmount;
-                                    winnerName = document.getElementById("userName").value;
-
-                                    document.getElementById('latestBidUserId').value = currentUserId;
-                                    document.getElementById('bidAmount').value = '';
-                                    document.forms['bidForm'].reset();
-                                }
-
-                                function connect() {
-                                    const socket = new SockJS('/bid-websocket');
-                                    stompClient = Stomp.over(socket);
-                                    stompClient.connect({}, function (frame) {
-                                        console.log('Connected: ' + frame);
-                                        stompClient.subscribe('/topic/bids', function (bidUpdate) {
-                                            showBid(JSON.parse(bidUpdate.body));
-                                        });
-                                    });
-                                }
-
-                                function showBid(bid) {
-                                    const bidList = document.getElementById("bidList");
-                                    const newBid = `
-            <div class="row">
-                <div class="col-md-3">
-                    <ul class="list-unstyled">
-                        <li><span>${bid.lastName}</span></li>
-                    </ul>
-                </div>
-                <div class="col-md-5">
-                    <ul class="list-unstyled">
-                       <li><span>${bid.bidAmount}</span></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-unstyled">
-                       <li><span>${bid.registrationTime}</span></li>
-                    </ul>
-                </div>
-            </div>`;
-
-                                    bidList.innerHTML = newBid + bidList.innerHTML;
-
-                                    latestBidAmount = parseFloat(bid.bidAmount);
-                                    document.getElementById("latestBidUserId").value = bid.userId;
-                                    winnerName = bid.username;
-                                    document.getElementById("scrollableBidList").scrollTop = 0;
-                                }
-
-                                window.onload = function () {
-                                    connect();
-                                    checkAuctionStatus();
-                                };
-                            </script>
-
-
-
-                            <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
-                            <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 
                         </div>
                     </div>
                 </div>
             </section>
 
+            <section class="featured-listing">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading-section-2 text-center">
+                                <h2>New Auction</h2>
+                                <div class="dec"></div>
+                                <div class="line-dec"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="featured-cars">
+                            <div class="featured-item col-md-3" th:each="auctionDetail : ${auctionDetails}">
+
+                                <img th:src="@{'/Land_images/'+ ${auctionDetail.Image}}" alt=""/>
+
+                                <div class="down-content">
+
+                                    <a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">
+                                        <h2 th:text="${auctionDetail.land.name}"></h2>
+                                    </a>
+                                    <span th:text="${auctionDetail.land.price}"></span>
+                                    <div class="light-line"></div>
+                                    <p th:text="${auctionDetail.land.description}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <div id="cta-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="left-content">
+                                <h2>Subscribe to the auction</h2>
+                                <form method="get" id="subscribe" class="blog-search">
+                                    <input type="text" class="blog-search-field" name="s" placeholder="E-mail Address"
+                                           value="">
+                                    <div class="simple-button">
+                                        <a href="#">Subscribe</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="right-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="about-us">
+                                <img src="../../assets/images/logo-2.png" alt="">
+                                <p>Maecenas ne mollis orci. Phasell iacu sapie non aliquet ex euismo ac.</p>
+                                <ul>
+                                    <li><i class="fa fa-map-marker"></i>Raver Croft Drive Knoxville, 37921</li>
+                                    <li><i class="fa fa-phone"></i>+55 417-634-7071</li>
+                                    <li><i class="fa fa-envelope-o"></i>contact@auction.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="featured-links">
+                                <h4>Featured Links</h4>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>About Us</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Term &amp; Services</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Meet The Team</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Privacy Policy</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Company News</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Shop</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>New Vehicle</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Features</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Promotions</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Contact</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="latest-news">
+                                <h4>Latest News</h4>
+                                <div class="latest-item">
+                                    <img src="../../assets/images/01-blog-50x50.jpg" alt="">
+                                    <a href="../single-blog.html">
+                                        <h6>Hella Kogi Whatever</h6>
+                                    </a>
+                                    <ul>
+                                        <li>24 Sep,2015</li>
+                                        <li>2 comments</li>
+                                    </ul>
+                                </div>
+                                <div class="latest-item">
+                                    <img src="../../assets/images/02-blog-50x50.jpg" alt="">
+                                    <a href="../single-blog.html">
+                                        <h6>Retro Art Party</h6>
+                                    </a>
+                                    <ul>
+                                        <li>21 Sep,2015</li>
+                                        <li>2 comments</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="gallery">
+                                <h4>Gallery</h4>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/01-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/02-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/03-featured-slide-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/04-featured-slide-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/05-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/02-featured-slide-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/07-blog-50x50.jpg" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="../../assets/images/08-blog-50x50.jpg" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
 
             <div id="sub-footer">
                 <div class="container">
@@ -474,27 +492,27 @@
             <div class="content">
                 <nav class="responsive-menu">
                     <ul>
-                        <li><a href="../../index.html">Home</a></li>
-                        <li><a href="../../about.html">About Us</a></li>
-                        <li><a href="../../services.html">Services</a></li>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../services.html">Services</a></li>
                         <li class="menu-item-has-children"><a href="#">Listing</a>
                             <ul class="sub-menu">
-                                <li><a href="listing-right.html">Sidebar Right</a></li>
-                                <li><a href="wishlistPage.html">Sidebar Left</a></li>
-                                <li><a href="../../listing-grid.html">Grids System</a></li>
-                                <li><a href="../auctionDetailPage.html">Car Details</a></li>
+                                <li><a href="customer/listing-right.html">Sidebar Right</a></li>
+                                <li><a href="customer/wishlistPage.html">Sidebar Left</a></li>
+                                <li><a href="../listing-grid.html">Grids System</a></li>
+                                <li><a href="auctionDetailPage.html">Car Details</a></li>
                             </ul>
                         </li>
                         <li class="menu-item-has-children"><a href="#">Blog</a>
                             <ul class="sub-menu">
-                                <li><a href="../../blog-right.html">Classic</a></li>
-                                <li><a href="../../blog-grid.html">Grids System</a></li>
-                                <li><a href="../../grid-right.html">Grids Sidebar</a></li>
-                                <li><a href="../../single-blog.html">Single Post</a></li>
+                                <li><a href="../blog-right.html">Classic</a></li>
+                                <li><a href="../blog-grid.html">Grids System</a></li>
+                                <li><a href="../grid-right.html">Grids Sidebar</a></li>
+                                <li><a href="../single-blog.html">Single Post</a></li>
                             </ul>
                         </li>
-                        <li><a href="../../about.html">About</a></li>
-                        <li><a href="../../contact.html">Contact</a></li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
                     </ul>
                 </nav>
             </div>
