@@ -131,6 +131,39 @@
                 <button type="submit"  style="margin-top: 30px" class="btn btn-primary mt-3">Tải ảnh đại diện</button>
               </form>
             </div>
+
+            <div class="card mb-4"  style="margin-top: 30px;">
+              <div class="card-body text-center position-relative">
+                <!-- Main profile picture -->
+                <img th:src="'/User_images/' + ${ user.getNationalFrontImage() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+              </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+              <form th:action="@{profile/uploadNational}" method="post" enctype="multipart/form-data">
+                <!-- Additional image 1 upload field -->
+                <div class="form-group">
+                  <label for="nationalBackImage">Ảnh CCCD Mặt trước</label>
+                  <input type="file" name="nationalBackImage" id="nationalBackImage" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                </div>
+
+                <div class="card mb-4">
+                  <div class="card-body text-center position-relative">
+                    <!-- Main profile picture -->
+                    <img th:src="'/User_images/' + ${ user.getNationalBackImage() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                  </div>
+                </div>
+
+                <!-- Additional image 2 upload field -->
+                <div class="form-group" style="margin-top: 15px;">
+                  <label for="nationalFrontImage">Ảnh CCCD Mặt sau</label>
+                  <input type="file" name="nationalFrontImage" id="nationalFrontImage" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                </div>
+
+                <button type="submit" style="margin-top: 10px" class="btn btn-primary">Tải ảnh</button>
+              </form>
+            </div>
+
           </div>
           <div class="col-lg-8">
             <!-- Profile Details -->
@@ -140,39 +173,39 @@
                 <hr>
 
                 <!-- Form for editing personal information -->
-                <form th:action="@{profile/edit}"  method="post" enctype="multipart/form-data">
+                <form th:action="@{profile/edit}" th:object="${profileDTO}" method="post" enctype="multipart/form-data">
                   <div class="form-group row mb-4">
                     <label for="firstName" class="col-sm-3 col-form-label">Họ và tên đệm</label>
                     <div class="col-sm-9">
-                      <input type="text" id="firstName" name="firstName" class="form-control" th:value="${user.firstName}" required>
+                      <input type="text" id="firstName" name="firstName" class="form-control" th:field="*{firstName}" >
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="lastName" class="col-sm-3 col-form-label">Tên</label>
                     <div class="col-sm-9">
-                      <input type="text" id="lastName" name="lastName" class="form-control" th:value="${user.lastName}" required>
+                      <input type="text" id="lastName" name="lastName" class="form-control" th:field="*{lastName}" >
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="email" class="col-sm-3 col-form-label">Email</label>
                     <div class="col-sm-9">
-                      <input type="email" id="email" name="email" class="form-control" th:value="${user.email}" readonly>
+                      <input type="email" id="email" name="email" class="form-control" th:field="*{email}" readonly>
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="phoneNumber" class="col-sm-3 col-form-label">Số điện thoại</label>
                     <div class="col-sm-9">
-                      <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" th:value="${user.phoneNumber}" required>
+                      <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" th:field="*{phoneNumber}" >
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="address" class="col-sm-3 col-form-label">Địa chỉ</label>
                     <div class="col-sm-9">
-                      <input type="text" id="address" name="address" class="form-control" th:value="${user.address}" required>
+                      <input type="text" id="address" name="address" class="form-control" th:field="*{address}" >
                     </div>
                   </div>
 
@@ -182,10 +215,10 @@
                   <div class="form-group row mb-4">
                     <label for="gender" class="col-sm-3 col-form-label">Giới tính</label>
                     <div class="col-sm-9">
-                      <select id="gender" name="gender" class="form-control">
-                        <option value="Male" th:selected="${user.gender == 'Nam'}">Nam</option>
-                        <option value="Female" th:selected="${user.gender == 'Nữ'}">Nữ</option>
-                        <option value="Other" th:selected="${user.gender == 'Khác'}">Khác</option>
+                      <select id="gender" name="gender" class="form-control" th:field="*{gender}">
+                        <option value="Nam" >Nam</option>
+                        <option value="Nữ" >Nữ</option>
+                        <option value="Khác">Khác</option>
                       </select>
                     </div>
                   </div>
@@ -193,40 +226,16 @@
                   <div class="form-group row mb-4">
                     <label for="dob" class="col-sm-3 col-form-label">Ngày sinh</label>
                     <div class="col-sm-9">
-                      <input type="date" id="dob" name="dob" class="form-control" th:value="${#dates.format(user.dob, 'yyyy-MM-dd')}" required>
+                      <input type="date" id="dob" class="form-control" th:field="*{dob}" name="dob">
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="nationalID" class="col-sm-3 col-form-label">Căn cước công dân</label>
                     <div class="col-sm-9">
-                      <input type="text" id="nationalID" name="nationalID" class="form-control" th:value="${user.nationalID}" required>
+                      <input type="text" id="nationalID" name="nationalID" class="form-control" th:field="*{nationalID}">
                     </div>
                   </div>
-
-                  <!-- National ID Card Front Image Display and Upload -->
-<!--                  <div class="form-group row mb-4">-->
-<!--                    <label for="nationalFrontImage" class="col-sm-3 col-form-label">Ảnh CCCD Mặt Trước</label>-->
-<!--                    <div class="col-sm-9">-->
-<!--                      &lt;!&ndash; Display previous front image if available &ndash;&gt;-->
-<!--                      <div th:if="${user.nationalFrontImage != null}">-->
-<!--                        <img th:src="'/User_images/' +${user.getNationalFrontImage()}" alt="Front of National ID" class="img-fluid mb-3" style="max-width: 200px;">-->
-<!--                      </div>-->
-<!--                      <input type="file" id="nationalFrontImage" name="nationalFrontImage" class="form-control"  required>-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  &lt;!&ndash; National ID Card Back Image Display and Upload &ndash;&gt;-->
-<!--                  <div class="form-group row mb-4">-->
-<!--                    <label for="nationalBackImage" class="col-sm-3 col-form-label">Ảnh CCCD Mặt Sau</label>-->
-<!--                    <div class="col-sm-9">-->
-<!--                      &lt;!&ndash; Display previous back image if available &ndash;&gt;-->
-<!--                      <div th:if="${user.nationalBackImage != null}">-->
-<!--                        <img th:src="'/User_images/' + ${user.getNationalBackImage()}" alt="Back of National ID" class="img-fluid mb-3" style="max-width: 200px;">-->
-<!--                      </div>-->
-<!--                      <input type="file" id="nationalBackImage" name="nationalBackImage" class="form-control"  required>-->
-<!--                    </div>-->
-<!--                  </div>-->
                   <div th:if="${error!= null}" th:text="${error}"></div>
 
                   <div class="text-right">

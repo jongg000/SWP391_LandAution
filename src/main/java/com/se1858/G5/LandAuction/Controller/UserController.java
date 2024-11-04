@@ -38,6 +38,17 @@ public class UserController {
         // Lấy thông tin người dùng hiện tại từ tên đăng nhập (email)
         String email = principal.getName();
         User user = userService.findByEmail(email);
+        ProfileDTO profileDTO = new ProfileDTO();
+        profileDTO.setFirstName(user.getFirstName());
+        profileDTO.setLastName(user.getLastName());
+        profileDTO.setPhoneNumber(user.getPhoneNumber());
+        profileDTO.setAddress(user.getAddress());
+        profileDTO.setEmail(email);
+        profileDTO.setGender(user.getGender());
+        profileDTO.setNationalID(user.getNationalID());
+        profileDTO.setDob(user.getDob());
+
+        model.addAttribute("profileDTO",profileDTO);
         // Đưa thông tin người dùng vào model
         model.addAttribute("user", user);
 
@@ -45,7 +56,7 @@ public class UserController {
         return "customer/profile";
     }
 
-    @PostMapping("profile/change-password")
+    @PostMapping("/profile/change-password")
     public String changePassword(@RequestParam("currentPassword") String currentPassword,
                                  @RequestParam("newPassword") String newPassword,
                                  @RequestParam("confirmPassword") String confirmPassword,
@@ -84,10 +95,8 @@ public class UserController {
     }
 
 
-    @PostMapping("profile/edit")
+    @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("profileDTO") ProfileDTO userProfileDTO,
-//                                @RequestParam("nationalBackImage") MultipartFile nationalBackImage,
-//                                @RequestParam("nationalFrontImage") MultipartFile nationalFrontImage,
                                 Principal principal, Model model){
 
         String email = principal.getName();
@@ -130,10 +139,6 @@ public class UserController {
             user.setNationalID(userProfileDTO.getNationalID());
         }
 
-//        UploadFile uploadFile = new UploadFile();
-//        uploadFile.UploadImagesNationalF(nationalFrontImage, user);
-//        uploadFile.UploadImagesNationalB(nationalBackImage, user);
-
         // Save updated user information to the database
         userService.save(user);
 
@@ -149,6 +154,20 @@ public class UserController {
         User user = userService.findByEmail(email);
         UploadFile uploadFile = new UploadFile();
         uploadFile.upLoadDocumentAvata(images, user);
+        userService.save(user);
+        model.addAttribute("user", user);
+        return "customer/profile";
+    }
+
+    @PostMapping("/profile/uploadNational")
+    public String upNation(@RequestParam("nationalBackImage") MultipartFile nationalBackImage,
+                           @RequestParam("nationalFrontImage") MultipartFile nationalFrontImage,
+                           RedirectAttributes redirectAttributes, Principal principal, Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.UploadImagesNationalF(nationalFrontImage, user);
+        uploadFile.UploadImagesNationalB(nationalBackImage, user);
         userService.save(user);
         model.addAttribute("user", user);
         return "customer/profile";
