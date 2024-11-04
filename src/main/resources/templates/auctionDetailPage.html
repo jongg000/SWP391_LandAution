@@ -170,8 +170,8 @@
                                 <ul class="slides">
                                     <!-- Loop through the list of LandImageDTO objects -->
                                     <li th:each="image : ${landImages}"
-                                        th:data-thumb="${image.imageUrl}">
-                                        <img th:src="${image.imageUrl}" alt=""/>
+                                        th:data-thumb="'/Land_images/'+${image.imageUrl}">
+                                        <img th:src="@{'/Land_images/'+${image.imageUrl}}" alt=""/>
                                     </li>
                                 </ul>
                             </div>
@@ -322,7 +322,7 @@
                         <div id="featured-cars">
                             <div class="featured-item col-md-3" th:each="auctionDetail : ${auctionDetails}">
 
-                                <img th:src="${auctionDetail.Image}" alt=""/>
+                                <img th:src="@{'/Land_images/'+ ${auctionDetail.Image}}" alt=""/>
 
                                 <div class="down-content">
 

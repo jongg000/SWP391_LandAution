@@ -69,7 +69,7 @@ public class AuctionController {
     @GetMapping("/showAuctions")
     public String showAuctions(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "2") int size,
+            @RequestParam(defaultValue = "6") int size,
             Model model) {
 
         List<AuctionDto> allAuctions = auctionService.getAllAuctions();
