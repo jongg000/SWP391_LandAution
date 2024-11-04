@@ -1,0 +1,23 @@
+.status-cancelled {
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block; /* Giúp nền vừa với nội dung */
+}
+
+.status-pending {
+    background-color: yellow;
+    color: black;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.status-approved {
+    background-color: green;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}

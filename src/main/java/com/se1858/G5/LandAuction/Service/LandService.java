@@ -5,6 +5,7 @@ import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.LandImage;
+import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.LandImageRepository;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
@@ -117,6 +118,9 @@ public class LandService {
         return convertToDTO(udLand);
     }
 
+    public List<Land> findByUser(User user) {
+        return  landRepository.findByUser(user);
+    }
 
 
 }
