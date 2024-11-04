@@ -23,15 +23,15 @@ import java.util.List;
 @Controller
 @RequestMapping("asset")
 public class AssetController {
-    @Autowired
+
     private  UserService userService;
-    @Autowired
+   private  LandService landService;
     private  AssetService assetService;
-    @Autowired
+
     private  AssetRegistrationService assetRegistrationService;
-    @Autowired
+
     private  LandRepository landRepository;
-    @Autowired
+
     private  StatusService statusService;
 
     @GetMapping("post-asset")
