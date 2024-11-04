@@ -255,7 +255,7 @@
                                     <div th:if="${dateCheck == 'upcoming'}">
                                         <div th:if="${check == false}">
                                             <div th:if="${isAvailable}" class="advanced-button">
-                                                <a th:href="@{/auctionRegistration/save/{id}(id=${auction.auctionId})}">
+                                                <a th:href="@{/payment/handle/{id}(id=${auction.auctionId})}">
                                                     Tham gia <i class="fa fa-paper-plane"></i>
                                                 </a>
                                             </div>
