@@ -27,7 +27,7 @@ public class PaymentController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/user")
     public String handle(Model model, Principal principal) {
             String username = principal.getName();
             User user = userService.findByEmail(username);

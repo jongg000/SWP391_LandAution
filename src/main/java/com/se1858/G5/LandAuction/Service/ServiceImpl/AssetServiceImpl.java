@@ -47,4 +47,14 @@ public class AssetServiceImpl implements AssetService {
     public List<Land> findAllByName(String keyword) {
         return landRepository.findAllByName(keyword);
     }
+
+    @Override
+    public List<Land> search(String keyword) {
+        return landRepository.searchLandsByKeyword(keyword);
+    }
+
+    @Override
+    public List<Land> findTop4ByOrderByLandIdDesc() {
+        return landRepository.findTop4ByOrderByLandIdDesc();
+    }
 }

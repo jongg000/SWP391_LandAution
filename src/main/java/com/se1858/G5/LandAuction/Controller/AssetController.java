@@ -4,8 +4,7 @@ package com.se1858.G5.LandAuction.Controller;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
-import com.se1858.G5.LandAuction.Service.AssetRegistrationService;
-import com.se1858.G5.LandAuction.Service.LandService;
+import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
 import com.se1858.G5.LandAuction.Service.StatusService;
 import com.se1858.G5.LandAuction.Service.UserService;
@@ -91,4 +90,5 @@ public class AssetController {
         model.addAttribute("assetRegistration", assetRegistration);
         return "customer/asset-detail";
     }
+
 }

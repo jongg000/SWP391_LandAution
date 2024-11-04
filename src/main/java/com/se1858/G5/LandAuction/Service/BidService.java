@@ -3,10 +3,7 @@ package com.se1858.G5.LandAuction.Service;
 import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.AuctionRegistrationDTO;
 import com.se1858.G5.LandAuction.DTO.BidDTO;
-import com.se1858.G5.LandAuction.Entity.AssetRegistration;
-import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
-import com.se1858.G5.LandAuction.Entity.Bids;
-import com.se1858.G5.LandAuction.Entity.User;
+import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -65,6 +62,9 @@ public class BidService {
         return bid.getBidAmount() == auctionDto.getHighestBid();
     }
 
+    public Bids findBidByAuctionAndBidAmount(Auction auction, long bidAmount) {
+        return bidRepository.findByAuctionRegistration_AuctionAndBidAmount(auction, bidAmount);
+    }
 
 }
 

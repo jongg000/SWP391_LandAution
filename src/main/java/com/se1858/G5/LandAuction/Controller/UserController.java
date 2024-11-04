@@ -61,7 +61,6 @@ public class UserController {
         if (bindingResult.hasErrors() || model.containsAttribute("emailError") || model.containsAttribute("phoneError")) {
             return "register"; // Trả về trang đăng ký nếu có lỗi
         }
-
         // Gọi phương thức createUser để xử lý việc tạo người dùng
         createUser(userRegisterDTO, 1);
 
@@ -197,6 +196,18 @@ public class UserController {
             model.addAttribute("error", "User not found.");
             return "customer/edit-profile";
         }
+        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
+        if (userService.existsByEmail(userProfileDTO.getEmail())) {
+            model.addAttribute("emailError", "Email này đã tồn tại.");
+            model.addAttribute("user", user);
+            return "customer/edit-profile";
+        }
+
+        if (userService.existsByPhoneNumber(userProfileDTO.getPhoneNumber())) {
+            model.addAttribute("phoneError", "Số điện thoại đã tồn tại.");
+            model.addAttribute("user", user);
+            return "customer/edit-profile";
+        }
 
         // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
@@ -207,13 +218,17 @@ public class UserController {
         user.setGender(userProfileDTO.getGender());
         user.setEmail(userProfileDTO.getEmail());
 
-        // Only check for existing National ID if it's different
-        if (!user.getNationalID().equals(userProfileDTO.getNationalID()) && userService.existsByNationalID(userProfileDTO.getNationalID())) {
+    // Chỉ kiểm tra nếu National ID khác nhau và không phải là null
+        if (userProfileDTO.getNationalID() != null &&
+                (user.getNationalID() == null || !user.getNationalID().equals(userProfileDTO.getNationalID())) &&
+                userService.existsByNationalID(userProfileDTO.getNationalID())) {
+
             model.addAttribute("error", "Số CMND đã tồn tại.");
             model.addAttribute("user", user);
             return "customer/edit-profile";
+        } else {
+            user.setNationalID(userProfileDTO.getNationalID());
         }
-        user.setNationalID(userProfileDTO.getNationalID());
 
         UploadFile uploadFile = new UploadFile();
 
@@ -229,7 +244,6 @@ public class UserController {
         if (userProfileDTO.getNationalBackImage() != null && !userProfileDTO.getNationalBackImage().isEmpty()) {
             uploadFile.UploadImagesNationalB(userProfileDTO.getNationalBackImage(), user);
         }
-
         // Save updated user information to the database
         userService.save(user);
 

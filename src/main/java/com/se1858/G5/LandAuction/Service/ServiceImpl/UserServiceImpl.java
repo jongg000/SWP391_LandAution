@@ -23,7 +23,6 @@ import java.util.UUID;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserServiceImpl implements UserService {
 
-
     private UserRepository userRepository;
 
     private PasswordEncoder passwordEncoder;
@@ -39,6 +38,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsByEmail(email);
     }
 
+    @Override
+    public User findByUserId(int userId){
+        return userRepository.findByUserId(userId);
+    }
     @Override
     public User save(User user) {
         return userRepository.save(user);

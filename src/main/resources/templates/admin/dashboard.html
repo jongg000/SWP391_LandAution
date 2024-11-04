@@ -34,8 +34,7 @@
                 </div>
                 <div class="sidebar-menu">
                     <ul class="menu">
-
-                        <li class="sidebar-item active ">
+                        <li class="sidebar-item active">
                             <a href="/dashboard" class='sidebar-link'>
                                 <i class="bi bi-grid-fill"></i>
                                 <span>Trang thống kê</span>
@@ -48,6 +47,12 @@
                                 <span>Quản lý tài khoản</span>
                             </a>
                         </li>
+                        <li class="sidebar-item ">
+                            <a href="/create-account" class='sidebar-link'>
+                                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                                <span>Tạo tài khoản nhân viên</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item has-sub">
                             <a href="#" class="sidebar-link">
                                 <i class="bi bi-person-badge-fill"></i>
@@ -55,25 +60,13 @@
                             </a>
                             <ul class="submenu">
                                 <li class="submenu-item">
-                                    <a href="auth-login.html">
-                                        <i class="bi bi-person-circle"></i> <!-- Icon cho "Thông tin cá nhân" -->
-                                        <span>Thông tin cá nhân</span>
-                                    </a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="auth-register.html">
-                                        <i class="bi bi-pencil-square"></i> <!-- Icon cho "Sửa thông tin cá nhân" -->
-                                        <span>Sửa thông tin cá nhân</span>
-                                    </a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="auth-forgot-password.html">
+                                    <a href="/adminChangePassword   ">
                                         <i class="bi bi-key-fill"></i> <!-- Icon cho "Đổi mật khẩu" -->
                                         <span>Đổi mật khẩu</span>
                                     </a>
                                 </li>
                                 <li class="submenu-item">
-                                    <a href="application-checkout.html">
+                                    <a href="/logot">
                                         <i class="bi bi-box-arrow-right"></i> <!-- Icon cho "Đăng xuất" -->
                                         <span>Đăng xuất</span>
                                     </a>
@@ -171,7 +164,7 @@
                                             <img th:src="'/User_images/' + ${user.getAvatar()}" alt="Avatar">
                                         </div>
                                         <div>
-                                            <h5 class="font-bold mb-0" th:text="${user.getFirstName() + user.getLastName()}"></h5>
+                                            <h5 class="font-bold mb-0" th:text="${user.getFirstName() + ' ' + user.getLastName()} "></h5>
                                             <h6 class="text-muted" th:text="${user.getEmail()}"></h6>
                                         </div>
                                     </div>
@@ -189,7 +182,7 @@
                                             </div>
                                             <div>
                                                 <!-- Hiển thị tên người dùng -->
-                                                <h5 class="mb-0" th:text="${ user.getFirstName() + u.getLastName()}"></h5>
+                                                <h5 class="mb-0" th:text="${ user.getFirstName() + ' ' + u.getLastName()}"></h5>
                                                 <!-- Hiển thị email người dùng -->
                                                 <h6 class="text-muted" th:text="${u.getEmail()}"></h6>
                                             </div>
@@ -204,7 +197,7 @@
             </div>
         </div>
     </div>
-    <script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+
     <script th:inline="javascript">
         // Lấy dữ liệu từ server (chuyển đổi sang chuỗi JSON nếu cần)
         const monthlyPaymentAmounts = /*[[${monthlyPaymentAmounts}]]*/ '{}';
@@ -255,6 +248,7 @@
     <script src="/assets/js/pages/dashboard.js"></script>
 
     <script src="/assets/js/main.js"></script>
+    <script src="/assets/vendors/apexcharts/apexcharts.js"></script>
 </body>
 
 </html>

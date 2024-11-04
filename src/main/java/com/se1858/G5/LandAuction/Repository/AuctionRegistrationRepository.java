@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Repository;
 
+import com.se1858.G5.LandAuction.Entity.Auction;
 import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +11,7 @@ public interface AuctionRegistrationRepository extends JpaRepository<AuctionRegi
     List<AuctionRegistration> findAllByAuction_AuctionId(int auctionId);
     AuctionRegistration findByUser_UserIdAndAuction_AuctionId(int userId,int auctionId);
     List<AuctionRegistration> findAllByUser_UserId(int userId);
+
+
+    AuctionRegistration findByAuctionAndBids_BidAmount(Auction auction, long bidAmount);
 }

@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>Auction - Car Dealer HTML Theme</title>
+    <title>Bid Page</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -73,8 +73,19 @@
                         <div class="col-md-6 hidden-sm">
                             <div class="right-info">
                                 <ul>
-                                    <li>Call us: <em>570-694-4002</em></li>
-                                    <li><a href="#">Get Free Appointment →</a></li>
+                                    <li>Call us: <em>0659-694-002</em></li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/logout">Đăng xuất</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/login">Đăng nhập</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/register">Đăng ký</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -86,49 +97,46 @@
                 <div id="main-header" class="main-header header-sticky">
                     <div class="inner-header container clearfix">
                         <div class="logo">
-                            <a href="../../index.html"><img src="../../assets/images/logo.png" alt=""></a>
+                            <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
                         </div>
                         <div class="header-right-toggle pull-right hidden-md hidden-lg">
                             <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
                         </div>
                         <nav class="main-navigation text-left hidden-xs hidden-sm">
                             <ul>
-                                <li><a href="../../index.html">Home</a></li>
-                                <li><a href="../../about.html">About Us</a></li>
-                                <li><a href="../../services.html">Services</a></li>
-                                <li><a href="#" class="has-submenu">Listing</a>
+                                <li><a href="/home">Trang chủ</a></li>
+                                <li><a href="about.html">Về chúng tôi</a></li>
+                                <li><a href="#" class="has-submenu">Đấu giá</a>
                                     <ul class="sub-menu">
-                                        <li><a href="listing-right.html">Sidebar Right</a></li>
-                                        <li><a href="wishlistPage.html">Sidebar Left</a></li>
-                                        <li><a href="../../listing-grid.html">Grids System</a></li>
-                                        <li><a href="../auctionDetailPage.html">Car Details</a></li>
+                                        <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+                                        <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+                                        <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#" class="has-submenu">Blog</a>
+                                <li><a href="#" class="has-submenu">Tài sản</a>
                                     <ul class="sub-menu">
-                                        <li><a href="../../blog-right.html">Classic</a></li>
-                                        <li><a href="../../blog-grid.html">Grids System</a></li>
-                                        <li><a href="../../grid-right.html">Grids Sidebar</a></li>
-                                        <li><a href="../../single-blog.html">Single Post</a></li>
+                                        <li><a href="listing-right.html">Thanh bên phải</a></li>
+                                        <li><a href="listing-left.html">Thanh bên trái</a></li>
+                                        <li><a href="listing-grid.html">Hệ thống lưới</a></li>
+                                        <li><a href="single-list.html">Chi tiết lô đất</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="../../contact.html">Contact</a></li>
+                                <li><a href="/news">Tin tức</a>
+                                </li>
+                                <li><a href="#">Liên hệ</a>
+                                </li>
                                 <li>
-                                    <p><a href="#" id="example-show" class="showLink"
-                                          onclick="showHide('example');return false;"><i class="fa fa-search"></i></a>
-                                    </p>
+                                    <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
                                     <div id="example" class="more">
                                         <form method="get" id="blog-search" class="blog-search">
-                                            <input type="text" class="blog-search-field" name="s"
-                                                   placeholder="Type to search" value="">
+                                            <input type="text" class="blog-search-field" name="s" placeholder="Nhập từ khóa tìm kiếm" value="">
                                         </form>
-                                        <p><a href="#" id="example-hide" class="hideLink"
-                                              onclick="showHide('example');return false;"><i class="
-											fa fa-close"></i></a></p>
+                                        <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
                                     </div>
                                 </li>
                             </ul>
                         </nav>
+
                     </div>
                 </div>
             </header>
@@ -341,8 +349,7 @@
                                 }
 
                                 function checkAuctionStatus() {
-                                    // Logic to determine if the auction has ended
-                                    const auctionEnded = /* check auction status logic */ false; // Set to true if auction ended
+                                    const auctionEnded = false;
 
                                     if (auctionEnded) {
                                         showModal(winnerName, latestBidAmount);
@@ -354,9 +361,9 @@
                                     const bidAmount = parseFloat(document.getElementById('bidAmount').value);
                                     const auctionRegistrationId = document.getElementById('auctionRegistrationId').value;
                                     const currentUserId = document.getElementById('userId').value;
-                                    const bidTime = new Date();
-                                    bidTime.setHours(bidTime.getHours() + 7);
-                                    const bidTimeISO = bidTime.toISOString();
+                                    const registrationTime = new Date();
+                                    registrationTime.setHours(registrationTime.getHours() + 7);
+                                    const bidTimeISO = registrationTime.toISOString().slice(0, -1);
 
                                     if (bidAmount <= latestBidAmount) {
                                         alert(`Your bid must be greater than the latest bid of ${latestBidAmount}`);
@@ -365,9 +372,10 @@
 
                                     stompClient.send("/app/bids", {}, JSON.stringify({
                                         'bidAmount': bidAmount,
+                                        'registrationTime': bidTimeISO,
                                         'registrationId': auctionRegistrationId,
-                                        'bidTime': bidTimeISO,
-                                        'userId': currentUserId
+                                        'userId': currentUserId,
+                                        'lastName': null
                                     }));
 
                                     latestBidAmount = bidAmount;
@@ -395,7 +403,7 @@
             <div class="row">
                 <div class="col-md-3">
                     <ul class="list-unstyled">
-                        <li><span>${bid.username}</span></li>
+                        <li><span>${bid.lastName}</span></li>
                     </ul>
                 </div>
                 <div class="col-md-5">
@@ -405,7 +413,7 @@
                 </div>
                 <div class="col-md-4">
                     <ul class="list-unstyled">
-                       <li><span>${bid.bidTime}</span></li>
+                       <li><span>${bid.registrationTime}</span></li>
                     </ul>
                 </div>
             </div>`;
@@ -420,7 +428,7 @@
 
                                 window.onload = function () {
                                     connect();
-                                    checkAuctionStatus(); // Check auction status when the page loads
+                                    checkAuctionStatus();
                                 };
                             </script>
 
@@ -434,159 +442,6 @@
                 </div>
             </section>
 
-            <!--				<section class="featured-listing">-->
-            <!--					<div class="container">-->
-            <!--						<div class="row">-->
-            <!--							<div class="col-md-12">-->
-            <!--								<div class="heading-section-2 text-center">-->
-            <!--									<h2>Recent Vehicles</h2>-->
-            <!--									<span>Vivamus gravida magna massa in cursus mi vehicula at. Nunc sem quam suscipit</span>-->
-            <!--									<div class="dec"><i class="fa fa-car"></i></div>-->
-            <!--									<div class="line-dec"></div>-->
-            <!--								</div>-->
-            <!--							</div>-->
-            <!--						</div>-->
-            <!--						<div class="row" th:each="auctionDetail : ${auctionDetails}">&ndash;&gt;-->
-            <!--														<div class="featured-item col-md-3">-->
-            <!--															<img th:src="${auctionDetail.landImage.imageUrl}" alt="Image of ${auctionDetail.land1.name}" />-->
-            <!--															<div class="down-content">-->
-            <!--																<a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">-->
-            <!--																	<h2 th:text="${auctionDetail.land.name}"></h2>-->
-            <!--																</a>-->
-            <!--																<span>$<span th:text="${auctionDetail.land.price}"></span></span>-->
-            <!--																<div class="light-line"></div>-->
-            <!--																<p th:text="${auctionDetail.land.description}"></p>-->
-            <!--																<div class="car-info">-->
-            <!--																	<ul>-->
-            <!--																		<li>Start Time: <span th:text="${#dates.format(auctionDetail.auction.startTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
-            <!--																		<li>End Time: <span th:text="${#dates.format(auctionDetail.auction.endTime, 'yyyy-MM-dd HH:mm')}"></span></li>-->
-            <!--																	</ul>-->
-            <!--																</div>-->
-            <!--															</div>-->
-            <!--														</div>-->
-            <!--													</div>-->
-            <!--					</div>-->
-            <!--				</section>-->
-
-            <!--				<div id="cta-2">-->
-            <!--					<div class="container">-->
-            <!--						<div class="row">-->
-            <!--							<div class="col-md-8">-->
-            <!--								<div class="left-content">-->
-            <!--									<h2>Subscribe to the auction</h2>-->
-            <!--									<form method="get" id="subscribe" class="blog-search">-->
-            <!--										<input type="text" class="blog-search-field" name="s" placeholder="E-mail Address" value="">-->
-            <!--										<div class="simple-button">-->
-            <!--											<a href="#">Subscribe</a>-->
-            <!--										</div>-->
-            <!--									</form>-->
-            <!--								</div>-->
-            <!--							</div>-->
-            <!--							<div class="col-md-4">-->
-            <!--								<div class="right-content">-->
-            <!--									<ul>-->
-            <!--										<li><a href="#"><i class="fa fa-facebook"></i></a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-flickr"></i></a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-twitter"></i></a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-dribbble"></i></a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-skype"></i></a></li>-->
-            <!--									</ul>-->
-            <!--								</div>-->
-            <!--							</div>-->
-            <!--						</div>-->
-            <!--					</div>-->
-            <!--				</div>-->
-
-            <!--				<footer>-->
-            <!--					<div class="container">-->
-            <!--						<div class="row">-->
-            <!--							<div class="col-md-3">-->
-            <!--								<div class="about-us">-->
-            <!--									<img src="../../assets/images/logo-2.png" alt="">-->
-            <!--									<p>Maecenas ne mollis orci. Phasell iacu sapie non aliquet ex euismo ac.</p>-->
-            <!--									<ul>-->
-            <!--										<li><i class="fa fa-map-marker"></i>Raver Croft Drive Knoxville, 37921</li>-->
-            <!--										<li><i class="fa fa-phone"></i>+55 417-634-7071</li>-->
-            <!--										<li><i class="fa fa-envelope-o"></i>contact@auction.com</li>-->
-            <!--									</ul>-->
-            <!--								</div>-->
-            <!--							</div>-->
-            <!--							<div class="col-md-3">-->
-            <!--								<div class="featured-links">-->
-            <!--									<h4>Featured Links</h4>-->
-            <!--									<ul>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>About Us</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Term &amp; Services</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Meet The Team</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Privacy Policy</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Company News</a></li>-->
-            <!--									</ul>-->
-            <!--									<ul>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Shop</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>New Vehicle</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Features</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Promotions</a></li>-->
-            <!--										<li><a href="#"><i class="fa fa-caret-right"></i>Contact</a></li>-->
-            <!--									</ul>-->
-            <!--								</div>-->
-            <!--							</div>-->
-            <!--							<div class="col-md-3">-->
-            <!--								<div class="latest-news">-->
-            <!--									<h4>Latest News</h4>-->
-            <!--									<div class="latest-item">-->
-            <!--										<img src="../../assets/images/01-blog-50x50.jpg" alt="">-->
-            <!--										<a href="../../single-blog.html">-->
-            <!--											<h6>Hella Kogi Whatever</h6>-->
-            <!--										</a>-->
-            <!--										<ul>-->
-            <!--											<li>24 Sep,2015</li>-->
-            <!--											<li>2 comments</li>-->
-            <!--										</ul>-->
-            <!--									</div>-->
-            <!--									<div class="latest-item">-->
-            <!--										<img src="../../assets/images/02-blog-50x50.jpg" alt="">-->
-            <!--										<a href="../../single-blog.html">-->
-            <!--											<h6>Retro Art Party</h6>-->
-            <!--										</a>-->
-            <!--										<ul>-->
-            <!--											<li>21 Sep,2015</li>-->
-            <!--											<li>2 comments</li>-->
-            <!--										</ul>-->
-            <!--									</div>-->
-            <!--								</div>-->
-            <!--							</div>-->
-            <!--							<div class="col-md-3">-->
-            <!--								<div class="gallery">-->
-            <!--									<h4>Gallery</h4>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/01-blog-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/02-blog-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/03-featured-slide-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/04-featured-slide-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/05-blog-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/02-featured-slide-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/07-blog-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--									<div class="gallery-item">-->
-            <!--										<img src="../../assets/images/08-blog-50x50.jpg" alt="">-->
-            <!--									</div>-->
-            <!--								</div>-->
-            <!--							</div>-->
-            <!--						</div>-->
-            <!--					</div>-->
-            <!--				</footer>-->
 
             <div id="sub-footer">
                 <div class="container">
@@ -648,6 +503,92 @@
 
 </div>
 
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="about-us">
+                    <img src="#" alt="">
+                    <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
+                    <ul>
+                        <li><i class="fa fa-map-marker"></i>Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long,
+                            H. Thạch Thất, TP. Hà Nội
+                        </li>
+                        <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
+                        <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="featured-links">
+                    <h4>Liên kết nổi bật</h4>
+                    <ul>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
+                        <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="latest-news">
+                    <h4>Tin tức mới nhất</h4>
+                    <div class="latest-item">
+                        <img src="/assets/images/01-blog-50x50.jpg" alt="">
+                        <a href="single-blog.html">
+                            <h6>Đấu giá đất nền khu đô thị</h6>
+                        </a>
+                        <ul>
+                            <li>24 Tháng 9, 2023</li>
+                            <li>2 bình luận</li>
+                        </ul>
+                    </div>
+                    <div class="latest-item">
+                        <img src="/assets/images/02-blog-50x50.jpg" alt="">
+                        <a href="single-blog.html">
+                            <h6>Cơ hội đầu tư đất ven biển</h6>
+                        </a>
+                        <ul>
+                            <li>21 Tháng 9, 2023</li>
+                            <li>2 bình luận</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="gallery">
+                    <h4>Thư viện</h4>
+                    <div class="gallery-item">
+                        <img src="/assets/images/01-blog-50x50.jpg" alt="">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/assets/images/02-blog-50x50.jpg" alt="">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/assets/images/03-featured-slide-50x50.jpg" alt="">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/assets/images/04-featured-slide-50x50.jpg" alt="">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/assets/images/05-blog-50x50.jpg" alt="">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/assets/images/02-featured-slide-50x50.jpg" alt="">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/assets/images/07-blog-50x50.jpg" alt="">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="/assets/images/08-blog-50x50.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
 
 <script type="text/javascript" src="../../assets/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>

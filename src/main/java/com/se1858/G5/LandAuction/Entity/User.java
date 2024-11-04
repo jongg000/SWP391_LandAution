@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Builder
-@Table(name = "Users")
+@Table(name = "users")
 public class User  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,13 +67,5 @@ public class User  {
             inverseJoinColumns = @JoinColumn(name = "AuctionID")
     )
     private Set<Auction> auction;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "User_Notification",
-            joinColumns = @JoinColumn(name = "UserID"),
-            inverseJoinColumns = @JoinColumn(name = "NotificationID")
-    )
-    private Set<Notification> notification;
 }
 
