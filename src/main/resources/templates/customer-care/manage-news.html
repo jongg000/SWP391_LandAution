@@ -87,7 +87,7 @@
                         </a>
                         <a href="/customer-care/own-news"
                            class="btn btn-sm">
-                            Xem tic tức của tôi
+                            Xem tin tức của tôi
                         </a>
                     </div>
                     <div class="card-body">
@@ -120,6 +120,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div th:if="${totalPages > 1}" class="pagination">
+                            <ul class="pagination">
+                                <li class="page-item" th:if="${currentPage > 0}">
+                                    <a class="page-link" th:href="@{${pageUrl}(page=${currentPage - 1})}">Previous</a>
+                                </li>
+                                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                                    <a class="page-link" th:href="@{${pageUrl}(page=${i})}" th:text="${i + 1}">1</a>
+                                </li>
+                                <li class="page-item" th:if="${currentPage < totalPages - 1}">
+                                    <a class="page-link" th:href="@{${pageUrl}(page=${currentPage + 1})}">Next</a>
+                                </li>
+                            </ul>
+                        </div>
+
                     </div>
                 </div>
             </div>

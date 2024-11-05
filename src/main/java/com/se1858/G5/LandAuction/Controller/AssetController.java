@@ -20,7 +20,7 @@ import java.time.ZoneId;
 import java.util.List;
 
 @Controller
-@RequestMapping("asset")
+@RequestMapping("/asset")
 public class AssetController {
 
     private  UserService userService;
@@ -43,18 +43,18 @@ public class AssetController {
         this.statusService = statusService;
     }
 
-    @GetMapping("post-asset")
+    @GetMapping("/post-asset")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
         return "customer/land-registratrion";
     }
 
-    @PostMapping("saveForm")
+    @PostMapping("/saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
 
         User user = userService.findByEmail(principal.getName());
-                Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
+        Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
                                      landDTO.getLocation(), user, landDTO.getName(),landDTO.getWard(),
                                      landDTO.getDistrict(), landDTO.getProvince());
@@ -65,14 +65,17 @@ public class AssetController {
         uploadFile.UploadImagesForLand(landDTO.getImages(), land);
         LocalDateTime createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         landDTO.setCreatedDate(createdDate);
-        assetRegistration.setRegistrationDate(createdDate);
         assetRegistration.setLand(land);
+        assetRegistration.setRegistrationDate(createdDate);
         land.setAssetRegistration(assetRegistration);
         assetRegistration.setStatus(statusService.getStatusById(4));
-        landRepository.save(land);
+        landService.save(land);
+        System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
         model.addAttribute("land", landDTO);
-        return "redirect:/payment/handle";
+        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
+        return "redirect:/asset";
+        //        return "customer/land-registratrion";
     }
 
     @GetMapping()
