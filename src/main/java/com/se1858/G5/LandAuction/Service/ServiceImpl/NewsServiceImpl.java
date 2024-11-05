@@ -65,4 +65,19 @@ public class NewsServiceImpl  implements NewsService {
         Pageable pageable = PageRequest.of(page, size);
         return newsRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<News> getAllNews(Pageable pageable) {
+        return newsRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<News> searchAndSortNews(String search, Pageable pageable) {
+        return search.isEmpty() ? newsRepository.findAll(pageable) : newsRepository.findByTitleContainingIgnoreCase(search, pageable);
+    }
+
+    @Override
+    public Page<News> searchAndSortUserNews(User user, String search, Pageable pageable) {
+        return search.isEmpty() ? newsRepository.findByUser(user, pageable) : newsRepository.findByUserAndTitleContainingIgnoreCase(user, search, pageable);
+    }
 }

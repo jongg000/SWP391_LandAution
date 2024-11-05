@@ -9,6 +9,8 @@ import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +21,7 @@ import org.springframework.data.domain.Page;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Getter
@@ -32,23 +35,40 @@ public class CustomerCareController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping
-    public String news(@RequestParam(defaultValue = "0") int page,Model model) {
-        Page<News> newsPage = newsService.getAllNews(page, 8);
+    public String news(@RequestParam(defaultValue = "0") int page,
+                       @RequestParam(defaultValue = "8") int size,
+                       @RequestParam(defaultValue = "") String search,
+                       @RequestParam(defaultValue = "latest") String sort,
+                       Model model) {
+        Sort sortOrder = sort.equals("oldest") ? Sort.by("newsId").ascending() : Sort.by("newsId").descending();
+        Page<News> newsPage = newsService.searchAndSortNews(search, PageRequest.of(page, size, sortOrder));
+
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", newsPage.getTotalPages());
         model.addAttribute("newsList", newsPage.getContent());
-        model.addAttribute("pageUrl", "/customer-care"); // Đường dẫn cho news
+        model.addAttribute("pageUrl", "/customer-care");
+        model.addAttribute("sortOrder", sort);
+        model.addAttribute("search", search);
         return "customer-care/manage-news";
     }
 
     @GetMapping("/own-news")
-    public String getOwnNews(@RequestParam(defaultValue = "0") int page,Model model,Principal principal) {
+    public String getOwnNews(@RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "8") int size,
+                             @RequestParam(defaultValue = "") String search,
+                             @RequestParam(defaultValue = "latest") String sort,
+                             Model model,Principal principal) {
         String email = principal.getName();
         User user = userService.findByEmail(email);
-        Page<News> newsPage = newsService.getNewsByUser(user,page, 8);
+        Sort sortOrder = sort.equals("oldest") ? Sort.by("newsId").ascending() : Sort.by("newsId").descending();
+        Page<News> newsPage = newsService.searchAndSortUserNews(user, search, PageRequest.of(page, size, sortOrder));
+
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", newsPage.getTotalPages());
         model.addAttribute("newsList", newsPage.getContent());
+        model.addAttribute("pageUrl", "/customer-care/own-news");
+        model.addAttribute("sortOrder", sort);
+        model.addAttribute("search", search);
         return "customer-care/manage-news";
     }
 
@@ -68,7 +88,10 @@ public class CustomerCareController {
         news.setUser(user);
         news.setTitle(newsDTO.getTitle());
         news.setContent(newsDTO.getContent());
-        news.setTime(LocalDateTime.now().toString());
+        // Định dạng thời gian hiện tại thành chuỗi theo định dạng mong muốn
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedTime = LocalDateTime.now().format(formatter);
+        news.setTime(formattedTime);
         UploadFile uploadFile = new UploadFile();
         uploadFile.upLoadImageForNews(images, news);
         newsService.save(news);

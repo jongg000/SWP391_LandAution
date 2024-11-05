@@ -165,7 +165,7 @@
 
         // Đồng bộ hóa nội dung Quill với trường ẩn trước khi gửi form
         document.querySelector('form').onsubmit = function () {
-            var content = quill.root.innerHTML; // Lấy nội dung từ Quill
+            var content = quill.getText(); // Lấy nội dung văn bản thuần từ Quill
 
             // Kiểm tra nếu nội dung là khoảng trắng
             if (!content.trim()) {
@@ -176,11 +176,6 @@
             document.querySelector('input[name=content]').value = content; // Gán vào trường ẩn
         };
     });
-</script>
-
-
-<!--Kiểm tra tỷ lệ khung ảnh-->
-<script>
     document.getElementById('images').addEventListener('change', function(event) {
         const file = event.target.files[0];
 
