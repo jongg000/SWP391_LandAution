@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.data.domain.Page;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -31,18 +32,23 @@ public class CustomerCareController {
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping
-    public String news(Model model) {
-        List<News> list = newsService.getAllNews();
-        model.addAttribute("newsList", list);
+    public String news(@RequestParam(defaultValue = "0") int page,Model model) {
+        Page<News> newsPage = newsService.getAllNews(page, 8);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", newsPage.getTotalPages());
+        model.addAttribute("newsList", newsPage.getContent());
+        model.addAttribute("pageUrl", "/customer-care"); // Đường dẫn cho news
         return "customer-care/manage-news";
     }
 
     @GetMapping("/own-news")
-    public String getOwnNews(Model model) {
-        List<News> list = newsService.getAllNews();
-        model.addAttribute("listNews", list);
-        model.addAttribute("pageTitle", "View my own news");
-        model.addAttribute("deletePermission", "true");
+    public String getOwnNews(@RequestParam(defaultValue = "0") int page,Model model,Principal principal) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+        Page<News> newsPage = newsService.getNewsByUser(user,page, 8);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", newsPage.getTotalPages());
+        model.addAttribute("newsList", newsPage.getContent());
         return "customer-care/manage-news";
     }
 
@@ -56,11 +62,13 @@ public class CustomerCareController {
     public String addNews(@ModelAttribute("newsDTO") NewsDTO newsDTO,
                           @RequestParam("images") MultipartFile images,
                           RedirectAttributes redirectAttributes, Principal principal) {
-        News news = newsDTO.getNews();
+        News news = new News();
         String email = principal.getName();
         User user = userService.findByEmail(email);
         news.setUser(user);
-        news.setTime(LocalDateTime.now());
+        news.setTitle(newsDTO.getTitle());
+        news.setContent(newsDTO.getContent());
+        news.setTime(LocalDateTime.now().toString());
         UploadFile uploadFile = new UploadFile();
         uploadFile.upLoadImageForNews(images, news);
         newsService.save(news);

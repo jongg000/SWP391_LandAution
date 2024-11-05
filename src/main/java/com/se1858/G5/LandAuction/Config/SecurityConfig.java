@@ -52,7 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/wishlist/**").hasRole("CUSTOMER")
                 .antMatchers("/auctionRegistration/showAuctionRegistrationPage").hasRole("CUSTOMER")
                 .antMatchers("/staff").hasRole("STAFF")
-                .antMatchers("/customer-care/**")
+                .antMatchers("/customer-care/**","customer-care**")
                 .hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
                 .and()
@@ -80,7 +80,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/403");
 
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
