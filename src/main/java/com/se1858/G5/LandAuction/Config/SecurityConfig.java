@@ -33,22 +33,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/forgot-password", "/reset-password**",
-                "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**",
+                .antMatchers("/", "/forgot-password", "/reset-password**","/register", "/css/**", "/js/**", "/assets/**",
                 "/doc/**","/coffeescripts/**","/icon/**","/images/**","/Land_images/**"
-                ,"/News_images/**","/User_images/**","/transfonts/**"
-                ,"/auction/showAuctionDetail/**","/bids/showBidsPage/**"
-                ,"/land")
+                ,"/News_images/**","/User_images/**","/transfonts/**")
                 .permitAll()
-                .antMatchers("/home").access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
-                .antMatchers("/register").permitAll()
-                .antMatchers("/news/**").permitAll()
+                .antMatchers("/home","/auctionDetailPage/**","/auction/showAuctionDetail/**"
+                ,"/bids/showBidsPage/**","/auction/showAuctions/**","/news/**")
+                .access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
                 .antMatchers("/profile/**").hasRole("CUSTOMER")
                 .antMatchers("/auction/showAuctionResults").hasRole("STAFF")
                 .antMatchers("/changePassword",  "/customer/display/**").hasRole("CUSTOMER")
                 .antMatchers("/dashboard", "/management").hasRole("ADMIN")
                 .antMatchers("/customer/**").hasRole("CUSTOMER")
-                .antMatchers(("/auction/showAuctions/**")).permitAll()
                 .antMatchers("/wishlist/**").hasRole("CUSTOMER")
                 .antMatchers("/auctionRegistration/showAuctionRegistrationPage").hasRole("CUSTOMER")
                 .antMatchers("/staff").hasRole("STAFF")
@@ -64,14 +60,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(customAuthenticationFailureHandler)
                 .permitAll()
                 .and()
-                .rememberMe()
-                .rememberMeParameter("remember-me")
-                .tokenValiditySeconds(1209600)
+                .rememberMe() // Cấu hình tính năng Remember Me
+                .rememberMeParameter("remember-me") // Tên tham số "remember-me" trong form đăng nhập
+                .tokenValiditySeconds(1209600) // Thời gian nhớ mật khẩu (2 tuần)
+                .key("uniqueAndSecret") // Khóa để mã hóa token Remember Me
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
+                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()

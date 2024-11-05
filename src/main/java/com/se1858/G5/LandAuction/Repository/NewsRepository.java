@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 public interface NewsRepository extends JpaRepository<News, Integer> {
-    List<News> findTop4ByOrderByTimeDesc();
+    List<News> findTop4ByOrderByNewsIdDesc();
     @Query("SELECT n FROM News n WHERE n.title LIKE %:title%")
     List<News> findByTitle(@Param("title") String title);
     Page<News> getNewsByUser(User user, Pageable pageable);

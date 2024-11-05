@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 @Data
@@ -16,7 +17,9 @@ import java.util.Date;
 @AllArgsConstructor
 public class NewsDTO {
     private int id;
+    @Size(max = 20, message = "Nội dung chỉ được phép tối đa 20 ký tự.")
     private String title;
+    @Size(max = 1000, message = "Nội dung chỉ được phép tối đa 1000 ký tự.")
     private String content;
     private User user;
     private MultipartFile image;

@@ -44,9 +44,10 @@ public class NewsServiceImpl  implements NewsService {
     }
 
     @Override
-    public List<News> findTop4ByOrderByTimeDesc() {
-        return newsRepository.findTop4ByOrderByTimeDesc();
+    public List<News> findTop4ByOrderByNewsIdDesc() {
+        return newsRepository.findTop4ByOrderByNewsIdDesc();
     }
+
 
     @Override
     public List<News> findByTitle(String title) {

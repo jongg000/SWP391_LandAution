@@ -15,6 +15,7 @@ import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,7 +29,6 @@ import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping
-@RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminController {
 
@@ -39,9 +39,20 @@ public class AdminController {
     PaymentService paymentService;
     AuctionService auctionService;
     RoleService roleService;
+    StatusRepository statusRepository;
 
-    private final StatusRepository statusRepository;
 
+    @Autowired
+    public AdminController(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository, RolesRepository roleRepository, PaymentService paymentService, AuctionService auctionService, RoleService roleService, StatusRepository statusRepository) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.paymentService = paymentService;
+        this.auctionService = auctionService;
+        this.roleService = roleService;
+        this.statusRepository = statusRepository;
+    }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, Principal principal) {
