@@ -19,4 +19,7 @@ public interface NewsRepository extends JpaRepository<News, Integer> {
     List<News> findByTitle(@Param("title") String title);
     Page<News> getNewsByUser(User user, Pageable pageable);
     Page<News> findAll(Pageable pageable);
+    Page<News> findByTitleContainingIgnoreCase(String title, Pageable pageable);
+    Page<News> findByUser(User user, Pageable pageable);
+    Page<News> findByUserAndTitleContainingIgnoreCase(User user, String title, Pageable pageable);
 }

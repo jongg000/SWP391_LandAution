@@ -30,6 +30,7 @@
 <div class="sidebar-menu-container" id="sidebar-menu-container">
   <div class="sidebar-menu-push">
     <div class="sidebar-menu-inner">
+      <!--            sub menu đoạn xanh xanh trên cùng-->
       <div id="sub-header">
         <div class="container">
           <div class="row">
@@ -67,11 +68,13 @@
           </div>
         </div>
       </div>
+
+      <!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
       <header class="site-header">
         <div id="main-header" class="main-header header-sticky">
           <div class="inner-header container clearfix">
             <div class="logo">
-              <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+              <a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
             </div>
             <div class="header-right-toggle pull-right hidden-md hidden-lg">
               <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
@@ -79,21 +82,12 @@
             <nav class="main-navigation text-left hidden-xs hidden-sm">
               <ul>
                 <li><a href="/home">Trang chủ</a></li>
-                <li><a href="about.html">Về chúng tôi</a></li>
+                <li><a href="/aboutUs">Về chúng tôi</a></li>
                 <li><a href="#" class="has-submenu">Đấu giá</a>
                   <ul class="sub-menu">
-                    <li><a href="listing-right.html">Thanh bên phải</a></li>
-                    <li><a href="listing-left.html">Thanh bên trái</a></li>
-                    <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                    <li><a href="single-list.html">Chi tiết lô đất</a></li>
-                  </ul>
-                </li>
-                <li><a href="#" class="has-submenu">Tài sản</a>
-                  <ul class="sub-menu">
-                    <li><a href="listing-right.html">Thanh bên phải</a></li>
-                    <li><a href="listing-left.html">Thanh bên trái</a></li>
-                    <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                    <li><a href="single-list.html">Chi tiết lô đất</a></li>
+                    <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+                    <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+                    <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                   </ul>
                 </li>
                 <li><a href="/news">Tin tức</a>
@@ -169,7 +163,20 @@
             <!-- Profile Details -->
             <div class="card mb-4">
               <div class="card-body">
-                <h2 class="text-primary">Thông tin cá nhân</h2>
+                <div class="card-header" >
+                  <a href="/profile"
+                     class="btn btn-sm" >
+                    <p style="font-size: 20px; font-weight: bold;">Thông tin cá nhân</p>
+                  </a>
+                  <a href="#"
+                     class="btn btn-sm">
+                    <p style="font-size: 20px; font-weight: bold; ">Thông tin tài sản</p>
+                  </a>
+                  <a href="#"
+                     class="btn btn-sm">
+                    <p style="font-size: 20px; font-weight: bold;">Lịch sử giao dịch</p>
+                  </a>
+                </div>
                 <hr>
 
                 <!-- Form for editing personal information -->
@@ -293,137 +300,106 @@
         </div>
       </div>
 
-  </div>
-</div>
+      <footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="about-us">
+                <img src="/assets/images/logo-2.png" alt="">
+                <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
+                <ul>
+                  <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
+                  <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
+                  <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="featured-links">
+                <h4>Liên kết nổi bật</h4>
+                <ul>
+                  <li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
+                  <li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
+                  <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
+                  <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
+                  <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="latest-news">
+                <h4>Tin tức mới nhất</h4>
+                <div class="latest-item">
+                  <img src="/assets/images/logo.png" alt="">
+                  <a href="#">
+                    <h6>Đấu giá đất nền khu đô thị</h6>
+                  </a>
+                  <ul>
+                    <li>24 Tháng 9, 2023</li>
+                    <li>2 bình luận</li>
+                  </ul>
+                </div>
+                <div class="latest-item">
+                  <img src="/assets/images/logo.png" alt="">
+                  <a href="#">
+                    <h6>Cơ hội đầu tư đất ven biển</h6>
+                  </a>
+                  <ul>
+                    <li>21 Tháng 9, 2023</li>
+                    <li>2 bình luận</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="gallery">
+                <h4>Thư viện</h4>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/images/logo.png" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-md-3">
-        <div class="about-us">
-          <img src="/assets/images/logo-2.png" alt="">
-          <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
-          <ul>
-            <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
-            <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
-            <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="featured-links">
-          <h4>Liên kết nổi bật</h4>
-          <ul>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
-          </ul>
-          <ul>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Trang chủ</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Đất mới đấu giá</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Tính năng</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Khuyến mãi</a></li>
-            <li><a href="#"><i class="fa fa-caret-right"></i>Liên hệ</a></li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="latest-news">
-          <h4>Tin tức mới nhất</h4>
-          <div class="latest-item">
-            <img src="/assets/images/logo.png" alt="">
-            <a href="#">
-              <h6>Đấu giá đất nền khu đô thị</h6>
-            </a>
-            <ul>
-              <li>24 Tháng 9, 2023</li>
-              <li>2 bình luận</li>
-            </ul>
-          </div>
-          <div class="latest-item">
-            <img src="/assets/images/logo.png" alt="">
-            <a href="#">
-              <h6>Cơ hội đầu tư đất ven biển</h6>
-            </a>
-            <ul>
-              <li>21 Tháng 9, 2023</li>
-              <li>2 bình luận</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="gallery">
-          <h4>Thư viện</h4>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-          <div class="gallery-item">
-            <img src="/assets/images/logo.png" alt="">
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
-</footer>
-<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
-
 </div>
 
 </div>
 
-<nav class="sidebar-menu slide-from-left">
-  <div class="nano">
-    <div class="content">
-      <nav class="responsive-menu">
-        <ul>
-          <li><a href="#">Trang chủ</a></li>
-          <li><a href="#">Về chúng tôi</a></li>
-          <li><a href="#">Dịch vụ</a></li>
-          <li class="menu-item-has-children"><a href="#">Danh sách</a>
-            <ul class="sub-menu">
-              <li><a href="#">Sidebar Phải</a></li>
-              <li><a href="#">Sidebar Trái</a></li>
-              <li><a href="#">Hệ thống lưới</a></li>
-              <li><a href="#">Chi tiết đất đấu giá</a></li>
-            </ul>
-          </li>
-          <li class="menu-item-has-children"><a href="#">Blog</a>
-            <ul class="sub-menu">
-              <li><a href="#">Cổ điển</a></li>
-              <li><a href="#">Hệ thống lưới</a></li>
-              <li><a href="#">Lưới với Sidebar</a></li>
-              <li><a href="#">Bài đăng đơn</a></li>
-            </ul>
-          </li>
-          <li><a href="about.html">Về chúng tôi</a></li>
-          <li><a href="#">Liên hệ</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-</nav>
-
+<script>
+  function showHide(id) {
+    var element = document.getElementById(id);
+    if (element.style.display === 'none' || element.style.display === '') {
+      element.style.display = 'block';
+    } else {
+      element.style.display = 'none';
+    }
+  }
+</script>
 <script type="text/javascript" src="/assets/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
 <!-- SLIDER REVOLUTION 4.x SCRIPTS  -->

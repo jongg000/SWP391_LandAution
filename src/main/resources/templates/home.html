@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
-    
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -31,7 +31,7 @@
 <div class="sidebar-menu-container" id="sidebar-menu-container">
     <div class="sidebar-menu-push">
         <div class="sidebar-menu-inner">
-<!--            sub menu đoạn xanh xanh trên cùng-->
+            <!--            sub menu đoạn xanh xanh trên cùng-->
             <div id="sub-header">
                 <div class="container">
                     <div class="row">
@@ -90,8 +90,6 @@
                                         <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
                                         <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                                     </ul>
-                                </li>
-                                <li><a href="#">Tài sản</a>
                                 </li>
                                 <li><a href="/news">Tin tức</a>
                                 </li>
@@ -372,7 +370,7 @@
                         <div id="featured-cars" style="  width: 1600px;">
                             <div th:each="land : ${allLands}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">
                                 <!-- Hình ảnh -->
-<!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
+                                <!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
                                 <!-- Nội dung -->
                                 <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
                                     <a href="#" >
@@ -382,7 +380,7 @@
                                         <img th:src="'/Land_images/' + ${land.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">
                                     </div>
                                     <div>
-                                         <span  th:text="'Bước giá: ' +${land.price + ' VNĐ'}" style=" font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
+                                        <span  th:text="'Bước giá: ' +${land.price + ' VNĐ'}" style=" font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
                                     </div>
 
                                     <div class="light-line1" style="width: 240px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
@@ -597,43 +595,9 @@
             <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
             <!-- coppy đến đây là hết footer-->
-
         </div>
-
     </div>
-
-    <nav class="sidebar-menu slide-from-left">
-        <div class="nano">
-            <div class="content">
-                <nav class="responsive-menu">
-                    <ul>
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Về chúng tôi</a></li>
-                        <li><a href="#">Dịch vụ</a></li>
-                        <li class="menu-item-has-children"><a href="#">Danh sách</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Sidebar Phải</a></li>
-                                <li><a href="#">Sidebar Trái</a></li>
-                                <li><a href="#">Hệ thống lưới</a></li>
-                                <li><a href="#">Chi tiết đất đấu giá</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Blog</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Cổ điển</a></li>
-                                <li><a href="#">Hệ thống lưới</a></li>
-                                <li><a href="#">Lưới với Sidebar</a></li>
-                                <li><a href="#">Bài đăng đơn</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="about.html">Về chúng tôi</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </nav>
-
+</div>
     <!--  -->
     <script>
         function showHide(id) {
