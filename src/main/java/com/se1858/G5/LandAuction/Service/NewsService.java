@@ -11,7 +11,7 @@ public interface NewsService {
      List<News> getAllNews();
      News getNewsById(int id);
      void deleteNewsById(int id);
-     List<News> findTop4ByOrderByTimeDesc();
+     List<News> findTop4ByOrderByNewsIdDesc();
      List<News> findByTitle(String title);
      public Page<News> getNewsByUser(User user, int page, int size);
      public Page<News> getAllNews(int page, int size);
