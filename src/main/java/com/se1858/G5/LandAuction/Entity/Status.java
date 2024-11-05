@@ -4,15 +4,14 @@ package com.se1858.G5.LandAuction.Entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Builder
 @Table(name = "status")
 public class Status {
 
@@ -34,6 +33,6 @@ public class Status {
     private Set<Auction> auction;
 
     @OneToMany(mappedBy = "status", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<AssetRegistration> assetRegistration;
+    private List<AssetRegistration> assetRegistration;
 
 }

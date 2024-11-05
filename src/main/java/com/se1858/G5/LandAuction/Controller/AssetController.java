@@ -49,7 +49,6 @@ public class AssetController {
 
     @PostMapping("saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
-
         User user = userService.findByEmail(principal.getName());
                 Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
@@ -69,7 +68,7 @@ public class AssetController {
         landRepository.save(land);
         assetRegistrationService.save(assetRegistration);
         model.addAttribute("land", landDTO);
-        return "redirect:/payment/handle";
+        return "/customer/land-registratrion";
     }
 
 

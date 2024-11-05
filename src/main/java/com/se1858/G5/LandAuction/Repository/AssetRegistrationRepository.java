@@ -13,4 +13,5 @@ public interface AssetRegistrationRepository extends JpaRepository<AssetRegistra
     AssetRegistration findAssetRegistrationByLand_LandId(int landId);
     List<AssetRegistration> findByUser(User user);
     Land findByLand(Land land);
+
 }

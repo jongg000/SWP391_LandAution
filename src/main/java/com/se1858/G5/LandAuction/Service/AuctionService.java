@@ -17,4 +17,6 @@ public interface AuctionService {
     public AuctionDto convertToDTO(Auction auction);
     public void scheduledUpdateHighestBid();
     public List<Auction> findAllAuctionEnd();
+    public void saveAuction(Auction auction);
+    public List<Auction> getAllAuctionByStartTime();
 }

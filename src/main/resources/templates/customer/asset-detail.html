@@ -22,10 +22,6 @@
 	<link rel="stylesheet" href="/assets/css/icon-font.css">
 	<link rel="stylesheet" href="/assets/css/auction.css">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<!-- jQuery và Bootstrap JS -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 
 	<link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
 
@@ -152,9 +148,9 @@
 							<div class="flexslider">
 								<ul class="slides">
 									<div th:each="img : ${assetRegistration.getLand().images}">
-									<li data-thumb="assets/images/05-featured-slide-117x83.jpg">
-										<img th:src="@{'/Land_images/' + ${img.imageUrl}}" alt="" />
-									</li>
+										<li data-thumb="assets/images/05-featured-slide-117x83.jpg">
+											<img th:src="@{'/Land_images/' + ${img.imageUrl}}" alt="" />
+										</li>
 									</div>
 								</ul>
 							</div>
@@ -214,11 +210,8 @@
 							<div class="enquiry">
 								<div class="check-boxes">
 									<div class="advanced-button">
-										<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#cancelFormModal">
-											Hủy bỏ đơn <i class="fa fa-ban"></i>
-										</button>
+										<a href="#">Hủy bỏ đơn<i class="fa fa-ban"></i></a>
 									</div>
-
 								</div>
 								<div class="subhead-side-bar">
 									<h4>Thông tin liên lạc</h4>
@@ -227,26 +220,6 @@
 									<i class="fa fa-phone"></i>
 									<h6 th:text="${assetRegistration.getLand().contact}"></h6>
 								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<!-- Modal để nhập lý do hủy -->
-				<div class="modal fade" id="cancelFormModal" tabindex="-1" role="dialog" aria-labelledby="cancelFormModalLabel" aria-hidden="true">
-					<div class="modal-dialog" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="cancelFormModalLabel">Xác nhận hủy bỏ đơn</h5>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								Bạn có chắc chắn muốn hủy bỏ đơn này?
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-								<button type="button" class="btn btn-danger">Hủy đơn</button>
 							</div>
 						</div>
 					</div>
@@ -415,7 +388,6 @@
 
 <script type="text/javascript" src="/assets/js/plugins.js"></script>
 <script type="text/javascript" src="/assets/js/custom.js"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>

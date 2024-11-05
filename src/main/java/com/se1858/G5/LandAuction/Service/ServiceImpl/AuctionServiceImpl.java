@@ -114,4 +114,15 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.findAllByEndTimeBefore(LocalDateTime.now());
 
     }
+
+    @Override
+    public void saveAuction(Auction auction) {
+        auctionRepository.save(auction);
+    }
+
+    @Override
+    public List<Auction> getAllAuctionByStartTime() {
+        return auctionRepository.findAllByOrderByStartTimeDesc();
+    }
+
 }

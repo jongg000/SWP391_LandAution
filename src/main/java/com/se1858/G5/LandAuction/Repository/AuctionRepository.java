@@ -11,4 +11,5 @@ public interface AuctionRepository extends JpaRepository<Auction, Integer> {
 
     List<Auction> findTop4ByOrderByStartTimeDesc();
     List<Auction> findAllByEndTimeBefore(LocalDateTime endTime);
+    List<Auction> findAllByOrderByStartTimeDesc();
 }
