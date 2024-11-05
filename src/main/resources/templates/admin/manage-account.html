@@ -16,7 +16,33 @@
   <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
   <link rel="stylesheet" href="/assets/css/app.css">
   <style>
-      /* Style for the disabled ban button */
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      color: #333;
+      padding: 10px 20px;
+    }
+
+    .sidebar-link i {
+      margin-right: 10px;
+      color: #007bff; /* Adjust color to your theme */
+      transition: color 0.3s;
+    }
+
+    .sidebar-link:hover i {
+      color: #0056b3; /* Darker shade on hover */
+    }
+
+    .submenu-item i {
+      color: #555;
+    }
+
+    .submenu-item:hover i {
+      color: #333;
+    }
+
+    /* Style for the disabled ban button */
     .ban-button[disabled] {
       cursor: not-allowed;
       position: relative;
@@ -41,11 +67,12 @@
 <body>
 <div id="app">
   <div id="sidebar" class="active">
+
     <div class="sidebar-wrapper active">
       <div class="sidebar-header">
         <div class="d-flex justify-content-between">
           <div class="logo" >
-            <a href="/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
+            <a href="/admin/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
           </div>
           <div class="toggler">
             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -54,40 +81,55 @@
       </div>
       <div class="sidebar-menu">
         <ul class="menu">
-          <li class="sidebar-item ">
-            <a href="/dashboard" class='sidebar-link'>
-              <i class="bi bi-grid-fill"></i>
+          <li class="sidebar-item">
+            <a href="/admin/dashboard" class="sidebar-link">
+              <i class="bi bi-bar-chart-fill"></i> <!-- Icon for Dashboard -->
               <span>Trang thống kê</span>
             </a>
           </li>
 
-          <li class="sidebar-item  active ">
-            <a href="/management" class='sidebar-link'>
-              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-              <span>Quản lý tài khoản</span>
-            </a>
-          </li>
-          <li class="sidebar-item  ">
-            <a href="/create-account" class='sidebar-link'>
-              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-              <span>Tạo tài khoản nhân viên</span>
-            </a>
-          </li>
           <li class="sidebar-item has-sub">
             <a href="#" class="sidebar-link">
-              <i class="bi bi-person-badge-fill"></i>
+              <i class="bi bi-people-fill"></i> <!-- Icon for Account Management -->
+              <span>Quản lý tài khoản</span>
+            </a>
+            <ul class="submenu">
+              <li class="submenu-item">
+                <a href="/admin/management">
+                  <i class="bi bi-list-check"></i> <!-- Icon for Account List -->
+                  <span>Danh sách tài khoản</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="/admin/create-account">
+                  <i class="bi bi-person-plus-fill"></i> <!-- Icon for Create Account -->
+                  <span>Tạo tài khoản nhân viên</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="admin/violation">
+                  <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
+                  <span>Danh sách vi phạm</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-item has-sub">
+            <a href="#" class="sidebar-link">
+              <i class="bi bi-shield-lock-fill"></i> <!-- Icon for Security -->
               <span>Bảo mật</span>
             </a>
             <ul class="submenu">
               <li class="submenu-item">
-                <a href="/adminChangePassword">
-                  <i class="bi bi-key-fill"></i> <!-- Icon cho "Đổi mật khẩu" -->
+                <a href="/admin/adminChangePassword">
+                  <i class="bi bi-lock-fill"></i> <!-- Icon for Change Password -->
                   <span>Đổi mật khẩu</span>
                 </a>
               </li>
               <li class="submenu-item">
                 <a href="/logout">
-                  <i class="bi bi-box-arrow-right"></i> <!-- Icon cho "Đăng xuất" -->
+                  <i class="bi bi-box-arrow-right"></i> <!-- Icon for Logout -->
                   <span>Đăng xuất</span>
                 </a>
               </li>
@@ -95,9 +137,16 @@
           </li>
         </ul>
       </div>
+
       <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
     </div>
+
   </div>
+
+
+
+
+
   <div id="main">
     <header class="mb-3">
       <a href="#" class="burger-btn d-block d-xl-none">
@@ -107,10 +156,28 @@
     <section class="section">
       <div class="card">
         <div class="card-header">
-          Danh sách người dùng
+          <div style="font-size: xx-large" class="card-header">
+            Danh sách người dùng
+          </div>
+          <form th:action="@{/management}" method="get"
+                style="display: flex; align-items: center; background-color: #ffffff; padding: 10px 15px;
+             border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 500px;
+             margin-bottom: 20px;">
+            <input type="text" name="userId" placeholder="Nhập ID người dùng"
+                   style="flex-grow: 1; padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px;
+                  margin-right: 12px; font-size: 14px; transition: border-color 0.3s; outline: none;">
+            <button type="submit" class="btn btn-primary"
+                    style="padding: 10px 20px; font-size: 14px; border-radius: 5px; background-color: #007bff;
+                   color: #fff; border: none; cursor: pointer; transition: background-color 0.3s;">
+              Tìm kiếm
+            </button>
+          </form>
+
         </div>
+
         <div class="card-body">
-          <table class="table table-striped" id="table2">
+          <!-- User Table -->
+          <table class="table table-striped">
             <thead>
             <tr>
               <th>Tên người dùng</th>
@@ -118,33 +185,54 @@
               <th>Vai trò</th>
               <th>Số điện thoại</th>
               <th>Địa chỉ</th>
-              <th>Trạng thái tài khoản</th>
+              <th>Trạng thái</th>
               <th>Thao tác</th>
-
             </tr>
             </thead>
             <tbody>
-            <tr th:each="item1 : ${users}">
-              <td><span th:text="|${item1.firstName ?: ''} ${item1.lastName ?: ''}|"></span></td>
-              <td><span th:text="${item1.email ?: 'No email'}"></span></td>
-              <td><span th:text="${item1.role.description}"></span></td>
-              <td><span th:text="${item1.phoneNumber ?: 'No phone number'}"></span></td>
-              <td><span th:text="${item1.address != null ? item1.address : 'No address'}"></span></td>
-              <td><span th:text="${item1.status.name}"></span></td>
+            <tr th:each="user : ${users}">
+              <td th:text="${user.firstName} + ' ' + ${user.lastName}">Name</td>
+              <td th:text="${user.email}">Email</td>
+              <td th:text="${user.role.description}">Role</td>
+              <td th:text="${user.phoneNumber ?: 'N/A'}">Phone</td>
+              <td th:text="${user.address ?: 'N/A'}">Address</td>
+              <td th:text="${user.status.name}">Status</td>
               <td>
-                <form th:action="@{/banUser/{id}(id=${item1.userId})}" method="post" style="display: inline;">
-                  <button type="submit" th:disabled="${item1.status.statusID == 3}">Ban</button>
+                <form th:action="@{/admin/banUser/{id}(id=${user.userId})}" method="post" style="display: inline;">
+                  <button type="submit" class="ban-button" th:disabled="${user.status.statusID == 3}">
+                    Ban
+                  </button>
                 </form>
               </td>
             </tr>
             </tbody>
           </table>
+
+          <div th:if="${totalPages > 1}" class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
+            <ul class="pagination">
+              <li class="page-item" th:if="${currentPage > 0}">
+                <a class="page-link" th:href="@{/management(page=${currentPage - 1}, userId=${userId})}">Previous</a>
+              </li>
+              <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/management(page=${i}, userId=${userId})}" th:text="${i + 1}">1</a>
+              </li>
+              <li class="page-item" th:if="${currentPage < totalPages - 1}">
+                <a class="page-link" th:href="@{/management(page=${currentPage + 1}, userId=${userId})}">Next</a>
+              </li>
+            </ul>
+          </div>
+
+
         </div>
       </div>
     </section>
   </div>
 </div>
-</div>
+<script>
+  function confirmDelete() {
+    return confirm("Bạn có chắc chắn muốn cấm người dùng này?");
+  }
+</script>
 <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="/assets/js/bootstrap.bundle.min.js"></script>
 
