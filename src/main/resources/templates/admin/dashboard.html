@@ -15,227 +15,239 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="/assets/css/app.css">
     <link rel="shortcut icon" href="/assets/images/favicon.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
+    <style>
+        /* Adjust the overall width and height for the chart container */
+        #chart-payment {
+            width: 100%;
+            height: 450px; /* Increase height for better visibility */
+            margin-top: 20px;
+        }
+
+        /* Additional styles for the header and layout */
+        .page-heading h3 {
+            font-weight: 700;
+            color: #343a40;
+        }
+
+        .card-header h4 {
+            color: #6c757d;
+            font-weight: 600;
+        }
+    </style>
 </head>
 
 <body>
-
-    <div id="app">
-
-        <div id="sidebar" class="active">
-
-            <div class="sidebar-wrapper active">
-                <div class="sidebar-header">
-                    <div class="d-flex justify-content-between">
-                        <div class="logo" >
-                            <a href="/admin/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
-                        </div>
-                        <div class="toggler">
-                            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                        </div>
+<div id="app">
+    <div id="sidebar" class="active">
+        <div class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <div class="d-flex justify-content-between">
+                    <div class="logo">
+                        <a href="/admin/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
+                    </div>
+                    <div class="toggler">
+                        <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
                     </div>
                 </div>
-                <div class="sidebar-menu">
-                    <ul class="menu">
-                        <li class="sidebar-item active">
-                            <a href="/admin/dashboard" class="sidebar-link">
-                                <i class="bi bi-bar-chart-fill"></i> <!-- Icon for Dashboard -->
-                                <span>Trang thống kê</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-people-fill"></i> <!-- Icon for Account Management -->
-                                <span>Quản lý tài khoản</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="/admin/management">
-                                        <i class="bi bi-list-check"></i> <!-- Icon for Account List -->
-                                        <span>Danh sách tài khoản</span>
-                                    </a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="/admin/create-account">
-                                        <i class="bi bi-person-plus-fill"></i> <!-- Icon for Create Account -->
-                                        <span>Tạo tài khoản nhân viên</span>
-                                    </a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="/admin/violation">
-                                        <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
-                                        <span>Danh sách vi phạm</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="sidebar-item has-sub">
-                            <a href="#" class="sidebar-link">
-                                <i class="bi bi-shield-lock-fill"></i> <!-- Icon for Security -->
-                                <span>Bảo mật</span>
-                            </a>
-                            <ul class="submenu">
-                                <li class="submenu-item">
-                                    <a href="/admin/adminChangePassword">
-                                        <i class="bi bi-lock-fill"></i> <!-- Icon for Change Password -->
-                                        <span>Đổi mật khẩu</span>
-                                    </a>
-                                </li>
-                                <li class="submenu-item">
-                                    <a href="/logout">
-                                        <i class="bi bi-box-arrow-right"></i> <!-- Icon for Logout -->
-                                        <span>Đăng xuất</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
-
-        </div>
-
-
-
-
-        <div id="main">
-            <header class="mb-3">
-                <a href="#" class="burger-btn d-block d-xl-none">
-                    <i class="bi bi-justify fs-3"></i>
-                </a>
-            </header>
-
-            <div class="page-heading">
-                <h3>Tổng Thống kê </h3>
+            <div class="sidebar-menu">
+                <ul class="menu">
+                    <li class="sidebar-item active">
+                        <a href="/admin/dashboard" class="sidebar-link">
+                            <i class="bi bi-bar-chart-fill"></i>
+                            <span>Trang thống kê</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item has-sub">
+                        <a href="#" class="sidebar-link">
+                            <i class="bi bi-people-fill"></i>
+                            <span>Quản lý tài khoản</span>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item"><a href="/admin/management"><i class="bi bi-list-check"></i><span>Danh sách tài khoản</span></a></li>
+                            <li class="submenu-item"><a href="/admin/create-account"><i class="bi bi-person-plus-fill"></i><span>Tạo tài khoản nhân viên</span></a></li>
+                            <li class="submenu-item"><a href="/admin/request-account"><i class="bi bi-person-check"></i><span>Danh sách tài khoản chờ xét duyệt</span></a></li>
+                            <li class="submenu-item"><a href="/admin/violation"><i class="bi bi-exclamation-triangle-fill"></i><span>Danh sách vi phạm</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
-            <div class="page-content">
-                <section class="row">
-                    <div class="col-12 col-lg-9">
-                        <div class="row">
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon purple">
-                                                    <i class="iconly-boldShow"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Cuộc đấu giá</h6>
-                                                <h6 class="font-extrabold mb-0" th:text="${totalAuctions}">112.000</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon blue">
-                                                    <i class="iconly-boldProfile"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Bất động sản</h6>
-                                                <h6 class="font-extrabold mb-0" th:text="${totalUsers}">183.000</h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-lg-3 col-md-6">
-                                <div class="card">
-                                    <div class="card-body px-3 py-4-5">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="stats-icon red">
-                                                    <i class="iconly-boldBookmark"></i>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="text-muted font-semibold">Doanh thu</h6>
-                                                <h6 class="font-extrabold mb-0"  th:text="${totalPaymentAmount}"></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4>Doanh thu theo tháng</h4>
-                                </div>
-                                <div class="card-body">
-                                    <div id="chart-payment"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
+            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
         </div>
     </div>
 
-    <script th:inline="javascript">
-        // Lấy dữ liệu từ server (chuyển đổi sang chuỗi JSON nếu cần)
-        const monthlyPaymentAmounts = /*[[${monthlyPaymentAmounts}]]*/ '{}';
+    <div id="main">
+        <header class="mb-3">
+            <a href="#" class="burger-btn d-block d-xl-none">
+                <i class="bi bi-justify fs-3"></i>
+            </a>
+        </header>
 
-        // Chuẩn bị dữ liệu cho biểu đồ
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        const months = monthNames.map((name, index) => {
-            const amount = monthlyPaymentAmounts[index + 1] || 0; // Lấy giá trị từ monthlyPaymentAmounts hoặc 0 nếu không có dữ liệu
-            return { name, amount };
-        });
+        <div class="page-heading">
+            <h3>Tổng Thống kê</h3>
+        </div>
+        <div class="page-content">
+            <section class="row">
+                <div class="col-12 col-lg-9">
+                    <div class="row">
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="stats-icon purple"><i class="iconly-boldShow"></i></div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h6 class="text-muted font-semibold">Cuộc đấu giá</h6>
+                                            <h6 class="font-extrabold mb-0" th:text="${auctions}">112.000</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="stats-icon blue"><i class="iconly-boldProfile"></i></div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h6 class="text-muted font-semibold">Bất động sản</h6>
+                                            <h6 class="font-extrabold mb-0" th:text="${users}">183.000</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card">
+                                <div class="card-body px-3 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="stats-icon red"><i class="iconly-boldBookmark"></i></div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <h6 class="text-muted font-semibold">Doanh thu</h6>
+                                            <h6 class="font-extrabold mb-0" th:text="${payments}"></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-        const data = months.map(m => m.amount);
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Doanh thu theo tháng</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="chart-payment"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
 
-        // Cấu hình biểu đồ
-        const options = {
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            series: [{
-                name: 'Doanh thu (VND)',
-                data: data
-            }],
-            xaxis: {
-                categories: monthNames
-            },
+<script th:inline="javascript">
+    const monthlyPaymentAmounts = /*[[${monthlyPaymentAmounts}]]*/ {};
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const data = monthNames.map((_, index) => monthlyPaymentAmounts[index + 1] || 0);
+
+    const options = {
+        chart: {
+            type: 'bar',
+            height: 450,
+            toolbar: {
+                show: false
+            }
+        },
+        series: [{
+            name: 'Doanh thu (VND)',
+            data: data
+        }],
+        xaxis: {
+            categories: monthNames,
             title: {
-                text: "Doanh thu theo tháng",
-                align: 'center'
-            },
-            yaxis: {
-                labels: {
-                    formatter: function (value) {
-                        return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
-                    }
+                text: 'Tháng',
+                style: {
+                    fontWeight: 700
                 }
             }
-        };
+        },
+        yaxis: {
+            labels: {
+                formatter: function (value) {
+                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+                }
+            },
+            title: {
+                text: 'Doanh thu (VND)',
+                style: {
+                    fontWeight: 700
+                }
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+                return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(val);
+            },
+            offsetY: -20,
+            style: {
+                fontSize: '12px',
+                colors: ["#304758"]
+            }
+        },
+        plotOptions: {
+            bar: {
+                distributed: true,
+                colors: {
+                    ranges: [
+                        { from: 0, to: 3000000, color: '#f77eb9' },
+                        { from: 3000000, to: 6000000, color: '#738ffe' }
+                    ]
+                },
+                dataLabels: {
+                    position: 'top'
+                }
+            }
+        },
+        title: {
+            text: "Doanh thu theo tháng",
+            align: 'center',
+            style: {
+                fontSize: '18px',
+                fontWeight: 'bold',
+                color: '#263238'
+            }
+        },
+        tooltip: {
+            y: {
+                formatter: function (value) {
+                    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+                }
+            }
+        },
+        colors: ['#1E90FF', '#FF7F50', '#32CD32', '#FFD700', '#FF69B4', '#CD5C5C', '#FFA07A', '#20B2AA', '#778899', '#B0C4DE', '#00FA9A', '#8A2BE2']
+    };
 
-        // Khởi tạo biểu đồ
-        const chart = new ApexCharts(document.querySelector("#chart-payment"), options);
-        chart.render();
-    </script>
-    <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
-    <script src="/assets/js/bootstrap.bundle.min.js"></script>
+    // Initialize and render the chart
+    const chart = new ApexCharts(document.querySelector("#chart-payment"), options);
+    chart.render();
+</script>
 
-    <script src="/assets/vendors/apexcharts/apexcharts.js"></script>
-    <script src="/assets/js/pages/dashboard.js"></script>
-
-    <script src="/assets/js/main.js"></script>
-    <script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+<!-- Include necessary JavaScript files -->
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/js/pages/dashboard.js"></script>
+<script src="/assets/js/main.js"></script>
 </body>
 
 </html>

@@ -2,6 +2,7 @@ package com.se1858.G5.LandAuction.Controller;
 
 
 import com.se1858.G5.LandAuction.DTO.AdminCreateDTO;
+import com.se1858.G5.LandAuction.Entity.Auction;
 import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Entity.Violation;
@@ -10,10 +11,7 @@ import com.se1858.G5.LandAuction.Repository.StatusRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
-import com.se1858.G5.LandAuction.Service.*;
-import com.se1858.G5.LandAuction.util.UploadFile;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,9 +23,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -61,28 +60,23 @@ public class AdminController {
     }
 
     @GetMapping("/dashboard")
-    public String dashboard(Model model, Principal principal) {
+    public String showDashboard(Model model) {
+        Long users = userService.getTotalUsers();
+        Long auctions = auctionService.getTotalAuctions();
+        Long payments = paymentService.getTotalPaymentAmount();
 
-        String email = principal.getName();
-        User user = userService.findByEmail(email);
-        // Lấy tổng số tiền thanh toán
-        long totalPaymentAmount = paymentService.getTotalPaymentAmount();
-        // Lấy tổng số người dùng
-        long totalUsers = userService.getTotalUsers();
-        // Lấy tổng số người dùng
-        long totalAuctions = auctionService.getTotalAuctions();
-        List<User> users = userService.findTop3UsersByOrderByIdDesc();
-        Map<Month, Long> monthlyPaymentAmounts = paymentService.getMonthlyPaymentAmounts();
+        // Prepare monthly payments for the current year
+        Map<Integer, Long> monthlyPaymentAmounts = paymentService.getMonthlyRevenue();
+        System.out.println("Monthly Payment Amounts: " + monthlyPaymentAmounts);  // Debugging line
 
-        model.addAttribute("users", users);
-        model.addAttribute("user", user);
-        model.addAttribute("totalAuctions", totalAuctions);
-        model.addAttribute("totalUsers", totalUsers);
-        model.addAttribute("totalPaymentAmount", totalPaymentAmount);
         model.addAttribute("monthlyPaymentAmounts", monthlyPaymentAmounts);
-        // Nếu bạn có bảng khác để lấy thêm thông tin, hãy thêm vào đâ
+        model.addAttribute("users", users);
+        model.addAttribute("auctions", auctions);
+        model.addAttribute("payments", payments);
+
         return "admin/dashboard";
     }
+
 
     @GetMapping("/management")
     public String showAllUser(@RequestParam(value = "page", defaultValue = "0") int page,
@@ -122,7 +116,7 @@ public class AdminController {
                 userRepository.save(user);
             }
         }
-        return "redirect:/management";
+        return "redirect:/admin/management";
     }
 
     @GetMapping("/create-account")
@@ -191,7 +185,7 @@ public class AdminController {
         user.setStatus(status);
 
         userService.save(user);
-        return "redirect:/management";
+        return "redirect:/admin/management";
     }
 
     @GetMapping("/adminChangePassword")
@@ -260,33 +254,53 @@ public class AdminController {
 
 
     @GetMapping("/request-account")
-    public String showRequestAccountlist(Model model, Principal principal) {
-        List<User> allUsers = userService.findUsersByStatusAndRole(statusRepository.getById(1), roleService.findByRoleID(1));
+    public String showRequestAccountList(Model model) {
+
+        Status status1 = statusRepository.getById(1);
+        Status status2 = statusRepository.getById(14);
+
+        // Find users with either status 1 or 2
+        List<User> usersWithStatus1And2 = userService.findUsersByStatuses(Arrays.asList(status1, status2));
+
         List<Status> allStatuses = statusRepository.findAll();
         model.addAttribute("statuses", allStatuses);
-        model.addAttribute("users", allUsers);
+        model.addAttribute("users", usersWithStatus1And2);
         return "admin/request-listing";
     }
+
+
     @GetMapping("/request-detail/{id}")
     public String showRequestDetail(@PathVariable int id, Model model, Principal principal) {
         User user = userService.findByUserId(id);
         model.addAttribute("user", user);
         return "admin/request-detail";
     }
-    @GetMapping("/handle-request")
+
+    @PostMapping("/handle-request")
     public String handleRequest(@RequestParam("decision") String decision,
                                 @RequestParam("userid") int id,
                                 @RequestParam("comments") String comment) {
-        User user = userRepository.findById(id).get();
-        System.out.println(user.getLastName());
-        System.out.println(decision);
-        if(decision.equals("approve")){
-            user.setStatus(statusRepository.getById(2));
-            userService.save(user);
-        }else{
-            emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng", comment);
+        Optional<User> optionalUser = userRepository.findById(id);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            System.out.println("User Last Name: " + user.getLastName());
+            System.out.println("Decision: " + decision);
+
+            if ("approve".equals(decision)) {
+                user.setStatus(statusRepository.getById(2));  // Assuming status ID 2 is for 'approved'
+                userService.save(user);
+            } else if ("reject".equals(decision) && !comment.isEmpty()) {
+                user.setStatus(statusRepository.getById(14));
+                emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng: ", comment);
+            } else {
+                System.out.println("Rejection comment is empty; email not sent.");
+            }
+        } else {
+            System.out.println("User not found with ID: " + id);
         }
-        return "redirect:request-account";
+        return "redirect:/admin/request-account";
     }
+
+
 
 }

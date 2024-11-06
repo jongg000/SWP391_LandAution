@@ -208,7 +208,7 @@ public class UserController {
         uploadFile.upLoadDocumentAvata(images, user);
         userService.save(user);
         model.addAttribute("user", user);
-        return "customer/profile";
+        return "redirect:/profile";
     }
 
     @PostMapping("/profile/uploadNational")
@@ -222,7 +222,7 @@ public class UserController {
         uploadFile.UploadImagesNationalB(nationalBackImage, user);
         userService.save(user);
         model.addAttribute("user", user);
-        return "customer/profile";
+        return "redirect:/profile";
     }
 
 

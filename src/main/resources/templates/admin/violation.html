@@ -104,6 +104,13 @@
                             <span>Tạo tài khoản nhân viên</span>
                         </a>
                     </li>
+                    <li class="submenu-item">
+                        <a href="/admin/request-account">
+                            <i class="bi bi-person-check"></i> <!-- Icon for Account Approval -->
+
+                            <span>Danh sách tài khoản chờ xét duyệt</span>
+                        </a>
+                    </li>
                     <li class="submenu-item active">
                         <a href="/admin/violation">
                             <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
@@ -177,7 +184,7 @@
                         <td th:text="${violation.user.status.name}">Status</td>
                         <td>
                             <form th:action="@{/admin/banUser/{id}(id=${violation.user.userId})}" method="post" style="display: inline;">
-                                <button type="submit" class="ban-button" th:disabled="${violation.user.status.statusID == 3}">
+                                <button type="submit" class="ban-button" th:disabled="${violation.user.status.statusID == 3}" onclick="confirmDelete()">
                                     Ban
                                 </button>
                             </form>
