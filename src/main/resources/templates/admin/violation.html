@@ -64,81 +64,79 @@
     </style>
 </head>
 <body>
-<div id="sidebar" class="active">
 
-    <div class="sidebar-wrapper active">
-        <div class="sidebar-header">
-            <div class="d-flex justify-content-between">
-                <div class="logo" >
-                    <a href="/admin/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
-                </div>
-                <div class="toggler">
-                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
-                </div>
+<div id="app">
+<div class="sidebar-wrapper active">
+    <div class="sidebar-header">
+        <div class="d-flex justify-content-between">
+            <div class="logo" >
+                <a href="/admin/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
+            </div>
+            <div class="toggler">
+                <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
             </div>
         </div>
-        <div class="sidebar-menu">
-            <ul class="menu">
-                <li class="sidebar-item">
-                    <a href="/admin/dashboard" class="sidebar-link">
-                        <i class="bi bi-bar-chart-fill"></i> <!-- Icon for Dashboard -->
-                        <span>Trang thống kê</span>
-                    </a>
-                </li>
+    </div>
+    <div class="sidebar-menu">
+        <ul class="menu">
+            <li class="sidebar-item">
+                <a href="/admin/dashboard" class="sidebar-link">
+                    <i class="bi bi-bar-chart-fill"></i> <!-- Icon for Dashboard -->
+                    <span>Trang thống kê</span>
+                </a>
+            </li>
 
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-people-fill"></i> <!-- Icon for Account Management -->
-                        <span>Quản lý tài khoản</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="/admin/management">
-                                <i class="bi bi-list-check"></i> <!-- Icon for Account List -->
-                                <span>Danh sách tài khoản</span>
-                            </a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="/admin/create-account">
-                                <i class="bi bi-person-plus-fill"></i> <!-- Icon for Create Account -->
-                                <span>Tạo tài khoản nhân viên</span>
-                            </a>
-                        </li>
-                        <li class="submenu-item active">
-                            <a href="/admin/violation">
-                                <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
-                                <span>Danh sách vi phạm</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+            <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-people-fill"></i> <!-- Icon for Account Management -->
+                    <span>Quản lý tài khoản</span>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item ">
+                        <a href="/admin/management">
+                            <i class="bi bi-list-check"></i> <!-- Icon for Account List -->
+                            <span>Danh sách tài khoản</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item ">
+                        <a href="/admin/create-account">
+                            <i class="bi bi-person-plus-fill"></i> <!-- Icon for Create Account -->
+                            <span>Tạo tài khoản nhân viên</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item active">
+                        <a href="/admin/violation">
+                            <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
+                            <span>Danh sách vi phạm</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-shield-lock-fill"></i> <!-- Icon for Security -->
-                        <span>Bảo mật</span>
-                    </a>
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="/admin/adminChangePassword">
-                                <i class="bi bi-lock-fill"></i> <!-- Icon for Change Password -->
-                                <span>Đổi mật khẩu</span>
-                            </a>
-                        </li>
-                        <li class="submenu-item">
-                            <a href="/logout">
-                                <i class="bi bi-box-arrow-right"></i> <!-- Icon for Logout -->
-                                <span>Đăng xuất</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
-        <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-shield-lock-fill"></i> <!-- Icon for Security -->
+                    <span>Bảo mật</span>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item ">
+                        <a href="/admin/adminChangePassword">
+                            <i class="bi bi-lock-fill"></i> <!-- Icon for Change Password -->
+                            <span>Đổi mật khẩu</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/logout">
+                            <i class="bi bi-box-arrow-right"></i> <!-- Icon for Logout -->
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
     </div>
 
+    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
 </div>
 
 <div id="main">
@@ -191,13 +189,13 @@
                 <div th:if="${totalPages > 1}" class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
                     <ul class="pagination">
                         <li class="page-item" th:if="${currentPage > 0}">
-                            <a class="page-link" th:href="@{/violation(page=${currentPage - 1})}">Previous</a>
+                            <a class="page-link" th:href="@{/admin/violation(page=${currentPage - 1})}">Previous</a>
                         </li>
                         <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-                            <a class="page-link" th:href="@{/violation(page=${i})}" th:text="${i + 1}">1</a>
+                            <a class="page-link" th:href="@{/admin/violation(page=${i})}" th:text="${i + 1}">1</a>
                         </li>
                         <li class="page-item" th:if="${currentPage < totalPages - 1}">
-                            <a class="page-link" th:href="@{/violation(page=${currentPage + 1})}">Next</a>
+                            <a class="page-link" th:href="@{/admin/violation(page=${currentPage + 1})}">Next</a>
                         </li>
                     </ul>
                 </div>
@@ -206,6 +204,22 @@
         </div>
     </section>
 </div>
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn cấm người dùng này?");
+    }
+</script>
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
 
+<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+
+<script src="/assets/js/main.js"></script>
 </body>
 </html>
