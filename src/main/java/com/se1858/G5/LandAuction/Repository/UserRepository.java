@@ -1,6 +1,8 @@
 
 package com.se1858.G5.LandAuction.Repository;
 
+import com.se1858.G5.LandAuction.Entity.Roles;
+import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +26,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Page<User> findByRole_RoleIDNot(int roleId, Pageable pageable);
     User findByUserId(int userId);
     List<User> findByRole(Roles role);
+    List<User> findByStatusIn(List<Status> statuses);
 }

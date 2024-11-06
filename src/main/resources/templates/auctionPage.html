@@ -250,7 +250,6 @@
                                      th:src="@{'/Land_images/' + ${auctionDetail.Image}}" alt=""/>
 
                                 <div class="down-content" style="height:100px;">
-
                                     <a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">
                                         <h2 th:text="${auctionDetail.land.name}"></h2>
                                     </a>
@@ -260,7 +259,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                     <div class="col-md-12">
                         <div class="col-md-4 col-md-offset-4"> <!-- Centering the pagination -->

@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDateTime;
 import java.time.Month;
+import java.time.YearMonth;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +43,7 @@ public class PaymentServiceImpl implements PaymentService {
         vnpParamsMap = vnPayConfig.getVNPayConfig(vnPayReturnUrl);
 
 
-        vnpParamsMap.put("vnp_Amount", String.valueOf((long)orderTotal * 100));
+        vnpParamsMap.put("vnp_Amount", String.valueOf((long) orderTotal * 100));
         vnpParamsMap.put("vnp_IpAddr", vnPayUtil.getIpAddress(request));
 
         // Build query URL
@@ -57,7 +59,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public int orderReturn(HttpServletRequest request) {
         Map fields = new HashMap();
-        for (Enumeration params = request.getParameterNames(); params.hasMoreElements();) {
+        for (Enumeration params = request.getParameterNames(); params.hasMoreElements(); ) {
             String fieldName = null;
             String fieldValue = null;
             try {
@@ -78,7 +80,6 @@ public class PaymentServiceImpl implements PaymentService {
         if (fields.containsKey("vnp_SecureHash")) {
             fields.remove("vnp_SecureHash");
         }
-
 
 
         String signValue = vnPayUtil.hashAllFields(fields);
@@ -116,5 +117,25 @@ public class PaymentServiceImpl implements PaymentService {
                         payment -> payment.getPaymentDate().getMonth(),
                         Collectors.summingLong(Payment::getPaymentAmount)
                 ));
+    }
+
+    @Override
+    public long getTotalPaymentsForMonth(YearMonth yearMonth) {
+        LocalDateTime startOfMonth = yearMonth.atDay(1).atStartOfDay();
+        LocalDateTime endOfMonth = yearMonth.atEndOfMonth().atTime(23, 59, 59);
+        return paymentRepository.calculateTotalPaymentsForPeriod(startOfMonth, endOfMonth);
+    }
+
+    @Override
+    public Map<Integer, Long> getMonthlyRevenue() {
+        List<Payment> payments = paymentRepository.findAll();
+        Map<Integer, Long> monthlyRevenue = new HashMap<>();
+
+        for (Payment payment : payments) {
+            int month = payment.getPaymentDate().getMonthValue(); // Get month as integer (1 = Jan, etc.)
+            monthlyRevenue.put(month, monthlyRevenue.getOrDefault(month, 0L) + payment.getPaymentAmount());
+        }
+
+        return monthlyRevenue;
     }
 }

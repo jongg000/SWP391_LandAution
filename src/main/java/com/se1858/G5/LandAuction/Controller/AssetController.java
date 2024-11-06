@@ -5,7 +5,7 @@ import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.*;
-import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.StatusService;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-
-
 import java.time.ZoneId;
 import java.util.List;
 
@@ -77,7 +75,7 @@ public class AssetController {
         System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
         model.addAttribute("land", landDTO);
-        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
+//        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
         return "redirect:/asset";
         //        return "customer/land-registratrion";
     }
