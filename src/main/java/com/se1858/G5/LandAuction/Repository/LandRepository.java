@@ -2,12 +2,9 @@ package com.se1858.G5.LandAuction.Repository;
 
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.User;
-import com.se1858.G5.LandAuction.Entity.News;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -15,7 +12,6 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
 
     @EntityGraph(attributePaths = {"images"})
     List<Land> findAllByName(String keyword);
-    List<Land> findByUser(User user);
 
     List<Land> findTop4ByOrderByLandIdDesc();
 
@@ -27,5 +23,6 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
     List<Land> searchLandsByKeyword(@Param("keyword") String keyword);
 
 
+    List<Land> findByUser(User user);
 }
 

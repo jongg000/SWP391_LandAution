@@ -11,6 +11,7 @@ import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -100,5 +101,12 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    public Page<User> findUsersById(int userId, PageRequest pageRequest) {
+        return userRepository.findByUserId(userId, pageRequest);
+    }
+
+    public Page<User> findUsersByRoleExcluding(PageRequest pageRequest, int excludedRoleId) {
+        return userRepository.findByRole_RoleIDNot(excludedRoleId, pageRequest);
+    }
 
 }

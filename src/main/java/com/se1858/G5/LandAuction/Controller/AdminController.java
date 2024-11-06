@@ -2,18 +2,22 @@ package com.se1858.G5.LandAuction.Controller;
 
 
 import com.se1858.G5.LandAuction.DTO.AdminCreateDTO;
-import com.se1858.G5.LandAuction.Entity.ERole;
-import com.se1858.G5.LandAuction.Entity.Roles;
 import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.User;
+import com.se1858.G5.LandAuction.Entity.Violation;
 import com.se1858.G5.LandAuction.Repository.RolesRepository;
 import com.se1858.G5.LandAuction.Repository.StatusRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
+import com.se1858.G5.LandAuction.Service.*;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +30,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping
-@RequiredArgsConstructor
+@RequestMapping("/admin")
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class AdminController {
 
@@ -38,9 +41,22 @@ public class AdminController {
     PaymentService paymentService;
     AuctionService auctionService;
     RoleService roleService;
-    private final StatusRepository statusRepository;
-    private EmailService emailService;
+    StatusRepository statusRepository;
+    ViolationService violationService;
 
+
+    @Autowired
+    public AdminController(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository, RolesRepository roleRepository, PaymentService paymentService, AuctionService auctionService, RoleService roleService, StatusRepository statusRepository, ViolationService violationService) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.paymentService = paymentService;
+        this.auctionService = auctionService;
+        this.roleService = roleService;
+        this.statusRepository = statusRepository;
+        this.violationService = violationService;
+    }
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, Principal principal) {
@@ -67,12 +83,30 @@ public class AdminController {
     }
 
     @GetMapping("/management")
-    public String showAllUser(Model model) {
-        List<User> allUsers = userRepository.findAll();
-        List<User> filteredUsers = allUsers.stream()
-                .filter(user -> user.getRole().getRoleID() != 2)
-                .collect(Collectors.toList());
-        model.addAttribute("users", filteredUsers);
+    public String showAllUser(@RequestParam(value = "page", defaultValue = "0") int page,
+                              @RequestParam(value = "userId", required = false) String userId,
+                              Model model) {
+        int pageSize = 6; // Display 10 users per page
+        Page<User> usersPage;
+        if (userId != null && !userId.isEmpty()) {
+            try {
+                int parsedUserId = Integer.parseInt(userId); // Convert userId to Integer
+                // Search by userId as integer
+                usersPage = userService.findUsersById(parsedUserId, PageRequest.of(page, pageSize));
+            } catch (NumberFormatException e) {
+                // Handle the case where userId is not a valid integer
+                model.addAttribute("error", "User ID must be a number");
+                usersPage = userService.findUsersByRoleExcluding(PageRequest.of(page, pageSize), 2);// Default to all users if invalid input
+            }
+        } else {
+            // Get all users with pagination
+            usersPage = userService.findUsersByRoleExcluding(PageRequest.of(page, pageSize), 2);
+        }
+
+        model.addAttribute("users", usersPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", usersPage.getTotalPages());
+        model.addAttribute("userId", userId);
         return "admin/manage-account";
     }
 
@@ -165,6 +199,7 @@ public class AdminController {
 
         // Đưa thông tin người dùng vào model (nếu cần)
         model.addAttribute("user", user);
+
         return "admin/change-password";
     }
 
@@ -206,6 +241,21 @@ public class AdminController {
         model.addAttribute("user", user);
         return  "admin/change-password";
     }
+
+    @GetMapping("/violation")
+    public String showViolationForm(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            Model model) {
+
+        int pageSize = 6; // Set the page size as needed (e.g., 10 items per page)
+        Page<Violation> violationsPage = violationService.getAllViolations(PageRequest.of(page, pageSize));
+
+        model.addAttribute("violations", violationsPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", violationsPage.getTotalPages());
+        return "admin/violation";
+    }
+
 
     @GetMapping("/request-account")
     public String showRequestAccountlist(Model model, Principal principal) {

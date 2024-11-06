@@ -247,7 +247,7 @@
                                  th:each="auctionDetail : ${auctionDetails}">
 
                                 <img style="width: 100%; height: 150px; overflow: hidden;"
-                                     th:src="${auctionDetail.Image}" alt=""/>
+                                     th:src="@{'/Land_images/' + ${auctionDetail.Image}}" alt=""/>
 
                                 <div class="down-content" style="height:100px;">
 

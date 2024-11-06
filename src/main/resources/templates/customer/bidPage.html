@@ -122,7 +122,7 @@
                                     </ul>
                                 </li>
                                 <li><a href="/news">Tin tức</a>
-                                </li>
+  s                              </li>
                                 <li><a href="#">Liên hệ</a>
                                 </li>
                                 <li>
@@ -169,8 +169,8 @@
                             </div>
                             <div class="flexslider">
                                 <ul class="slides">
-                                    <li th:each="landImage : ${landImages}" th:data-thumb="${landImage.imageUrl}">
-                                        <img th:src="${landImage.imageUrl}" alt=""/>
+                                    <li th:each="landImage : ${landImages}" th:data-thumb="${'/Land_images/'+landImage.imageUrl}">
+                                        <img th:src="@{'/Land_images/' + ${landImage.imageUrl}}" alt=""/>
                                     </li>
                                 </ul>
                             </div>

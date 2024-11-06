@@ -170,8 +170,8 @@
                                 <ul class="slides">
                                     <!-- Loop through the list of LandImageDTO objects -->
                                     <li th:each="image : ${landImages}"
-                                        th:data-thumb="${image.imageUrl}">
-                                        <img th:src="${image.imageUrl}" alt=""/>
+                                        th:data-thumb="'/Land_images/'+${image.imageUrl}">
+                                        <img th:src="@{'/Land_images/'+${image.imageUrl}}" alt=""/>
                                     </li>
                                 </ul>
                             </div>
@@ -255,7 +255,7 @@
                                     <div th:if="${dateCheck == 'upcoming'}">
                                         <div th:if="${check == false}">
                                             <div th:if="${isAvailable}" class="advanced-button">
-                                                <a th:href="@{/auctionRegistration/save/{id}(id=${auction.auctionId})}">
+                                                <a th:href="@{/payment/handle/{id}(id=${auction.auctionId})}">
                                                     Tham gia <i class="fa fa-paper-plane"></i>
                                                 </a>
                                             </div>
@@ -322,7 +322,7 @@
                         <div id="featured-cars">
                             <div class="featured-item col-md-3" th:each="auctionDetail : ${auctionDetails}">
 
-                                <img th:src="${auctionDetail.Image}" alt=""/>
+                                <img th:src="@{'/Land_images/'+ ${auctionDetail.Image}}" alt=""/>
 
                                 <div class="down-content">
 

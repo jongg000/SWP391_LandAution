@@ -19,16 +19,20 @@ import java.util.stream.Collectors;
 @Service
 public class AuctionServiceImpl implements AuctionService {
 
+     AuctionRepository auctionRepository;
+     LandRepository landRepository;
+     AuctionRegistrationRepository auctionRegistration;
+     UserRepository userRepository;
+     AuctionBidUpdateServiceImpl auctionBidUpdateService;
+
     @Autowired
-    private AuctionRepository auctionRepository;
-    @Autowired
-    private LandRepository landRepository;
-    @Autowired
-    private AuctionRegistrationRepository auctionRegistration;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private AuctionBidUpdateServiceImpl auctionBidUpdateService;
+    public AuctionServiceImpl(AuctionRepository auctionRepository, LandRepository landRepository, AuctionRegistrationRepository auctionRegistration, UserRepository userRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService) {
+        this.auctionRepository = auctionRepository;
+        this.landRepository = landRepository;
+        this.auctionRegistration = auctionRegistration;
+        this.userRepository = userRepository;
+        this.auctionBidUpdateService = auctionBidUpdateService;
+    }
 
     public AuctionDto findAuctionById(int auctionId) {
         return auctionRepository.findById(auctionId)

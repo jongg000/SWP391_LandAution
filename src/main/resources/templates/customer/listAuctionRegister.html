@@ -234,7 +234,7 @@
 
 							<div class="row" th:each="wishlistDetail : ${wishlistDetails}">
 								<div class="featured-item">
-									<img th:src="${wishlistDetail.landImage.imageUrl}" alt="Land Image" style="width: 22%; height: 15%;"/>
+									<img th:src="@{'/Land_images/' + ${wishlistDetail.landImage.imageUrl}}" alt="Land Image" style="width: 22%; height: 15%;"/>
 									<div class="right-content">
 										<a href="#"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
 										<span th:text="${'$' + wishlistDetail.land.price}"></span>

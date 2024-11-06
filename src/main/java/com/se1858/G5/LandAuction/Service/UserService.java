@@ -3,6 +3,8 @@ package com.se1858.G5.LandAuction.Service;
 import com.se1858.G5.LandAuction.Entity.Roles;
 import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
@@ -24,4 +26,6 @@ public interface UserService {
     User findByUserId(int userId);
     List<User> findUsersByStatusAndRole(Status status, Roles role);
     List<User> findUsersByRole(Roles role);
+    Page<User> findUsersById(int userId, PageRequest pageRequest);
+    Page<User> findUsersByRoleExcluding(PageRequest pageRequest, int excludedRoleId);
 }

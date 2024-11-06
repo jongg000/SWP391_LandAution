@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tài khoản vi phạm</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/bootstraps.css">
+
+    <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+
+    <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <style>
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+            color: #333;
+            padding: 10px 20px;
+        }
+
+        .sidebar-link i {
+            margin-right: 10px;
+            color: #007bff; /* Adjust color to your theme */
+            transition: color 0.3s;
+        }
+
+        .sidebar-link:hover i {
+            color: #0056b3; /* Darker shade on hover */
+        }
+
+        .submenu-item i {
+            color: #555;
+        }
+
+        .submenu-item:hover i {
+            color: #333;
+        }
+
+        /* Style for the disabled ban button */
+        .ban-button[disabled] {
+            cursor: not-allowed;
+            position: relative;
+        }
+
+        /* Tooltip on hover when the button is disabled */
+        .ban-button[disabled]:hover::after {
+            content: "X";
+            position: absolute;
+            top: -20px; /* Position above the button */
+            right: 0;
+            background-color: red;
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-size: 12px;
+            white-space: nowrap;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+<div class="sidebar-wrapper active">
+    <div class="sidebar-header">
+        <div class="d-flex justify-content-between">
+            <div class="logo" >
+                <a href="/admin/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
+            </div>
+            <div class="toggler">
+                <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="sidebar-menu">
+        <ul class="menu">
+            <li class="sidebar-item">
+                <a href="/admin/dashboard" class="sidebar-link">
+                    <i class="bi bi-bar-chart-fill"></i> <!-- Icon for Dashboard -->
+                    <span>Trang thống kê</span>
+                </a>
+            </li>
+
+            <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-people-fill"></i> <!-- Icon for Account Management -->
+                    <span>Quản lý tài khoản</span>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item ">
+                        <a href="/admin/management">
+                            <i class="bi bi-list-check"></i> <!-- Icon for Account List -->
+                            <span>Danh sách tài khoản</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item ">
+                        <a href="/admin/create-account">
+                            <i class="bi bi-person-plus-fill"></i> <!-- Icon for Create Account -->
+                            <span>Tạo tài khoản nhân viên</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item active">
+                        <a href="/admin/violation">
+                            <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
+                            <span>Danh sách vi phạm</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="sidebar-item has-sub">
+                <a href="#" class="sidebar-link">
+                    <i class="bi bi-shield-lock-fill"></i> <!-- Icon for Security -->
+                    <span>Bảo mật</span>
+                </a>
+                <ul class="submenu">
+                    <li class="submenu-item ">
+                        <a href="/admin/adminChangePassword">
+                            <i class="bi bi-lock-fill"></i> <!-- Icon for Change Password -->
+                            <span>Đổi mật khẩu</span>
+                        </a>
+                    </li>
+                    <li class="submenu-item">
+                        <a href="/logout">
+                            <i class="bi bi-box-arrow-right"></i> <!-- Icon for Logout -->
+                            <span>Đăng xuất</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+
+<div id="main">
+    <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+            <i class="bi bi-justify fs-3"></i>
+        </a>
+    </header>
+    <section class="section">
+        <div class="card">
+            <div class="card-header">
+                <div style="font-size: xx-large" class="card-header">
+                    Danh sách người dùng vi phạm
+                </div>
+
+            </div>
+            <div class="card-body">
+                <!-- User Table -->
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>ID Người dùng</th>
+                        <th>Tên người dùng</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Loại vi phạm</th>
+                        <th>Trạng thái</th>
+                        <th>Thao tác</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="violation : ${violations}">
+                        <td th:text="${violation.user.userId}">ID</td>
+                        <td th:text="${violation.user.firstName + ' ' + violation.user.lastName}">Name</td>
+                        <td th:text="${violation.user.email}">Email</td>
+                        <td th:text="${violation.user.phoneNumber ?: 'N/A'}">Phone</td>
+                        <td th:text="${violation.detail}">Violation Type</td>
+                        <td th:text="${violation.user.status.name}">Status</td>
+                        <td>
+                            <form th:action="@{/admin/banUser/{id}(id=${violation.user.userId})}" method="post" style="display: inline;">
+                                <button type="submit" class="ban-button" th:disabled="${violation.user.status.statusID == 3}">
+                                    Ban
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div th:if="${totalPages > 1}" class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
+                    <ul class="pagination">
+                        <li class="page-item" th:if="${currentPage > 0}">
+                            <a class="page-link" th:href="@{/admin/violation(page=${currentPage - 1})}">Previous</a>
+                        </li>
+                        <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
+                            <a class="page-link" th:href="@{/admin/violation(page=${i})}" th:text="${i + 1}">1</a>
+                        </li>
+                        <li class="page-item" th:if="${currentPage < totalPages - 1}">
+                            <a class="page-link" th:href="@{/admin/violation(page=${currentPage + 1})}">Next</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("Bạn có chắc chắn muốn cấm người dùng này?");
+    }
+</script>
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+    // Simple Datatable
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>

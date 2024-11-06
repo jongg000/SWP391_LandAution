@@ -286,6 +286,11 @@
                             <label for="images">Mô tả thêm thông tin chi tiết</label>
                             <textarea th:field="*{description}" placeholder="Mô tả chi tiết" required></textarea>
                         </div>
+                        <!-- Thông báo thành công -->
+                        <div th:if="${successMessage != null}" class="alert alert-success">
+                            <span th:text="${successMessage}"></span>
+                        </div>
+
                         <button type="submit" class="submit-btn">Hoàn thiện</button>
                     </form>
                 </div>

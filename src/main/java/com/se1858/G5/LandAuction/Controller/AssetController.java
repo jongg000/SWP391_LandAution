@@ -9,6 +9,7 @@ import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
 import com.se1858.G5.LandAuction.Service.StatusService;
 import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.RequiredArgsConstructor;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,22 +19,29 @@ import org.springframework.web.multipart.MultipartFile;
 import java.security.Principal;
 import java.time.LocalDateTime;
 
-import javax.servlet.http.HttpSession;
+
 import java.time.ZoneId;
 import java.util.List;
 
 @Controller
-@RequestMapping("asset")
+@RequestMapping("/asset")
 public class AssetController {
+
     private  UserService userService;
-    private  LandService landService;
+   private  LandService landService;
+    private  AssetService assetService;
+
     private  AssetRegistrationService assetRegistrationService;
+
     private  LandRepository landRepository;
+
     private  StatusService statusService;
 
-    public AssetController(UserService userService, LandService landService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
+    @Autowired
+    public AssetController(UserService userService, LandService landService, AssetService assetService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
         this.userService = userService;
         this.landService = landService;
+        this.assetService = assetService;
         this.assetRegistrationService = assetRegistrationService;
         this.landRepository = landRepository;
         this.statusService = statusService;
@@ -61,14 +69,17 @@ public class AssetController {
         uploadFile.UploadImagesForLand(landDTO.getImages(), land);
         LocalDateTime createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
         landDTO.setCreatedDate(createdDate);
-        assetRegistration.setRegistrationDate(createdDate);
         assetRegistration.setLand(land);
+        assetRegistration.setRegistrationDate(createdDate);
         land.setAssetRegistration(assetRegistration);
         assetRegistration.setStatus(statusService.getStatusById(4));
-        landRepository.save(land);
+        landService.save(land);
+        System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
         model.addAttribute("land", landDTO);
-        return "/customer/land-registratrion";
+        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
+        return "redirect:/asset";
+        //        return "customer/land-registratrion";
     }
 
 
