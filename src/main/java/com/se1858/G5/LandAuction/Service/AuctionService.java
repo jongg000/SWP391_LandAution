@@ -2,6 +2,7 @@ package com.se1858.G5.LandAuction.Service;
 
 import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.Entity.Auction;
+import com.se1858.G5.LandAuction.Entity.Status;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,4 +18,7 @@ public interface AuctionService {
     public AuctionDto convertToDTO(Auction auction);
     public void scheduledUpdateHighestBid();
     public List<Auction> findAllAuctionEnd();
+    public void saveAuction(Auction auction);
+    public List<Auction> getAllAuctionByStartTime();
+    public long countByStatus(Status status);
 }

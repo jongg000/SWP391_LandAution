@@ -56,5 +56,10 @@ public class AssetRegistrationImpl implements AssetRegistrationService {
         return assetRegistrationRepository.count();
     }
 
+    @Override
+    public long countAssetRegistrationsByStatus(Status status) {
+        return assetRegistrationRepository.countByStatus(status);
+    }
+
 
 }

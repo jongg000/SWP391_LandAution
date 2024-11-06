@@ -19,7 +19,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByNationalID(String nationalID);
     @Query("SELECT u FROM User u ORDER BY u.userId DESC")
     List<User> findTop3UsersByOrderByIdDesc(Pageable pageable);
+    List<User> findByStatusAndRole(Status status, Roles role);
     Page<User> findByUserId(int userId, Pageable pageable);
     Page<User> findByRole_RoleIDNot(int roleId, Pageable pageable);
     User findByUserId(int userId);
+    List<User> findByRole(Roles role);
 }

@@ -2,10 +2,7 @@ package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.AuctionRegistrationDTO;
-import com.se1858.G5.LandAuction.Entity.Auction;
-import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
-import com.se1858.G5.LandAuction.Entity.Bids;
-import com.se1858.G5.LandAuction.Entity.Land;
+import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,4 +115,21 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.findAllByEndTimeBefore(LocalDateTime.now());
 
     }
+
+    @Override
+    public void saveAuction(Auction auction) {
+        auctionRepository.save(auction);
+    }
+
+    @Override
+    public List<Auction> getAllAuctionByStartTime() {
+        return auctionRepository.findAllByOrderByStartTimeDesc();
+    }
+
+    @Override
+    public long countByStatus(Status status) {
+        return auctionRepository.countByStatus(status);
+    }
+
+
 }
