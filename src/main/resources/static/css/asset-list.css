@@ -21,3 +21,10 @@
     border-radius: 5px;
     display: inline-block;
 }
+.status-unpay {
+    background-color: grey;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    display: inline-block;
+}

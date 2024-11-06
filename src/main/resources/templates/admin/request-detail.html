@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản lý tài khoản</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/bootstraps.css">
+  <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+  <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+  <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="/assets/css/app.css">
+  <style>
+    .reject{
+      margin-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+<div id="app">
+  <div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+      <div class="sidebar-header">
+        <div class="d-flex justify-content-between">
+          <div class="logo">
+            <a href="/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo"></a>
+          </div>
+          <div class="toggler">
+            <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-menu">
+        <ul class="menu">
+          <li class="sidebar-item">
+            <a href="/dashboard" class='sidebar-link'>
+              <i class="bi bi-grid-fill"></i>
+              <span>Trang thống kê</span>
+            </a>
+          </li>
+          <li class="sidebar-item active">
+            <a href="/management" class='sidebar-link'>
+              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+              <span>Xác thực tài khoản khách hàng</span>
+            </a>
+          </li>
+          <li class="sidebar-item">
+            <a href="/create-account" class='sidebar-link'>
+              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+              <span>Tạo tài khoản nhân viên</span>
+            </a>
+          </li>
+          <li class="sidebar-item has-sub">
+            <a href="#" class="sidebar-link">
+              <i class="bi bi-person-badge-fill"></i>
+              <span>Bảo mật</span>
+            </a>
+            <ul class="submenu">
+              <li class="submenu-item">
+                <a href="/adminChangePassword">
+                  <i class="bi bi-key-fill"></i>
+                  <span>Đổi mật khẩu</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="/logout">
+                  <i class="bi bi-box-arrow-right"></i>
+                  <span>Đăng xuất</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+    </div>
+  </div>
+  <div id="main">
+    <header class="mb-3">
+      <a href="#" class="burger-btn d-block d-xl-none">
+        <i class="bi bi-justify fs-3"></i>
+      </a>
+    </header>
+    <section class="section">
+      <div class="card">
+        <div class="card-header">
+          Danh sách người dùng
+        </div>
+        <div class="card-body">
+          <form th:action="@{/handle-request}">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="userid" class="form-label"><strong>ID người dùng:</strong></label>
+              <input type="text" id="userid" name="userid" th:value="${user.userId}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="status" class="form-label"><strong>Trạng thái:</strong></label>
+              <input type="text" id="status" name="documentId" th:value="${user.status.name}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label"><strong>Họ và tên:</strong></label>
+              <input type="text" name="registrationDate" th:value="|${user.firstName ?: ''} ${user.lastName ?: ''}|" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="userName" class="form-label"><strong>Địa chỉ:</strong></label>
+              <input type="text" id="userName" name="userName" th:value="${user.address}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="province" class="form-label"><strong>Giới tính:</strong></label>
+              <input type="text" id="province" name="province" th:value="${user.gender}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="district" class="form-label"><strong>Ngày sinh:</strong></label>
+              <input type="text" id="district" name="district" th:value="*{user.dob}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="ward" class="form-label"><strong>Căn cước công dân/Chứng minh nhân dân:</strong></label>
+              <input type="text" id="ward" name="ward" th:value="*{user.nationalID}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="landName" class="form-label"><strong>Email:</strong></label>
+              <input type="text" id="landName" name="landName" th:value="*{user.email}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label for="location" class="form-label"><strong>Số điện thoại:</strong></label>
+              <input type="text" id="location" name="location" th:value="*{user.phoneNumber}" class="form-control custom-input" readonly>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label class="form-label"><strong>Ảnh căn cước mặt trước:</strong></label>
+              <img th:src="@{'User_images/' + ${user.nationalFrontImage}}" onclick="openModal(this)" alt="Image" style="width: 100%; max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"/>
+            </div>
+            <div class="col-md-12 mb-3">
+              <label class="form-label"><strong>Ảnh căn cước mặt sau:</strong></label>
+              <img th:src="@{'User_images/' + ${user.nationalBackImage}}" onclick="openModal(this)" alt="Image" style="width: 100%; max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"/>
+            </div>
+              <!-- Trường ẩn để lưu lý do hủy -->
+              <input type="hidden" name="comments" >
+              <!-- Trường ẩn để lưu lý do hủy -->
+              <input type="hidden"  name="decision" id>
+          </div>
+          </form>
+          <!-- Action buttons for Accept and Reject -->
+          <div class="d-flex justify-content-end mt-4">
+            <button type="button" id="acceptButton" class="btn btn-success mr-2">Chấp nhận</button>
+            <button type="button" class="btn btn-danger reject" data-bs-toggle="modal" data-bs-target="#rejectModal">
+              Từ chối
+            </button>
+
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Modal for Image Zoom -->
+    <div id="imageModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="modalImage">
+      <div id="caption"></div>
+    </div>
+  </div>
+</div>
+<!-- Modal for Rejection Reason -->
+<div class="modal fade" id="rejectModal" tabindex="-1" aria-labelledby="rejectModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="rejectModalLabel">Nhập lý do từ chối</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label for="rejectionReason" class="form-label">Lý do từ chối:</label>
+          <textarea class="form-control" id="rejectionReason" rows="3" required></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" id="confirmRejectButton" class="btn btn-danger">Xác nhận từ chối</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+<script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script src="/assets/js/main.js"></script>
+
+<script>
+  // Function to open modal and show image
+  function openModal(image) {
+    var modal = document.getElementById("imageModal");
+    var modalImg = document.getElementById("modalImage");
+    modal.style.display = "block";
+    modalImg.src = image.src;
+  }
+
+  // Close the modal
+  function closeModal() {
+    var modal = document.getElementById("imageModal");
+    modal.style.display = "none";
+  }
+  // Event listener for the Accept button
+  document.getElementById("acceptButton").addEventListener("click", function() {
+    // Set value of hidden field 'decision' to 'approve'
+    document.querySelector("input[name='decision']").value = 'approve';
+
+    // Submit the form
+    document.querySelector("form").submit();
+  });
+
+  // Event listener for the Accept button
+  document.getElementById("acceptButton").addEventListener("click", function() {
+    // Set value of hidden field 'decision' to 'approve'
+    document.querySelector("input[name='decision']").value = 'approve';
+
+    // Submit the form
+    document.querySelector("form").submit();
+  });
+
+  // Event listener for the Reject button within the modal
+  document.getElementById("confirmRejectButton").addEventListener("click", function() {
+    // Get the rejection reason from textarea
+    const rejectionReason = document.getElementById("rejectionReason").value;
+
+    if (rejectionReason.trim() === "") {
+      alert("Vui lòng nhập lý do từ chối.");
+      return;
+    }
+
+    // Set value of hidden field 'comments' to the entered reason
+    document.querySelector("input[name='comments']").value = rejectionReason;
+    // Set decision to 'reject'
+    document.querySelector("input[name='decision']").value = 'reject';
+
+    // Submit the form
+    document.querySelector("form").submit();
+  });
+</script>
+
+</body>
+</html>

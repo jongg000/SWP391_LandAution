@@ -1,6 +1,8 @@
 package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 
+import com.se1858.G5.LandAuction.Entity.Roles;
+import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.Token;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.TokenRepository;
@@ -43,6 +45,17 @@ public class UserServiceImpl implements UserService {
     public User findByUserId(int userId){
         return userRepository.findByUserId(userId);
     }
+
+    @Override
+    public List<User> findUsersByStatusAndRole(Status status, Roles role) {
+        return userRepository.findByStatusAndRole(status, role);
+    }
+
+    @Override
+    public List<User> findUsersByRole(Roles role) {
+        return userRepository.findByRole(role);
+    }
+
     @Override
     public User save(User user) {
         return userRepository.save(user);

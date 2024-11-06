@@ -6,6 +6,10 @@ import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
+import com.se1858.G5.LandAuction.Service.StatusService;
+import com.se1858.G5.LandAuction.Service.UserService;
+import lombok.RequiredArgsConstructor;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,18 +45,18 @@ public class AssetController {
         this.statusService = statusService;
     }
 
-    @GetMapping("/post-asset")
+    @GetMapping("post-asset")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
         return "customer/land-registratrion";
     }
 
-    @PostMapping("/saveForm")
-    public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
 
+    @PostMapping("saveForm")
+    public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
-        Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
+                Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
                                      landDTO.getLocation(), user, landDTO.getName(),landDTO.getWard(),
                                      landDTO.getDistrict(), landDTO.getProvince());
@@ -75,6 +79,7 @@ public class AssetController {
         return "redirect:/asset";
         //        return "customer/land-registratrion";
     }
+
 
     @GetMapping()
     public String list(Principal principal, Model model) {

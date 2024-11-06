@@ -94,8 +94,6 @@ public class LandService {
     }
 
 
-
-
     public LandDTO findLandById(int wishlistId) {
         return landRepository.findById(wishlistId)
                 .map(this::convertToDTO)

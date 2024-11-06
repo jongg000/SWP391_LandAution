@@ -10,6 +10,8 @@ import com.se1858.G5.LandAuction.Repository.StatusRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
+import com.se1858.G5.LandAuction.Service.*;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -41,10 +43,11 @@ public class AdminController {
     RoleService roleService;
     StatusRepository statusRepository;
     ViolationService violationService;
+    EmailService emailService;
 
 
     @Autowired
-    public AdminController(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository, RolesRepository roleRepository, PaymentService paymentService, AuctionService auctionService, RoleService roleService, StatusRepository statusRepository, ViolationService violationService) {
+    public AdminController(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository, RolesRepository roleRepository, PaymentService paymentService, AuctionService auctionService, RoleService roleService, StatusRepository statusRepository, ViolationService violationService, EmailService emailService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
@@ -54,6 +57,7 @@ public class AdminController {
         this.roleService = roleService;
         this.statusRepository = statusRepository;
         this.violationService = violationService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/dashboard")
@@ -237,7 +241,7 @@ public class AdminController {
 
         model.addAttribute("success", "Mật khẩu đã được cập nhập.");
         model.addAttribute("user", user);
-        return "admin/change-password";
+        return  "admin/change-password";
     }
 
     @GetMapping("/violation")
@@ -254,5 +258,35 @@ public class AdminController {
         return "admin/violation";
     }
 
+
+    @GetMapping("/request-account")
+    public String showRequestAccountlist(Model model, Principal principal) {
+        List<User> allUsers = userService.findUsersByStatusAndRole(statusRepository.getById(1), roleService.findByRoleID(1));
+        List<Status> allStatuses = statusRepository.findAll();
+        model.addAttribute("statuses", allStatuses);
+        model.addAttribute("users", allUsers);
+        return "admin/request-listing";
+    }
+    @GetMapping("/request-detail/{id}")
+    public String showRequestDetail(@PathVariable int id, Model model, Principal principal) {
+        User user = userService.findByUserId(id);
+        model.addAttribute("user", user);
+        return "admin/request-detail";
+    }
+    @GetMapping("/handle-request")
+    public String handleRequest(@RequestParam("decision") String decision,
+                                @RequestParam("userid") int id,
+                                @RequestParam("comments") String comment) {
+        User user = userRepository.findById(id).get();
+        System.out.println(user.getLastName());
+        System.out.println(decision);
+        if(decision.equals("approve")){
+            user.setStatus(statusRepository.getById(2));
+            userService.save(user);
+        }else{
+            emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng", comment);
+        }
+        return "redirect:request-account";
+    }
 
 }
