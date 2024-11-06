@@ -1,6 +1,8 @@
 
 package com.se1858.G5.LandAuction.Repository;
 
+import com.se1858.G5.LandAuction.Entity.Roles;
+import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -18,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByNationalID(String nationalID);
     @Query("SELECT u FROM User u ORDER BY u.userId DESC")
     List<User> findTop3UsersByOrderByIdDesc(Pageable pageable);
-
-
+    List<User> findByStatusAndRole(Status status, Roles role);
     User findByUserId(int userId);
+    List<User> findByRole(Roles role);
 }

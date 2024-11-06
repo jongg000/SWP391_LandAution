@@ -38,8 +38,14 @@ public class StaffController {
 
     @GetMapping()
     public String allLandRequest(Model model) {
-        List<AssetRegistration> allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(4));
-        model.addAttribute("allAssets", allAssets);
+        long approve = assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(8));
+        long waiting = assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(4));
+        long cancel = assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(9));
+        long auction = auctionService.getTotalAuctions();
+        model.addAttribute("approve", approve);
+        model.addAttribute("waiting", waiting);
+        model.addAttribute("cancel", cancel);
+        model.addAttribute("auction", auction);
         return "/staff/home-staff";
     }
     @GetMapping("/land-detail/{id}")

@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
   <link rel="stylesheet" href="/assets/css/app.css">
   <style>
-      /* Style for the disabled ban button */
+    /* Style for the disabled ban button */
     .ban-button[disabled] {
       cursor: not-allowed;
       position: relative;
@@ -35,6 +35,13 @@
       font-size: 12px;
       white-space: nowrap;
       z-index: 1;
+      .form-select {
+        width: 150px; /* Đặt độ rộng vừa đủ cho dropdown */
+      }
+
+      .search-input {
+        width: 100%; /* Đặt chiều rộng full cho ô tìm kiếm */
+      }
     }
   </style>
 </head>
@@ -61,14 +68,14 @@
             </a>
           </li>
 
-          <li class="sidebar-item  active ">
+          <li class="sidebar-item">
             <a href="/management" class='sidebar-link'>
               <i class="bi bi-file-earmark-spreadsheet-fill"></i>
               <span>Quản lý tài khoản</span>
             </a>
           </li>
-          <li class="sidebar-item ">
-            <a href="/request-account" class='sidebar-link'>
+          <li class="sidebar-item  active ">
+            <a href="/management" class='sidebar-link'>
               <i class="bi bi-file-earmark-spreadsheet-fill"></i>
               <span>Xác thực tài khoản khách hàng</span>
             </a>
@@ -116,31 +123,41 @@
           Danh sách người dùng
         </div>
         <div class="card-body">
+          <!-- Dropdown and Search Bar -->
+          <div class="row mb-3">
+            <div class="col-md-4">
+              <!-- Dropdown for status filter -->
+              <select name="status" id="statusSelect" class="form-select">
+                <option value="">Chọn trạng thái</option>
+                <option th:each="status : ${statuses}" th:value="${status.statusID}" th:text="${status.name}"></option>
+              </select>
+            </div>
+            <div class="col-md-8">
+              <!-- Search input -->
+              <input type="text" placeholder="Tìm kiếm theo tên" class="form-control search-input">
+            </div>
+          </div>
+
           <table class="table table-striped" id="table2">
             <thead>
             <tr>
               <th>Tên người dùng</th>
               <th>Email</th>
-              <th>Vai trò</th>
               <th>Số điện thoại</th>
               <th>Địa chỉ</th>
               <th>Trạng thái tài khoản</th>
               <th></th>
-
             </tr>
             </thead>
             <tbody>
             <tr th:each="item1 : ${users}">
               <td><span th:text="|${item1.firstName ?: ''} ${item1.lastName ?: ''}|"></span></td>
               <td><span th:text="${item1.email ?: 'No email'}"></span></td>
-              <td><span th:text="${item1.role.description}"></span></td>
               <td><span th:text="${item1.phoneNumber ?: 'No phone number'}"></span></td>
               <td><span th:text="${item1.address != null ? item1.address : 'No address'}"></span></td>
               <td><span th:text="${item1.status.name}"></span></td>
               <td>
-                <form th:action="@{/banUser/{id}(id=${item1.userId})}" method="post" style="display: inline;">
-                  <button type="submit" th:disabled="${item1.status.statusID == 3}">Ban</button>
-                </form>
+                <a th:href="@{/request-detail/{id}(id=${item1.userId})}">Chi tiết</a>
               </td>
             </tr>
             </tbody>

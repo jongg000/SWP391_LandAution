@@ -63,11 +63,6 @@ INSERT [dbo].[Asset_Registration] ([Document_ID], [LandID], [StatusID], [UserID]
 INSERT [dbo].[Asset_Registration] ([Document_ID], [LandID], [StatusID], [UserID], [Approval_Date], [Comments], [reason],[registration_date]) VALUES (4, 4, 5, 4, CAST(N'2024-10-09T16:08:06.653' AS DateTime), N'Comment 4','Reason 1', CAST(N'2024-10-09T16:08:06.653' AS DateTime))
 SET IDENTITY_INSERT [dbo].[Asset_Registration] OFF
 
-
-
-
-
-
 SET IDENTITY_INSERT [dbo].[Payment] ON 
 
 INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [StatusID], [AuctionID], payment_date, payment_description) VALUES (1, 1, 100, 1, 1)
