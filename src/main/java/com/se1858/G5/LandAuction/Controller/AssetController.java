@@ -14,8 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-
-
 import java.time.ZoneId;
 import java.util.List;
 
@@ -73,7 +71,7 @@ public class AssetController {
         System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
         model.addAttribute("land", landDTO);
-        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
+//        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
         return "redirect:/asset";
         //        return "customer/land-registratrion";
     }

@@ -179,43 +179,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="row">
-                            <div class="col-12 col-lg-3">
-                                <div class="card">
-                                    <div class="card-body d-flex align-items-center">
-                                        <div class="avatar avatar-xl me-3">
-                                            <img th:src="'/User_images/' + ${user.getAvatar()}" alt="Avatar">
-                                        </div>
-                                        <div>
-                                            <h5 class="font-bold mb-0" th:text="${user.getFirstName() + ' ' + user.getLastName()} "></h5>
-                                            <h6 class="text-muted" th:text="${user.getEmail()}"></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card mt-3">
-                                    <div class="card-header">
-                                        <h4>Tài khoản mới</h4>
-                                    </div>
-                                    <div class="card-content pb-4">
-                                        <!-- Lặp qua danh sách 3 người dùng -->
-                                        <div th:each="u : ${users}" class="recent-message d-flex align-items-center p-3">
-                                            <div class="avatar avatar-lg me-3">
-                                                <!-- Hiển thị ảnh đại diện người dùng -->
-                                                <img th:src="'/User_images/' + ${u.getAvatar()}" alt="User Avatar">
-                                            </div>
-                                            <div>
-                                                <!-- Hiển thị tên người dùng -->
-                                                <h5 class="mb-0" th:text="${ user.getFirstName() + ' ' + u.getLastName()}"></h5>
-                                                <!-- Hiển thị email người dùng -->
-                                                <h6 class="text-muted" th:text="${u.getEmail()}"></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
                     </div>
                 </section>
             </div>
