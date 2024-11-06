@@ -94,7 +94,7 @@
               <span>Quản lý tài khoản</span>
             </a>
             <ul class="submenu">
-              <li class="submenu-item">
+              <li class="submenu-item active">
                 <a href="/admin/management">
                   <i class="bi bi-list-check"></i> <!-- Icon for Account List -->
                   <span>Danh sách tài khoản</span>
@@ -107,7 +107,7 @@
                 </a>
               </li>
               <li class="submenu-item">
-                <a href="admin/violation">
+                <a href="/admin/violation">
                   <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
                   <span>Danh sách vi phạm</span>
                 </a>
@@ -159,7 +159,7 @@
           <div style="font-size: xx-large" class="card-header">
             Danh sách người dùng
           </div>
-          <form th:action="@{/management}" method="get"
+          <form th:action="@{/admin/management}" method="get"
                 style="display: flex; align-items: center; background-color: #ffffff; padding: 10px 15px;
              border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 500px;
              margin-bottom: 20px;">
@@ -211,13 +211,13 @@
           <div th:if="${totalPages > 1}" class="pagination" style="margin-top: 20px; display: flex; justify-content: center;">
             <ul class="pagination">
               <li class="page-item" th:if="${currentPage > 0}">
-                <a class="page-link" th:href="@{/management(page=${currentPage - 1}, userId=${userId})}">Previous</a>
+                <a class="page-link" th:href="@{/admin/management(page=${currentPage - 1}, userId=${userId})}">Previous</a>
               </li>
               <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}" th:classappend="${i == currentPage} ? 'active'">
-                <a class="page-link" th:href="@{/management(page=${i}, userId=${userId})}" th:text="${i + 1}">1</a>
+                <a class="page-link" th:href="@{/admin/management(page=${i}, userId=${userId})}" th:text="${i + 1}">1</a>
               </li>
               <li class="page-item" th:if="${currentPage < totalPages - 1}">
-                <a class="page-link" th:href="@{/management(page=${currentPage + 1}, userId=${userId})}">Next</a>
+                <a class="page-link" th:href="@{/admin/management(page=${currentPage + 1}, userId=${userId})}">Next</a>
               </li>
             </ul>
           </div>
