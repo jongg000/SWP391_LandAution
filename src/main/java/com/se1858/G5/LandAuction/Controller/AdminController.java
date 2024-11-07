@@ -11,7 +11,7 @@ import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.*;
-import com.se1858.G5.LandAuction.Service.ServiceImpl.UploadFile;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -43,10 +43,11 @@ public class AdminController {
     RoleService roleService;
     StatusRepository statusRepository;
     ViolationService violationService;
+    EmailService emailService;
 
 
     @Autowired
-    public AdminController(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository, RolesRepository roleRepository, PaymentService paymentService, AuctionService auctionService, RoleService roleService, StatusRepository statusRepository, ViolationService violationService) {
+    public AdminController(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository, RolesRepository roleRepository, PaymentService paymentService, AuctionService auctionService, RoleService roleService, StatusRepository statusRepository, ViolationService violationService, EmailService emailService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
@@ -56,6 +57,7 @@ public class AdminController {
         this.roleService = roleService;
         this.statusRepository = statusRepository;
         this.violationService = violationService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/dashboard")

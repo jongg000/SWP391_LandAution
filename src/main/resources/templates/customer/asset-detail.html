@@ -54,15 +54,25 @@
 									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
 									<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 									<li><a href="#"><i class="fa fa-rss"></i></a></li>
-									<li><a href="#"><i class="fa fa-behance"></i></a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-6 hidden-sm">
 							<div class="right-info">
 								<ul>
-									<li>Call us: <em>570-694-4002</em></li>
-									<li><a href="#">Get Free Appointment →</a></li>
+									<li>Call us: <em>0659-694-002</em></li>
+									<li th:if="${#httpServletRequest.remoteUser != null}">
+										<a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
+									</li>
+									<li th:if="${#httpServletRequest.remoteUser != null}">
+										<a href="/logout">Đăng xuất</a>
+									</li>
+									<li th:if="${#httpServletRequest.remoteUser == null}">
+										<a href="/login">Đăng nhập</a>
+									</li>
+									<li th:if="${#httpServletRequest.remoteUser == null}">
+										<a href="/register">Đăng ký</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -70,53 +80,46 @@
 				</div>
 			</div>
 
+			<!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
 			<header class="site-header">
 				<div id="main-header" class="main-header header-sticky">
 					<div class="inner-header container clearfix">
 						<div class="logo">
-							<a href="index.html"><img src="/assets/images/logo.png" alt=""></a>
+							<a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
 						</div>
 						<div class="header-right-toggle pull-right hidden-md hidden-lg">
 							<a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
 						</div>
 						<nav class="main-navigation text-left hidden-xs hidden-sm">
 							<ul>
-								<li><a href="index.html">Home</a></li>
-								<li><a href="about.html">About Us</a></li>
-								<li><a href="services.html">Services</a></li>
-								<li><a href="#" class="has-submenu">Listing</a>
+								<li><a href="/home">Trang chủ</a></li>
+								<li><a href="/aboutUs">Về chúng tôi</a></li>
+								<li><a href="#" class="has-submenu">Đấu giá</a>
 									<ul class="sub-menu">
-										<li><a href="listing-right.html">Sidebar Right</a></li>
-										<li><a href="listing-left.html">Sidebar Left</a></li>
-										<li><a href="listing-grid.html">Grids System</a></li>
-										<li><a href="single-list.html">Car Details</a></li>
+										<li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+										<li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+										<li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
 									</ul>
 								</li>
-								<li><a href="#" class="has-submenu">Blog</a>
-									<ul class="sub-menu">
-										<li><a href="blog-right.html">Classic</a></li>
-										<li><a href="blog-grid.html">Grids System</a></li>
-										<li><a href="grid-right.html">Grids Sidebar</a></li>
-										<li><a href="single-blog.html">Single Post</a></li>
-									</ul>
+								<li><a href="/news">Tin tức</a>
 								</li>
-								<li><a href="contact.html">Contact</a></li>
 								<li>
 									<p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
 									<div id="example" class="more">
-										<form method="get" id="blog-search" class="blog-search">
-											<input type="text" class="blog-search-field" name="s" placeholder="Type to search" value="">
+										<form method="get" id="asset-search" class="blog-search">
+											<input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
 										</form>
-										<p><a href="#" id="example-hide" class="hideLink"
-											  onclick="showHide('example');return false;"><i class="
-											fa fa-close"></i></a></p>
+										<p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
 									</div>
 								</li>
 							</ul>
 						</nav>
+
 					</div>
 				</div>
 			</header>
+
+			<!-- kết thúc header -->
 
 			<div id="page-heading">
 				<div class="container">
@@ -145,22 +148,22 @@
 								<h2 th:text="${assetRegistration.getLand().name}"></h2>
 								<span>$30.000</span>
 							</div>
-							<div class="flexslider">
-								<ul class="slides">
-									<div th:each="img : ${assetRegistration.getLand().images}">
-										<li data-thumb="assets/images/05-featured-slide-117x83.jpg">
-											<img th:src="@{'/Land_images/' + ${img.imageUrl}}" alt="" />
-										</li>
-									</div>
-								</ul>
-							</div>
+							<<div class="flexslider">
+							<ul class="slides">
+								<!-- Loop through the list of LandImageDTO objects -->
+								<li th:each="image : ${assetRegistration.getLand().images}"
+									th:data-thumb="'/Land_images/'+${image.imageUrl}">
+									<img th:src="@{'/Land_images/'+${image.imageUrl}}" alt=""/>
+								</li>
+							</ul>
+						</div>
 							<div class="tab">
 								<div class="tabs">
 									<ul class="tab-links">
 										<li><a href="#tab1">Giấy phép</a></li>
 										<li class="active"><a href="#tab2">Mô Tả</a></li>
 										<li><a href="#tab3">Vị trí bản đồ</a></li>
-										<li th:if="${assetRegistration.reason != null}">
+										<li th:if="${assetRegistration.comments != null }">
 											<a href="#tab4">Lí do hủy đơn</a></span>
 										</li>
 									</ul>
@@ -232,84 +235,77 @@
 						<div class="col-md-3">
 							<div class="about-us">
 								<img src="/assets/images/logo-2.png" alt="">
-								<p>Maecenas ne mollis orci. Phasell iacu sapie non aliquet ex euismo ac.</p>
+								<p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
 								<ul>
-									<li><i class="fa fa-map-marker"></i>Raver Croft Drive Knoxville, 37921</li>
-									<li><i class="fa fa-phone"></i>+55 417-634-7071</li>
-									<li><i class="fa fa-envelope-o"></i>contact@auction.com</li>
+									<li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
+									<li><i class="fa fa-phone"></i>+84 123-456-7890</li>
+									<li><i class="fa fa-envelope"></i>contact@daugia.com</li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="featured-links">
-								<h4>Featured Links</h4>
+								<h4>Liên kết nổi bật</h4>
 								<ul>
-									<li><a href="#"><i class="fa fa-caret-right"></i>About Us</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Term &amp; Services</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Meet The Team</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Privacy Policy</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Company News</a></li>
-								</ul>
-								<ul>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Shop</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>New Vehicle</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Features</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Promotions</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Contact</a></li>
+									<li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
+									<li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
+									<li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
+									<li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
+									<li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
 								</ul>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="latest-news">
-								<h4>Latest News</h4>
+								<h4>Tin tức mới nhất</h4>
 								<div class="latest-item">
-									<img src="/assets/images/01-blog-50x50.jpg" alt="">
-									<a href="single-blog.html">
-										<h6>Hella Kogi Whatever</h6>
+									<img src="/assets/images/logo.png" alt="">
+									<a href="#">
+										<h6>Đấu giá đất nền khu đô thị</h6>
 									</a>
 									<ul>
-										<li>24 Sep,2015</li>
-										<li>2 comments</li>
+										<li>24 Tháng 9, 2023</li>
+										<li>2 bình luận</li>
 									</ul>
 								</div>
 								<div class="latest-item">
-									<img src="/assets/images/02-blog-50x50.jpg" alt="">
-									<a href="single-blog.html">
-										<h6>Retro Art Party</h6>
+									<img src="/assets/images/logo.png" alt="">
+									<a href="#">
+										<h6>Cơ hội đầu tư đất ven biển</h6>
 									</a>
 									<ul>
-										<li>21 Sep,2015</li>
-										<li>2 comments</li>
+										<li>21 Tháng 9, 2023</li>
+										<li>2 bình luận</li>
 									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="col-md-3">
 							<div class="gallery">
-								<h4>Gallery</h4>
+								<h4>Thư viện</h4>
 								<div class="gallery-item">
-									<img src="/assets/images/01-blog-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 								<div class="gallery-item">
-									<img src="/assets/images/02-blog-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 								<div class="gallery-item">
-									<img src="/assets/images/03-featured-slide-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 								<div class="gallery-item">
-									<img src="/assets/images/04-featured-slide-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 								<div class="gallery-item">
-									<img src="/assets/images/05-blog-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 								<div class="gallery-item">
-									<img src="/assets/images/02-featured-slide-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 								<div class="gallery-item">
-									<img src="/assets/images/07-blog-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 								<div class="gallery-item">
-									<img src="/assets/images/08-blog-50x50.jpg" alt="">
+									<img src="/assets/images/logo.png" alt="">
 								</div>
 							</div>
 						</div>
@@ -388,6 +384,14 @@
 
 <script type="text/javascript" src="/assets/js/plugins.js"></script>
 <script type="text/javascript" src="/assets/js/custom.js"></script>
-
+<script>
+	$(document).ready(function () {
+		$('.flexslider').flexslider({
+			animation: "slide", // Choose your animation type
+			controlNav: true, // Show navigation controls
+			directionNav: true, // Show next/prev controls
+		});
+	});
+</script>
 </body>
 </html>

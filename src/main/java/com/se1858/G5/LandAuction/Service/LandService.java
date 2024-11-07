@@ -26,6 +26,10 @@ public class LandService {
     @Autowired
     private LandImageRepository landImageRepository;
 
+    public long countByUser(User user) {
+        return landRepository.countByUser(user);
+    }
+
     private LandDTO convertToDTO(Land land) {
         return LandDTO.builder()
                 .name(land.getName())

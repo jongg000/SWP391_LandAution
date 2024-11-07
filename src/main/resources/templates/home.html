@@ -368,41 +368,48 @@
                     </div>
                     <div class="row" style="margin-left: 100px;">
                         <div id="featured-cars" style="  width: 1600px;">
-                            <div th:each="land : ${allLands}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">
+                            <div th:each="item : ${allLands}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">
                                 <!-- Hình ảnh -->
                                 <!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
                                 <!-- Nội dung -->
                                 <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
                                     <a href="#" >
-                                        <h2 th:text="${land.name}" style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
+                                        <h2 th:text="${item.name}" style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
                                     </a>
-                                    <div style="padding: 10px; width: 300px; height: 200px;" th:if="${land.getImages().size() > 0}">
-                                        <img th:src="'/Land_images/' + ${land.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">
+                                    <div style="padding: 10px; width: 300px; height: 200px;" th:if="${item.getImages().size() > 0}">
+                                        <img th:src="'/Land_images/' + ${item.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">
                                     </div>
                                     <div>
-                                        <span  th:text="'Bước giá: ' +${land.price + ' VNĐ'}" style=" font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
+                                        <span  th:text="'Bước giá: ' +${item.price + ' VNĐ'}" style=" font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
                                     </div>
 
                                     <div class="light-line1" style="width: 240px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
-                                    <p th:text="'Trạng thái: '+${land.assetRegistration.status.name}" style="margin-top: 10px; margin-bottom: 20px; font-size: large"></p>
-                                    <p th:text="'Địa chỉ: '+ ${land.district}" style="margin-top: 10px; margin-bottom: 20px; font-size: larger"></p>
-                                    <!-- Trạng thái -->
-                                    <div>
-                                        <strong style="color: #f4c23d;">Liên hệ: </strong>
-                                        <span th:text="${land.contact}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Diện tích: </strong>
-                                        <span th:text="${land.square}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Chiều rộng: </strong>
-                                        <span th:text="${land.width}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Chiều dài: </strong>
-                                        <span th:text="${land.length}" style="color: #222;"></span>
-                                    </div>
+                                    <p th:text="'Trạng thái: '+${item.assetRegistration.status.name}" style="margin-top: 10px; margin-bottom: 20px; font-size: large"></p>
+                                    <p th:text="'Địa chỉ: '+ ${item.district}" style="margin-top: 10px; margin-bottom: 20px; font-size: larger"></p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 9}"
+                                       th:text="'Đã bị hủy'"
+                                       class="status-cancelled">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 4}"
+                                       th:text="'Chờ xét duyệt'"
+                                       class="status-pending">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 5}"
+                                       th:text="'Đang đấu giá'"
+                                       class="status-ongoing">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 6}"
+                                       th:text="'Đã đấu giá'"
+                                       class="status-done">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 7}"
+                                       th:text="'Đấu giá thành công'"
+                                       class="status-complete">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 10}"
+                                       th:text="'Chưa thanh toán'"
+                                       class="status-unpay">
+                                    </p>
                                 </div>
                             </div>
                         </div>
