@@ -5,6 +5,7 @@ import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.Status;
 import com.se1858.G5.LandAuction.Entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
@@ -13,4 +14,7 @@ public interface AssetRegistrationRepository extends JpaRepository<AssetRegistra
     AssetRegistration findAssetRegistrationByLand_LandId(int landId);
     List<AssetRegistration> findByUser(User user);
     Land findByLand(Land land);
+    long countByStatus(Status status);
+
+
 }

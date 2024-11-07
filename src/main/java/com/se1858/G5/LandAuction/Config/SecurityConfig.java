@@ -33,25 +33,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/forgot-password", "/reset-password**",
-                "/auctionDetailPage/**", "/css/**", "/js/**", "/assets/**",
+                .antMatchers("/", "/forgot-password", "/reset-password**","/register", "/css/**", "/js/**", "/assets/**",
                 "/doc/**","/coffeescripts/**","/icon/**","/images/**","/Land_images/**"
                 ,"/News_images/**","/User_images/**","/transfonts/**")
                 .permitAll()
-                .antMatchers("/home").access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
-                .antMatchers("/register").permitAll()
+                .antMatchers("/home","/auctionDetailPage/**","/auction/showAuctionDetail/**"
+                ,"/bids/showBidsPage/**","/auction/showAuctions/**","/news/**")
+                .access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
+                .antMatchers("/profile/**").hasRole("CUSTOMER")
                 .antMatchers("/auction/showAuctionResults").hasRole("STAFF")
-                .antMatchers("/auction/showAuctionDetail/**").hasAnyRole("CUSTOMER", "STAFF", "ADMIN", "CUSTOMER_CARE")
-                .antMatchers("/news","/news/search", "/news/search**", "/news/newsDetail**").permitAll()
-                .antMatchers("/profile", "/changePassword", "/profile/edit", "/customer/display/**").hasRole("CUSTOMER")
-                .antMatchers("/dashboard", "/management").hasRole("ADMIN")
-                .antMatchers(("/auction/showAuctions/**")).permitAll()
+                .antMatchers("/changePassword",  "/customer/display/**").hasRole("CUSTOMER")
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/customer/**").hasRole("CUSTOMER")
                 .antMatchers("/wishlist/**").hasRole("CUSTOMER")
+                .antMatchers("/asset/**").hasRole("CUSTOMER")
                 .antMatchers("/auctionRegistration/showAuctionRegistrationPage").hasRole("CUSTOMER")
-                .antMatchers("/bids/showBidsPage/**").hasAnyRole("CUSTOMER", "STAFF", "ADMIN", "CUSTOMER_CARE")
                 .antMatchers("/staff").hasRole("STAFF")
-                .antMatchers("/customer-care/add","/customer-care","/customer-care/own-news"
-                ,"/customer-care/newsDetail**","/customer-care/deleteNews**")
+                .antMatchers("/customer-care/**","customer-care**")
                 .hasRole("CUSTOMER_CARE")
                 .anyRequest().authenticated()
                 .and()
@@ -63,14 +61,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureHandler(customAuthenticationFailureHandler)
                 .permitAll()
                 .and()
-                .rememberMe()
-                .rememberMeParameter("remember-me")
-                .tokenValiditySeconds(1209600)
+                .rememberMe() // Cấu hình tính năng Remember Me
+                .rememberMeParameter("remember-me") // Tên tham số "remember-me" trong form đăng nhập
+                .tokenValiditySeconds(1209600) // Thời gian nhớ mật khẩu (2 tuần)
+                .key("uniqueAndSecret") // Khóa để mã hóa token Remember Me
                 .and()
                 .logout()
                 .invalidateHttpSession(true)
                 .clearAuthentication(true)
-                .deleteCookies("JSESSIONID")
+                .deleteCookies("JSESSIONID", "remember-me")
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
@@ -79,7 +78,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .accessDeniedPage("/403");
 
     }
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

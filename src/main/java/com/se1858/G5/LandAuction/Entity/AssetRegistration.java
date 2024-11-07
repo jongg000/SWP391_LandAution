@@ -36,7 +36,7 @@ public class AssetRegistration {
     private User user;
 
     @Column(nullable = true)
-    private java.util.Date approvalDate;
+    private LocalDateTime approvalDate;
 
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String comments;

@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
-    
+
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
@@ -31,6 +31,7 @@
 <div class="sidebar-menu-container" id="sidebar-menu-container">
     <div class="sidebar-menu-push">
         <div class="sidebar-menu-inner">
+            <!--            sub menu đoạn xanh xanh trên cùng-->
             <div id="sub-header">
                 <div class="container">
                     <div class="row">
@@ -68,11 +69,13 @@
                     </div>
                 </div>
             </div>
+
+            <!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
             <header class="site-header">
                 <div id="main-header" class="main-header header-sticky">
                     <div class="inner-header container clearfix">
                         <div class="logo">
-                            <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+                            <a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
                         </div>
                         <div class="header-right-toggle pull-right hidden-md hidden-lg">
                             <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
@@ -87,9 +90,6 @@
                                         <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
                                         <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                                     </ul>
-                                </li>
-                                <li><a th:href="@{/asset}" class="has-submenu">Tài sản</a>
-
                                 </li>
                                 <li><a href="/news">Tin tức</a>
                                 </li>
@@ -109,17 +109,19 @@
                 </div>
             </header>
 
+            <!-- kết thúc header -->
+
+
             <div class="slider">
                 <div class="fullwidthbanner-container">
                     <div class="fullwidthbanner">
                         <ul>
                             <li class="first-slide" data-transition="fade" data-slotamount="10" data-masterspeed="300">
                                 <!-- Ảnh   -->
-                                <img src="/assets/images/land-auciton1.jpg" data-fullwidthcentering="on" alt="slide">
+                                <img src="/assets/images/vover1.jpg" data-fullwidthcentering="on" alt="slide">
                                 <!--  -->
                                 <div class="tp-caption first-line lft tp-resizeme start" data-x="center" data-hoffset="0" data-y="160" data-speed="1000" data-start="200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Đấu Giá Đất Nền</div>
                                 <div class="tp-caption second-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="210" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Nền tảng tốt nhất để đầu tư đất</div>
-                                <div class="tp-caption third-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="280" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Chúng tôi hỗ trợ và <em>giúp đỡ</em> các thành viên của nhiều nhóm đầu tư đất</div>
                                 <div class="tp-caption slider-thumb sfb tp-resizeme start container hidden-xs hidden-sm" data-x="center" data-hoffset="0" data-y="460" data-speed="1000" data-start="2200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">
                                     <div class="col-md-4">
                                         <a href="#">
@@ -174,7 +176,6 @@
                                 <!--  -->
                                 <div class="tp-caption first-line lft tp-resizeme start" data-x="center" data-hoffset="0" data-y="160" data-speed="1000" data-start="200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Chào mừng đến với Đấu Giá Đất</div>
                                 <div class="tp-caption second-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="210" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Tìm tài sản lý tưởng của bạn</div>
-                                <div class="tp-caption third-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="280" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Truy cập trang <em>Danh sách đất</em> để xem tất cả tài sản</div>
                                 <div class="tp-caption slider-thumb sfb tp-resizeme start container hidden-xs hidden-sm" data-x="center" data-hoffset="0" data-y="460" data-speed="1000" data-start="2200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">
                                     <div class="col-md-4">
                                         <a href="#">
@@ -224,10 +225,9 @@
                                 </div>
                             </li>
                             <li class="first-slide" data-transition="fade" data-slotamount="10" data-masterspeed="300">
-                                <img src="/assets/images/image2.jpg" data-fullwidthcentering="on" alt="slide">
+                                <img src="/assets/images/cover.jpg" data-fullwidthcentering="on" alt="slide">
                                 <div class="tp-caption first-line lft tp-resizeme start" data-x="center" data-hoffset="0" data-y="160" data-speed="1000" data-start="200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Nhiều cơ hội hơn</div>
                                 <div class="tp-caption second-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="210" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Đăng bán tài sản của bạn</div>
-                                <div class="tp-caption third-line lfb tp-resizeme start" data-x="center" data-hoffset="0" data-y="280" data-speed="1000" data-start="800" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">Tìm cơ hội tốt trên trang <em>danh sách gần đây</em></div>
                                 <div class="tp-caption slider-thumb sfb tp-resizeme start container hidden-xs hidden-sm" data-x="center" data-hoffset="0" data-y="460" data-speed="1000" data-start="2200" data-easing="Power4.easeOut" data-splitin="none" data-splitout="none" data-elementdelay="0" data-endelementdelay="0">
                                     <div class="col-md-4">
                                         <a href="#">
@@ -280,9 +280,6 @@
                     </div>
                 </div>
             </div>
-
-
-
             <div id="cta-1">
                 <div class="container">
                     <div class="row">
@@ -305,7 +302,7 @@
                                 <div class="heading-section">
                                     <h2>Tại sao chọn chúng tôi?</h2>
                                     <span>Chúng tôi cam kết mang đến các cơ hội đầu tư đất nền tốt nhất và dịch vụ chuyên nghiệp.</span>
-                                    <div class="line-dec"></div>
+                                    <div class="line-dec" style="width: 550px;"></div>
                                 </div>
                                 <div class="services">
                                     <div class="col-md-6">
@@ -349,7 +346,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="right-img">
-                                <img src="/assets/images/fast.png" alt="Đất đấu giá">
+                                <img src="/assets/images/land.jpeg" style="width: 100%;" alt="Đất đấu giá">
                                 <div class="img-bg"></div>
                             </div>
                         </div>
@@ -369,41 +366,50 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div id="featured-cars" style="padding-left: 180px; ">
-                            <div th:each="land : ${allLands}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">
+                    <div class="row" style="margin-left: 100px;">
+                        <div id="featured-cars" style="  width: 1600px;">
+                            <div th:each="item : ${allLands}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">
                                 <!-- Hình ảnh -->
-<!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
+                                <!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
                                 <!-- Nội dung -->
                                 <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
                                     <a href="#" >
-                                        <h2 th:text="${land.name}" style="font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
+                                        <h2 th:text="${item.name}" style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
                                     </a>
-                                    <div style="padding: 10px;" th:if="${land.getImages().size() > 0}">
-                                        <img th:src="'/Land_images/' + ${land.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">
+                                    <div style="padding: 10px; width: 300px; height: 200px;" th:if="${item.getImages().size() > 0}">
+                                        <img th:src="'/Land_images/' + ${item.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">
                                     </div>
-                                    <span th:text="${land.price + ' VNĐ'}" style="font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
-                                    <div class="light-line1" style="width: 40px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
-                                    <p th:text="${land.district}" style="margin-top: 10px; margin-bottom: 20px;"></p>
-                                    <p th:text="${land.district}" style="margin-top: 10px; margin-bottom: 20px;"></p>
+                                    <div>
+                                        <span  th:text="'Bước giá: ' +${item.price + ' VNĐ'}" style=" font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
+                                    </div>
 
-                                    <!-- Trạng thái -->
-                                    <div>
-                                        <strong style="color: #f4c23d;">Liên hệ: </strong>
-                                        <span th:text="${land.contact}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Diện tích: </strong>
-                                        <span th:text="${land.square}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Chiều rộng: </strong>
-                                        <span th:text="${land.width}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Chiều dài: </strong>
-                                        <span th:text="${land.length}" style="color: #222;"></span>
-                                    </div>
+                                    <div class="light-line1" style="width: 240px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
+                                    <p th:text="'Trạng thái: '+${item.assetRegistration.status.name}" style="margin-top: 10px; margin-bottom: 20px; font-size: large"></p>
+                                    <p th:text="'Địa chỉ: '+ ${item.district}" style="margin-top: 10px; margin-bottom: 20px; font-size: larger"></p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 9}"
+                                       th:text="'Đã bị hủy'"
+                                       class="status-cancelled">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 4}"
+                                       th:text="'Chờ xét duyệt'"
+                                       class="status-pending">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 5}"
+                                       th:text="'Đang đấu giá'"
+                                       class="status-ongoing">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 6}"
+                                       th:text="'Đã đấu giá'"
+                                       class="status-done">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 7}"
+                                       th:text="'Đấu giá thành công'"
+                                       class="status-complete">
+                                    </p>
+                                    <p th:if="${item.getAssetRegistration().status.statusID == 10}"
+                                       th:text="'Chưa thanh toán'"
+                                       class="status-unpay">
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -424,7 +430,7 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div id="featured" style="padding-left: 100px;">
+                        <div id="featured" style="padding-left: 50px;">
                             <div th:each="newsItem : ${newsList}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">
                                 <!-- Hình ảnh -->
                                 <!--
@@ -435,22 +441,22 @@
                                 <!-- Nội dung -->
                                 <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
                                     <a th:href="@{/news/{id}(id=${newsItem.newsId})}">
-                                        <h2 th:text="${newsItem.title}"></h2>
+                                        <h2 th:text="${newsItem.title}" style="text-align: center"></h2>
                                     </a>
-                                    <div style="padding: 10px;" th:if="${newsItem.image != 0}">
+                                    <div style="padding: 10px; width: 600px; height: 400px;" th:if="${newsItem.image != 0}">
                                         <img th:src="@{'/News_images/' + ${newsItem.image}}" alt="News Image" style="height: 80%; width: 80%; object-fit: cover;">
                                     </div>
-                                    <div class="light-line1" style="width: 40px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
-                                    <p th:text="${newsItem.user.userId}" style="margin-top: 10px; margin-bottom: 20px;"></p>
+                                    <div class="light-line1" style="width: 480px; height: 2px; background-color: #eeeeee; "></div>
                                     <!-- Trạng thái -->
-                                    <div>
-                                        <strong style="color: #f4c23d;">Thời gian đăng bài: </strong>
-                                        <span th:text="${newsItem.time}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
+                                    <div style="margin: 10px; font-size: large">
                                         <strong style="color: #f4c23d;">Đăng bài bởi: </strong>
                                         <span th:text="${newsItem.user.lastName}" style="color: #222;"></span>
                                     </div>
+                                    <div style="margin: 10px; font-size: small">
+                                        <strong style="color: #f4c23d;">Thời gian đăng bài: </strong>
+                                        <span th:text="${newsItem.time}" style="color: #222;"></span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -507,6 +513,9 @@
                 </div>
             </section>
 
+
+            <!--footer cua trang -->
+
             <footer>
                 <div class="container">
                     <div class="row">
@@ -530,13 +539,6 @@
                                     <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
                                     <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
                                     <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
-                                </ul>
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Trang chủ</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Đất mới đấu giá</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Tính năng</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Khuyến mãi</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Liên hệ</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -599,42 +601,10 @@
             </footer>
             <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
+            <!-- coppy đến đây là hết footer-->
         </div>
-
     </div>
-
-    <nav class="sidebar-menu slide-from-left">
-        <div class="nano">
-            <div class="content">
-                <nav class="responsive-menu">
-                    <ul>
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Về chúng tôi</a></li>
-                        <li><a href="#">Dịch vụ</a></li>
-                        <li class="menu-item-has-children"><a href="#">Danh sách</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Sidebar Phải</a></li>
-                                <li><a href="#">Sidebar Trái</a></li>
-                                <li><a href="#">Hệ thống lưới</a></li>
-                                <li><a href="#">Chi tiết đất đấu giá</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Blog</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Cổ điển</a></li>
-                                <li><a href="#">Hệ thống lưới</a></li>
-                                <li><a href="#">Lưới với Sidebar</a></li>
-                                <li><a href="#">Bài đăng đơn</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="about.html">Về chúng tôi</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </nav>
-
+</div>
     <!--  -->
     <script>
         function showHide(id) {

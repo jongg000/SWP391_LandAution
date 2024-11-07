@@ -2,10 +2,7 @@ package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.AuctionRegistrationDTO;
-import com.se1858.G5.LandAuction.Entity.Auction;
-import com.se1858.G5.LandAuction.Entity.AuctionRegistration;
-import com.se1858.G5.LandAuction.Entity.Bids;
-import com.se1858.G5.LandAuction.Entity.Land;
+import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +30,20 @@ public class AuctionServiceImpl implements AuctionService {
     private UserRepository userRepository;
 
     private AuctionBidUpdateServiceImpl auctionBidUpdateService;
+     AuctionRepository auctionRepository;
+     LandRepository landRepository;
+     AuctionRegistrationRepository auctionRegistration;
+     UserRepository userRepository;
+     AuctionBidUpdateServiceImpl auctionBidUpdateService;
+
+    @Autowired
+    public AuctionServiceImpl(AuctionRepository auctionRepository, LandRepository landRepository, AuctionRegistrationRepository auctionRegistration, UserRepository userRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService) {
+        this.auctionRepository = auctionRepository;
+        this.landRepository = landRepository;
+        this.auctionRegistration = auctionRegistration;
+        this.userRepository = userRepository;
+        this.auctionBidUpdateService = auctionBidUpdateService;
+    }
 
     public AuctionServiceImpl(AuctionRepository auctionRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService, UserRepository userRepository, AuctionRegistrationRepository auctionRegistration, LandRepository landRepository, BidsRepository bidsRepository) {
         this.auctionRepository = auctionRepository;
@@ -113,7 +124,6 @@ public class AuctionServiceImpl implements AuctionService {
     @Scheduled(fixedRate = 1000)
     public void scheduledUpdateHighestBid() {
         auctionBidUpdateService.updateHighestBidForEndedAuctions();
-        auctionBidUpdateService.updateStatus();
     }
     @Override
     public long getTotalAuctions() {
@@ -129,4 +139,21 @@ public class AuctionServiceImpl implements AuctionService {
         return false;
 
     }
+
+    @Override
+    public void saveAuction(Auction auction) {
+        auctionRepository.save(auction);
+    }
+
+    @Override
+    public List<Auction> getAllAuctionByStartTime() {
+        return auctionRepository.findAllByOrderByStartTimeDesc();
+    }
+
+    @Override
+    public long countByStatus(Status status) {
+        return auctionRepository.countByStatus(status);
+    }
+
+
 }

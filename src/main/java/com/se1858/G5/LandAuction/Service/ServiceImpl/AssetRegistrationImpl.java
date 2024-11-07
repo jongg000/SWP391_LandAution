@@ -51,9 +51,11 @@ public class AssetRegistrationImpl implements AssetRegistrationService {
         return assetRegistrationRepository.findByUser(user);
     }
 
+
+
     @Override
-    public long countAssetRegistrationsByUser(User user) {
-        return assetRegistrationRepository.count();
+    public long countAssetRegistrationsByStatus(Status status) {
+        return assetRegistrationRepository.countByStatus(status);
     }
 
 

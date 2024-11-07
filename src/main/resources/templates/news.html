@@ -11,25 +11,132 @@
     <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet" href="/assets/css/jquery-ui.css">
     <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
-    <!-- <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/icon-font.css"> -->
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/icon-font.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-
     <link rel="stylesheet" href="/assets/css/auction.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
-
     <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
-
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* Căn chỉnh form tìm kiếm */
+        .search-form {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+
+        .search-input {
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 25px 0 0 25px;
+            outline: none;
+            width: 200px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            border-color: #007bff;
+        }
+
+        .search-button {
+            padding: 10px 15px;
+            border: 2px solid #ccc;
+            border-left: none;
+            background-color: #fff;
+            color: #333;
+            cursor: pointer;
+            border-radius: 0 25px 25px 0;
+            transition: all 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #007bff;
+            color: #fff;
+            border-color: #007bff;
+        }
+
+        /* Hiệu ứng khi rê chuột vào input */
+        .search-form:hover .search-input {
+            width: 250px;
+        }
+        /* Thiết kế tổng quát */
+        .news-item {
+            display: flex;
+            flex-direction: row;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Hình ảnh */
+        .news-image img {
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        /* Nội dung */
+        .news-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+        }
+
+        .news-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .news-meta {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .pagination {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px; /* Khoảng cách giữa các phần tử */
+            font-size: 16px;
+        }
+
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .pagination a:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .pagination span {
+            font-weight: bold;
+        }
+
+
+    </style>
 </head>
 <body>
 
 <div class="sidebar-menu-container" id="sidebar-menu-container">
     <div class="sidebar-menu-push">
         <div class="sidebar-menu-inner">
+            <!--            sub menu đoạn xanh xanh trên cùng-->
             <div id="sub-header">
                 <div class="container">
                     <div class="row">
@@ -42,7 +149,6 @@
                                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                     <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -68,11 +174,13 @@
                     </div>
                 </div>
             </div>
+
+            <!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
             <header class="site-header">
                 <div id="main-header" class="main-header header-sticky">
                     <div class="inner-header container clearfix">
                         <div class="logo">
-                            <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+                            <a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
                         </div>
                         <div class="header-right-toggle pull-right hidden-md hidden-lg">
                             <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
@@ -88,26 +196,36 @@
                                         <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                                     </ul>
                                 </li>
-                                <li><a th:href="@{/asset}" class="has-submenu">Tài sản</a>
-
-                                </li>
                                 <li><a href="/news">Tin tức</a>
                                 </li>
                                 <li>
-                                    <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
+                                    <p>
+                                        <a href="#" id="example-show" class="showLink" onclick="showHide('example'); return false;">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </p>
                                     <div id="example" class="more">
-                                        <form method="get" id="asset-search" class="blog-search">
-                                            <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                        <form method="get" id="news-search" class="news-search" action="/news/search">
+                                            <input type="text" class="news-search-field" name="title" placeholder="Nhập từ khóa tìm kiếm" value="">
                                         </form>
-                                        <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
+                                        <p>
+                                            <a href="#" id="example-hide" class="hideLink" onclick="showHide('example'); return false;">
+                                                <i class="fa fa-search"></i>
+                                            </a>
+                                        </p>
                                     </div>
                                 </li>
+
                             </ul>
                         </nav>
 
                     </div>
                 </div>
             </header>
+
+            <!-- kết thúc header -->
+
+
             <div id="page-heading">
                 <div class="container">
                     <div class="row">
@@ -129,81 +247,83 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="heading-section-2 text-center">
-                                <h2>Tin Tức Blog</h2>
-                                <span>Cập nhật những thông tin mới nhất về bất động sản và đầu tư đất nền.</span>
-                                <div class="dec"><i class="fa fa-file"></i></div>
-                                <div class="line-dec"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div th:each="newsItem : ${news}" class="featured-item col-md-15 col-sm-6">
-                            <!-- Hình ảnh -->
-                            <!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
-                            <div th:if="${newsItem.image != null}">
-                                <img th:src="'/News_images/' + ${newsItem.image}" alt="News Image">
-                            </div>
-
-                            <!-- Nội dung -->
-                            <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
-                                <a th:href="@{/news/newsDetail(newsId=${newsItem.newsId})}">
-                                    <h2 th:text="${newsItem.title}"></h2>
-                                </a>
-                                <span th:text="${newsItem.time}" style="font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
-                                <div class="light-line1" style="width: 40px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
-                                <p th:text="'Đăng bởi ' + ${newsItem.user.lastName}" style="margin-top: 10px; margin-bottom: 20px;"></p>
-                                <p th:text="${newsItem.content}" style="margin-top: 10px; margin-bottom: 20px;"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                            <div class="pre-featured">
+                                <div class="info-text">
+                                    <h4> Tìm kiếm theo thời gian đăng tải tin tức</h4>
+                                </div>
+                                <div class="right-content">
+                                    <div class="input-select" style="padding-top: 5px;">
+                                        <select name="mark" id="mark" class="select-style" onchange="sortNews()">
+                                            <option value="latest" th:selected="${sortOrder == 'latest'}">Gần đây nhất</option>
+                                            <option value="oldest" th:selected="${sortOrder == 'oldest'}">Sớm nhất</option>
+                                        </select>
+                                    </div>
 
 
-            <section class="clients">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="heading-section-2 text-center">
-                                <h2>Đơn Vị Hợp Tác</h2>
-                                <span>Chúng tôi tự hào hợp tác với các tổ chức uy tín trong lĩnh vực đấu giá đất và bất động sản.</span>
-                                <div class="line-dec"></div>
-                            </div>
-                            <div id="owl-demo">
-                                <div class="item">
-                                    <img src="/assets/images/client-1.png" alt="Đơn vị hợp tác 1">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-2.png" alt="Đơn vị hợp tác 2">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-3.png" alt="Đơn vị hợp tác 3">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-4.png" alt="Đơn vị hợp tác 4">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-5.png" alt="Đơn vị hợp tác 5">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-6.png" alt="Đơn vị hợp tác 6">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-3.png" alt="Đơn vị hợp tác 7">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-2.png" alt="Đơn vị hợp tác 8">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-1.png" alt="Đơn vị hợp tác 9">
-                                </div>
-                                <div class="item">
-                                    <img src="/assets/images/client-4.png" alt="Đơn vị hợp tác 10">
+                                    <!-- Thanh tìm kiếm -->
+                                    <div class="grid-list">
+                                        <ul>
+                                            <li>
+                                                <form method="get" action="/news/search" class="search-form">
+                                                    <input type="text" name="title" placeholder="Nhập từ khóa tìm kiếm" class="search-input" />
+                                                    <button type="submit" class="search-button">
+                                                        <i class="fa fa-search"></i>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+
+                        <div class="row">
+                            <div th:each="newsItem : ${news}" class="news-item d-flex align-items-start mb-4">
+                                <!-- Hình ảnh -->
+                                <div class="news-image" th:if="${newsItem.image != null}">
+                                    <img th:src="'/News_images/' + ${newsItem.image}" alt="News Image" style="width: 400px; height: 300px; border-radius: 10px; object-fit: cover;">
+                                </div>
+
+                                <!-- Nội dung -->
+                                <div class="news-content pl-4">
+                                    <!-- Tiêu đề -->
+                                    <a th:href="@{/news/newsDetail(newsId=${newsItem.newsId})}">
+                                        <h2 th:text="${newsItem.title}" class="news-title" style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;"></h2>
+                                    </a>
+
+                                    <!-- Thời gian đăng và người đăng -->
+                                    <div class="news-meta" style="font-size: 14px; color: #555; margin-bottom: 4px; margin-left: 30px;">
+                                        <span th:text="'Thời gian đăng tải: '+${newsItem.time}" style="padding: 5px 10px; display: block;"></span>
+                                    </div>
+                                    <div class="news-meta" style="font-size: 14px; color: #555; margin-bottom: 2px; margin-left: 30px;">
+                                        <span th:text="'Đăng bởi: '+ ${newsItem.user.firstName} + ' ' + ${newsItem.user.lastName}" style="margin-left: 10px; display: block;"></span>
+                                    </div>
+
+
+
+                                    <!-- Đường phân cách -->
+                                    <div class="light-line1" style="width: 100%; height: 5px; background-color: #eeeeee; margin: 10px 0;">
+                                    </div>
+
+                                    <!-- Nội dung bài viết -->
+                                    <p th:text="${newsItem.content}" style="font-size: 16px; color: #333; margin-left: 30px;"></p>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <!-- Phân Trang -->
+                        <div class="pagination" style="margin-top: 20px;">
+                            <a th:href="@{/news(page=${currentPage - 1}, sort=${sortOrder})}" th:if="${currentPage > 0}">Trang Trước</a>
+                            <span>Trang <span th:text="${currentPage + 1}"></span> / <span th:text="${totalPages}"></span></span>
+                            <a th:href="@{/news(page=${currentPage + 1}, sort=${sortOrder})}" th:if="${currentPage + 1 < totalPages}">Trang Tiếp Theo</a>
+                        </div>
+
+
+
                     </div>
+
                 </div>
             </section>
 
@@ -230,13 +350,6 @@
                                     <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
                                     <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
                                     <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
-                                </ul>
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Trang chủ</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Đất mới đấu giá</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Tính năng</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Khuyến mãi</a></li>
-                                    <li><a href="#"><i class="fa fa-caret-right"></i>Liên hệ</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -302,41 +415,17 @@
         </div>
 
     </div>
+</div>
 
-    <nav class="sidebar-menu slide-from-left">
-        <div class="nano">
-            <div class="content">
-                <nav class="responsive-menu">
-                    <ul>
-                        <li><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Về chúng tôi</a></li>
-                        <li><a href="#">Dịch vụ</a></li>
-                        <li class="menu-item-has-children"><a href="#">Danh sách</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Sidebar Phải</a></li>
-                                <li><a href="#">Sidebar Trái</a></li>
-                                <li><a href="#">Hệ thống lưới</a></li>
-                                <li><a href="#">Chi tiết đất đấu giá</a></li>
-                            </ul>
-                        </li>
-                        <li class="menu-item-has-children"><a href="#">Blog</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Cổ điển</a></li>
-                                <li><a href="#">Hệ thống lưới</a></li>
-                                <li><a href="#">Lưới với Sidebar</a></li>
-                                <li><a href="#">Bài đăng đơn</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="about.html">Về chúng tôi</a></li>
-                        <li><a href="#">Liên hệ</a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </nav>
+
+
 
     <!--  -->
 <script>
+    function sortNews() {
+        const sortOption = document.getElementById("mark").value;
+        window.location.href = `/news?sort=${sortOption}`;
+    }
     function showHide(id) {
         var element = document.getElementById(id);
         if (element.style.display === 'none' || element.style.display === '') {
@@ -345,6 +434,18 @@
             element.style.display = 'none';
         }
     }
+    document.addEventListener("DOMContentLoaded", function () {
+        const searchInput = document.querySelector(".search-input");
+
+        searchInput.addEventListener("focus", () => {
+            searchInput.style.width = "250px";
+        });
+
+        searchInput.addEventListener("blur", () => {
+            searchInput.style.width = "200px";
+        });
+    });
+
 </script>
 
 
@@ -356,7 +457,7 @@
 
     <script type="text/javascript" src="/assets/js/plugins.js"></script>
     <script type="text/javascript" src="/assets/js/custom.js"></script>
-</div>
+
 </body>
 
 </html>

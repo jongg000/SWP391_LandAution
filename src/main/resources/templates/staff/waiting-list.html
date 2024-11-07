@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DataTable - Mazer Admin Dashboard</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/bootstraps.css">
+  <link rel="stylesheet" href="/assets/vendors/simple-datatables/style.css">
+  <link rel="stylesheet" href="/assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+  <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+  <link rel="stylesheet" href="/assets/css/app.css">
+
+  <style>
+    .status-unpaid {
+      color: yellowgreen;          /* Đặt màu chữ thành đỏ */
+      font-weight: bold;   /* Làm cho chữ in đậm */
+    }
+
+    /* CSS for right panel */
+    .auction-results-panel {
+      position: fixed;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: 300px;
+      background-color: #f9f9f9;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      overflow-y: auto;
+      display: none;
+    }
+    .auction-results-panel.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+ <div id="app">
+    <div id="sidebar" class="active">
+      <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+          <div class="d-flex justify-content-between">
+            <div class="logo">
+              <a href="#"><img src="/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+            </div>
+            <div class="toggler">
+              <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-menu">
+          <div class="menu">
+            <li class="sidebar-title">Menu</li>
+
+            <li class="sidebar-item  active">
+              <a th:href="@{/staff}" class='sidebar-link'>
+                <i class="bi bi-grid-fill"></i>
+                <span>Trang chính</span>
+              </a>
+            </li>
+
+            <li class="sidebar-item ">
+              <a th:href="@{auction/showAuctionResults}" href="#" class='sidebar-link'>
+                <span>Theo dõi đấu giá</span>
+              </a>
+            </li>
+            <li class="sidebar-item  has-sub">
+              <a href="#" class='sidebar-link'>
+                <i class="bi bi-collection-fill"></i>
+                <span>Hồ sơ đất đai</span>
+              </a>
+              <ul class="submenu active">
+                <li class="submenu-item active">
+                  <a th:href="@{/staff/waiting-list}">Chờ xác nhận</a>
+                </li>
+                <li class="submenu-item">
+                  <a th:href="@{/staff/ongoing-list}">Đã xác nhận</a>
+                </li>
+                <li class="submenu-item ">
+                  <a th:href="@{/staff/cancel-listing}">Đã bị hủy</a>
+                </li>
+              </ul>
+            </li>
+          </div>
+          <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+        </div>
+      </div>
+    </div>
+<!--End of side bar-->
+    <div id="main">
+      <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+          <i class="bi bi-justify fs-3"></i>
+        </a>
+      </header>
+
+      <div class="page-heading">
+        <div class="page-title">
+          <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+              <h3>Trang nhân viên</h3>
+              <p class="text-subtitle text-muted">Cập nhật tài sản và đấu giá</p>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+              <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end"></nav>
+            </div>
+          </div>
+        </div>
+        <!-- User Data Table -->
+        <section class="section">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-12" th:if="${allAssets != null}">
+                  <h5>Tài sản chờ kiểm duyệt</h5>
+                  <table class="table table-striped" id="table3">
+                    <thead>
+                    <tr>
+                      <th>ID Number</th>
+                      <th>Tên mảnh đất</th>
+                      <th>Chủ sở hữu</th>
+                      <th>Trạng thái</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${allAssets}">
+                      <td><span th:text="${item.documentId}"></span></td>
+                      <td><span th:text="${item.land.name}"></span></td>
+                      <td><span th:text="|${item.land.user.firstName} ${item.land.user.lastName}|"></span></td>
+                      <td>
+                      <span th:text="${item.status.name}"
+                            th:classappend="${item.status.name == 'Chờ xét duyệt'} ? 'status-unpaid' : ''"></span>
+                      </td>
+                   <td>
+                     <a th:href="@{/staff/land-detail/{id}(id=${item.land.assetRegistration.documentId})}">Chi tiet</a>
+                   </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </div>
+ </div>
+  <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+  <script src="/assets/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+  <script>
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+
+    // Toggle function for Auction Results Panel
+    function toggleAuctionResultsPanel() {
+      document.getElementById('auction-results-panel').classList.toggle('active');
+    }
+  </script>
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

@@ -30,6 +30,6 @@ public class News {
     @JoinColumn(name = "UserID", nullable = false)
     private User user;
 
-    private LocalDateTime time;
+    private String time;
 }
 
