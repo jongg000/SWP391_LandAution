@@ -119,6 +119,19 @@ public class AdminController {
         return "redirect:/admin/management";
     }
 
+    @PostMapping("/unbanUser/{id}")
+    public String unUanUser(@PathVariable("id") int id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            Status banStatus = statusRepository.findById(2).orElse(null);
+            if (banStatus != null) {
+                user.setStatus(banStatus);
+                userRepository.save(user);
+            }
+        }
+        return "redirect:/admin/management";
+    }
+
     @GetMapping("/create-account")
     public String showCreateAccount(Model model) {
         model.addAttribute("createDTO", new AdminCreateDTO());

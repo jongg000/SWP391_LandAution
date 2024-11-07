@@ -79,7 +79,7 @@ public class UserController {
 
         // Gán trạng thái mặc định cho người dùng
         Status status = new Status();
-        status.setStatusID(1); // Ví dụ: 1 là trạng thái "Active" hoặc tương đương
+        status.setStatusID(14); // Ví dụ: 1 là trạng thái "Active" hoặc tương đương
         user.setStatus(status);
 
         // Lưu người dùng vào cơ sở dữ liệu
@@ -190,7 +190,7 @@ public class UserController {
         } else {
             user.setNationalID(userProfileDTO.getNationalID());
         }
-
+        user.setStatus(statusRepository.getById(1));
         // Save updated user information to the database
         userService.save(user);
 
