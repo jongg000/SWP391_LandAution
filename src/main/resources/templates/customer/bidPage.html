@@ -41,6 +41,37 @@
             font-size: 16px;
             font-weight: bold;
         }
+
+
+        .payment-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            justify-content: center;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .payment-button {
+            display: block;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        .payment-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .payment-button:active {
+            background-color: #388e3c;
+            transform: scale(0.98);
+        }
+
+
     </style>
 </head>
 <body>
@@ -105,7 +136,7 @@
                         <nav class="main-navigation text-left hidden-xs hidden-sm">
                             <ul>
                                 <li><a href="/home">Trang chủ</a></li>
-                                <li><a href="about.html">Về chúng tôi</a></li>
+                                <li><a href="/aboutUs">Về chúng tôi</a></li>
                                 <li><a href="#" class="has-submenu">Đấu giá</a>
                                     <ul class="sub-menu">
                                         <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
@@ -113,23 +144,16 @@
                                         <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#" class="has-submenu">Tài sản</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="listing-right.html">Thanh bên phải</a></li>
-                                        <li><a href="listing-left.html">Thanh bên trái</a></li>
-                                        <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                                        <li><a href="single-list.html">Chi tiết lô đất</a></li>
-                                    </ul>
+                                <li><a th:href="@{/asset}" class="has-submenu">Tài sản</a>
+
                                 </li>
                                 <li><a href="/news">Tin tức</a>
-  s                              </li>
-                                <li><a href="#">Liên hệ</a>
                                 </li>
                                 <li>
                                     <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
                                     <div id="example" class="more">
-                                        <form method="get" id="blog-search" class="blog-search">
-                                            <input type="text" class="blog-search-field" name="s" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                        <form method="get" id="asset-search" class="blog-search">
+                                            <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
                                         </form>
                                         <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
                                     </div>
@@ -140,7 +164,6 @@
                     </div>
                 </div>
             </header>
-
             <div id="page-heading">
                 <div class="container">
                     <div class="row">
@@ -297,6 +320,17 @@
                                     <p class="congratulations">Congratulations!</p>
                                     <p class="winner">Winner: <span id="winnerNameModal" class="highlight"></span><i class="fas fa-crown" aria-hidden="true"></i></p>
                                     <p class="bid-amount">Bid Amount: <span id="winnerBidAmountModal" class="highlight"></span></p>
+                                    <th:block th:if="${checkWinner == true}">
+                                        <th:block th:if="${auction1 == 11}">
+                                            <!-- Show the payment button when auction has ended but not yet paid -->
+                                            <a th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}" class="payment-button">
+                                                Thanh toán
+                                            </a>
+                                        </th:block>
+                                        <th:block th:if="${auction1 == 13}">
+                                            <p>Đã thanh toán</p>
+                                        </th:block>
+                                    </th:block>
                                     <button onclick="closeModal()" class="close-button">Close</button>
                                 </div>
                             </div>

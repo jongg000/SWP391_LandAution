@@ -80,42 +80,26 @@
             <nav class="main-navigation text-left hidden-xs hidden-sm">
               <ul>
                 <li><a href="/home">Trang chủ</a></li>
-                <li><a href="about.html">Về chúng tôi</a></li>
+                <li><a href="/aboutUs">Về chúng tôi</a></li>
                 <li><a href="#" class="has-submenu">Đấu giá</a>
                   <ul class="sub-menu">
-                    <li><a href="listing-right.html">Thanh bên phải</a></li>
-                    <li><a href="listing-left.html">Thanh bên trái</a></li>
-                    <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                    <li><a href="single-list.html">Chi tiết lô đất</a></li>
+                    <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+                    <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+                    <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                   </ul>
                 </li>
-                <li><a href="#" class="has-submenu">Tài sản</a>
-                  <ul class="sub-menu">
-                    <li><a href="listing-right.html">Thanh bên phải</a></li>
-                    <li><a href="listing-left.html">Thanh bên trái</a></li>
-                    <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                    <li><a href="single-list.html">Chi tiết lô đất</a></li>
-                  </ul>
+                <li><a th:href="@{/asset}" class="has-submenu">Tài sản</a>
+
                 </li>
                 <li><a href="/news">Tin tức</a>
                 </li>
-                <li><a href="#">Liên hệ</a>
-                </li>
                 <li>
-                  <p>
-                    <a href="#" id="example-show" class="showLink" onclick="showHide('example'); return false;">
-                      <i class="fa fa-search"></i>
-                    </a>
-                  </p>
+                  <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
                   <div id="example" class="more">
-                    <form method="get" id="news-search" class="news-search" action="/news/search">
-                      <input type="text" class="news-search-field" name="title" placeholder="Nhập từ khóa tìm kiếm" value="">
+                    <form method="get" id="asset-search" class="blog-search">
+                      <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
                     </form>
-                    <p>
-                      <a href="#" id="example-hide" class="hideLink" onclick="showHide('example'); return false;">
-                        <i class="fa fa-search"></i>
-                      </a>
-                    </p>
+                    <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
                   </div>
                 </li>
               </ul>

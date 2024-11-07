@@ -1,6 +1,8 @@
 package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.DTO.*;
+import com.se1858.G5.LandAuction.Entity.Auction;
+import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Service.AuctionRegistrationService;
 import com.se1858.G5.LandAuction.Service.LandService;
 import com.se1858.G5.LandAuction.Service.UserService;
@@ -31,12 +33,14 @@ public class AuctionRegistrationController {
     UserService userService;
     @Autowired
     private LandService landService;
+    @Autowired
+    private AuctionRepository auctionRepository;
 
 
     @RequestMapping("/showAuctionRegistrationPage")
     public String showAuctionRegistrationPage(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(required = false) String filter, // Add filter parameter
+            @RequestParam(required = false) String filter,
             Model model,
             HttpServletRequest request) {
 
@@ -82,7 +86,10 @@ public class AuctionRegistrationController {
             } else {
                 dateCheck = "is going on";
             }
-
+            boolean checkWinner = auctionService.checkWinner( auction.getAuctionId(),userId);
+            Auction auction1 = auctionRepository.findByAuctionId( auction.getAuctionId());
+            details.put("auction1", auction1.getStatus().getStatusID());
+            details.put("checkWinner", checkWinner);
             details.put("dateCheck", dateCheck);
             details.put("wishlist", auctionRegistrationDTO);
             details.put("auction", auction);

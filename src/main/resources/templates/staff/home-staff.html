@@ -52,19 +52,7 @@
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
                     <li class="sidebar-item">
-                        <a href="/staff" class='sidebar-link'>
-                            <i class="bi bi-grid-fill"></i>
-                            <span>Trang chính</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a th:href="@{/userProfiles}" class='sidebar-link'>
-                            <i class="bi bi-stack"></i>
-                            <span>Hồ sơ người dùng</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-item">
-                        <a th:href="@{/landProfiles}" class='sidebar-link'>
+                        <a th:href="@{/staff}" class='sidebar-link'>
                             <i class="bi bi-collection-fill"></i>
                             <span>Hồ sơ đất đai</span>
                         </a>
@@ -101,54 +89,29 @@
                     </div>
                 </div>
             </div>
-            <!-- User Data Table -->
             <section class="section">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12" th:if="${users != null}">
-                                <h5>Hồ sơ người dùng</h5>
-                                <table class="table table-striped" id="table2">
-                                    <thead>
-                                    <tr>
-                                        <th>Tên người dùng</th>
-                                        <th>Email</th>
-                                        <th>Số điện thoại</th>
-                                        <th>Địa chỉ</th>
-                                        <th>Trạng thái</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="item1 : ${users}">
-                                        <td><span th:text="|${item1.firstName ?: ''} ${item1.lastName ?: ''}|"></span></td>
-                                        <td><span th:text="${item1.email ?: 'No email'}"></span></td>
-                                        <td><span th:text="${item1.phoneNumber ?: 'No phone number'}"></span></td>
-                                        <td><span th:text="${item1.address != null ? item1.address : 'No address'}"></span></td>
-                                        <td><span th:text="${item1.getStatus().name}"></span></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
-                            <div class="col-12" th:if="${landProfiles != null}">
-                                <h5>Hồ sơ đất đai</h5>
-                                <table class="table table-striped" id="table3">
-                                    <thead>
-                                    <tr>
-                                        <th>Tên đất</th>
-                                        <th>Giá trị</th>
-                                        <th>Trạng thái</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="land : ${landProfiles}">
-                                        <td><span th:text="${land.name}"></span></td>
-                                        <td><span th:text="${land.value}"></span></td>
-                                        <td><span th:text="${land.status}"></span></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+<!--                            <div class="col-12" th:if="${assetRegistration != null}">-->
+<!--                                <h5>Hồ sơ đất đai</h5>-->
+<!--                                <table class="table table-striped" id="table3" style="display: block;">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>Tên đất</th>-->
+<!--                                        <th>Giá trị</th>-->
+<!--                                        <th>Trạng thái</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    <tr th:each="land : ${assetRegistration}">-->
+<!--                                        <td><span th:text="${land.land.name}">Tên đất</span></td>-->
+<!--                                        <td><span th:text="${land.land.price}">Giá trị</span></td>-->
+<!--                                        <td><span th:text="${land.status}">Trạng thái</span></td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
 
                             <div class="col-12" th:if="${auctionDetails != null}">
                                 <h5>Kết quả đấu giá</h5> <!-- This can be removed as the title is now at the top -->
@@ -184,8 +147,6 @@
 <script>
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
-
-    // Toggle function for Auction Results Panel
     function toggleAuctionResultsPanel() {
         document.getElementById('auction-results-panel').classList.toggle('active');
     }

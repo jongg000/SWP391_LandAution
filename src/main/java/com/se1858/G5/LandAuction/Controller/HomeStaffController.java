@@ -17,16 +17,16 @@ import java.util.List;
 @Controller
 @RequestMapping("/staff")
 public class HomeStaffController {
-    @Autowired
-    private AssetRegistrationService assetRegistrationService;
-    @Autowired
-    private UserService userService;
+
+    private final AssetRegistrationService assetRegistrationService;
+    public HomeStaffController(AssetRegistrationService assetRegistrationService) {
+        this.assetRegistrationService = assetRegistrationService;
+    }
     @GetMapping()
     public String homePage(Model model) {
-        List<User> users = userService.findAll();
-        model.addAttribute("user",users);
+
         List<AssetRegistration> assetRegistrations = assetRegistrationService.getAssetRegistrations();
         model.addAttribute("assetRegistration", assetRegistrations);
-        return "/staff/home-staff";
+        return "staff/home-staff";
     }
 }

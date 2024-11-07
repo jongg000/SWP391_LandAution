@@ -22,16 +22,26 @@ import java.util.stream.Collectors;
 @Service
 public class AuctionServiceImpl implements AuctionService {
 
-    @Autowired
+
+    private final BidsRepository bidsRepository;
     private AuctionRepository auctionRepository;
-    @Autowired
+
     private LandRepository landRepository;
-    @Autowired
+
     private AuctionRegistrationRepository auctionRegistration;
-    @Autowired
+
     private UserRepository userRepository;
-    @Autowired
+
     private AuctionBidUpdateServiceImpl auctionBidUpdateService;
+
+    public AuctionServiceImpl(AuctionRepository auctionRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService, UserRepository userRepository, AuctionRegistrationRepository auctionRegistration, LandRepository landRepository, BidsRepository bidsRepository) {
+        this.auctionRepository = auctionRepository;
+        this.auctionBidUpdateService = auctionBidUpdateService;
+        this.userRepository = userRepository;
+        this.auctionRegistration = auctionRegistration;
+        this.landRepository = landRepository;
+        this.bidsRepository = bidsRepository;
+    }
 
     public AuctionDto findAuctionById(int auctionId) {
         return auctionRepository.findById(auctionId)
@@ -56,10 +66,8 @@ public class AuctionServiceImpl implements AuctionService {
         auctionRepository.deleteById(auctionId);
     }
 
-    public AuctionDto update(AuctionDto auctionDto) {
-        Auction auction = convertToEntity(auctionDto);
-        Auction auctionUpdate = auctionRepository.save(auction);
-        return convertToDTO(auctionUpdate);
+    public void update(Auction auctionDto) {
+        auctionRepository.save(auctionDto);
     }
 
     public AuctionDto convertToDTO(Auction auction) {
@@ -105,6 +113,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Scheduled(fixedRate = 1000)
     public void scheduledUpdateHighestBid() {
         auctionBidUpdateService.updateHighestBidForEndedAuctions();
+        auctionBidUpdateService.updateStatus();
     }
     @Override
     public long getTotalAuctions() {
@@ -112,6 +121,12 @@ public class AuctionServiceImpl implements AuctionService {
     }
     public List<Auction> findAllAuctionEnd() {
         return auctionRepository.findAllByEndTimeBefore(LocalDateTime.now());
+    }
+    public boolean checkWinner(int auctionId, int userId) {
+        Bids bid = bidsRepository.findTop1ByAuctionRegistration_User_UserIdAndAuctionRegistration_Auction_AuctionIdOrderByBidAmountDesc(userId, auctionId);
+        Auction auction = auctionRepository.findByAuctionId(auctionId);
+        if(auction.getStatus().getStatusID()==11||auction.getStatus().getStatusID()==13)  return bid.getBidAmount() == auction.getHighestBid();
+        return false;
 
     }
 }

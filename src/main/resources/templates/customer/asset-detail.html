@@ -61,8 +61,19 @@
 						<div class="col-md-6 hidden-sm">
 							<div class="right-info">
 								<ul>
-									<li>Call us: <em>570-694-4002</em></li>
-									<li><a href="#">Get Free Appointment →</a></li>
+									<li>Call us: <em>0659-694-002</em></li>
+									<li th:if="${#httpServletRequest.remoteUser != null}">
+										<a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
+									</li>
+									<li th:if="${#httpServletRequest.remoteUser != null}">
+										<a href="/logout">Đăng xuất</a>
+									</li>
+									<li th:if="${#httpServletRequest.remoteUser == null}">
+										<a href="/login">Đăng nhập</a>
+									</li>
+									<li th:if="${#httpServletRequest.remoteUser == null}">
+										<a href="/register">Đăng ký</a>
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -74,46 +85,39 @@
 				<div id="main-header" class="main-header header-sticky">
 					<div class="inner-header container clearfix">
 						<div class="logo">
-							<a href="index.html"><img src="/assets/images/logo.png" alt=""></a>
+							<a href="/home"><img src="/assets/images/logo.png" alt=""></a>
 						</div>
 						<div class="header-right-toggle pull-right hidden-md hidden-lg">
 							<a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
 						</div>
 						<nav class="main-navigation text-left hidden-xs hidden-sm">
 							<ul>
-								<li><a href="index.html">Home</a></li>
-								<li><a href="about.html">About Us</a></li>
-								<li><a href="services.html">Services</a></li>
-								<li><a href="#" class="has-submenu">Listing</a>
+								<li><a href="/home">Trang chủ</a></li>
+								<li><a href="/aboutUs">Về chúng tôi</a></li>
+								<li><a href="#" class="has-submenu">Đấu giá</a>
 									<ul class="sub-menu">
-										<li><a href="listing-right.html">Sidebar Right</a></li>
-										<li><a href="listing-left.html">Sidebar Left</a></li>
-										<li><a href="listing-grid.html">Grids System</a></li>
-										<li><a href="single-list.html">Car Details</a></li>
+										<li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+										<li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+										<li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
 									</ul>
 								</li>
-								<li><a href="#" class="has-submenu">Blog</a>
-									<ul class="sub-menu">
-										<li><a href="blog-right.html">Classic</a></li>
-										<li><a href="blog-grid.html">Grids System</a></li>
-										<li><a href="grid-right.html">Grids Sidebar</a></li>
-										<li><a href="single-blog.html">Single Post</a></li>
-									</ul>
+								<li><a th:href="@{/asset}" class="has-submenu">Tài sản</a>
+
 								</li>
-								<li><a href="contact.html">Contact</a></li>
+								<li><a href="/news">Tin tức</a>
+								</li>
 								<li>
 									<p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
 									<div id="example" class="more">
-										<form method="get" id="blog-search" class="blog-search">
-											<input type="text" class="blog-search-field" name="s" placeholder="Type to search" value="">
+										<form method="get" id="asset-search" class="blog-search">
+											<input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
 										</form>
-										<p><a href="#" id="example-hide" class="hideLink"
-											  onclick="showHide('example');return false;"><i class="
-											fa fa-close"></i></a></p>
+										<p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
 									</div>
 								</li>
 							</ul>
 						</nav>
+
 					</div>
 				</div>
 			</header>
@@ -147,11 +151,11 @@
 							</div>
 							<div class="flexslider">
 								<ul class="slides">
-									<div th:each="img : ${assetRegistration.getLand().images}">
+
 									<li data-thumb="assets/images/05-featured-slide-117x83.jpg">
-										<img th:src="@{'/Land_images/' + ${img.imageUrl}}" alt="" />
+										<img th:src="@{'/Land_images/' + ${assetRegistration.getLand().images.get(0).imageUrl}}" alt="" />
 									</li>
-									</div>
+
 								</ul>
 							</div>
 							<div class="tab">
