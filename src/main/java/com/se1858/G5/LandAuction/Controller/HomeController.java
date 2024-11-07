@@ -77,8 +77,8 @@ public class HomeController {
         List<Land> allLands = assetService.findAllByName(keyword);
         // Assuming `newsList` has images and we're picking the first image as "latestImage"
 
-        model.addAttribute("allLands", allLands);
-        return "land"; // Name of the view for displaying search results
+        model.addAttribute("auctionDetails", allLands);
+        return "auctionPage"; // Name of the view for displaying search results
     }
     @GetMapping("/someProtectedPage")
     public String someProtectedPage(HttpServletRequest request) {

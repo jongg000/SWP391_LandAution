@@ -27,5 +27,6 @@ public interface UserService {
     List<User> findUsersByStatusAndRole(Status status, Roles role);
     List<User> findUsersByRole(Roles role);
     Page<User> findUsersById(int userId, PageRequest pageRequest);
+    public List<User> findUsersByStatuses(List<Status> statuses);
     Page<User> findUsersByRoleExcluding(PageRequest pageRequest, int excludedRoleId);
 }

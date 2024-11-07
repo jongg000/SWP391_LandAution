@@ -48,11 +48,12 @@
 <body>
 <div id="app">
   <div id="sidebar" class="active">
+
     <div class="sidebar-wrapper active">
       <div class="sidebar-header">
         <div class="d-flex justify-content-between">
           <div class="logo" >
-            <a href="/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
+            <a href="/admin/dashboard"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
           </div>
           <div class="toggler">
             <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -62,45 +63,61 @@
       <div class="sidebar-menu">
         <ul class="menu">
           <li class="sidebar-item ">
-            <a href="/dashboard" class='sidebar-link'>
-              <i class="bi bi-grid-fill"></i>
+            <a href="/admin/dashboard" class="sidebar-link">
+              <i class="bi bi-bar-chart-fill"></i> <!-- Icon for Dashboard -->
               <span>Trang thống kê</span>
             </a>
           </li>
 
-          <li class="sidebar-item">
-            <a href="/management" class='sidebar-link'>
-              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-              <span>Quản lý tài khoản</span>
-            </a>
-          </li>
-          <li class="sidebar-item  active ">
-            <a href="/management" class='sidebar-link'>
-              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-              <span>Xác thực tài khoản khách hàng</span>
-            </a>
-          </li>
-          <li class="sidebar-item  ">
-            <a href="/create-account" class='sidebar-link'>
-              <i class="bi bi-file-earmark-spreadsheet-fill"></i>
-              <span>Tạo tài khoản nhân viên</span>
-            </a>
-          </li>
           <li class="sidebar-item has-sub">
             <a href="#" class="sidebar-link">
-              <i class="bi bi-person-badge-fill"></i>
+              <i class="bi bi-people-fill"></i> <!-- Icon for Account Management -->
+              <span>Quản lý tài khoản</span>
+            </a>
+            <ul class="submenu">
+              <li class="submenu-item">
+                <a href="/admin/management">
+                  <i class="bi bi-list-check"></i> <!-- Icon for Account List -->
+                  <span>Danh sách tài khoản</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="/admin/create-account">
+                  <i class="bi bi-person-plus-fill"></i> <!-- Icon for Create Account -->
+                  <span>Tạo tài khoản nhân viên</span>
+                </a>
+              </li>
+              <li class="submenu-item active">
+                <a href="/admin/request-account">
+                  <i class="bi bi-person-check"></i> <!-- Icon for Account Approval -->
+
+                  <span>Danh sách tài khoản chờ xét duyệt</span>
+                </a>
+              </li>
+              <li class="submenu-item">
+                <a href="/admin/violation">
+                  <i class="bi bi-exclamation-triangle-fill"></i> <!-- Icon for Violations -->
+                  <span>Danh sách vi phạm</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="sidebar-item has-sub">
+            <a href="#" class="sidebar-link">
+              <i class="bi bi-shield-lock-fill"></i> <!-- Icon for Security -->
               <span>Bảo mật</span>
             </a>
             <ul class="submenu">
               <li class="submenu-item">
-                <a href="/adminChangePassword">
-                  <i class="bi bi-key-fill"></i> <!-- Icon cho "Đổi mật khẩu" -->
+                <a href="/admin/adminChangePassword">
+                  <i class="bi bi-lock-fill"></i> <!-- Icon for Change Password -->
                   <span>Đổi mật khẩu</span>
                 </a>
               </li>
               <li class="submenu-item">
                 <a href="/logout">
-                  <i class="bi bi-box-arrow-right"></i> <!-- Icon cho "Đăng xuất" -->
+                  <i class="bi bi-box-arrow-right"></i> <!-- Icon for Logout -->
                   <span>Đăng xuất</span>
                 </a>
               </li>
@@ -108,9 +125,12 @@
           </li>
         </ul>
       </div>
+
       <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
     </div>
+
   </div>
+
   <div id="main">
     <header class="mb-3">
       <a href="#" class="burger-btn d-block d-xl-none">
@@ -119,24 +139,11 @@
     </header>
     <section class="section">
       <div class="card">
-        <div class="card-header">
-          Danh sách người dùng
+        <div class="card-header" style="font-size: 40px; font-weight: bold;">
+          Danh sách người dùng chưa xác minh
         </div>
         <div class="card-body">
           <!-- Dropdown and Search Bar -->
-          <div class="row mb-3">
-            <div class="col-md-4">
-              <!-- Dropdown for status filter -->
-              <select name="status" id="statusSelect" class="form-select">
-                <option value="">Chọn trạng thái</option>
-                <option th:each="status : ${statuses}" th:value="${status.statusID}" th:text="${status.name}"></option>
-              </select>
-            </div>
-            <div class="col-md-8">
-              <!-- Search input -->
-              <input type="text" placeholder="Tìm kiếm theo tên" class="form-control search-input">
-            </div>
-          </div>
 
           <table class="table table-striped" id="table2">
             <thead>
@@ -157,7 +164,7 @@
               <td><span th:text="${item1.address != null ? item1.address : 'No address'}"></span></td>
               <td><span th:text="${item1.status.name}"></span></td>
               <td>
-                <a th:href="@{/request-detail/{id}(id=${item1.userId})}">Chi tiết</a>
+                <a th:href="@{/admin/request-detail/{id}(id=${item1.userId})}">Chi tiết</a>
               </td>
             </tr>
             </tbody>
@@ -167,10 +174,7 @@
     </section>
   </div>
 </div>
-</div>
-<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="/assets/js/bootstrap.bundle.min.js"></script>
-
 <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
 <script>
   // Simple Datatable
@@ -178,6 +182,10 @@
   let dataTable = new simpleDatatables.DataTable(table1);
 </script>
 
+<script src="/assets/js/main.js"></script>
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+<script src="/assets/js/pages/dashboard.js"></script>
 <script src="/assets/js/main.js"></script>
 </body>
 
