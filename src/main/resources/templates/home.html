@@ -25,6 +25,82 @@
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* Card container styling */
+        .featured-item {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .featured-item:hover {
+            transform: scale(1.03);
+        }
+
+        /* Image styling */
+        .image-container {
+            overflow: hidden;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+
+        .car-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .featured-item:hover .car-image {
+            transform: scale(1.05);
+        }
+
+        /* Content styling */
+        .down-content {
+            padding: 15px;
+        }
+
+        .car-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .status-tag {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #FFC107;
+            color: #fff;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        /* Information list styling */
+        .car-info {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    </style>
 </head>
 <body>
 
@@ -354,6 +430,62 @@
                 </div>
             </section>
 
+<!--            <section class="featured-listing">-->
+<!--                <div class="container-fluid">-->
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-12">-->
+<!--                            <div class="heading-section-2 text-center">-->
+<!--                                <h2>Danh sách lô đất nổi bật</h2>-->
+<!--                                <span>Khám phá những cơ hội đầu tư đất nền tuyệt vời.</span>-->
+<!--                                <div class="dec"><i class="fa fa-car"></i></div>-->
+<!--                                <div class="line-dec"></div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="row" style="margin-left: 100px;">-->
+<!--                        <div id="featured-cars" style="  width: 1600px;">-->
+<!--                            <div th:each="land : ${allLands}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">-->
+<!--                                &lt;!&ndash; Hình ảnh &ndash;&gt;-->
+<!--                                &lt;!&ndash;                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">&ndash;&gt;-->
+<!--                                &lt;!&ndash; Nội dung &ndash;&gt;-->
+<!--                                <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">-->
+<!--                                    <a href="#" >-->
+<!--                                        <h2 th:text="${land.name}" style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>-->
+<!--                                    </a>-->
+<!--                                    <div style="padding: 10px; width: 300px; height: 200px;" th:if="${land.getImages().size() > 0}">-->
+<!--                                        <img th:src="'/Land_images/' + ${land.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <span  th:text="'Bước giá: ' +${land.price + ' VNĐ'}" style=" font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>-->
+<!--                                    </div>-->
+
+<!--                                    <div class="light-line1" style="width: 240px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>-->
+<!--                                    <p th:text="'Trạng thái: '+${land.assetRegistration.status.name}" style="margin-top: 10px; margin-bottom: 20px; font-size: large"></p>-->
+<!--                                    <p th:text="'Địa chỉ: '+ ${land.district}" style="margin-top: 10px; margin-bottom: 20px; font-size: larger"></p>-->
+<!--                                    &lt;!&ndash; Trạng thái &ndash;&gt;-->
+<!--                                    <div>-->
+<!--                                        <strong style="color: #f4c23d;">Liên hệ: </strong>-->
+<!--                                        <span th:text="${land.contact}" style="color: #222;"></span>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <strong style="color: #f4c23d;">Diện tích: </strong>-->
+<!--                                        <span th:text="${land.square}" style="color: #222;"></span>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <strong style="color: #f4c23d;">Chiều rộng: </strong>-->
+<!--                                        <span th:text="${land.width}" style="color: #222;"></span>-->
+<!--                                    </div>-->
+<!--                                    <div>-->
+<!--                                        <strong style="color: #f4c23d;">Chiều dài: </strong>-->
+<!--                                        <span th:text="${land.length}" style="color: #222;"></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </section>-->
+
             <section class="featured-listing">
                 <div class="container-fluid">
                     <div class="row">
@@ -361,52 +493,45 @@
                             <div class="heading-section-2 text-center">
                                 <h2>Danh sách lô đất nổi bật</h2>
                                 <span>Khám phá những cơ hội đầu tư đất nền tuyệt vời.</span>
-                                <div class="dec"><i class="fa fa-car"></i></div>
-                                <div class="line-dec"></div>
+                <div class="dec"><i class="fa fa-car"></i></div>
+                     <div class="line-dec"></div>
                             </div>
                         </div>
                     </div>
-                    <div class="row" style="margin-left: 100px;">
-                        <div id="featured-cars" style="  width: 1600px;">
-                            <div th:each="land : ${allLands}" class="featured-item col-md-15 col-sm-6" style="padding: 20px;">
-                                <!-- Hình ảnh -->
-                                <!--                                <img th:src="${ '/Land_images/' + land.getImages().get(0).imageUrl}" alt="" style="height: 80%; width: 80%; border-bottom: 1px solid #ddd; object-fit: cover; border-radius: 10px 10px 0 0;">-->
-                                <!-- Nội dung -->
-                                <div class="down-content1" style="background-color: #ffffff; padding: 15px; border-top: 1px solid #f0f0f0; border-radius: 0 0 10px 10px; text-align: left;">
-                                    <a href="#" >
-                                        <h2 th:text="${land.name}" style="text-align: center; font-family: 'Montserrat', sans-serif; font-size: 18px; color: #222; text-transform: uppercase; font-weight: bold; margin-bottom: 10px;"></h2>
-                                    </a>
-                                    <div style="padding: 10px; width: 300px; height: 200px;" th:if="${land.getImages().size() > 0}">
-                                        <img th:src="'/Land_images/' + ${land.getImages().get(0).imageUrl}" alt="Land Image" style="height: 80%; width: 80%;">
-                                    </div>
-                                    <div>
-                                        <span  th:text="'Bước giá: ' +${land.price + ' VNĐ'}" style=" font-size: 16px; background-color: #f4c23d; padding: 5px 10px; border-radius: 5px; color: #222; display: inline-block; margin-bottom: 15px;"></span>
-                                    </div>
+                    <div class="row">
+                        <div id="featured-cars" class="d-flex flex-wrap justify-content-center">
+                            <div th:each="auction : ${auctions}" class="featured-item col-md-4 col-sm-6 mb-4">
+                                <!-- Car Image -->
+                                <div class="image-container">
+                                    <img th:src="'/Land_images/' + ${auction.land.getImages().get(0).imageUrl}" alt="Car Image" class="car-image">
+                                </div>
 
-                                    <div class="light-line1" style="width: 240px; height: 2px; background-color: #eeeeee; margin-top: 15px;"></div>
-                                    <p th:text="'Trạng thái: '+${land.assetRegistration.status.name}" style="margin-top: 10px; margin-bottom: 20px; font-size: large"></p>
-                                    <p th:text="'Địa chỉ: '+ ${land.district}" style="margin-top: 10px; margin-bottom: 20px; font-size: larger"></p>
-                                    <!-- Trạng thái -->
-                                    <div>
-                                        <strong style="color: #f4c23d;">Liên hệ: </strong>
-                                        <span th:text="${land.contact}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Diện tích: </strong>
-                                        <span th:text="${land.square}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Chiều rộng: </strong>
-                                        <span th:text="${land.width}" style="color: #222;"></span>
-                                    </div>
-                                    <div>
-                                        <strong style="color: #f4c23d;">Chiều dài: </strong>
-                                        <span th:text="${land.length}" style="color: #222;"></span>
+                                <!-- Car Content -->
+                                <div class="down-content text-center">
+                                    <a th:href="@{/auction/showAuctionDetail/{id}(id=${auction.auctionId})}">
+                                        <h3 th:text="${auction.land.name}" class="car-title">Car Name</h3>
+                                    </a>
+                                    <span style="margin-top: 20px;" th:text="${auction.status.name}" class="status-tag">Status</span>
+
+                                    <!-- Car Information List -->
+                                    <div class="car-info" style="margin-top: 10px;">
+                                        <ul class="info-list d-flex justify-content-between">
+                                            <li class="info-item">
+                                                <strong>Bắt đầu:</strong>
+                                                <div th:text="${#temporals.format(auction.startTime, 'yyyy-MM-dd HH:mm')}">Start Time</div>
+                                            </li>
+                                            <li class="info-item">
+                                                <strong>Kết thúc:</strong>
+                                                <div th:text="${#temporals.format(auction.endTime, 'yyyy-MM-dd HH:mm')}">End Time</div>
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </section>
 
@@ -539,7 +664,6 @@
                             <div class="latest-news">
                                 <h4>Tin tức mới nhất</h4>
                                 <div class="latest-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                     <a href="#">
                                         <h6>Đấu giá đất nền khu đô thị</h6>
                                     </a>
@@ -549,7 +673,6 @@
                                     </ul>
                                 </div>
                                 <div class="latest-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                     <a href="#">
                                         <h6>Cơ hội đầu tư đất ven biển</h6>
                                     </a>
@@ -564,28 +687,20 @@
                             <div class="gallery">
                                 <h4>Thư viện</h4>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                                 <div class="gallery-item">
-                                    <img src="/assets/images/logo.png" alt="">
                                 </div>
                             </div>
                         </div>
