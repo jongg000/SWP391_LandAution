@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -34,11 +37,13 @@ public class UserController {
     UserRepository userRepository;
     RolesRepository roleRepository;
     private final StatusRepository statusRepository;
+    EmailService emailService;
+
+
     AssetRegistrationService assetRegistrationService;
     StatusService statusService;
     ViolationService violationService;
     AuctionService auctionService;
-    EmailService emailService;
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -47,27 +52,50 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("registerDTO") UserRegisterDTO userRegisterDTO, BindingResult bindingResult, Model model) {
-        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
+    public String register(@ModelAttribute("registerDTO") UserRegisterDTO userRegisterDTO, BindingResult bindingResult, HttpSession session, Model model) {
+        // Kiểm tra email và số điện thoại tồn tại
         if (userService.existsByEmail(userRegisterDTO.getEmail())) {
             model.addAttribute("emailError", "Email này đã tồn tại.");
+            return "register";
         }
-
         if (userService.existsByPhoneNumber(userRegisterDTO.getPhoneNumber())) {
             model.addAttribute("phoneError", "Số điện thoại đã tồn tại.");
+            return "register";
         }
 
-        // Kiểm tra nếu có lỗi trong BindingResult (các thông báo lỗi từ validate)
-        if (bindingResult.hasErrors() || model.containsAttribute("emailError") || model.containsAttribute("phoneError")) {
-            return "register"; // Trả về trang đăng ký nếu có lỗi
-        }
-        // Gọi phương thức createUser để xử lý việc tạo người dùng
-        createUser(userRegisterDTO, 1);
+        // Sinh OTP
+        String otp = emailService.generateOtp();
+        emailService.sendOtpEmail(userRegisterDTO.getEmail(), otp);
 
-        // Nếu đăng ký thành công, chuyển hướng đến trang login
-        model.addAttribute("success", "Đăng ký thành công!");
-        return "redirect:/login";
+        // Lưu OTP và thông tin người dùng vào session
+        session.setAttribute("otp", otp);
+        session.setAttribute("userRegisterDTO", userRegisterDTO);
+        return "otp_verification";
     }
+
+
+    @PostMapping("/verify-otp")
+    public String verifyOtp(@RequestParam("otp") String otp, HttpSession session, Model model) {
+        String sessionOtp = (String) session.getAttribute("otp");
+        UserRegisterDTO userRegisterDTO = (UserRegisterDTO) session.getAttribute("userRegisterDTO");
+
+        if (sessionOtp != null && sessionOtp.equals(otp)) {
+            // Tạo người dùng sau khi OTP xác nhận thành công
+            createUser(userRegisterDTO, 1);
+            model.addAttribute("success", "Đăng ký thành công!");
+
+            // Xóa OTP và thông tin người dùng khỏi session sau khi thành công
+            session.removeAttribute("otp");
+            session.removeAttribute("userRegisterDTO");
+
+            return "redirect:/login";
+        } else {
+            model.addAttribute("otpError", "OTP không hợp lệ.");
+            return "otp_verification";
+        }
+    }
+
+
 
     private void createUser(UserRegisterDTO userRegisterDTO, int roleId) {
         // Tạo người dùng mới và gán các thuộc tính

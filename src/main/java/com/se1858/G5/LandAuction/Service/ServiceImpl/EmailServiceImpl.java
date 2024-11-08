@@ -6,12 +6,17 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.Random;
+
 @Service
 public class EmailServiceImpl implements EmailService {
 
 
-    @Autowired
-    private JavaMailSender mailSender;
+    private final JavaMailSender mailSender;
+
+    public EmailServiceImpl(JavaMailSender mailSender) {
+        this.mailSender = mailSender;
+    }
 
     @Override
     public void sendSimpleMail(String to, String subject, String text) {
@@ -21,4 +26,17 @@ public class EmailServiceImpl implements EmailService {
         message.setText(text);
         mailSender.send(message);
     }
+
+    public String generateOtp() {
+        return String.valueOf(100000 + new Random().nextInt(900000)); // Sinh OTP 6 chữ số
+    }
+
+    public void sendOtpEmail(String email, String otp) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setTo(email);
+        message.setSubject("OTP Xác thực email");
+        message.setText("Otp xác thực của bạn là: " + otp);
+        mailSender.send(message);
+    }
+
 }
