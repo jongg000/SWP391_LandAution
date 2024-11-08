@@ -143,5 +143,10 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRepository.countByStatus(status);
     }
 
+    @Override
+    public List<Auction> findTop5AuctionsByAuctionIdDesc() {
+        return auctionRepository.findTop6ByOrderByAuctionIdDesc();
+    }
+
 
 }

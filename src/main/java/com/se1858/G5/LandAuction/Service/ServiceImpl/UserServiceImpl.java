@@ -109,4 +109,8 @@ public class UserServiceImpl implements UserService {
         return userRepository.findByRole_RoleIDNot(excludedRoleId, pageRequest);
     }
 
+    public List<User> findUsersByStatuses(List<Status> statuses) {
+        return userRepository.findByStatusIn(statuses);
+    }
+
 }

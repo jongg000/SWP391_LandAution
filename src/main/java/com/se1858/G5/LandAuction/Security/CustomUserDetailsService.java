@@ -4,6 +4,8 @@ package com.se1858.G5.LandAuction.Security;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -30,7 +32,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("Password cannot be null or empty");
+            throw new BadCredentialsException("Password cannot be null or empty");
+        }
+        // Kiểm tra nếu trạng thái của người dùng là 3
+        if (user.getStatus().getStatusID() == 3) {
+            throw new DisabledException("This account is disabled");
         }
 
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName().name().toUpperCase());

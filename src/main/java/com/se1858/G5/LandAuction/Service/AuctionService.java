@@ -21,5 +21,6 @@ public interface AuctionService {
     public void saveAuction(Auction auction);
     public List<Auction> getAllAuctionByStartTime();
     public long countByStatus(Status status);
+    List<Auction> findTop5AuctionsByAuctionIdDesc();
     public boolean checkWinner(int auctionId, int userId);
 }

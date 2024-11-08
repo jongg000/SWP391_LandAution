@@ -15,115 +15,34 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class LandService {
-    @Autowired
-    private  LandRepository landRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    private LandImageRepository landImageRepository;
-
-    public long countByUser(User user) {
-        return landRepository.countByUser(user);
-    }
-
-    private LandDTO convertToDTO(Land land) {
-        return LandDTO.builder()
-                .name(land.getName())
-                .ward(land.getWard())
-                .district(land.getDistrict())
-                .province(land.getProvince())
-                .userId(land.getUser().getUserId())
-                .description(land.getDescription())
-                .price(land.getPrice())
-                .location(land.getLocation())
-                .contact(land.getContact())
-                .length(land.getLength())
-                .width(land.getWidth())
-                .square(land.getSquare())
-                .build();
-    }
+public interface LandService {
 
 
-    private Land convertToEntity(LandDTO land) {
-        return Land.builder()
-                .name(land.getName())
-                .width(land.getWidth())
-                .length(land.getLength())
-                .square(land.getSquare())
-                .ward(land.getWard())
-                .province(land.getProvince())
-                .district(land.getDistrict())
-                .contact(land.getContact())
-                .description(land.getDescription())
-                .price(land.getPrice())
-                .location(land.getLocation())
-                .user(userRepository.findById(land.getUserId()).orElse(null))
-                .build();
-    }
-    private LandImage convertToLEntity(LandImageDTO land) {
-        return LandImage.builder()
-                .imageId(land.getImageId())
-                .land(landRepository.findById(land.getLandId()).orElse(null))
-                .imageUrl(land.getImageUrl())
-                .build();
-    }
-
-    private LandImageDTO convertToLDTO(LandImage land) {
-        return LandImageDTO.builder()
-                .imageId(land.getImageId())
-                .landId(land.getLand().getLandId())
-                .imageUrl(land.getImageUrl())
-                .build();
-    }
+     LandDTO convertToDTO(Land land);
 
 
-    public void save(Land land){
-        landRepository.save(land);
-    }
+     Land convertToEntity(LandDTO land);
+     LandImage convertToLEntity(LandImageDTO land);
+
+     LandImageDTO convertToLDTO(LandImage land);
 
 
-    public void saveLand(LandDTO wishlistRequest) {
-        Land wishlist = convertToEntity(wishlistRequest);
-        landRepository.save(wishlist);
-    }
-
-    public List<LandDTO> findAllLand() {
-        return landRepository.findAll().
-                stream().map(this::convertToDTO).
-                collect(Collectors.toList());
-    }
+     void save(Land land);
 
 
-    public LandDTO findLandById(int wishlistId) {
-        return landRepository.findById(wishlistId)
-                .map(this::convertToDTO)
-                .orElse(null);
-    }
+     void saveLand(LandDTO wishlistRequest);
 
-    public List<LandImageDTO> findAllLandImageByLandId(int landId){
-        return landImageRepository.findByLand_LandId(landId)
-                .stream().map(this::convertToLDTO)
-                .collect(Collectors.toList());
-    }
+     List<LandDTO> findAllLand();
 
-    public void deleteLandById(String wishlistId) {
-        landRepository.deleteById(Integer.valueOf(wishlistId));
-    }
 
-    public LandDTO update(LandDTO landDTO) {
-        Land land = convertToEntity(landDTO);
-        Land udLand = landRepository.save(land);
-        return convertToDTO(udLand);
-    }
+     LandDTO findLandById(int wishlistId);
 
-    public List<Land> findByUser(User user) {
-        return  landRepository.findByUser(user);
-    }
+     List<LandImageDTO> findAllLandImageByLandId(int landId);
 
+     void deleteLandById(String wishlistId);
+     LandDTO update(LandDTO landDTO);
+
+     List<Land> findByUser(User user);
 
 }
 

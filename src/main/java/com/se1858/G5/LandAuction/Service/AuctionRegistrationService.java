@@ -10,70 +10,24 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Service
-public class AuctionRegistrationService {
-    @Autowired
-    private AuctionRegistrationRepository auctionRegistrationRepository;
-    @Autowired
-    private AssetRegistrationRepository assetRegistrationRepository;
 
-    @Autowired
-    private StatusRepository statusRepository;
-    @Autowired
-    private AuctionRepository auctionRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private LandRepository landRepository;
+public interface AuctionRegistrationService {
 
-    private AuctionRegistrationDTO convertToDTO(AuctionRegistration auction) {
-        return AuctionRegistrationDTO.builder()
-                .registrationId(auction.getRegistrationID())
-                .auctionId(auction.getAuction().getAuctionId())
-                .userId(auction.getUser().getUserId())
-                .build();
-    }
+     AuctionRegistrationDTO convertToDTO(AuctionRegistration auction);
 
-    private AuctionRegistration convertToEntity(AuctionRegistrationDTO land) {
-        return AuctionRegistration.builder()
-                .registrationID(land.getRegistrationId())
-                .auction(auctionRepository.findById(land.getAuctionId()).orElse(null))
-                .user(userRepository.findById(land.getUserId()).orElse(null))
-                .build();
-    }
-    public AuctionRegistrationDTO getById(int id) {
-        return convertToDTO(Objects.requireNonNull(auctionRegistrationRepository.findById(id).orElse(null)));
+     AuctionRegistration convertToEntity(AuctionRegistrationDTO land);
+    public AuctionRegistrationDTO getById(int id);
 
-    }
-    public AuctionRegistration save(AuctionRegistrationDTO auctionDto) {
-        AuctionRegistration auction = convertToEntity(auctionDto);
-        return auctionRegistrationRepository.save(auction);
-    }
+    public AuctionRegistration save(AuctionRegistrationDTO auctionDto);
 
-    public List<AuctionRegistrationDTO> getAllAuctionRegistrationsByAuctionId(int auctionId) {
-        return auctionRegistrationRepository.findAllByAuction_AuctionId(auctionId).stream().map(this::convertToDTO).collect(Collectors.toList());
-    }
+    public List<AuctionRegistrationDTO> getAllAuctionRegistrationsByAuctionId(int auctionId);
 
-    public AuctionRegistrationDTO getByUser_UserIdAndAuction_AuctionId(int userId, int auctionId) {
-        return convertToDTO(auctionRegistrationRepository.findByUser_UserIdAndAuction_AuctionId(userId, auctionId));
-    }
-    public List<AuctionRegistrationDTO> getAllAuctionRegistrationsByUserId(int userId) {
-        return auctionRegistrationRepository.findAllByUser_UserId(userId).stream().map(this::convertToDTO).collect(Collectors.toList());
-    }
-    public boolean checkAvailableAttend(int userId, int landId) {
-        Land land = landRepository.findById(landId).orElse(null);
+    public AuctionRegistrationDTO getByUser_UserIdAndAuction_AuctionId(int userId, int auctionId);
+    public List<AuctionRegistrationDTO> getAllAuctionRegistrationsByUserId(int userId);
+    public boolean checkAvailableAttend(int userId, int landId);
+    public AuctionRegistration getByAuctionAndBidAmount( Auction auction, long bidAmount);
 
-        return land.getUser().getUserId() == userId;
-    }
-    public AuctionRegistration getByAuctionAndBidAmount( Auction auction, long bidAmount) {
-        return auctionRegistrationRepository.findByAuctionAndBids_BidAmount( auction, bidAmount);
-    }
-
-    public boolean checkAvailableAttend(int userId){
-        User user = userRepository.findById(userId).orElse(null);
-        assert user != null;
-        return user.getStatus().getStatusID() == 2;
-    }
+    public boolean checkAvailableAttend(int userId);
 }
 
 

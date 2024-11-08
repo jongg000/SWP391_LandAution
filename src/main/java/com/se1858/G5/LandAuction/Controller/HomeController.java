@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Controller;
 
+import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.UserRegisterDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.RolesRepository;
@@ -59,10 +60,10 @@ public class HomeController {
     public String showHomePage(Model model) {
         List<News> newsList = newsService.findTop4ByOrderByNewsIdDesc();
         List<Land> allLands = assetService.findTop4ByOrderByLandIdDesc();
-
+        List<Auction> allAuctions = auctionService.findTop5AuctionsByAuctionIdDesc();
         // Assuming `newsList` has images and we're picking the first image as "latestImage"
 
-        model.addAttribute("allLands", allLands);
+        model.addAttribute("auctions", allAuctions);
         model.addAttribute("newsList", newsList);
         return "home"; // Trả về tên của file HTML home.html
     }
@@ -77,8 +78,8 @@ public class HomeController {
         List<Land> allLands = assetService.findAllByName(keyword);
         // Assuming `newsList` has images and we're picking the first image as "latestImage"
 
-        model.addAttribute("allLands", allLands);
-        return "land"; // Name of the view for displaying search results
+        model.addAttribute("auctionDetails", allLands);
+        return "auctionPage"; // Name of the view for displaying search results
     }
     @GetMapping("/someProtectedPage")
     public String someProtectedPage(HttpServletRequest request) {

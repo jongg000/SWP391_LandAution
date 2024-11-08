@@ -8,9 +8,6 @@ import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.StatusService;
 import com.se1858.G5.LandAuction.Service.UserService;
-import com.se1858.G5.LandAuction.util.UploadFile;
-import com.se1858.G5.LandAuction.Service.StatusService;
-import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import com.se1858.G5.LandAuction.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +28,13 @@ import java.util.List;
 public class AssetController {
 
     private  UserService userService;
-    private  LandService landService;
+   private  LandService landService;
     private  AssetService assetService;
+
     private  AssetRegistrationService assetRegistrationService;
+
     private  LandRepository landRepository;
+
     private  StatusService statusService;
 
     @Autowired
@@ -54,14 +54,9 @@ public class AssetController {
         return "customer/land-registratrion";
     }
 
-    @GetMapping("/image")
-    public String testImage(Model model) {
-        return "customer/land-registratrion";
-    }
 
     @PostMapping("saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
-
         User user = userService.findByEmail(principal.getName());
                 Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
@@ -76,16 +71,16 @@ public class AssetController {
         landDTO.setCreatedDate(createdDate);
         assetRegistration.setLand(land);
         assetRegistration.setRegistrationDate(createdDate);
-        assetRegistration.setLand(land);
         land.setAssetRegistration(assetRegistration);
         assetRegistration.setStatus(statusService.getStatusById(4));
         landService.save(land);
         System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
         model.addAttribute("land", landDTO);
+        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
         return "redirect:/asset";
+        //        return "customer/land-registratrion";
     }
-
 
 
     @GetMapping()
