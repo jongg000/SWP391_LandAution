@@ -144,6 +144,11 @@ public class AuctionServiceImpl implements AuctionService {
     }
 
     @Override
+    public Auction findAuctionByLand(Land land) {
+        return auctionRepository.findAuctionByLand(land);
+    }
+
+    @Override
     public List<Auction> findTop5AuctionsByAuctionIdDesc() {
         return auctionRepository.findTop6ByOrderByAuctionIdDesc();
     }

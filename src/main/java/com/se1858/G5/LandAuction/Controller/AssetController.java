@@ -18,8 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-
-
 import java.time.ZoneId;
 import java.util.List;
 
@@ -28,13 +26,10 @@ import java.util.List;
 public class AssetController {
 
     private  UserService userService;
-   private  LandService landService;
+    private  LandService landService;
     private  AssetService assetService;
-
     private  AssetRegistrationService assetRegistrationService;
-
     private  LandRepository landRepository;
-
     private  StatusService statusService;
 
     @Autowired
@@ -47,7 +42,7 @@ public class AssetController {
         this.statusService = statusService;
     }
 
-    @GetMapping("post-asset")
+    @GetMapping("/post-asset")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
@@ -58,7 +53,7 @@ public class AssetController {
     @PostMapping("saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
-                Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
+        Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
                                      landDTO.getLocation(), user, landDTO.getName(),landDTO.getWard(),
                                      landDTO.getDistrict(), landDTO.getProvince());
@@ -72,25 +67,28 @@ public class AssetController {
         assetRegistration.setLand(land);
         assetRegistration.setRegistrationDate(createdDate);
         land.setAssetRegistration(assetRegistration);
-        assetRegistration.setStatus(statusService.getStatusById(4));
+        assetRegistration.setStatus(statusService.getStatusById(10));
         landService.save(land);
         System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
-        model.addAttribute("land", landDTO);
-        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
         return "redirect:/asset";
-        //        return "customer/land-registratrion";
     }
 
 
     @GetMapping()
-    public String list(Principal principal, Model model) {
+    public String list(@RequestParam(value = "status", required = false) String status,
+                        Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
-        List<Land> list = landService.findByUser(user);
-        long count = assetRegistrationService.countAssetRegistrationsByUser(user);
+        List<Land> list = null;
+        if(status == null || status.equals("0")) {
+            list = landRepository.findLandsByUserIdOrderedByRegistrationDate(user.getUserId());
+        }if(status != null){
+            list = landRepository.findLandsByUserIdAndStatusId(user.getUserId(), Integer.parseInt(status));
+        }
+        long count = landService.countByUser(user);
         model.addAttribute("list", list);
         model.addAttribute("count", count);
-        System.out.println(count);
+        model.addAttribute("status", user.getStatus().getStatusID());
         return "customer/asset-list";
     }
     @GetMapping("/asset-detail/{id}")

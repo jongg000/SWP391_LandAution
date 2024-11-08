@@ -43,6 +43,6 @@ public interface LandService {
      LandDTO update(LandDTO landDTO);
 
      List<Land> findByUser(User user);
-
+     Long countByUser(User user);
 }
 

@@ -474,12 +474,24 @@
 <script>
     function validateForm() {
         var priceInput = document.getElementById("price").value;
-
+        var squareInput = document.getElementById("square").value;
+        var lengthInput = document.getElementById("length").value;
+        var widthInput = document.getElementById("width").value;
         // Kiểm tra nếu input chứa chữ cái hoặc là số âm
-        if (!/^\d+$/.test(priceInput) || parseFloat(priceInput) < 0) {
+        if (!/^\d+$/.test(priceInput) || parseFloat(priceInput) <= 0) {
             alert("Giá khởi điểm phải là số dương và không được chứa chữ cái.");
             return false; // Ngăn form submit
+        }else if(!/^\d+$/.test(squareInput) || parseFloat(squareInput) <= 0){
+            alert("Diện tích phải là số dương và không được chứa chữ cái.");
+            return false; // Ngăn form submit
+        }else if(!/^\d+$/.test(lengthInput) || parseFloat(lengthInput) <= 0){
+            alert("Chiều dài phải là số dương và không được chứa chữ cái.");
+            return false; // Ngăn form submit
+        }else if(!/^\d+$/.test(widthInput) || parseFloat(widthInput) <= 0){
+            alert("Chiều rộng phải là số dương và không được chứa chữ cái.");
+            return false; // Ngăn form submit
         }
+
 
         return true; // Cho phép form submit nếu kiểm tra thành công
     }

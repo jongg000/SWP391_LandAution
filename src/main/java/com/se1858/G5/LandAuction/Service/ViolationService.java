@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface ViolationService {
     public Page<Violation> getAllViolations(PageRequest pageRequest);
+    public void saveViolation(Violation violation);
 }

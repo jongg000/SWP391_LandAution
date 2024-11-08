@@ -25,5 +25,14 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
     List<Land> searchLandsByKeyword(@Param("keyword") String keyword);
     long countByUser(User user);
     List<Land> findByUser(User user);
+
+    @Query("SELECT l FROM Land l JOIN l.assetRegistration ar WHERE l.user.userId = :userId ORDER BY ar.registrationDate DESC")
+    List<Land> findLandsByUserIdOrderedByRegistrationDate(@Param("userId") int userId);
+
+    @Query(value = "SELECT * FROM land l JOIN asset_registration ar ON l.land_id = ar.land_id " +
+            "WHERE l.user_user_id = :userId AND ar.statusid = :statusId " +
+            "ORDER BY ar.registration_date DESC", nativeQuery = true)
+    List<Land> findLandsByUserIdAndStatusId(@Param("userId") int userId,
+                                            @Param("statusId") int statusId);
 }
 

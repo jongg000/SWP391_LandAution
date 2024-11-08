@@ -2,6 +2,7 @@ package com.se1858.G5.LandAuction.Service;
 
 import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.Entity.Auction;
+import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.Status;
 
 import java.time.LocalDateTime;
@@ -23,4 +24,5 @@ public interface AuctionService {
     public long countByStatus(Status status);
     List<Auction> findTop5AuctionsByAuctionIdDesc();
     public boolean checkWinner(int auctionId, int userId);
+    public Auction findAuctionByLand(Land land);
 }

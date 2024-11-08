@@ -18,7 +18,7 @@ public class CancelAsset {
     @GetMapping()
     public String cancel() {
 
-        return "/customer/add-news";
+        return "cancel-form";
     }
 
     @PostMapping()

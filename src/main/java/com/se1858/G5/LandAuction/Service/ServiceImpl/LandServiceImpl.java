@@ -123,4 +123,9 @@ public class LandServiceImpl implements LandService {
         return  landRepository.findByUser(user);
     }
 
+    @Override
+    public Long countByUser(User user) {
+        return landRepository.countByUser(user);
+    }
+
 }
