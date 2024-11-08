@@ -9,11 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -129,6 +126,11 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public long countByStatus(Status status) {
         return auctionRepository.countByStatus(status);
+    }
+
+    @Override
+    public Auction findAuctionByLand(Land land) {
+        return auctionRepository.findAuctionByLand(land);
     }
 
 

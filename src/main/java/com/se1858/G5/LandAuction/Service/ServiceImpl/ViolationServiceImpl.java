@@ -22,4 +22,10 @@ public class ViolationServiceImpl implements ViolationService {
         return violationRepository.findAll(pageRequest);
     }
 
+    @Override
+    public void saveViolation(Violation violation) {
+        violationRepository.save(violation);
+    }
+
+
 }

@@ -34,7 +34,7 @@ public class Land {
     @Column( columnDefinition = "TEXT")
     private String location;
 
-    @Column(columnDefinition = "NVARCHAR(255)")
+    @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
 
     private long price;

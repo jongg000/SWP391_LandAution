@@ -26,14 +26,15 @@ public class StaffController {
     private UserService userService;
     private StatusService statusService;
     private AuctionService auctionService;
+    private EmailService emailService;
 
     @Autowired
-    public StaffController(AssetRegistrationService assetRegistrationService, UserService userService, StatusService statusService, AuctionService auctionService) {
+    public StaffController(AssetRegistrationService assetRegistrationService, UserService userService, StatusService statusService, AuctionService auctionService, EmailService emailService) {
         this.assetRegistrationService = assetRegistrationService;
         this.userService = userService;
         this.statusService = statusService;
-
         this.auctionService = auctionService;
+        this.emailService = emailService;
     }
 
     @GetMapping()
@@ -78,10 +79,12 @@ public class StaffController {
             auction.setStartTime(auctionStat);
             auction.setEndTime(auctionStat.plusMinutes(45));
             auction.setLand(assetRegistration.getLand());
+            assetRegistration.setUser(user);
             assetRegistration.setStatus(statusService.getStatusById(8));
             auction.setStatus(statusService.getStatusById(8));
+            assetRegistrationService.save(assetRegistration);
             auctionService.saveAuction(auction);
-            return "staff/home-staff";
+            return "redirect:land-detail/" + requestDTO.getDocumentId();
         } else if ("rejected".equals(action)) {
             LocalDateTime createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
             assetRegistration.setApprovalDate(createdDate);
@@ -89,7 +92,8 @@ public class StaffController {
             assetRegistration.setUser(user);
             assetRegistration.setComments(requestDTO.getComments());
             assetRegistrationService.save(assetRegistration);
-            return "staff/home-staff";
+
+            return "redirect:land-detail/" + requestDTO.getDocumentId();
         }
         return "staff/home-staff";
     }

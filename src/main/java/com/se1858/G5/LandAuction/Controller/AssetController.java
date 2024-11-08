@@ -53,7 +53,7 @@ public class AssetController {
     @PostMapping("saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
-                Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
+        Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
                                      landDTO.getLocation(), user, landDTO.getName(),landDTO.getWard(),
                                      landDTO.getDistrict(), landDTO.getProvince());
@@ -78,7 +78,7 @@ public class AssetController {
     @GetMapping()
     public String list(Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
-        List<Land> list = landService.findByUser(user);
+        List<Land> list = landRepository.findByUser(user);
         long count = landService.countByUser(user);
         model.addAttribute("list", list);
         model.addAttribute("count", count);

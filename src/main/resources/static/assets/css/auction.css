@@ -3819,6 +3819,25 @@ footer .gallery .gallery-item img {
     background-color: #f0b20e;
 }
 
+.advanced-button2 {
+    width: 160px;
+    height: 40px;
+    background-color: green;
+    line-height: 40px;
+    ;
+}
+
+.advanced-button2 a {
+    margin-left: 15px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+
 .simple-button a {
     display: inline-block;
     background-color: #f4c23d;

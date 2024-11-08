@@ -1,12 +1,13 @@
 package com.se1858.G5.LandAuction.Controller;
 
 
+import com.se1858.G5.LandAuction.DTO.CancelAssetDTO;
 import com.se1858.G5.LandAuction.DTO.ProfileDTO;
 import com.se1858.G5.LandAuction.DTO.UserRegisterDTO;
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
+import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
-import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -18,9 +19,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Set;
 
 @Controller
 @RequestMapping()
@@ -32,8 +34,10 @@ public class UserController {
     UserRepository userRepository;
     RolesRepository roleRepository;
     private final StatusRepository statusRepository;
-
-
+    AssetRegistrationService assetRegistrationService;
+    StatusService statusService;
+    ViolationService violationService;
+    AuctionService auctionService;
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -223,6 +227,49 @@ public class UserController {
         userService.save(user);
         model.addAttribute("user", user);
         return "redirect:/profile";
+    }
+
+    @GetMapping("/user-drop/{id}")
+    public String cancel(Model model, @PathVariable int id) {
+        AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
+        CancelAssetDTO cancelAssetDTO = new CancelAssetDTO();
+        cancelAssetDTO.setId(id);
+        cancelAssetDTO.setDate(assetRegistration.getRegistrationDate());
+        cancelAssetDTO.setName(assetRegistration.getLand().getName());
+        model.addAttribute("cancelAssetDTO", cancelAssetDTO);
+        return "customer/cancel-form";
+    }
+
+    @PostMapping("/handle-cancel")
+    public String handleCancel(@ModelAttribute("cancelAssetDTO") CancelAssetDTO cancelAssetDTO, Principal principal, Model model) {
+        User user = userService.findByEmail(principal.getName());
+        AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(cancelAssetDTO.getId());
+        assetRegistration.setReason(cancelAssetDTO.getReason());
+        assetRegistration.setStatus(statusService.getStatusById(9));
+        Violation violation = new Violation();
+        violation.setUser(user);
+        Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
+        String detail = "";
+        if(auction != null) {
+             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName()+ " Cấp độ 3";
+            Set<User> userList = auction.getUser();
+            if(userList != null) {
+                for(User item : userList) {
+                    BigDecimal balance = item.getRefundMoney().add(new BigDecimal("500000"));
+                    item.setRefundMoney(balance);
+                }
+            }
+        }else{
+             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName()+ " Cấp độ 2";
+        }
+        auction.setStatus(statusService.getStatusById(9));
+        auction.setStartTime(LocalDateTime.MIN);
+        auction.setEndTime(LocalDateTime.MIN);
+        violation.setDetail(detail);
+        violationService.saveViolation(violation);
+        assetRegistrationService.save(assetRegistration);
+        auctionService.saveAuction(auction);
+        return "redirect:/asset";
     }
 
 
