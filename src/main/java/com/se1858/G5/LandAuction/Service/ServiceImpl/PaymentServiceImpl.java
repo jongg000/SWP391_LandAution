@@ -78,9 +78,6 @@ public class PaymentServiceImpl implements PaymentService {
         if (fields.containsKey("vnp_SecureHash")) {
             fields.remove("vnp_SecureHash");
         }
-
-
-
         String signValue = vnPayUtil.hashAllFields(fields);
 
         // so sánh vnp_SecureHash và signValue có trùng nhau ?

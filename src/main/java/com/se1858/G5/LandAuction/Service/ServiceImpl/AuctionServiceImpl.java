@@ -30,20 +30,8 @@ public class AuctionServiceImpl implements AuctionService {
     private UserRepository userRepository;
 
     private AuctionBidUpdateServiceImpl auctionBidUpdateService;
-     AuctionRepository auctionRepository;
-     LandRepository landRepository;
-     AuctionRegistrationRepository auctionRegistration;
-     UserRepository userRepository;
-     AuctionBidUpdateServiceImpl auctionBidUpdateService;
 
-    @Autowired
-    public AuctionServiceImpl(AuctionRepository auctionRepository, LandRepository landRepository, AuctionRegistrationRepository auctionRegistration, UserRepository userRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService) {
-        this.auctionRepository = auctionRepository;
-        this.landRepository = landRepository;
-        this.auctionRegistration = auctionRegistration;
-        this.userRepository = userRepository;
-        this.auctionBidUpdateService = auctionBidUpdateService;
-    }
+
 
     public AuctionServiceImpl(AuctionRepository auctionRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService, UserRepository userRepository, AuctionRegistrationRepository auctionRegistration, LandRepository landRepository, BidsRepository bidsRepository) {
         this.auctionRepository = auctionRepository;
