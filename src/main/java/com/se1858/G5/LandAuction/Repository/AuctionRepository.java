@@ -9,11 +9,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AuctionRepository extends JpaRepository<Auction, Integer> {
-
+    Auction findByAuctionId(int auctionId);
     List<Auction> findTop4ByOrderByStartTimeDesc();
     List<Auction> findAllByEndTimeBefore(LocalDateTime endTime);
     List<Auction> findAllByOrderByStartTimeDesc();
     long countByStatus(Status status);
     Auction findAuctionByLand(Land land);
+    List<Auction> findTop6ByOrderByAuctionIdDesc();
 
 }

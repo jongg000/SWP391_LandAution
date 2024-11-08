@@ -11,60 +11,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Service
-public class BidService {
-    @Autowired
-    private BidsRepository bidRepository;
 
+public interface BidService {
 
+     BidDTO convertToDTO(Bids bid);
 
-    @Autowired
-    private AuctionRegistrationRepository auctionRegistrationRepository;
+     Bids convertToEntity(BidDTO bid);
 
-    @Autowired
-    private AuctionRepository auctionRepository;
-    @Autowired
-    private AuctionService auctionService;
-
-    private BidDTO convertToDTO(Bids bid) {
-        return BidDTO.builder()
-                .bidAmount(bid.getBidAmount())
-                .registrationId(bid.getAuctionRegistration().getRegistrationID())
-                .bidTime(bid.getBidTime())
-                .build();
-    }
-
-    private Bids convertToEntity(BidDTO bid) {
-        return Bids.builder()
-                .bidAmount(bid.getBidAmount())
-                .auctionRegistration(auctionRegistrationRepository.findById(bid.getRegistrationId()).orElse(null))
-                .bidTime(bid.getBidTime())
-                .build();
-    }
-
-    public Bids saveBid(BidDTO bid) {
-        return bidRepository.save(convertToEntity(bid));
-    }
-
-    public List<BidDTO> getAllBids(int auctionRegistrationId) {
-        return bidRepository.findAllByAuctionRegistration_Auction_AuctionIdOrderByBidTimeDesc(auctionRegistrationId).stream().map(this::convertToDTO).collect(Collectors.toList());
-    }
+    public Bids saveBid(BidDTO bid);
+    public List<BidDTO> getAllBids(int auctionRegistrationId);
 
 
 
 
-    public boolean checkWinner(int auctionRegistrationId) {
-        AuctionRegistration ar = auctionRegistrationRepository.findById(auctionRegistrationId).orElse(null);
-        int auctionId = ar.getAuction().getAuctionId();
-        int userId = ar.getUser().getUserId();
-        BidDTO bid = convertToDTO(bidRepository.findTop1ByAuctionRegistration_User_UserIdAndAuctionRegistration_Auction_AuctionIdOrderByBidAmountDesc(userId,auctionId));
-        AuctionDto auctionDto = auctionService.convertToDTO(auctionRepository.findById(auctionId).orElse(null));
-        return bid.getBidAmount() == auctionDto.getHighestBid();
-    }
+    public boolean checkWinner(int auctionRegistrationId);
 
-    public Bids findBidByAuctionAndBidAmount(Auction auction, long bidAmount) {
-        return bidRepository.findByAuctionRegistration_AuctionAndBidAmount(auction, bidAmount);
-    }
+    public Bids findBidByAuctionAndBidAmount(Auction auction, long bidAmount);
 
 }
 

@@ -158,7 +158,6 @@
                 <div style="font-size: xx-large" class="card-header">
                     Danh sách người dùng vi phạm
                 </div>
-
             </div>
             <div class="card-body">
                 <!-- User Table -->
@@ -183,8 +182,15 @@
                         <td th:text="${violation.detail}">Violation Type</td>
                         <td th:text="${violation.user.status.name}">Status</td>
                         <td>
-                            <form th:action="@{/admin/banUser/{id}(id=${violation.user.userId})}" method="post" style="display: inline;">
-                                <button type="submit" class="ban-button" th:disabled="${violation.user.status.statusID == 3}" onclick="confirmDelete()">
+                            <form th:if="${violation.user.status.statusID == 3}" th:action="@{/admin/unbanUser/{id}(id=${violation.user.userId})}" method="post" style="display: inline;">
+                                <button type="submit" class="unban-button" onclick="return confirmUnban()">
+                                    Unban
+                                </button>
+                            </form>
+
+                            <!-- Nút "Ban" khi người dùng chưa bị ban -->
+                            <form th:if="${violation.user.status.statusID != 3}" th:action="@{/admin/banUser/{id}(id=${violation.user.userId})}" method="post" style="display: inline;">
+                                <button type="submit" class="ban-button" onclick="return confirmBan()">
                                     Ban
                                 </button>
                             </form>
@@ -213,8 +219,12 @@
 </div>
 </div>
 <script>
-    function confirmDelete() {
+    function confirmBan() {
         return confirm("Bạn có chắc chắn muốn cấm người dùng này?");
+    }
+
+    function confirmUnban() {
+        return confirm("Bạn có chắc chắn muốn mở cấm người dùng này?");
     }
 </script>
 <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>

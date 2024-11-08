@@ -11,10 +11,7 @@ import com.se1858.G5.LandAuction.Repository.StatusRepository;
 import com.se1858.G5.LandAuction.Repository.UserRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
-import com.se1858.G5.LandAuction.Service.*;
-import com.se1858.G5.LandAuction.util.UploadFile;
 import lombok.AccessLevel;
-import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +27,6 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.YearMonth;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
@@ -115,6 +111,19 @@ public class AdminController {
         User user = userRepository.findById(id).orElse(null);
         if (user != null) {
             Status banStatus = statusRepository.findById(3).orElse(null);
+            if (banStatus != null) {
+                user.setStatus(banStatus);
+                userRepository.save(user);
+            }
+        }
+        return "redirect:/admin/management";
+    }
+
+    @PostMapping("/unbanUser/{id}")
+    public String unUanUser(@PathVariable("id") int id) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user != null) {
+            Status banStatus = statusRepository.findById(2).orElse(null);
             if (banStatus != null) {
                 user.setStatus(banStatus);
                 userRepository.save(user);
@@ -304,5 +313,7 @@ public class AdminController {
         }
         return "redirect:/admin/request-account";
     }
+
+
 
 }

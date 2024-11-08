@@ -4,6 +4,9 @@ import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.Entity.*;
+import com.se1858.G5.LandAuction.Repository.AuctionRepository;
+import com.se1858.G5.LandAuction.Repository.LandRepository;
+import com.se1858.G5.LandAuction.Repository.StatusRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/auction")
@@ -39,6 +43,13 @@ public class AuctionController {
     private AssetRegistrationService assetRegistrationService;
     @Autowired
     private BidService bidService;
+    @Autowired
+    private AuctionRepository auctionRepository;
+
+    @Autowired
+    private StatusRepository statusRepository;
+    @Autowired
+    private LandRepository landRepository;
 
     @GetMapping
     public String showAuctionPage(Model model) {
@@ -48,9 +59,18 @@ public class AuctionController {
     }
 
     @PostMapping("/save")
-    public String saveAuction(@ModelAttribute AuctionDto auctionDto) {
+    public String saveAuction(@ModelAttribute Auction auctionDto) {
+
         auctionService.update(auctionDto);
         return "redirect:/auction";
+    }
+
+    @GetMapping("/save/{id}")
+    public String updatePayment(@PathVariable int id) {
+        Auction auctionDto = auctionRepository.findByAuctionId(id);
+        auctionDto.setStatus(statusRepository.findById(13).get());
+        auctionService.update(auctionDto);
+        return "redirect:/auctionRegistration/showAuctionRegistrationPage";
     }
 
     @GetMapping("/edit{id}")
@@ -65,66 +85,70 @@ public class AuctionController {
         auctionService.deleteAuction(id);
         return "redirect:/auction";
     }
-
     @GetMapping("/showAuctions")
     public String showAuctions(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "6") int size,
+            @RequestParam(defaultValue = "all") String filter,
+            @RequestParam(required = false) String province,
+            @RequestParam(required = false) Long minPrice,
+            @RequestParam(required = false) Long maxPrice,
+            @RequestParam(required = false) Integer status,
             Model model) {
 
         List<AuctionDto> allAuctions = auctionService.getAllAuctions();
-        int totalAuctions = allAuctions.size();
+
+        List<String> provinces = allAuctions.stream()
+                .map(auction -> landService.findLandById(auction.getLandId()).getProvince())
+                .distinct()
+                .collect(Collectors.toList());
+
+        List<AuctionDto> filteredAuctions = allAuctions.stream()
+                .filter(auction ->
+                        (status == null || auction.getStatusId() == status) &&
+                                (province == null || landService.findLandById(auction.getLandId()).getProvince().equals(province)) &&
+                                (minPrice == null || landService.findLandById(auction.getLandId()).getPrice() >= minPrice) &&
+                                (maxPrice == null || landService.findLandById(auction.getLandId()).getPrice() <= maxPrice)
+                )
+                .collect(Collectors.toList());
+
+
+        int totalAuctions = filteredAuctions.size();
+        int size = 6;
         int totalPages = (int) Math.ceil((double) totalAuctions / size);
-
-        int fromIndex = page * size;
+        int fromIndex = Math.min(page * size, totalAuctions);
         int toIndex = Math.min(fromIndex + size, totalAuctions);
-        if (fromIndex >= totalAuctions || fromIndex < 0) {
-            page = 0;
-            fromIndex = 0;
-            toIndex = Math.min(size, totalAuctions);
-        }
+        List<AuctionDto> paginatedAuctions = filteredAuctions.subList(fromIndex, toIndex);
 
-        List<AuctionDto> paginatedAuctions = allAuctions.subList(fromIndex, toIndex);
-        List<Map<String, Object>> auctionDetails = new ArrayList<>();
-        LocalDateTime now = LocalDateTime.now();
+        List<Map<String, Object>> auctionDetails = paginatedAuctions.stream()
+                .map(auction -> {
+                    Map<String, Object> details = new HashMap<>();
+                    LandDTO land = landService.findLandById(auction.getLandId());
+                    List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLandId());
+                    details.put("auction", auction);
+                    details.put("land", land);
+                    details.put("Image", landImageList.isEmpty() ? null : landImageList.get(0).getImageUrl());
+                    return details;
+                })
+                .collect(Collectors.toList());
 
-        for (AuctionDto auction : paginatedAuctions) {
-            Map<String, Object> details = new HashMap<>();
-            LandDTO land = landService.findLandById(auction.getLandId());
-            List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLandId());
-            details.put("auction", auction);
-            details.put("land", land);
-            details.put("Image", landImageList.isEmpty() ? null : landImageList.get(0).getImageUrl());
-
-            // Determine the status of the auction
-            String dateCheck;
-            if (now.isAfter(auction.getEndTime())) {
-                dateCheck = "ended";
-            } else if (now.isBefore(auction.getStartTime())) {
-                dateCheck = "comingSoon";
-            } else {
-                dateCheck = "isGoingOn";
-            }
-            details.put("dateCheck", dateCheck); // Add the dateCheck status
-
-            auctionDetails.add(details);
-        }
-
+        model.addAttribute("num", filteredAuctions.size());
         model.addAttribute("auctionDetails", auctionDetails);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
+        model.addAttribute("currentFilter", filter);
+        model.addAttribute("currentProvince", province);
+        model.addAttribute("currentMinPrice", minPrice);
+        model.addAttribute("currentMaxPrice", maxPrice);
+        model.addAttribute("currentStatus", status);
+        model.addAttribute("provinces", provinces);
 
         return "auctionPage";
     }
-    @GetMapping("/showAuctionResults")
-    @Transactional(readOnly = true)
-    public String showAuctionResults(Model model) {
-        List<Auction> auctions = auctionService.findAllAuctionEnd();
-        List<Map<String, Object>> auctionDetails = getAuctionDetailsList(auctions);
 
-        model.addAttribute("auctionDetails", auctionDetails);
-        return "staff/home-staff";
-    }
+
+
+
+
 
     private List<Map<String, Object>> getAuctionDetailsList(List<Auction> auctions) {
         List<Map<String, Object>> auctionDetailsList = new ArrayList<>();
@@ -138,18 +162,21 @@ public class AuctionController {
         Map<String, Object> details = new HashMap<>();
         Bids bids = bidService.findBidByAuctionAndBidAmount(auction, auction.getHighestBid());
         AuctionRegistration auctionRegistration = bids != null ? bids.getAuctionRegistration() : null;
-        User bidder = (auctionRegistration != null) ? auctionRegistration.getUser() : null;
-        LandDTO land = landService.findLandById(auction.getLand().getLandId());
+        User bidder = (auctionRegistration != null && (auction.getStatus().getStatusID() == 11 || auction.getStatus().getStatusID() == 13)) ? auctionRegistration.getUser() : null;
+        Land land = landRepository.findById(auction.getLand().getLandId()).orElse(null);
         List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLand().getLandId());
         String imageUrl = (!landImageList.isEmpty()) ? landImageList.get(0).getImageUrl() : null;
+        details.put("status", auction.getStatus());
         details.put("auction", auction);
         details.put("land", land);
         details.put("Image", imageUrl);
         details.put("highestBid", auction.getHighestBid());
         details.put("bidder", bidder);
 
+
         return details;
     }
+
     @GetMapping("/showAuctionDetail/{id}")
     public String showAuctionDetail(@PathVariable int id, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -179,6 +206,11 @@ public class AuctionController {
             details.put("Image", landImageList.get(0).getImageUrl());
             auctionDetails.add(details);
         }
+        int userId = (int) session.getAttribute("id");
+        boolean checkWinner = auctionService.checkWinner( auctionDto.getAuctionId(),userId);
+        Auction auction1 = auctionRepository.findByAuctionId(id);
+        model.addAttribute("auction1", auction1.getStatus().getStatusID());
+        model.addAttribute("checkWinner", checkWinner);
         model.addAttribute("auctionDetails", auctionDetails);
         model.addAttribute("isAvailable",isAvailable);
         model.addAttribute("isSeller",isSeller);

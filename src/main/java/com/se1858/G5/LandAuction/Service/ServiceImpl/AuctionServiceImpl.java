@@ -9,26 +9,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class AuctionServiceImpl implements AuctionService {
 
-     AuctionRepository auctionRepository;
-     LandRepository landRepository;
-     AuctionRegistrationRepository auctionRegistration;
-     UserRepository userRepository;
-     AuctionBidUpdateServiceImpl auctionBidUpdateService;
 
-    @Autowired
-    public AuctionServiceImpl(AuctionRepository auctionRepository, LandRepository landRepository, AuctionRegistrationRepository auctionRegistration, UserRepository userRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService) {
+    private final BidsRepository bidsRepository;
+    private AuctionRepository auctionRepository;
+
+    private LandRepository landRepository;
+
+    private AuctionRegistrationRepository auctionRegistration;
+
+    private UserRepository userRepository;
+
+    private AuctionBidUpdateServiceImpl auctionBidUpdateService;
+
+
+
+    public AuctionServiceImpl(AuctionRepository auctionRepository, AuctionBidUpdateServiceImpl auctionBidUpdateService, UserRepository userRepository, AuctionRegistrationRepository auctionRegistration, LandRepository landRepository, BidsRepository bidsRepository) {
         this.auctionRepository = auctionRepository;
-        this.landRepository = landRepository;
-        this.auctionRegistration = auctionRegistration;
-        this.userRepository = userRepository;
         this.auctionBidUpdateService = auctionBidUpdateService;
+        this.userRepository = userRepository;
+        this.auctionRegistration = auctionRegistration;
+        this.landRepository = landRepository;
+        this.bidsRepository = bidsRepository;
     }
 
     public AuctionDto findAuctionById(int auctionId) {
@@ -54,10 +65,8 @@ public class AuctionServiceImpl implements AuctionService {
         auctionRepository.deleteById(auctionId);
     }
 
-    public AuctionDto update(AuctionDto auctionDto) {
-        Auction auction = convertToEntity(auctionDto);
-        Auction auctionUpdate = auctionRepository.save(auction);
-        return convertToDTO(auctionUpdate);
+    public void update(Auction auctionDto) {
+        auctionRepository.save(auctionDto);
     }
 
     public AuctionDto convertToDTO(Auction auction) {
@@ -110,6 +119,12 @@ public class AuctionServiceImpl implements AuctionService {
     }
     public List<Auction> findAllAuctionEnd() {
         return auctionRepository.findAllByEndTimeBefore(LocalDateTime.now());
+    }
+    public boolean checkWinner(int auctionId, int userId) {
+        Bids bid = bidsRepository.findTop1ByAuctionRegistration_User_UserIdAndAuctionRegistration_Auction_AuctionIdOrderByBidAmountDesc(userId, auctionId);
+        Auction auction = auctionRepository.findByAuctionId(auctionId);
+        if(auction.getStatus().getStatusID()==11||auction.getStatus().getStatusID()==13)  return bid.getBidAmount() == auction.getHighestBid();
+        return false;
 
     }
 
@@ -131,6 +146,11 @@ public class AuctionServiceImpl implements AuctionService {
     @Override
     public Auction findAuctionByLand(Land land) {
         return auctionRepository.findAuctionByLand(land);
+    }
+
+    @Override
+    public List<Auction> findTop5AuctionsByAuctionIdDesc() {
+        return auctionRepository.findTop6ByOrderByAuctionIdDesc();
     }
 
 
