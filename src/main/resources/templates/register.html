@@ -264,16 +264,16 @@
 <body>
 <div class="container" id="container">
     <div class="form-container sign-in-container">
-        <form action="/register" method="post">
+        <form th:action="@{/register}" th:object="${registerDTO}" method="post">
             <h1> Đăng ký </h1>
             <span th:if="${emailError}" th:text="${emailError}" style="color: #ff3c00;"></span>
             <span th:if="${phoneError}" th:text="${phoneError}" style="color: #ff3c00;"></span>
-            <input type="email" id="email" name="email" placeholder="Email" required/>
-            <input type="password" id="password" name="password" placeholder="Mật khẩu" required/>
-            <input type="text" id="firstName" name="firstName" placeholder="Họ" required/>
-            <input type="text" id="lastName" name="lastName" placeholder="Tên" required />
-            <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Số điện thoại" required/>
-            <a href="forgot-password">Quên mật khẩu?</a>
+            <input type="email" id="email" name="email" th:field="*{email}" placeholder="Email" required/>
+            <input type="password" id="password" name="password" th:field="*{password}" placeholder="Mật khẩu" required/>
+            <input type="text" id="firstName" name="firstName" th:field="*{firstName}" placeholder="Họ" required/>
+            <input type="text" id="lastName" name="lastName" th:field="*{lastName}" placeholder="Tên" required />
+            <input type="text" id="phoneNumber" name="phoneNumber" th:field="*{phoneNumber}" placeholder="Số điện thoại" required/>
+            <a th:href="@{/forgot-password}">Quên mật khẩu?</a>
             <button type="submit">Đăng ký</button>
         </form>
     </div>

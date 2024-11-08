@@ -37,6 +37,11 @@ public class User  {
 
     private String avatar;
 
+    private String otpCode;
+
+    @Column(name = "email_verified")
+    private Boolean emailVerified=false; // Sử dụng Boolean thay vì boolean
+
     @Column(name = "refund_money", nullable = false, columnDefinition = "NUMERIC(19,0) DEFAULT 0")
     private BigDecimal refundMoney = BigDecimal.ZERO;
 
