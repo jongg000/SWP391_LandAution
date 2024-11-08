@@ -18,6 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+
+
 import java.time.ZoneId;
 import java.util.List;
 
@@ -25,15 +27,15 @@ import java.util.List;
 @RequestMapping("/asset")
 public class AssetController {
 
-    private UserService userService;
-    private LandService landService;
-    private AssetService assetService;
+    private  UserService userService;
+   private  LandService landService;
+    private  AssetService assetService;
 
-    private AssetRegistrationService assetRegistrationService;
+    private  AssetRegistrationService assetRegistrationService;
 
-    private LandRepository landRepository;
+    private  LandRepository landRepository;
 
-    private StatusService statusService;
+    private  StatusService statusService;
 
     @Autowired
     public AssetController(UserService userService, LandService landService, AssetService assetService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
@@ -47,7 +49,7 @@ public class AssetController {
 
     @GetMapping("post-asset")
     public String formAsset(Model model) {
-        LandDTO landDTO = new LandDTO();
+       LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
         return "customer/land-registratrion";
     }
@@ -56,10 +58,10 @@ public class AssetController {
     @PostMapping("saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
-        Land land = new Land(landDTO.getLength(), landDTO.getWidth(), landDTO.getSquare(),
-                landDTO.getContact(), landDTO.getPrice(), landDTO.getDescription(),
-                landDTO.getLocation(), user, landDTO.getName(), landDTO.getWard(),
-                landDTO.getDistrict(), landDTO.getProvince());
+                Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
+                                     landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
+                                     landDTO.getLocation(), user, landDTO.getName(),landDTO.getWard(),
+                                     landDTO.getDistrict(), landDTO.getProvince());
         UploadFile uploadFile = new UploadFile();
         land.setContact(user.getPhoneNumber());
         uploadFile.upLoadDocumentAsset(landDTO.getDocument(), land);
@@ -72,9 +74,10 @@ public class AssetController {
         land.setAssetRegistration(assetRegistration);
         assetRegistration.setStatus(statusService.getStatusById(4));
         landService.save(land);
+        System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
         model.addAttribute("land", landDTO);
-//        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
+        model.addAttribute("successMessage", "Tài sản đã được đăng ký thành công.");
         return "redirect:/asset";
         //        return "customer/land-registratrion";
     }
@@ -90,7 +93,6 @@ public class AssetController {
         System.out.println(count);
         return "customer/asset-list";
     }
-
     @GetMapping("/asset-detail/{id}")
     public String detail(Principal principal, @PathVariable int id, Model model) {
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);

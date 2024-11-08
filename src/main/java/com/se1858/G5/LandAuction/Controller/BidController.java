@@ -1,6 +1,7 @@
 package com.se1858.G5.LandAuction.Controller;
 
 import com.se1858.G5.LandAuction.DTO.*;
+import com.se1858.G5.LandAuction.Entity.Auction;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.AuctionRegistrationRepository;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
@@ -70,9 +71,13 @@ public class BidController {
             details.put("username", username);
             bidDetails.add(details);
         }
+        boolean checkWinner = auctionService.checkWinner(auctionId, userId);
+        Auction auction1 = auctionRepository.findByAuctionId(auctionId);
 
         User user = userRepository.findById(userId).orElse(null);
         String userName = user != null ? user.getLastName() : "Unknown"+userId;
+        model.addAttribute("checkWinner", checkWinner);
+        model.addAttribute("auction1", auction1.getStatus().getStatusID());
         model.addAttribute("userName", userName);
         model.addAttribute("userId", userId);
         model.addAttribute("latestBidUserId", latestBidUserId);

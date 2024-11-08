@@ -136,6 +136,10 @@
             <div class="sidebar-menu">
                 <div class="menu">
                     <li class="sidebar-title">Menu</li>
+<<<<<<< HEAD
+                    <li class="sidebar-item">
+                        <a th:href="@{/staff}" class='sidebar-link'>
+=======
 
                     <li class="sidebar-item  active">
                         <a th:href="@{/staff}" class='sidebar-link'>
@@ -145,12 +149,13 @@
                     </li>
 
                     <li class="sidebar-item ">
-                        <a th:href="@{/staff/showAuctionResults}"  class='sidebar-link'>
+                        <a th:href="@{auction/showAuctionResults}" href="#" class='sidebar-link'>
                             <span>Theo dõi đấu giá</span>
                         </a>
                     </li>
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
+>>>>>>> 3024eeac702dfb161870813ccb497a71924f4d06
                             <i class="bi bi-collection-fill"></i>
                             <span>Hồ sơ đất đai</span>
                         </a>
@@ -179,6 +184,56 @@
                 <h3>Trang nhân viên</h3>
                 <p class="text-subtitle text-muted">Cập nhật tài sản và đấu giá</p>
             </div>
+<<<<<<< HEAD
+            <section class="section">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+<!--                            <div class="col-12" th:if="${assetRegistration != null}">-->
+<!--                                <h5>Hồ sơ đất đai</h5>-->
+<!--                                <table class="table table-striped" id="table3" style="display: block;">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>Tên đất</th>-->
+<!--                                        <th>Giá trị</th>-->
+<!--                                        <th>Trạng thái</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    <tr th:each="land : ${assetRegistration}">-->
+<!--                                        <td><span th:text="${land.land.name}">Tên đất</span></td>-->
+<!--                                        <td><span th:text="${land.land.price}">Giá trị</span></td>-->
+<!--                                        <td><span th:text="${land.status}">Trạng thái</span></td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+
+                            <div class="col-12" th:if="${auctionDetails != null}">
+                                <h5>Kết quả đấu giá</h5> <!-- This can be removed as the title is now at the top -->
+                                <table class="table table-striped" id="table4">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên đất</th>
+                                        <th>Giá trị</th>
+                                        <th>Người thắng cuộc</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="auction : ${auctionDetails}">
+                                        <td><a th:href="@{/auction/showAuctionDetail/{id}(id=${auction.auction.auctionId})}"><span th:text="${auction.land.name}"></span></a></td>
+                                        <td><span th:text="${auction.auction.highestBid}"></span></td>
+                                        <td><span th:text="${auction.bidder.lastName}"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+=======
+>>>>>>> 3024eeac702dfb161870813ccb497a71924f4d06
         </div>
 
         <!-- Income Panel -->
@@ -230,8 +285,6 @@
 <script>
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
-
-    // Toggle function for Auction Results Panel
     function toggleAuctionResultsPanel() {
         document.getElementById('auction-results-panel').classList.toggle('active');
     }

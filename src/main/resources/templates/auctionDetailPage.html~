@@ -7,7 +7,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-    <title>List AuctionRegister</title>
+    <title>Auction Detail Page</title>
+
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
@@ -26,8 +27,34 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
 
+    <style>
+        .attended-label {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            border: 2px solid #555;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .notice-text {
+            white-space: pre-line;
+            font-size: 14px;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 10px;
+
+            margin: 5px 0;
+
+        }
+        .notice-text strong {
+            font-weight: bold;
+            color: #d9534f;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
 
@@ -117,17 +144,18 @@
                 </div>
             </header>
 
+
             <div id="page-heading">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-12 text-center">
-                            <h1>Danh sách tham gia</h1>
+                            <h1>Trang chi tiết sản phẩm đấu giá</h1>
                             <div class="line"></div>
                             <div class="page-active">
                                 <ul>
                                     <li><a href="../../home">Home</a></li>
                                     <li><i class="fa fa-dot-circle-o"></i></li>
-                                    <li><a href="listAuctionRegister.html">Danh sách tham gia</a></li>
+                                    <li><a href="customer/listing-right.html">Trang sản phẩm</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -135,184 +163,199 @@
                 </div>
             </div>
 
-            <section class="listing-page">
+            <section class="car-details">
                 <div class="container">
                     <div class="row">
-                        <!--							<div id="sidebar" class="col-md-3">-->
-                        <!--								<div class="sidebar-content">-->
-                        <!--									<div class="head-side-bar">-->
-                        <!--										<h4>Refine Your Search</h4>-->
-                        <!--									</div>-->
-                        <!--									<div class="search-form">-->
-                        <!--										<div class="select">-->
-                        <!--		                                    <select name="mark" id="make">-->
-                        <!--		                                        <option value="-1">Select Makes</option>-->
-                        <!--		                                          <option>Price</option>-->
-                        <!--		                                          <option>Miles</option>-->
-                        <!--		                                          <option>Year</option>-->
-                        <!--		                                          <option>Near</option>-->
-                        <!--		                                    </select>-->
-                        <!--		                                </div>-->
-                        <!--		                                <div class="select">-->
-                        <!--		                                    <select name="mark" id="model">-->
-                        <!--		                                        <option value="-1">Select Car Model</option>-->
-                        <!--		                                          <option>Price</option>-->
-                        <!--		                                          <option>Miles</option>-->
-                        <!--		                                          <option>Year</option>-->
-                        <!--		                                          <option>Near</option>-->
-                        <!--		                                    </select>-->
-                        <!--		                                </div>-->
-                        <!--		                                <div class="select">-->
-                        <!--		                                    <select name="mark" id="style">-->
-                        <!--		                                        <option value="-1">Select Style</option>-->
-                        <!--		                                          <option>Price</option>-->
-                        <!--		                                          <option>Miles</option>-->
-                        <!--		                                          <option>Year</option>-->
-                        <!--		                                          <option>Near</option>-->
-                        <!--		                                    </select>-->
-                        <!--		                                </div>-->
-                        <!--		                                <div class="slider-range">-->
-                        <!--		                                	<p>-->
-                        <!--										    	<input type="text" class="range" id="amount" readonly>-->
-                        <!--										    </p>-->
-                        <!--											<div id="slider-range"></div>-->
-                        <!--		                                </div>-->
-                        <!--		                                <div class="select">-->
-                        <!--		                                    <select name="mark" id="types">-->
-                        <!--		                                        <option value="-1">Select Car Types</option>-->
-                        <!--		                                          <option>Price</option>-->
-                        <!--		                                          <option>Miles</option>-->
-                        <!--		                                          <option>Year</option>-->
-                        <!--		                                          <option>Near</option>-->
-                        <!--		                                    </select>-->
-                        <!--		                                </div>-->
-                        <!--		                                <div class="select">-->
-                        <!--		                                    <select name="mark" id="color">-->
-                        <!--		                                        <option value="-1">Select Color</option>-->
-                        <!--		                                          <option>Price</option>-->
-                        <!--		                                          <option>Miles</option>-->
-                        <!--		                                          <option>Year</option>-->
-                        <!--		                                          <option>Near</option>-->
-                        <!--		                                    </select>-->
-                        <!--		                                </div>-->
-                        <!--		                                <div class="advanced-button">-->
-                        <!--											<a href="listing-right.html">Search Now<i class="fa fa-search"></i></a>-->
-                        <!--										</div>-->
-                        <!--									</div>-->
-                        <!--								</div>-->
-                        <!--							-->
-                        <!--							</div>-->
-                        <div id="listing-cars" class="col-md-12">
-                            <div class="pre-featured">
-                                <div class="info-text">
-                                    <h4 th:text="${num} + ' results found'"></h4>
-                                </div>
-                                <div class="right-content">
-                                    <div class="input-select">
-                                        <select name="mark" id="mark" onchange="filterAuctionRegistration()">
-                                            <option value="" disabled selected>-- Lọc theo --</option>
-                                            <option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra
-                                            </option>
-                                            <option value="is going on" th:selected="${currentFilter == 'is going on'}">
-                                                Đang diễn ra
-                                            </option>
-                                            <option value="upcoming" th:selected="${currentFilter == 'upcoming'}">Sắp
-                                                diễn ra
-                                            </option>
-                                            <option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
-                                        </select>
-                                        <input type="hidden" name="userId" id="userId" th:value="${userId}"/>
-                                    </div>
-                                </div>
+                        <div id="single-car" class="col-md-8">
+                            <div class="up-content clearfix">
+                                <h2 th:text="${land.name}"></h2>
+                                <span th:text="${land.price}"></span>
+                            </div>
+                            <div class="flexslider">
+                                <ul class="slides">
+                                    <!-- Loop through the list of LandImageDTO objects -->
+                                    <li th:each="image : ${landImages}"
+                                        th:data-thumb="'/Land_images/'+${image.imageUrl}">
+                                        <img th:src="@{'/Land_images/'+${image.imageUrl}}" alt=""/>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}">
-                                <div class="featured-item">
-                                    <img th:src="@{'/Land_images/' + ${wishlistDetail.landImage.imageUrl}}"
-                                         alt="Land Image" style="width: 20%; height:155px;"/>
-                                    <div class="right-content">
-                                        <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
-                                        <span th:text="${'$' + wishlistDetail.land.price}"></span>
-                                        <div class="light-line"></div>
-                                        <p th:text="${wishlistDetail.land.description}"></p>
-                                        <div class="view-details">
-                                            <div th:if="${wishlistDetail.checkWinner == true}">
-                                                <a th:if="${wishlistDetail.auction1 == 13}" href="#">Đã
-                                                    thanh toán</a>
-                                                <a th:unless="${wishlistDetail.auction1 == 13}"
-                                                   th:href="@{/payment/handleafter/{id}(id=${wishlistDetail.auction.auctionId})}">
-                                                    Thanh toán
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="car-info">
-                                            <ul>
-                                                <li>Thời gian bắt đầu: [[${wishlistDetail.auction.startTime}]]</li>
-                                                <li>Thời gian kết thúc: [[${wishlistDetail.auction.endTime}]]</li>
-                                                <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
-                                                     <th:block th:if="${checkWinner == true}">
+                            <!-- Include FlexSlider CSS -->
+                            <link rel="stylesheet" href="../../assets/css/flexslider.css">
 
-                                                    <a th:if="${auction1 == 13}" href="#">Đã
-                                                        thanh toán</a>
-                                                    <a th:unless="${auction1 == 13}"
-                                                       th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}">
-                                                        Thanh toán
-                                                    </a>
+                            <!-- Include jQuery and FlexSlider JS -->
+                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                            <script src="path/to/jquery.flexslider-min.js"></script>
 
-                                                </th:block>
-                                                    <th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
-                                                        <a>Đã kết thúc</a>
-                                                    </th:block>
-                                                    <th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
-                                                        <a>Sắp diễn ra</a>
-                                                    </th:block>
-                                                    <th:block th:if="${wishlistDetail.dateCheck == 'is going on'}">
-                                                        <a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu
-                                                            giá ngay</a>
-                                                    </th:block>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <script>
+                                $(document).ready(function () {
+                                    $('.flexslider').flexslider({
+                                        animation: "slide", // Choose your animation type
+                                        controlNav: true, // Show navigation controls
+                                        directionNav: true, // Show next/prev controls
+                                    });
+                                });
+                            </script>
 
-                            <div class="pagination">
-                                <div class="prev">
-                                    <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage - 1}, filter=${currentFilter})}"
-                                       th:if="${currentPage > 0}">
-                                        <i class="fa fa-arrow-left"></i> Trang trước
-                                    </a>
-                                </div>
-                                <div class="page-numbers">
-                                    <ul>
-                                        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-                                            <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${i}, filter=${currentFilter})}"
-                                               th:class="${i == currentPage} ? 'active' : ''">
-                                                <span th:text="${i + 1}"></span>
-                                            </a>
-                                        </li>
+
+                            <div class="tab">
+                                <div class="tabs">
+                                    <ul class="tab-links">
+                                        <li class="active"><a href="#tab2">Mô tả</a></li>
+                                        <li><a href="#tab3">Vị trí</a></li>
                                     </ul>
-                                </div>
-                                <div class="next">
-                                    <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage + 1}, filter=${currentFilter})}"
-                                       th:if="${currentPage < totalPages - 1}">
-                                        Trang sau <i class="fa fa-arrow-right"></i>
-                                    </a>
+                                    <div class="tab-content">
+                                        <div id="tab2" class="tab active">
+                                            <p class="notice-text" th:inline="text">
+                                                <strong>Lưu ý:</strong> <br />
+                                                1. Trước khi mở cuộc đấu giá 01 ngày làm việc, người phải thi hành án có quyền nhận lại tài sản nếu nộp đủ tiền thi hành án và thanh toán các chi phí thực tế, hợp lý đã phát sinh từ việc cưỡng chế thi hành án, tổ chức bán đấu giá. Người phải thi hành án có trách nhiệm hoàn trả phí tổn thực tế, hợp lý cho người đăng ký mua tài sản. Mức phí tổn do các bên thỏa thuận; nếu không thỏa thuận được thì yêu cầu Tòa án giải quyết;<br />
+                                                2. Khách hàng có trách nhiệm xem xét kỹ tình trạng, chất lượng của tài sản, có xác nhận đã xem tài sản của người có tài sản đấu giá. Tài sản đấu giá bán theo hiện trạng thực tế nêu trên. Tổ chức đấu giá không chịu trách nhiệm về tình trạng, chất lượng tài sản khi đã thông báo trước.
+                                            </p>
+                                        </div>
+
+                                        <div id="tab3" class="tab">
+                                            <iframe th:src="${land.location}"
+                                                    width="700"
+                                                    height="400"
+                                                    style="border:0;"
+                                                    allowfullscreen=""
+                                                    loading="lazy">
+                                            </iframe>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div id="left-info" class="col-md-4">
+                            <br><br><br>
+                            <div class="details">
+                                <div class="head-side-bar">
+                                    <h4>Chi tiết sản phẩm</h4>
+                                </div>
+                                <div class="list-info">
+                                    <ul>
+                                        <li><span>Sản phẩm:</span><span th:text="${land.name}"></span></li>
+                                        <li><span>Giá: </span><span th:text="${land.price}"></span></li>
+                                        <li><span>Mô tả:</span><span th:text="${land.description}"></span></li>
+                                        <li><span>Vị trí:</span><span th:text="${land.province}"></span></li>
+                                        <li><span>Chiều dài:</span><span th:text="${land.length}"></span></li>
+                                        <li><span>Chiều rộng:</span><span th:text="${land.width}"></span></li>
+                                        <li><span>Diện tích:</span><span th:text="${land.square}"></span></li>
+                                        <li><span>Thời gian bắt đầu:</span><span th:text="${auction.startTime}"></span>
+                                        </li>
+                                        <li><span>Thời gian kết thúc:</span><span th:text="${auction.endTime}"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="head-side-bar">
+                                <!-- Check if the user is the seller -->
+                                <div th:if="${isSeller}">
+                                    <br><a class="seller-restriction-message">Người bán không thể tham gia buổi đấu giá
+                                    sản phẩm của mình</a>
 
-                        <script>
-                            function filterAuctionRegistration() {
-                                const filter = document.getElementById("mark").value;
-                                const userId = document.getElementById("userId").value;
-                                window.location.href = `/auctionRegistration/showAuctionRegistrationPage?page=0&filter=${filter}&userId=${userId}`;
-                            }
-                        </script>
+
+                                </div>
+
+                                <!-- When user is not the seller -->
+                                <div th:unless="${isSeller}">
+
+                                    <!-- For dateCheck = upcoming -->
+                                    <div th:if="${dateCheck == 'upcoming'}">
+                                        <div th:if="${check == false}">
+                                            <div th:if="${isAvailable}" class="advanced-button">
+                                                <a th:href="@{/payment/handle/{id}(id=${auction.auctionId})}">
+                                                    Tham gia <i class="fa fa-paper-plane"></i>
+                                                </a>
+                                            </div>
+                                            <div th:unless="${isAvailable}">
+                                                <br><a class="seller-restriction-message">Bạn cần cập nhật thông tin cá
+                                                nhân để tham gia</a>
+                                            </div>
+                                        </div>
+                                        <div th:if="${check == true}">
+                                            <div class="attended-label">Đã tham gia</div>
+                                        </div>
+                                        <br>
+                                        <div th:if="${wishlistCheck == false}" class="advanced-button">
+                                            <a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Thêm
+                                                vào theo dõi</a>
+                                        </div>
+                                    </div>
+
+                                    <!-- For dateCheck = isgoingon -->
+                                    <div th:if="${dateCheck == 'is going on'}">
+                                        <!-- Hide "Add to wishlist" and show View button -->
+                                        <div th:if="${check == true}" class="advanced-button">
+                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
+                                                tiếp
+                                                <i class="fa fa-paper-plane"></i></a>
+                                        </div>
+                                        <div th:if="${check == false}">
+                                            <div class="attended-label">Đang diễn ra</div>
+                                        </div>
+                                    </div>
+
+                                    <div th:if="${dateCheck == 'ended'}">
+                                        <div th:if="${check == true}" class="advanced-button">
+                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
+                                                tiếp
+                                                <i class="fa fa-paper-plane"></i></a>
+                                        </div>
+                                        <div th:if="${check == false}">
+                                            <div class="attended-label">Đã kết thúc</div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div th:if="${checkWinner == true}">
+                                        <div class="advanced-button">
+                                            <a th:if="${auction1 == 13}" href="#">Đã thanh toán</a>
+                                            <a th:unless="${auction1 == 13}" th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}">
+                                                Thanh toán <i class="fa fa-paper-plane"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
 
 
+                        </div>
                     </div>
+                </div>
+            </section>
+
+            <section class="featured-listing">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="heading-section-2 text-center">
+                                <h2>New Auction</h2>
+                                <div class="dec"></div>
+                                <div class="line-dec"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="featured-cars">
+                            <div class="featured-item col-md-3" th:each="auctionDetail : ${auctionDetails}">
+
+                                <img th:src="@{'/Land_images/'+ ${auctionDetail.Image}}" alt=""/>
+
+                                <div class="down-content">
+
+                                    <a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">
+                                        <h2 th:text="${auctionDetail.land.name}"></h2>
+                                    </a>
+                                    <span th:text="${auctionDetail.land.price}"></span>
+                                    <div class="light-line"></div>
+                                    <p th:text="${auctionDetail.land.description}"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </section>
 
@@ -437,7 +480,9 @@
     </div>
 
 
+
 </div>
+
 
 
 

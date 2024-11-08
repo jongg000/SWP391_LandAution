@@ -15,8 +15,8 @@
     <link rel="stylesheet" href="/assets/css/app.css">
 
     <style>
-        .status-unpaid {
-            color: yellowgreen;          /* Đặt màu chữ thành đỏ */
+        .status-cancel {
+            color: red;          /* Đặt màu chữ thành đỏ */
             font-weight: bold;   /* Làm cho chữ in đậm */
         }
 
@@ -65,7 +65,7 @@
                     </li>
 
                     <li class="sidebar-item ">
-                        <a th:href="@{/staff/showAuctionResults}" class='sidebar-link'>
+                        <a th:href="@{auction/showAuctionResults}" href="#" class='sidebar-link'>
                             <span>Theo dõi đấu giá</span>
                         </a>
                     </li>
@@ -78,10 +78,10 @@
                             <li class="submenu-item">
                                 <a th:href="@{/staff/waiting-list}">Chờ xác nhận</a>
                             </li>
-                            <li class="submenu-item active">
+                            <li class="submenu-item">
                                 <a th:href="@{/staff/ongoing-list}">Đã xác nhận</a>
                             </li>
-                            <li class="submenu-item ">
+                            <li class="submenu-item active">
                                 <a th:href="@{/staff/cancel-list}">Đã bị hủy</a>
                             </li>
                         </ul>
@@ -116,32 +116,32 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                                <h5>Tài sản chờ kiểm duyệt</h5>
-                                <table class="table table-striped" id="table3">
-                                    <thead>
-                                    <tr>
-                                        <th>ID Number</th>
-                                        <th>Tên mảnh đất</th>
-                                        <th>Chủ sở hữu</th>
-                                        <th>Trạng thái</th>
-                                        <th></th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="item : ${auctionList}">
-                                        <td><span th:text="${item.auctionId}"></span></td>
-                                        <td><span th:text="${item.land.name}"></span></td>
-                                        <td><span th:text="|${item.land.user.firstName} ${item.land.user.lastName}|"></span></td>
-                                        <td>
+                            <h5>Tài sản chờ kiểm duyệt</h5>
+                            <table class="table table-striped" id="table3">
+                                <thead>
+                                <tr>
+                                    <th>ID Number</th>
+                                    <th>Tên mảnh đất</th>
+                                    <th>Chủ sở hữu</th>
+                                    <th>Trạng thái</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="item : ${allAssets}">
+                                    <td><span th:text="${item.documentId}"></span></td>
+                                    <td><span th:text="${item.land.name}"></span></td>
+                                    <td><span th:text="|${item.land.user.firstName} ${item.land.user.lastName}|"></span></td>
+                                    <td>
                                               <span th:text="${item.status.name}"
-                                                    th:classappend="${item.status.name == 'Chưa đấu giá'} ? 'status-unpaid' : ''"></span>
-                                        </td>
-                                        <td>
-                                            <a th:href="@{/staff/land-detail/{id}(id=${item.land.assetRegistration.documentId})}">Chi tiet</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                                    th:classappend="${item.status.name == 'Đã hủy'} ? 'status-cancel' : ''"></span>
+                                    </td>
+                                    <td>
+                                        <a th:href="@{/staff/land-detail/{id}(id=${item.land.assetRegistration.documentId})}">Chi tiet</a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

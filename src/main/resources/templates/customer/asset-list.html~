@@ -107,7 +107,11 @@
 					<div id="main-header" class="main-header header-sticky">
 						<div class="inner-header container clearfix">
 							<div class="logo">
+<<<<<<< HEAD
+								<a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+=======
 								<a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
+>>>>>>> cc2255019c98f756bea496c09d0ad8cf91fd6982
 							</div>
 							<div class="header-right-toggle pull-right hidden-md hidden-lg">
 								<a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
@@ -123,6 +127,12 @@
 											<li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
 										</ul>
 									</li>
+<<<<<<< HEAD
+									<li><a th:href="@{/asset}" class="has-submenu">Tài sản</a>
+
+									</li>
+=======
+>>>>>>> cc2255019c98f756bea496c09d0ad8cf91fd6982
 									<li><a href="/news">Tin tức</a>
 									</li>
 									<li>

@@ -4,6 +4,7 @@ import com.se1858.G5.LandAuction.DTO.VNPayResponse;
 import com.se1858.G5.LandAuction.Entity.Payment;
 import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Service.PaymentService;
+import com.se1858.G5.LandAuction.Service.ServiceImpl.AuctionServiceImpl;
 import com.se1858.G5.LandAuction.Service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,12 +20,14 @@ import java.util.Optional;
 @Controller
 @RequestMapping("payment")
 public class PaymentController {
+    private final AuctionServiceImpl auctionServiceImpl;
     private PaymentService paymentService;
     public UserService userService;
 
-    public PaymentController(PaymentService paymentService, UserService userService) {
+    public PaymentController(PaymentService paymentService, UserService userService, AuctionServiceImpl auctionServiceImpl) {
         this.paymentService = paymentService;
         this.userService = userService;
+        this.auctionServiceImpl = auctionServiceImpl;
     }
 
     @GetMapping("/user")
@@ -41,6 +44,29 @@ public class PaymentController {
         VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back/"+id);
         String link =vnPayResponse.paymentUrl;
         return "redirect:" + link;
+    }
+
+    @RequestMapping("handleafter/{id}")
+    public String handleAfter(HttpServletRequest request, @PathVariable int id) {
+        long amount  = 1000000;
+        VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back1/"+id);
+        String link =vnPayResponse.paymentUrl;
+        return "redirect:" + link;
+    }
+    @RequestMapping(value = "/back1/{id}", method = RequestMethod.GET)
+    public String paymentAfterCompleted(HttpServletRequest request, Model model, Principal principal,@PathVariable int id) {
+        int paymentStatus =paymentService.orderReturn(request);
+        String orderInfo = request.getParameter("vnp_OrderInfo");
+        String paymentTime = request.getParameter("vnp_PayDate");
+        String transactionId = request.getParameter("vnp_TransactionNo");
+        String totalPrice = request.getParameter("vnp_Amount");
+        String username = principal.getName();
+        User user = userService.findByEmail(username);
+        String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
+        Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
+        paymentService.createPaymentBill(payment);
+        return paymentStatus == 1 ? "redirect:/auction/save/" + id : "redirect:/auction/showAuctionDetail/" + id;
+
     }
     //Sau khi thanh toán thành công
     @RequestMapping(value = "/back/{id}", method = RequestMethod.GET)

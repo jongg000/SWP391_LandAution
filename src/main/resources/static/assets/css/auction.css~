@@ -2319,7 +2319,7 @@ footer .gallery .gallery-item img {
     }
 }
 
-.listing-page #listing-cars .featured-item .right-content .view-details div a {
+.listing-page #listing-cars .featured-item .right-content .view-details  a {
     font-size: 11px;
     font-family: 'Montserrat', sans-serif;
     color: #336699;

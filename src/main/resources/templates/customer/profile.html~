@@ -168,7 +168,7 @@
                      class="btn btn-sm" >
                     <p style="font-size: 20px; font-weight: bold;">Thông tin cá nhân</p>
                   </a>
-                  <a href="/asset"
+                  <a href="#"
                      class="btn btn-sm">
                     <p style="font-size: 20px; font-weight: bold; ">Thông tin tài sản</p>
                   </a>
@@ -178,7 +178,6 @@
                   </a>
                 </div>
                 <hr>
-                <h4 style="font-weight: bold; padding: 10px;">Người dùng tải thông tin lên để được xét duyệt tài khoản</h4>
 
                 <!-- Form for editing personal information -->
                 <form th:action="@{profile/edit}" th:object="${profileDTO}" method="post" enctype="multipart/form-data">
