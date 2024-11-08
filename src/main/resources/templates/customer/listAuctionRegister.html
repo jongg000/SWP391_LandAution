@@ -4,30 +4,29 @@
 <![endif]-->
 <html lang="en-US">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 
-	<title>List AuctionRegister</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>List AuctionRegister</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/icon-font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
-	<link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-	<link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/assets/css/auction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
+    <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
 
-	<link rel="stylesheet" href="../../assets/css/bootstrap.css">
-	<link rel="stylesheet" href="../../assets/css/animate.css">
-	<link rel="stylesheet" href="../../assets/css/jquery-ui.css">
-	<link rel="stylesheet" href="../../assets/css/simple-line-icons.css">
-	<link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
-	<link rel="stylesheet" href="../../assets/css/icon-font.css">
-	<link rel="stylesheet" href="../../assets/css/auction.css">
-
-	<link rel="stylesheet" href="../../assets/rs-plugin/css/settings.css">
-
-	<!--[if lt IE 9]>
-	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<![endif]-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 
 </head>
 <body>
@@ -35,538 +34,412 @@
 
 <div class="sidebar-menu-container" id="sidebar-menu-container">
 
-	<div class="sidebar-menu-push">
+    <div class="sidebar-menu-push">
 
-		<div class="sidebar-menu-overlay"></div>
+        <div class="sidebar-menu-overlay"></div>
 
-		<div class="sidebar-menu-inner">
+        <div class="sidebar-menu-inner">
 
-			<div id="sub-header">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<div class="social-icons">
-								<ul>
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-									<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-									<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-									<li><a href="#"><i class="fa fa-rss"></i></a></li>
-									<li><a href="#"><i class="fa fa-behance"></i></a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-6 hidden-sm">
-							<div class="right-info">
-								<ul>
-									<li>Call us: <em>0659-694-002</em></li>
-									<li th:if="${#httpServletRequest.remoteUser != null}">
-										<a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
-									</li>
-									<li th:if="${#httpServletRequest.remoteUser != null}">
-										<a href="/logout">Đăng xuất</a>
-									</li>
-									<li th:if="${#httpServletRequest.remoteUser == null}">
-										<a href="/login">Đăng nhập</a>
-									</li>
-									<li th:if="${#httpServletRequest.remoteUser == null}">
-										<a href="/register">Đăng ký</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div id="sub-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="social-icons">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 hidden-sm">
+                            <div class="right-info">
+                                <ul>
+                                    <li>Call us: <em>0659-694-002</em></li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/logout">Đăng xuất</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/login">Đăng nhập</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/register">Đăng ký</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<header class="site-header">
-				<div id="main-header" class="main-header header-sticky">
-					<div class="inner-header container clearfix">
-						<div class="logo">
-							<a href="/home"><img src="/assets/images/logo.png" alt=""></a>
-						</div>
-						<div class="header-right-toggle pull-right hidden-md hidden-lg">
-							<a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
-						</div>
-						<nav class="main-navigation text-left hidden-xs hidden-sm">
-							<ul>
-								<li><a href="/home">Trang chủ</a></li>
-								<li><a href="about.html">Về chúng tôi</a></li>
-								<li><a href="#" class="has-submenu">Đấu giá</a>
-									<ul class="sub-menu">
-										<li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
-										<li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
-										<li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
-									</ul>
-								</li>
-								<li><a href="#" class="has-submenu">Tài sản</a>
-									<ul class="sub-menu">
-										<li><a href="listing-right.html">Thanh bên phải</a></li>
-										<li><a href="listing-left.html">Thanh bên trái</a></li>
-										<li><a href="listing-grid.html">Hệ thống lưới</a></li>
-										<li><a href="single-list.html">Chi tiết lô đất</a></li>
-									</ul>
-								</li>
-								<li><a href="/news">Tin tức</a>
-								</li>
-								<li><a href="#">Liên hệ</a>
-								</li>
-								<li>
-									<p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
-									<div id="example" class="more">
-										<form method="get" id="blog-search" class="blog-search">
-											<input type="text" class="blog-search-field" name="s" placeholder="Nhập từ khóa tìm kiếm" value="">
-										</form>
-										<p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
-									</div>
-								</li>
-							</ul>
-						</nav>
+            <!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
+            <header class="site-header">
+                <div id="main-header" class="main-header header-sticky">
+                    <div class="inner-header container clearfix">
+                        <div class="logo">
+                            <a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
+                        </div>
+                        <div class="header-right-toggle pull-right hidden-md hidden-lg">
+                            <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <nav class="main-navigation text-left hidden-xs hidden-sm">
+                            <ul>
+                                <li><a href="/home">Trang chủ</a></li>
+                                <li><a href="/aboutUs">Về chúng tôi</a></li>
+                                <li><a href="#" class="has-submenu">Đấu giá</a>
+                                    <ul class="sub-menu">
+                                        <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+                                        <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+                                        <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/news">Tin tức</a>
+                                </li>
+                                <li>
+                                    <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
+                                    <div id="example" class="more">
+                                        <form method="get" id="asset-search" class="blog-search">
+                                            <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                        </form>
+                                        <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
 
-					</div>
-				</div>
-			</header>
+                    </div>
+                </div>
+            </header>
 
-			<div id="page-heading">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-12 text-center">
-							<h1>Danh sách tham gia</h1>
-							<div class="line"></div>
-							<div class="page-active">
-								<ul>
-									<li><a href="../../home">Home</a></li>
-									<li><i class="fa fa-dot-circle-o"></i></li>
-									<li><a href="listAuctionRegister.html">Danh sách tham gia</a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div id="page-heading">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>Danh sách tham gia</h1>
+                            <div class="line"></div>
+                            <div class="page-active">
+                                <ul>
+                                    <li><a href="../../home">Home</a></li>
+                                    <li><i class="fa fa-dot-circle-o"></i></li>
+                                    <li><a href="listAuctionRegister.html">Danh sách tham gia</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<section class="listing-page">
-				<div class="container">
-					<div class="row">
-						<!--							<div id="sidebar" class="col-md-3">-->
-						<!--								<div class="sidebar-content">-->
-						<!--									<div class="head-side-bar">-->
-						<!--										<h4>Refine Your Search</h4>-->
-						<!--									</div>-->
-						<!--									<div class="search-form">-->
-						<!--										<div class="select">-->
-						<!--		                                    <select name="mark" id="make">-->
-						<!--		                                        <option value="-1">Select Makes</option>-->
-						<!--		                                          <option>Price</option>-->
-						<!--		                                          <option>Miles</option>-->
-						<!--		                                          <option>Year</option>-->
-						<!--		                                          <option>Near</option>-->
-						<!--		                                    </select>-->
-						<!--		                                </div>-->
-						<!--		                                <div class="select">-->
-						<!--		                                    <select name="mark" id="model">-->
-						<!--		                                        <option value="-1">Select Car Model</option>-->
-						<!--		                                          <option>Price</option>-->
-						<!--		                                          <option>Miles</option>-->
-						<!--		                                          <option>Year</option>-->
-						<!--		                                          <option>Near</option>-->
-						<!--		                                    </select>-->
-						<!--		                                </div>-->
-						<!--		                                <div class="select">-->
-						<!--		                                    <select name="mark" id="style">-->
-						<!--		                                        <option value="-1">Select Style</option>-->
-						<!--		                                          <option>Price</option>-->
-						<!--		                                          <option>Miles</option>-->
-						<!--		                                          <option>Year</option>-->
-						<!--		                                          <option>Near</option>-->
-						<!--		                                    </select>-->
-						<!--		                                </div>-->
-						<!--		                                <div class="slider-range">-->
-						<!--		                                	<p>-->
-						<!--										    	<input type="text" class="range" id="amount" readonly>-->
-						<!--										    </p>-->
-						<!--											<div id="slider-range"></div>-->
-						<!--		                                </div>-->
-						<!--		                                <div class="select">-->
-						<!--		                                    <select name="mark" id="types">-->
-						<!--		                                        <option value="-1">Select Car Types</option>-->
-						<!--		                                          <option>Price</option>-->
-						<!--		                                          <option>Miles</option>-->
-						<!--		                                          <option>Year</option>-->
-						<!--		                                          <option>Near</option>-->
-						<!--		                                    </select>-->
-						<!--		                                </div>-->
-						<!--		                                <div class="select">-->
-						<!--		                                    <select name="mark" id="color">-->
-						<!--		                                        <option value="-1">Select Color</option>-->
-						<!--		                                          <option>Price</option>-->
-						<!--		                                          <option>Miles</option>-->
-						<!--		                                          <option>Year</option>-->
-						<!--		                                          <option>Near</option>-->
-						<!--		                                    </select>-->
-						<!--		                                </div>-->
-						<!--		                                <div class="advanced-button">-->
-						<!--											<a href="listing-right.html">Search Now<i class="fa fa-search"></i></a>-->
-						<!--										</div>-->
-						<!--									</div>-->
-						<!--								</div>-->
-						<!--							-->
-						<!--							</div>-->
-						<div id="listing-cars" class="col-md-12">
-							<div class="pre-featured">
-								<div class="info-text">
-									<h4 th:text="${num} + ' results found'"></h4>
-								</div>
-								<div class="right-content">
-									<div class="input-select">
-										<select name="mark" id="mark" onchange="filterAuctionRegistration()">
-											<option value="" disabled selected>-- Lọc theo --</option>
-											<option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra</option>
-											<option value="is going on" th:selected="${currentFilter == 'is going on'}">Đang diễn ra</option>
-											<option value="upcoming" th:selected="${currentFilter == 'upcoming'}">Sắp diễn ra</option>
-											<option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
-										</select>
-										<input type="hidden" name="userId" id="userId" th:value="${userId}"/>
-									</div>
-								</div>
-							</div>
+            <section class="listing-page">
+                <div class="container">
+                    <div class="row">
+                        <!--							<div id="sidebar" class="col-md-3">-->
+                        <!--								<div class="sidebar-content">-->
+                        <!--									<div class="head-side-bar">-->
+                        <!--										<h4>Refine Your Search</h4>-->
+                        <!--									</div>-->
+                        <!--									<div class="search-form">-->
+                        <!--										<div class="select">-->
+                        <!--		                                    <select name="mark" id="make">-->
+                        <!--		                                        <option value="-1">Select Makes</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="model">-->
+                        <!--		                                        <option value="-1">Select Car Model</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="style">-->
+                        <!--		                                        <option value="-1">Select Style</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="slider-range">-->
+                        <!--		                                	<p>-->
+                        <!--										    	<input type="text" class="range" id="amount" readonly>-->
+                        <!--										    </p>-->
+                        <!--											<div id="slider-range"></div>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="types">-->
+                        <!--		                                        <option value="-1">Select Car Types</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="select">-->
+                        <!--		                                    <select name="mark" id="color">-->
+                        <!--		                                        <option value="-1">Select Color</option>-->
+                        <!--		                                          <option>Price</option>-->
+                        <!--		                                          <option>Miles</option>-->
+                        <!--		                                          <option>Year</option>-->
+                        <!--		                                          <option>Near</option>-->
+                        <!--		                                    </select>-->
+                        <!--		                                </div>-->
+                        <!--		                                <div class="advanced-button">-->
+                        <!--											<a href="listing-right.html">Search Now<i class="fa fa-search"></i></a>-->
+                        <!--										</div>-->
+                        <!--									</div>-->
+                        <!--								</div>-->
+                        <!--							-->
+                        <!--							</div>-->
+                        <div id="listing-cars" class="col-md-12">
+                            <div class="pre-featured">
+                                <div class="info-text">
+                                    <h4 th:text="${num} + ' results found'"></h4>
+                                </div>
+                                <div class="right-content">
+                                    <div class="input-select">
+                                        <select name="mark" id="mark" onchange="filterAuctionRegistration()">
+                                            <option value="" disabled selected>-- Lọc theo --</option>
+                                            <option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra
+                                            </option>
+                                            <option value="is going on" th:selected="${currentFilter == 'is going on'}">
+                                                Đang diễn ra
+                                            </option>
+                                            <option value="upcoming" th:selected="${currentFilter == 'upcoming'}">Sắp
+                                                diễn ra
+                                            </option>
+                                            <option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
+                                        </select>
+                                        <input type="hidden" name="userId" id="userId" th:value="${userId}"/>
+                                    </div>
+                                </div>
+                            </div>
 
-							<div class="row" th:each="wishlistDetail : ${wishlistDetails}">
-								<div class="featured-item">
-									<img th:src="@{'/Land_images/' + ${wishlistDetail.landImage.imageUrl}}" alt="Land Image" style="width: 22%; height: 15%;"/>
-									<div class="right-content">
-										<a href="#"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
-										<span th:text="${'$' + wishlistDetail.land.price}"></span>
-										<div class="light-line"></div>
-										<p th:text="${wishlistDetail.land.description}"></p>
-										<div class="view-details">
-											<a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}">Xem chi tiết</a>
-										</div>
-										<div class="car-info">
-											<ul>
-												<li>Thời gian bắt đầu:  [[${wishlistDetail.auction.startTime}]]</li>
-												<li>Thời gian kết thúc:  [[${wishlistDetail.auction.endTime}]]</li>
-												<li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
-													<th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
-														<a>Đã kết thúc</a>
-													</th:block>
-													<th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
-														<a>Sắp diễn ra</a>
-													</th:block>
-													<th:block th:if="${wishlistDetail.dateCheck == 'is going on'}">
-														<a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu giá ngay</a>
-													</th:block>
-												</li>
-											</ul>
-										</div>
-									</div>
-								</div>
-							</div>
+                            <div class="row" th:each="wishlistDetail : ${wishlistDetails}">
+                                <div class="featured-item">
+                                    <img th:src="@{'/Land_images/' + ${wishlistDetail.landImage.imageUrl}}"
+                                         alt="Land Image" style="width: 20%; height:155px;"/>
+                                    <div class="right-content">
+                                        <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
+                                        <span th:text="${'$' + wishlistDetail.land.price}"></span>
+                                        <div class="light-line"></div>
+                                        <p th:text="${wishlistDetail.land.description}"></p>
+                                        <div class="view-details">
+                                            <div th:if="${wishlistDetail.checkWinner == true}">
+                                                <a th:if="${wishlistDetail.auction1 == 13}" href="#">Đã
+                                                    thanh toán</a>
+                                                <a th:unless="${wishlistDetail.auction1 == 13}"
+                                                   th:href="@{/payment/handleafter/{id}(id=${wishlistDetail.auction.auctionId})}">
+                                                    Thanh toán
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="car-info">
+                                            <ul>
+                                                <li>Thời gian bắt đầu: [[${wishlistDetail.auction.startTime}]]</li>
+                                                <li>Thời gian kết thúc: [[${wishlistDetail.auction.endTime}]]</li>
+                                                <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
+                                                     <th:block th:if="${checkWinner == true}">
 
-							<div class="pagination">
-								<div class="prev">
-									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage - 1}, filter=${currentFilter})}" th:if="${currentPage > 0}">
-										<i class="fa fa-arrow-left"></i> Trang trước
-									</a>
-								</div>
-								<div class="page-numbers">
-									<ul>
-										<li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
-											<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${i}, filter=${currentFilter})}" th:class="${i == currentPage} ? 'active' : ''">
-												<span th:text="${i + 1}"></span>
-											</a>
-										</li>
-									</ul>
-								</div>
-								<div class="next">
-									<a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage + 1}, filter=${currentFilter})}" th:if="${currentPage < totalPages - 1}">
-										Trang sau <i class="fa fa-arrow-right"></i>
-									</a>
-								</div>
-							</div>
-						</div>
+                                                    <a th:if="${auction1 == 13}" href="#">Đã
+                                                        thanh toán</a>
+                                                    <a th:unless="${auction1 == 13}"
+                                                       th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}">
+                                                        Thanh toán
+                                                    </a>
 
-						<script>
-							function filterAuctionRegistration() {
-								const filter = document.getElementById("mark").value;
-								const userId = document.getElementById("userId").value;
-								window.location.href = `/auctionRegistration/showAuctionRegistrationPage?page=0&filter=${filter}&userId=${userId}`;
-							}
-						</script>
+                                                </th:block>
+                                                    <th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
+                                                        <a>Đã kết thúc</a>
+                                                    </th:block>
+                                                    <th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
+                                                        <a>Sắp diễn ra</a>
+                                                    </th:block>
+                                                    <th:block th:if="${wishlistDetail.dateCheck == 'is going on'}">
+                                                        <a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu
+                                                            giá ngay</a>
+                                                    </th:block>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="pagination">
+                                <div class="prev">
+                                    <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage - 1}, filter=${currentFilter})}"
+                                       th:if="${currentPage > 0}">
+                                        <i class="fa fa-arrow-left"></i> Trang trước
+                                    </a>
+                                </div>
+                                <div class="page-numbers">
+                                    <ul>
+                                        <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                                            <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${i}, filter=${currentFilter})}"
+                                               th:class="${i == currentPage} ? 'active' : ''">
+                                                <span th:text="${i + 1}"></span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="next">
+                                    <a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=${currentPage + 1}, filter=${currentFilter})}"
+                                       th:if="${currentPage < totalPages - 1}">
+                                        Trang sau <i class="fa fa-arrow-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            function filterAuctionRegistration() {
+                                const filter = document.getElementById("mark").value;
+                                const userId = document.getElementById("userId").value;
+                                window.location.href = `/auctionRegistration/showAuctionRegistrationPage?page=0&filter=${filter}&userId=${userId}`;
+                            }
+                        </script>
 
 
-					</div>
-				</div>
-			</section>
+                    </div>
+                </div>
+            </section>
 
-			<div id="cta-2">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-8">
-							<div class="left-content">
-								<h2>Subscribe to the auction</h2>
-								<form method="get" id="subscribe" class="blog-search">
-									<input type="text" class="blog-search-field" name="s" placeholder="E-mail Address"
-										   value="">
-									<div class="simple-button">
-										<a href="#">Subscribe</a>
-									</div>
-								</form>
-							</div>
-						</div>
-						<div class="col-md-4">
-							<div class="right-content">
-								<ul>
-									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
-									<li><a href="#"><i class="fa fa-flickr"></i></a></li>
-									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-									<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-									<li><a href="#"><i class="fa fa-skype"></i></a></li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+            <div id="cta-2">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="left-content">
+                                <h2>Subscribe to the auction</h2>
+                                <form method="get" id="subscribe" class="blog-search">
+                                    <input type="text" class="blog-search-field" name="s" placeholder="E-mail Address"
+                                           value="">
+                                    <div class="simple-button">
+                                        <a href="#">Subscribe</a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="right-content">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-flickr"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-skype"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-			<footer>
-				<div class="container">
-					<div class="row">
-						<div class="col-md-3">
-							<div class="about-us">
-								<img src="../../assets/images/logo-2.png" alt="">
-								<p>Maecenas ne mollis orci. Phasell iacu sapie non aliquet ex euismo ac.</p>
-								<ul>
-									<li><i class="fa fa-map-marker"></i>Raver Croft Drive Knoxville, 37921</li>
-									<li><i class="fa fa-phone"></i>+55 417-634-7071</li>
-									<li><i class="fa fa-envelope-o"></i>contact@auction.com</li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="featured-links">
-								<h4>Featured Links</h4>
-								<ul>
-									<li><a href="#"><i class="fa fa-caret-right"></i>About Us</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Term &amp; Services</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Meet The Team</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Privacy Policy</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Company News</a></li>
-								</ul>
-								<ul>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Shop</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>New Vehicle</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Features</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Promotions</a></li>
-									<li><a href="#"><i class="fa fa-caret-right"></i>Contact</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="latest-news">
-								<h4>Latest News</h4>
-								<div class="latest-item">
-									<img src="../../assets/images/01-blog-50x50.jpg" alt="">
-									<a href="../../single-blog.html">
-										<h6>Hella Kogi Whatever</h6>
-									</a>
-									<ul>
-										<li>24 Sep,2015</li>
-										<li>2 comments</li>
-									</ul>
-								</div>
-								<div class="latest-item">
-									<img src="../../assets/images/02-blog-50x50.jpg" alt="">
-									<a href="../../single-blog.html">
-										<h6>Retro Art Party</h6>
-									</a>
-									<ul>
-										<li>21 Sep,2015</li>
-										<li>2 comments</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-md-3">
-							<div class="gallery">
-								<h4>Gallery</h4>
-								<div class="gallery-item">
-									<img src="../../assets/images/01-blog-50x50.jpg" alt="">
-								</div>
-								<div class="gallery-item">
-									<img src="../../assets/images/02-blog-50x50.jpg" alt="">
-								</div>
-								<div class="gallery-item">
-									<img src="../../assets/images/03-featured-slide-50x50.jpg" alt="">
-								</div>
-								<div class="gallery-item">
-									<img src="../../assets/images/04-featured-slide-50x50.jpg" alt="">
-								</div>
-								<div class="gallery-item">
-									<img src="../../assets/images/05-blog-50x50.jpg" alt="">
-								</div>
-								<div class="gallery-item">
-									<img src="../../assets/images/02-featured-slide-50x50.jpg" alt="">
-								</div>
-								<div class="gallery-item">
-									<img src="../../assets/images/07-blog-50x50.jpg" alt="">
-								</div>
-								<div class="gallery-item">
-									<img src="../../assets/images/08-blog-50x50.jpg" alt="">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</footer>
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="about-us">
+                                <img src="/assets/images/logo-2.png" alt="">
+                                <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
+                                <ul>
+                                    <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
+                                    <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
+                                    <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="featured-links">
+                                <h4>Liên kết nổi bật</h4>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="latest-news">
+                                <h4>Tin tức mới nhất</h4>
+                                <div class="latest-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                    <a href="#">
+                                        <h6>Đấu giá đất nền khu đô thị</h6>
+                                    </a>
+                                    <ul>
+                                        <li>24 Tháng 9, 2023</li>
+                                        <li>2 bình luận</li>
+                                    </ul>
+                                </div>
+                                <div class="latest-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                    <a href="#">
+                                        <h6>Cơ hội đầu tư đất ven biển</h6>
+                                    </a>
+                                    <ul>
+                                        <li>21 Tháng 9, 2023</li>
+                                        <li>2 bình luận</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="gallery">
+                                <h4>Thư viện</h4>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
 
-			<div id="sub-footer">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-sm-12">
-							<p>Copyrights 2015 <em>Auction</em>. Developed by Robert</p>
-						</div>
-						<div class="col-md-6 col-sm-12">
-							<ul>
-								<li><a href="#">Home</a></li>
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Services</a></li>
-								<li><a href="#">Shop</a></li>
-								<li><a href="#">Pages</a></li>
-								<li><a href="#">Contact</a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
 
-			<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+        </div>
 
-		</div>
+    </div>
 
-	</div>
-
-	<nav class="sidebar-menu slide-from-left">
-		<div class="nano">
-			<div class="content">
-				<nav class="responsive-menu">
-					<ul>
-						<li><a href="../../index.html">Home</a></li>
-						<li><a href="../../about.html">About Us</a></li>
-						<li><a href="../../services.html">Services</a></li>
-						<li class="menu-item-has-children"><a href="#">Listing</a>
-							<ul class="sub-menu">
-								<li><a href="listing-right.html">Sidebar Right</a></li>
-								<li><a href="wishlistPage.html">Sidebar Left</a></li>
-								<li><a href="../../listing-grid.html">Grids System</a></li>
-								<li><a href="../auctionDetailPage.html">Car Details</a></li>
-							</ul>
-						</li>
-						<li class="menu-item-has-children"><a href="#">Blog</a>
-							<ul class="sub-menu">
-								<li><a href="../../blog-right.html">Classic</a></li>
-								<li><a href="../../blog-grid.html">Grids System</a></li>
-								<li><a href="../../grid-right.html">Grids Sidebar</a></li>
-								<li><a href="../../single-blog.html">Single Post</a></li>
-							</ul>
-						</li>
-						<li><a href="../../about.html">About</a></li>
-						<li><a href="../../contact.html">Contact</a></li>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</nav>
 
 </div>
 
 
-<footer>
-	<div class="container">
-		<div class="row">
-			<div class="col-md-3">
-				<div class="about-us">
-					<img src="#" alt="">
-					<p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
-					<ul>
-						<li><i class="fa fa-map-marker"></i>Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long,
-							H. Thạch Thất, TP. Hà Nội
-						</li>
-						<li><i class="fa fa-phone"></i>+84 123-456-7890</li>
-						<li><i class="fa fa-envelope"></i>contact@daugia.com</li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="featured-links">
-					<h4>Liên kết nổi bật</h4>
-					<ul>
-						<li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
-						<li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
-						<li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
-						<li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
-						<li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
-					</ul>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="latest-news">
-					<h4>Tin tức mới nhất</h4>
-					<div class="latest-item">
-						<img src="/assets/images/01-blog-50x50.jpg" alt="">
-						<a href="single-blog.html">
-							<h6>Đấu giá đất nền khu đô thị</h6>
-						</a>
-						<ul>
-							<li>24 Tháng 9, 2023</li>
-							<li>2 bình luận</li>
-						</ul>
-					</div>
-					<div class="latest-item">
-						<img src="/assets/images/02-blog-50x50.jpg" alt="">
-						<a href="single-blog.html">
-							<h6>Cơ hội đầu tư đất ven biển</h6>
-						</a>
-						<ul>
-							<li>21 Tháng 9, 2023</li>
-							<li>2 bình luận</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="gallery">
-					<h4>Thư viện</h4>
-					<div class="gallery-item">
-						<img src="/assets/images/01-blog-50x50.jpg" alt="">
-					</div>
-					<div class="gallery-item">
-						<img src="/assets/images/02-blog-50x50.jpg" alt="">
-					</div>
-					<div class="gallery-item">
-						<img src="/assets/images/03-featured-slide-50x50.jpg" alt="">
-					</div>
-					<div class="gallery-item">
-						<img src="/assets/images/04-featured-slide-50x50.jpg" alt="">
-					</div>
-					<div class="gallery-item">
-						<img src="/assets/images/05-blog-50x50.jpg" alt="">
-					</div>
-					<div class="gallery-item">
-						<img src="/assets/images/02-featured-slide-50x50.jpg" alt="">
-					</div>
-					<div class="gallery-item">
-						<img src="/assets/images/07-blog-50x50.jpg" alt="">
-					</div>
-					<div class="gallery-item">
-						<img src="/assets/images/08-blog-50x50.jpg" alt="">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</footer>
 
 <script type="text/javascript" src="../../assets/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>

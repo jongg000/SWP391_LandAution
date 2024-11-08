@@ -13,6 +13,7 @@ public interface AssetRegistrationService {
     public void updateAssetRegistration(AssetRegistration assetRegistration);
     public List<AssetRegistration> findByStatus(Status status);
     public List<AssetRegistration> findByUser(User user);
-    public long countAssetRegistrationsByUser(User user);
     public long countAssetRegistrationsByStatus(Status status);
+
+     public long countAssetRegistrationsByUser(User user);
 }

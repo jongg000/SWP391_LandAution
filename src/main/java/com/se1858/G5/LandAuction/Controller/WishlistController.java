@@ -4,9 +4,12 @@ import com.se1858.G5.LandAuction.DTO.AuctionDto;
 import com.se1858.G5.LandAuction.DTO.LandDTO;
 import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.DTO.WishlistDTO;
+import com.se1858.G5.LandAuction.Entity.Auction;
+import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Service.LandService;
 import com.se1858.G5.LandAuction.Service.AuctionService;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.WishlistServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +30,13 @@ public class WishlistController {
     private final WishlistServiceImpl wishlistService;
     private final AuctionService auctionService;
     private final LandService landService;
+    private final AuctionRepository auctionRepository;
 
-
-    public WishlistController(WishlistServiceImpl wishlistService, AuctionService auctionService, LandService landService) {
+    public WishlistController(WishlistServiceImpl wishlistService, AuctionService auctionService, LandService landService, AuctionRepository auctionRepository) {
         this.wishlistService = wishlistService;
         this.auctionService = auctionService;
         this.landService = landService;
+        this.auctionRepository = auctionRepository;
     }
 
 
@@ -97,7 +101,10 @@ public class WishlistController {
             } else {
                 dateCheck = "isGoingOn";
             }
-
+            boolean checkWinner = auctionService.checkWinner( auction.getAuctionId(),userId);
+            Auction auction1 = auctionRepository.findByAuctionId( auction.getAuctionId());
+            details.put("auction1", auction1.getStatus().getStatusID());
+            details.put("checkWinner", checkWinner);
             details.put("dateCheck", dateCheck);
             details.put("wishlist", wishlist);
             details.put("auction", auction);

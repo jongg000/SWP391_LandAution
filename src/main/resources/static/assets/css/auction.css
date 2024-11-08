@@ -2319,7 +2319,7 @@ footer .gallery .gallery-item img {
     }
 }
 
-.listing-page #listing-cars .featured-item .right-content .view-details a {
+.listing-page #listing-cars .featured-item .right-content .view-details div a {
     font-size: 11px;
     font-family: 'Montserrat', sans-serif;
     color: #336699;
@@ -2772,8 +2772,23 @@ footer .gallery .gallery-item img {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    margin-bottom: 10px;
 }
+#sidebar .sidebar-content .search-form input {
+    border: 1px solid #5e90c2;
+    width: 100%;
+    background-color: #336699;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    color: #a7cdf2;
+    padding: 8px;
 
+
+    margin-bottom: 10px;
+}
+#sidebar .sidebar-content .search-form input::placeholder {
+    color: #a7cdf2;
+}
 #sidebar .sidebar-content .search-form .select:after {
     content: "\f107";
     font-family: FontAwesome;
@@ -2818,7 +2833,7 @@ footer .gallery .gallery-item img {
     font-size: 12px;
     color: #ffffff;
     margin-top: 0px;
-    margin-bottom: -10px;
+    margin-bottom: 10px;
     display: inline-block;
     background-color: transparent;
     border: none;
@@ -2830,7 +2845,7 @@ footer .gallery .gallery-item img {
     text-align: center;
 }
 
-#sidebar .sidebar-content .search-form .advanced-button a {
+#sidebar .sidebar-content .search-form .advanced-button button {
     margin-right: 8px;
 }
 
@@ -3818,6 +3833,25 @@ footer .gallery .gallery-item img {
     text-align: center;
     background-color: #f0b20e;
 }
+
+.advanced-button2 {
+    width: 160px;
+    height: 40px;
+    background-color: green;
+    line-height: 40px;
+    ;
+}
+
+.advanced-button2 a {
+    margin-left: 15px;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
 
 .simple-button a {
     display: inline-block;

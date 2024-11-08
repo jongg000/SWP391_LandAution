@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang nhân viên</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/bootstraps.css">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f7f9fc;
+            overflow-x: hidden; /* Để tránh tràn ngang */
+        }
+        /* Sidebar styles */
+        #sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding-top: 20px;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        .sidebar-menu {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar-menu li {
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        .sidebar-link {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+        }
+        .sidebar-link:hover {
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .sidebar-item.active .sidebar-link {
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 5px;
+        }
+        /* Main content and header */
+        #main {
+            margin-left: 270px;
+            margin-top: 60px; /* Tạo khoảng trống cho header */
+            padding: 20px;
+        }
+        .page-heading h3 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-left: 20px;
+        }
+        .page-heading p {
+            color: #6c757d;
+        }
+        /* Income panel styles */
+        .income-panel {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .card {
+            background-color: white;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden; /* Để tránh tràn */
+        }
+        .card h5 {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        .text-subtitle{
+            margin-left: 20px;
+        }
+        .card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card .income-value {
+            font-size: 2rem;
+            color: #343a40;
+            font-weight: 700;
+        }
+        .card{
+            width: 80%;
+            margin-left: 30px;
+        }
+        .card .comparison-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .card .last-week-income {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #343a40;
+        }
+        .change-percentage {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+<div id="app">
+    <!-- Sidebar -->
+    <div id="sidebar" class="active">
+        <div class="sidebar-wrapper active">
+            <div class="sidebar-header">
+                <div class="d-flex justify-content-between">
+                    <div class="logo">
+                        <a href="#"><img src="/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                    </div>
+                    <div class="toggler">
+                        <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-menu">
+                <div class="menu">
+                    <li class="sidebar-title">Menu</li>
+<<<<<<< HEAD
+                    <li class="sidebar-item">
+                        <a th:href="@{/staff}" class='sidebar-link'>
+=======
+
+                    <li class="sidebar-item  active">
+                        <a th:href="@{/staff}" class='sidebar-link'>
+                            <i class="bi bi-grid-fill"></i>
+                            <span>Trang chính</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-item ">
+                        <a th:href="@{auction/showAuctionResults}" href="#" class='sidebar-link'>
+                            <span>Theo dõi đấu giá</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+>>>>>>> 3024eeac702dfb161870813ccb497a71924f4d06
+                            <i class="bi bi-collection-fill"></i>
+                            <span>Hồ sơ đất đai</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a th:href="@{/staff/waiting-list}">Chờ xác nhận</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a th:href="@{/staff/ongoing-list}">Đã xác nhận</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a th:href="@{/staff/cancel-listing}">Đã bị hủy</a>
+                            </li>
+                        </ul>
+                    </li>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main">
+        <div class="page-heading">
+            <div class="page-title">
+                <h3>Trang nhân viên</h3>
+                <p class="text-subtitle text-muted">Cập nhật tài sản và đấu giá</p>
+            </div>
+<<<<<<< HEAD
+            <section class="section">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+<!--                            <div class="col-12" th:if="${assetRegistration != null}">-->
+<!--                                <h5>Hồ sơ đất đai</h5>-->
+<!--                                <table class="table table-striped" id="table3" style="display: block;">-->
+<!--                                    <thead>-->
+<!--                                    <tr>-->
+<!--                                        <th>Tên đất</th>-->
+<!--                                        <th>Giá trị</th>-->
+<!--                                        <th>Trạng thái</th>-->
+<!--                                    </tr>-->
+<!--                                    </thead>-->
+<!--                                    <tbody>-->
+<!--                                    <tr th:each="land : ${assetRegistration}">-->
+<!--                                        <td><span th:text="${land.land.name}">Tên đất</span></td>-->
+<!--                                        <td><span th:text="${land.land.price}">Giá trị</span></td>-->
+<!--                                        <td><span th:text="${land.status}">Trạng thái</span></td>-->
+<!--                                    </tr>-->
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+
+                            <div class="col-12" th:if="${auctionDetails != null}">
+                                <h5>Kết quả đấu giá</h5> <!-- This can be removed as the title is now at the top -->
+                                <table class="table table-striped" id="table4">
+                                    <thead>
+                                    <tr>
+                                        <th>Tên đất</th>
+                                        <th>Giá trị</th>
+                                        <th>Người thắng cuộc</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="auction : ${auctionDetails}">
+                                        <td><a th:href="@{/auction/showAuctionDetail/{id}(id=${auction.auction.auctionId})}"><span th:text="${auction.land.name}"></span></a></td>
+                                        <td><span th:text="${auction.auction.highestBid}"></span></td>
+                                        <td><span th:text="${auction.bidder.lastName}"></span></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+=======
+>>>>>>> 3024eeac702dfb161870813ccb497a71924f4d06
+        </div>
+
+        <!-- Income Panel -->
+        <div class="income-panel">
+            <!-- Income Card -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Số đơn chưa xét duyệt</h5>
+                    <span>Today</span>
+                </div>
+                <div class="card-body">
+                    <div class="income-value"><span th:text="${waiting}"></span></div>
+                </div>
+            </div>
+
+            <!-- Repeat the card for other income data -->
+            <div class="card">
+                <div class="card-header">
+                    <h5>Số đơn đã xét duyệt</h5>
+                    <span>Today</span>
+                </div>
+                <div class="card-body">
+                    <div class="income-value"><span th:text="${approve}"></span></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Số đơn bị hủy</h5>
+                    <span>Today</span>
+                </div>
+                <div class="card-body">
+                    <div class="income-value"><span th:text="${cancel}"></span></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Số lượng phiên đấu giá</h5>
+                    <span>Today</span>
+                </div>
+                <div class="card-body">
+                    <div class="income-value"><span th:text="${auction}"></span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    let table1 = document.querySelector('#table1');
+    let dataTable = new simpleDatatables.DataTable(table1);
+    function toggleAuctionResultsPanel() {
+        document.getElementById('auction-results-panel').classList.toggle('active');
+    }
+</script>
+<script src="/assets/js/main.js"></script>
+</body>
+
+</html>

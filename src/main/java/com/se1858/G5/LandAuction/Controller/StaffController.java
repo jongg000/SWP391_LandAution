@@ -1,10 +1,10 @@
 package com.se1858.G5.LandAuction.Controller;
 
+import com.se1858.G5.LandAuction.DTO.LandImageDTO;
 import com.se1858.G5.LandAuction.DTO.RequestDTO;
-import com.se1858.G5.LandAuction.Entity.AssetRegistration;
-import com.se1858.G5.LandAuction.Entity.Auction;
-import com.se1858.G5.LandAuction.Entity.Land;
-import com.se1858.G5.LandAuction.Entity.User;
+import com.se1858.G5.LandAuction.Entity.*;
+import com.se1858.G5.LandAuction.Repository.AuctionRepository;
+import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.util.*;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.List;
+
 @Controller
 @RequestMapping("staff")
 public class StaffController {
@@ -26,14 +26,24 @@ public class StaffController {
     private UserService userService;
     private StatusService statusService;
     private AuctionService auctionService;
+    private AuctionRepository auctionRepository;
+    private LandService landService;
+    private BidService bidService;
+    private LandRepository landRepository;
+    private EmailService emailService;
 
     @Autowired
-    public StaffController(AssetRegistrationService assetRegistrationService, UserService userService, StatusService statusService, AuctionService auctionService) {
+    public StaffController(AssetRegistrationService assetRegistrationService, UserService userService, StatusService statusService, AuctionService auctionService, AuctionRepository auctionRepository, LandService landService, BidService bidService, LandRepository landRepository) {
         this.assetRegistrationService = assetRegistrationService;
         this.userService = userService;
         this.statusService = statusService;
-
         this.auctionService = auctionService;
+        this.auctionRepository = auctionRepository;
+        this.landService = landService;
+
+        this.bidService = bidService;
+        this.landRepository = landRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping()
@@ -78,10 +88,12 @@ public class StaffController {
             auction.setStartTime(auctionStat);
             auction.setEndTime(auctionStat.plusMinutes(45));
             auction.setLand(assetRegistration.getLand());
+            assetRegistration.setUser(user);
             assetRegistration.setStatus(statusService.getStatusById(8));
             auction.setStatus(statusService.getStatusById(8));
+            assetRegistrationService.save(assetRegistration);
             auctionService.saveAuction(auction);
-            return "staff/home-staff";
+            return "redirect:land-detail/" + requestDTO.getDocumentId();
         } else if ("rejected".equals(action)) {
             LocalDateTime createdDate = LocalDateTime.now(ZoneId.of("Asia/Ho_Chi_Minh"));
             assetRegistration.setApprovalDate(createdDate);
@@ -89,12 +101,65 @@ public class StaffController {
             assetRegistration.setUser(user);
             assetRegistration.setComments(requestDTO.getComments());
             assetRegistrationService.save(assetRegistration);
-            return "staff/home-staff";
+
+            return "redirect:land-detail/" + requestDTO.getDocumentId();
         }
         return "staff/home-staff";
     }
 
+    @GetMapping("/showAuctionResults")
+    public String showAuctionResults(Model model) {
+        List<Auction> auctions = auctionRepository.findAll();
+        List<Map<String, Object>> auctionDetails = getAuctionDetailsList(auctions);
+        model.addAttribute("auctionDetails", auctionDetails);
+        return "staff/auction-list";
+    }
 
+    @GetMapping("/showStaffAuctionDetail/{id}")
+    public String showAuctionStaffDetail(Model model,@PathVariable int id) {
+        Auction auction = auctionRepository.findByAuctionId(id);
+        Map<String, Object> details = new HashMap<>();
+        Bids bids = bidService.findBidByAuctionAndBidAmount(auction, auction.getHighestBid());
+        AuctionRegistration auctionRegistration = bids != null ? bids.getAuctionRegistration() : null;
+        User bidder = (auctionRegistration != null && (auction.getStatus().getStatusID() == 11 || auction.getStatus().getStatusID() == 13)) ? auctionRegistration.getUser() : null;
+        Land land = landRepository.findById(auction.getLand().getLandId()).orElse(null);
+        List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLand().getLandId());
+        String imageUrl = (!landImageList.isEmpty()) ? landImageList.get(0).getImageUrl() : null;
+        details.put("status", auction.getStatus());
+        details.put("auction", auction);
+        details.put("land", land);
+        details.put("Image", imageUrl);
+        details.put("highestBid", auction.getHighestBid());
+        details.put("bidder", bidder);
+        model.addAttribute("detail", details);
+        return "staff/auction-detail";
+    }
+    private List<Map<String, Object>> getAuctionDetailsList(List<Auction> auctions) {
+        List<Map<String, Object>> auctionDetailsList = new ArrayList<>();
+        for (Auction auction : auctions) {
+            auctionDetailsList.add(createAuctionDetailMap(auction));
+        }
+        return auctionDetailsList;
+    }
+
+    private Map<String, Object> createAuctionDetailMap(Auction auction) {
+        Map<String, Object> details = new HashMap<>();
+        Bids bids = bidService.findBidByAuctionAndBidAmount(auction, auction.getHighestBid());
+        AuctionRegistration auctionRegistration = bids != null ? bids.getAuctionRegistration() : null;
+        User bidder = (auctionRegistration != null && (auction.getStatus().getStatusID() == 11 || auction.getStatus().getStatusID() == 13)) ? auctionRegistration.getUser() : null;
+        Land land = landRepository.findById(auction.getLand().getLandId()).orElse(null);
+        List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLand().getLandId());
+        String imageUrl = (!landImageList.isEmpty()) ? landImageList.get(0).getImageUrl() : null;
+        details.put("status", auction.getStatus());
+        details.put("auction", auction);
+        details.put("land", land);
+        details.put("Image", imageUrl);
+        details.put("highestBid", auction.getHighestBid());
+        details.put("bidder", bidder);
+
+
+        return details;
+    }
     @GetMapping("/handle-request")
     public String handleRequest(Model model) {
         return "land-detail-request";
@@ -106,6 +171,8 @@ public class StaffController {
         model.addAttribute("allAssets", allAssets);
         return "/staff/waiting-list";
     }
+
+
     @GetMapping("ongoing-list")
     public String showOngoingList(Model model) {
         List<Auction> auctionList = auctionService.getAllAuctionByStartTime();

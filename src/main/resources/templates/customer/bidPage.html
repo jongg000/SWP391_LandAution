@@ -9,22 +9,20 @@
 
     <title>Bid Page</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/icon-font.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
+    <link rel="stylesheet" href="/assets/css/auction.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../../assets/css/animate.css">
-    <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="../../assets/css/flexslider.css">
-    <link rel="stylesheet" href="../../assets/css/simple-line-icons.css">
-    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../assets/css/icon-font.css">
-    <link rel="stylesheet" href="../../assets/css/auction.css">
-
-    <link rel="stylesheet" href="../../assets/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -41,6 +39,37 @@
             font-size: 16px;
             font-weight: bold;
         }
+
+
+        .payment-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 40px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            justify-content: center;
+            margin-top: 20px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .payment-button {
+            display: block;
+            width: 50%;
+            margin: 20px auto;
+        }
+
+        .payment-button:hover {
+            background-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        .payment-button:active {
+            background-color: #388e3c;
+            transform: scale(0.98);
+        }
+
+
     </style>
 </head>
 <body>
@@ -66,7 +95,6 @@
                                     <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                                     <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                                     <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -93,11 +121,12 @@
                 </div>
             </div>
 
+            <!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
             <header class="site-header">
                 <div id="main-header" class="main-header header-sticky">
                     <div class="inner-header container clearfix">
                         <div class="logo">
-                            <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+                            <a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
                         </div>
                         <div class="header-right-toggle pull-right hidden-md hidden-lg">
                             <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
@@ -105,7 +134,7 @@
                         <nav class="main-navigation text-left hidden-xs hidden-sm">
                             <ul>
                                 <li><a href="/home">Trang chủ</a></li>
-                                <li><a href="about.html">Về chúng tôi</a></li>
+                                <li><a href="/aboutUs">Về chúng tôi</a></li>
                                 <li><a href="#" class="has-submenu">Đấu giá</a>
                                     <ul class="sub-menu">
                                         <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
@@ -113,23 +142,13 @@
                                         <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#" class="has-submenu">Tài sản</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="listing-right.html">Thanh bên phải</a></li>
-                                        <li><a href="listing-left.html">Thanh bên trái</a></li>
-                                        <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                                        <li><a href="single-list.html">Chi tiết lô đất</a></li>
-                                    </ul>
-                                </li>
                                 <li><a href="/news">Tin tức</a>
-  s                              </li>
-                                <li><a href="#">Liên hệ</a>
                                 </li>
                                 <li>
                                     <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
                                     <div id="example" class="more">
-                                        <form method="get" id="blog-search" class="blog-search">
-                                            <input type="text" class="blog-search-field" name="s" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                        <form method="get" id="asset-search" class="blog-search">
+                                            <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
                                         </form>
                                         <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
                                     </div>
@@ -297,6 +316,17 @@
                                     <p class="congratulations">Congratulations!</p>
                                     <p class="winner">Winner: <span id="winnerNameModal" class="highlight"></span><i class="fas fa-crown" aria-hidden="true"></i></p>
                                     <p class="bid-amount">Bid Amount: <span id="winnerBidAmountModal" class="highlight"></span></p>
+                                    <th:block th:if="${checkWinner == true}">
+                                        <th:block th:if="${auction1 == 11}">
+                                            <!-- Show the payment button when auction has ended but not yet paid -->
+                                            <a th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}" class="payment-button">
+                                                Thanh toán
+                                            </a>
+                                        </th:block>
+                                        <th:block th:if="${auction1 == 13}">
+                                            <p>Đã thanh toán</p>
+                                        </th:block>
+                                    </th:block>
                                     <button onclick="closeModal()" class="close-button">Close</button>
                                 </div>
                             </div>
@@ -503,18 +533,15 @@
 
 </div>
 
-
 <footer>
     <div class="container">
         <div class="row">
             <div class="col-md-3">
                 <div class="about-us">
-                    <img src="#" alt="">
+                    <img src="/assets/images/logo-2.png" alt="">
                     <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
                     <ul>
-                        <li><i class="fa fa-map-marker"></i>Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long,
-                            H. Thạch Thất, TP. Hà Nội
-                        </li>
+                        <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
                         <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
                         <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
                     </ul>
@@ -536,8 +563,8 @@
                 <div class="latest-news">
                     <h4>Tin tức mới nhất</h4>
                     <div class="latest-item">
-                        <img src="/assets/images/01-blog-50x50.jpg" alt="">
-                        <a href="single-blog.html">
+                        <img src="/assets/images/logo.png" alt="">
+                        <a href="#">
                             <h6>Đấu giá đất nền khu đô thị</h6>
                         </a>
                         <ul>
@@ -546,8 +573,8 @@
                         </ul>
                     </div>
                     <div class="latest-item">
-                        <img src="/assets/images/02-blog-50x50.jpg" alt="">
-                        <a href="single-blog.html">
+                        <img src="/assets/images/logo.png" alt="">
+                        <a href="#">
                             <h6>Cơ hội đầu tư đất ven biển</h6>
                         </a>
                         <ul>
@@ -561,38 +588,39 @@
                 <div class="gallery">
                     <h4>Thư viện</h4>
                     <div class="gallery-item">
-                        <img src="/assets/images/01-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/02-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/03-featured-slide-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/04-featured-slide-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/05-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/02-featured-slide-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/07-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/08-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+
 
 <script type="text/javascript" src="../../assets/js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
-<!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
 <script src="../../assets/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
 <script src="../../assets/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
 

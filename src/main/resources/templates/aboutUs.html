@@ -40,7 +40,6 @@
                         <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                         <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
                         <li><a href="#"><i class="fa fa-rss"></i></a></li>
-                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
                     </ul>
                 </div>
             </div>
@@ -67,11 +66,12 @@
     </div>
 </div>
 
+<!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
 <header class="site-header">
     <div id="main-header" class="main-header header-sticky">
         <div class="inner-header container clearfix">
             <div class="logo">
-                <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+                <a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
             </div>
             <div class="header-right-toggle pull-right hidden-md hidden-lg">
                 <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
@@ -79,37 +79,23 @@
             <nav class="main-navigation text-left hidden-xs hidden-sm">
                 <ul>
                     <li><a href="/home">Trang chủ</a></li>
-                    <li><a href="about.html">Về chúng tôi</a></li>
+                    <li><a href="/aboutUs">Về chúng tôi</a></li>
                     <li><a href="#" class="has-submenu">Đấu giá</a>
                         <ul class="sub-menu">
                             <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
                             <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
-                            <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham
-                                gia</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="#" class="has-submenu">Tài sản</a>
-                        <ul class="sub-menu">
-                            <li><a href="listing-right.html">Thanh bên phải</a></li>
-                            <li><a href="listing-left.html">Thanh bên trái</a></li>
-                            <li><a href="listing-grid.html">Hệ thống lưới</a></li>
-                            <li><a href="single-list.html">Chi tiết lô đất</a></li>
+                            <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
                         </ul>
                     </li>
                     <li><a href="/news">Tin tức</a>
                     </li>
-                    <li><a href="#">Liên hệ</a>
-                    </li>
                     <li>
-                        <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i
-                                class="fa fa-search"></i></a></p>
+                        <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
                         <div id="example" class="more">
-                            <form method="get" id="blog-search" class="blog-search">
-                                <input type="text" class="blog-search-field" name="s"
-                                       placeholder="Nhập từ khóa tìm kiếm" value="">
+                            <form method="get" id="asset-search" class="blog-search">
+                                <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
                             </form>
-                            <p><a href="#" id="example-hide" class="hideLink"
-                                  onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
+                            <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
                         </div>
                     </li>
                 </ul>
@@ -118,6 +104,7 @@
         </div>
     </div>
 </header>
+
 
 <div id="page-heading">
     <div class="container">
@@ -220,12 +207,10 @@
         <div class="row">
             <div class="col-md-3">
                 <div class="about-us">
-                    <img src="#" alt="">
+                    <img src="/assets/images/logo-2.png" alt="">
                     <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
                     <ul>
-                        <li><i class="fa fa-map-marker"></i>Khu Công nghệ cao Hòa Lạc – Km29 Đại lộ Thăng Long,
-                            H. Thạch Thất, TP. Hà Nội
-                        </li>
+                        <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
                         <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
                         <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
                     </ul>
@@ -247,8 +232,8 @@
                 <div class="latest-news">
                     <h4>Tin tức mới nhất</h4>
                     <div class="latest-item">
-                        <img src="/assets/images/01-blog-50x50.jpg" alt="">
-                        <a href="single-blog.html">
+                        <img src="/assets/images/logo.png" alt="">
+                        <a href="#">
                             <h6>Đấu giá đất nền khu đô thị</h6>
                         </a>
                         <ul>
@@ -257,8 +242,8 @@
                         </ul>
                     </div>
                     <div class="latest-item">
-                        <img src="/assets/images/02-blog-50x50.jpg" alt="">
-                        <a href="single-blog.html">
+                        <img src="/assets/images/logo.png" alt="">
+                        <a href="#">
                             <h6>Cơ hội đầu tư đất ven biển</h6>
                         </a>
                         <ul>
@@ -272,34 +257,36 @@
                 <div class="gallery">
                     <h4>Thư viện</h4>
                     <div class="gallery-item">
-                        <img src="/assets/images/01-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/02-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/03-featured-slide-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/04-featured-slide-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/05-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/02-featured-slide-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/07-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                     <div class="gallery-item">
-                        <img src="/assets/images/08-blog-50x50.jpg" alt="">
+                        <img src="/assets/images/logo.png" alt="">
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </footer>
+<a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+
 
 </body>
 </html>
