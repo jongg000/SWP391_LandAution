@@ -8,6 +8,9 @@ import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.util.UploadFile;
 import com.se1858.G5.LandAuction.Service.StatusService;
 import com.se1858.G5.LandAuction.Service.UserService;
+import com.se1858.G5.LandAuction.util.UploadFile;
+import com.se1858.G5.LandAuction.Service.StatusService;
+import com.se1858.G5.LandAuction.Service.UserService;
 import lombok.RequiredArgsConstructor;
 import com.se1858.G5.LandAuction.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,16 +47,21 @@ public class AssetController {
         this.statusService = statusService;
     }
 
-    @GetMapping("/post-asset")
+    @GetMapping("post-asset")
     public String formAsset(Model model) {
        LandDTO landDTO = new LandDTO();
         model.addAttribute("land", landDTO);
         return "customer/land-registratrion";
     }
 
+    @GetMapping("/image")
+    public String testImage(Model model) {
+        return "customer/land-registratrion";
+    }
 
     @PostMapping("saveForm")
     public String saveAsset(@ModelAttribute("assetFrom") LandDTO landDTO, Principal principal, Model model) {
+
         User user = userService.findByEmail(principal.getName());
                 Land land = new Land(landDTO.getLength(),landDTO.getWidth(), landDTO.getSquare(),
                                      landDTO.getContact(),landDTO.getPrice(), landDTO.getDescription(),
@@ -68,23 +76,26 @@ public class AssetController {
         landDTO.setCreatedDate(createdDate);
         assetRegistration.setLand(land);
         assetRegistration.setRegistrationDate(createdDate);
+        assetRegistration.setLand(land);
         land.setAssetRegistration(assetRegistration);
-        assetRegistration.setStatus(statusService.getStatusById(10));
+        assetRegistration.setStatus(statusService.getStatusById(4));
         landService.save(land);
         System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
+        model.addAttribute("land", landDTO);
         return "redirect:/asset";
     }
+
 
 
     @GetMapping()
     public String list(Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
         List<Land> list = landService.findByUser(user);
-        long count = landService.countByUser(user);
+        long count = assetRegistrationService.countAssetRegistrationsByUser(user);
         model.addAttribute("list", list);
         model.addAttribute("count", count);
-        model.addAttribute("status", user.getStatus().getStatusID());
+        System.out.println(count);
         return "customer/asset-list";
     }
     @GetMapping("/asset-detail/{id}")

@@ -1,0 +1,538 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]>
+
+<![endif]-->
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <title>Auction - Car Dealer HTML Theme</title>
+
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="../assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../assets/css/flexslider.css">
+    <link rel="stylesheet" href="../assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../assets/css/icon-font.css">
+    <link rel="stylesheet" href="../assets/css/auction.css">
+
+    <link rel="stylesheet" href="../assets/rs-plugin/css/settings.css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <style>
+
+        .form-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #333;
+        }
+
+        .form-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            flex-basis: 100%;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea, .form-group select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .form-group textarea {
+            resize: none;
+            height: 100px;
+        }
+
+        .form-group.double {
+            flex: 1;
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-group.double select {
+            flex: 1;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #0d3b66;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #0b2f55;
+        }
+        #page-heading{
+            margin-bottom: 20px;
+        }
+        #page-footer{
+            margin-top: 20px;
+        }
+        body{
+            justify-content: center;
+        }
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Đảm bảo wrapper chiếm toàn bộ chiều cao */
+        }
+        .single-field label, .single-field input{
+            display: block;
+            margin-bottom: 5px; /* khoảng cách giữa label và input */
+        }
+    </style>
+    <script src="/assets/js/scriptAsset.js"></script>
+
+</head>
+<body>
+<div class="sidebar-menu-container" id="sidebar-menu-container">
+
+    <div class="sidebar-menu-push">
+
+        <div class="sidebar-menu-overlay"></div>
+
+        <div class="sidebar-menu-inner">
+
+            <div id="sub-header">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <div class="social-icons">
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-rss"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 hidden-sm">
+                            <div class="right-info">
+                                <ul>
+                                    <li>Call us: <em>0659-694-002</em></li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/profile"> <i class="fas fa-user-circle fa-2x"></i></a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser != null}">
+                                        <a href="/logout">Đăng xuất</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/login">Đăng nhập</a>
+                                    </li>
+                                    <li th:if="${#httpServletRequest.remoteUser == null}">
+                                        <a href="/register">Đăng ký</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- header ở đây coppy sang nhớ sửa lại thanh search cho trang của mình-->
+            <header class="site-header">
+                <div id="main-header" class="main-header header-sticky">
+                    <div class="inner-header container clearfix">
+                        <div class="logo">
+<<<<<<< HEAD
+                            <a href="/home"><img src="/assets/images/logo.png" alt=""></a>
+=======
+                            <a href="/home"><img src="/assets/images/auction.png" alt="" style="width: 40%; height: 40%;"> </a>
+>>>>>>> cc2255019c98f756bea496c09d0ad8cf91fd6982
+                        </div>
+                        <div class="header-right-toggle pull-right hidden-md hidden-lg">
+                            <a href="javascript:void(0)" class="side-menu-button"><i class="fa fa-bars"></i></a>
+                        </div>
+                        <nav class="main-navigation text-left hidden-xs hidden-sm">
+                            <ul>
+                                <li><a href="/home">Trang chủ</a></li>
+                                <li><a href="/aboutUs">Về chúng tôi</a></li>
+                                <li><a href="#" class="has-submenu">Đấu giá</a>
+                                    <ul class="sub-menu">
+                                        <li><a th:href="@{/auction/showAuctions(page=0)}">Danh sách đấu giá</a></li>
+                                        <li><a th:href="@{/wishlist/showWishlists}">Danh sách theo dõi</a></li>
+                                        <li><a th:href="@{/auctionRegistration/showAuctionRegistrationPage(page=0)}">Danh sách tham gia</a></li>
+                                    </ul>
+                                </li>
+<<<<<<< HEAD
+                                <li><a th:href="@{/asset}" class="has-submenu">Tài sản</a>
+
+                                </li>
+=======
+>>>>>>> cc2255019c98f756bea496c09d0ad8cf91fd6982
+                                <li><a href="/news">Tin tức</a>
+                                </li>
+                                <li>
+                                    <p><a href="#" id="example-show" class="showLink" onclick="showHide('example');return false;"><i class="fa fa-search"></i></a></p>
+                                    <div id="example" class="more">
+                                        <form method="get" id="asset-search" class="blog-search">
+                                            <input type="text" class="asset-search-field" name="keyword" placeholder="Nhập từ khóa tìm kiếm" value="">
+                                        </form>
+                                        <p><a href="#" id="example-hide" class="hideLink" onclick="showHide('example');return false;"><i class="fa fa-search" ></i></a></p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </nav>
+
+                    </div>
+                </div>
+            </header>
+
+            <!-- kết thúc header -->
+
+            <div id="page-heading">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <h1>Chi tiết tài sản</h1>
+                            <div class="line"></div>
+                            <span>Hồ sơ đấu thầu sẽ được xử lí trong tối đa 5 ngày. Hệ thống không hỗ trợ hoàn tiền khi người sử dụng rút hồ sơ</span>
+                            <div class="page-active">
+                                <ul>
+                                    <li><a href="../index.html">Trang chủ</a></li>
+                                    <li><i class="fa fa-dot-circle-o"></i></li>
+                                    <li><a href="listin-right.html">My Auction</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <div class="form-container">
+                    <form th:action="@{/asset/saveForm}" th:object="${land}" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                        <h1>Hồ sơ đăng kí đấu giá</h1>
+                        <div class="form-group">
+                            <input th:field="*{name}" type="text" placeholder="Tên mảnh đất" required>
+                        </div>
+                        <div class="form-group double">
+                            <select th:field="*{province}" id="tinh" name="tinh" required>
+                                <option value="">Tỉnh/Thành phố</option>
+                            </select>
+                            <select type="text" id="quan" th:field="*{district}" name="quan" placeholder="Huyện/Quận" required>
+                                <option value="">Quận Huyện</option>
+                            </select>
+                        </div>
+                        <div class="form-group double">
+                            <div class="single-field">
+                                <label>Phường xã</label>
+                            <select type="text" id="phuong" name="phuong" th:field="*{ward}" placeholder="Phường xã" required style="width: 273px">
+                                <option value="">Phường xã</option>
+                            </select>
+                                </div>
+
+                            <div class="single-field">
+                            <label>Diện tích</label>
+                            <input type="text" th:field="*{square}" id="square" placeholder="Diện tích" required style="width: 272px" >
+                            </div>
+                        </div>
+<!--                        -->
+                        <div class="form-group double">
+                            <div class="single-field">
+                                <label>Giá khởi điểm</label>
+                                <input type="text" id="price" th:field="*{price}" placeholder="Giá khởi điểm" required style="width: 273px">
+                            </div>
+                            <div class="single-field">
+                                <label>Địa vị địa lí</label>
+                                <input type="text" th:field="*{location}" placeholder="Vị trí bản đồ" required style="width: 272px">
+                            </div>
+<!--                            -->
+
+                        </div>
+                        <div class="form-group double">
+                            <input type="number"  th:field="*{width}" placeholder="Chiều rộng" required>
+                            <input type="number" th:field="*{length}" placeholder="Chiều dài" required>
+                        </div>
+                        <div class="form-group double">
+                            <label for="document">Hồ sơ tham gia đấu thầu</label>
+                            <input type="file" id="document" th:field="*{document}" accept=".doc, .docx, .pdf" required>
+
+                            <label for="images">Cung cấp hình ảnh thực tế</label>
+                            <input type="file" id="images" th:field="*{images}" accept="image/png, image/jpeg, image/jpg, image/gif" multiple required>
+                        </div>
+
+                        <div  class="form-group" >
+                            <label for="images">Mô tả thêm thông tin chi tiết</label>
+                            <textarea th:field="*{description}" placeholder="Mô tả chi tiết" required></textarea>
+                        </div>
+                        <!-- Thông báo thành công -->
+                        <div th:if="${successMessage != null}" class="alert alert-success">
+                            <span th:text="${successMessage}"></span>
+                        </div>
+
+                        <button type="submit" class="submit-btn">Hoàn thiện</button>
+                    </form>
+                </div>
+            </div>
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="about-us">
+                                <img src="/assets/images/logo-2.png" alt="">
+                                <p>Chúng tôi cam kết cung cấp thông tin đấu giá đất chi tiết và minh bạch.</p>
+                                <ul>
+                                    <li><i class="fa fa-map-marker"></i>123 Đường ABC, Quận 1, TP.HCM</li>
+                                    <li><i class="fa fa-phone"></i>+84 123-456-7890</li>
+                                    <li><i class="fa fa-envelope"></i>contact@daugia.com</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="featured-links">
+                                <h4>Liên kết nổi bật</h4>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Về chúng tôi</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Điều khoản &amp; Dịch vụ</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Gặp đội ngũ</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Chính sách bảo mật</a></li>
+                                    <li><a href="#"><i class="fa fa-caret-right"></i>Tin tức công ty</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="latest-news">
+                                <h4>Tin tức mới nhất</h4>
+                                <div class="latest-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                    <a href="#">
+                                        <h6>Đấu giá đất nền khu đô thị</h6>
+                                    </a>
+                                    <ul>
+                                        <li>24 Tháng 9, 2023</li>
+                                        <li>2 bình luận</li>
+                                    </ul>
+                                </div>
+                                <div class="latest-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                    <a href="#">
+                                        <h6>Cơ hội đầu tư đất ven biển</h6>
+                                    </a>
+                                    <ul>
+                                        <li>21 Tháng 9, 2023</li>
+                                        <li>2 bình luận</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="gallery">
+                                <h4>Thư viện</h4>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                                <div class="gallery-item">
+                                    <img src="/assets/images/logo.png" alt="">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <div id="sub-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12">
+                            <p>Copyrights 2015 <em>Auction</em>. Developed by Robert</p>
+                        </div>
+                        <div class="col-md-6 col-sm-12">
+                            <ul>
+                                <li><a href="#">Home</a></li>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Services</a></li>
+                                <li><a href="#">Shop</a></li>
+                                <li><a href="#">Pages</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <a href="#" class="go-top"><i class="fa fa-angle-up"></i></a>
+
+        </div>
+
+    </div>
+
+    <nav class="sidebar-menu slide-from-left">
+        <div class="nano">
+            <div class="content">
+                <nav class="responsive-menu">
+                    <ul>
+                        <li><a href="../index.html">Home</a></li>
+                        <li><a href="../about.html">About Us</a></li>
+                        <li><a href="../services.html">Services</a></li>
+                        <li class="menu-item-has-children"><a href="#">Listing</a>
+                            <ul class="sub-menu">
+                                <li><a href="../listing-right.html">Sidebar Right</a></li>
+                                <li><a href="listing-left.html">Sidebar Left</a></li>
+                                <li><a href="../listing-grid.html">Grids System</a></li>
+                                <li><a href="single-list.html">Car Details</a></li>
+                            </ul>
+                        </li>
+                        <li class="menu-item-has-children"><a href="#">Blog</a>
+                            <ul class="sub-menu">
+                                <li><a href="../blog-right.html">Classic</a></li>
+                                <li><a href="../blog-grid.html">Grids System</a></li>
+                                <li><a href="../grid-right.html">Grids Sidebar</a></li>
+                                <li><a href="../single-blog.html">Single Post</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="../about.html">About</a></li>
+                        <li><a href="../contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+
+
+
+<script type="text/javascript" src="../assets/js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript" src="../assets/js/bootstrap.min.js"></script>
+<!-- SLIDER REVOLUTION 4.x SCRIPTS  -->
+<script src="../assets/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+<script src="../assets/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+
+<script type="text/javascript" src="../assets/js/plugins.js"></script>
+<script type="text/javascript" src="../assets/js/custom.js"></script>
+<script>
+    function validateForm() {
+        var priceInput = document.getElementById("price").value;
+
+        // Kiểm tra nếu input chứa chữ cái hoặc là số âm
+        if (!/^\d+$/.test(priceInput) || parseFloat(priceInput) < 0) {
+            alert("Giá khởi điểm phải là số dương và không được chứa chữ cái.");
+            return false; // Ngăn form submit
+        }
+
+        return true; // Cho phép form submit nếu kiểm tra thành công
+    }
+    $(document).ready(function() {
+        // Lấy tỉnh/thành
+        $.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function(data_tinh) {
+            if (data_tinh.error == 0) {
+                $.each(data_tinh.data, function(key_tinh, val_tinh) {
+                    // Lưu full_name trong value và id trong data-id
+                    $("#tinh").append('<option value="' + val_tinh.full_name + '" data-id="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
+                });
+
+                // Khi chọn tỉnh/thành
+                $("#tinh").change(function() {
+                    var tinhName = $(this).val(); // Lấy tên tỉnh/thành đã chọn
+                    var idtinh = $("#tinh option:selected").data('id'); // Lấy ID từ thuộc tính data-id
+                    console.log("ID Tỉnh/Thành phố:", idtinh);
+                    console.log("Tên Tỉnh/Thành phố:", tinhName);
+
+                    // Lấy quận/huyện
+                    $.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function(data_quan) {
+                        if (data_quan.error == 0) {
+                            $("#quan").html('<option value="0">Quận Huyện</option>');
+                            $("#phuong").html('<option value="0">Phường Xã</option>');
+                            $.each(data_quan.data, function(key_quan, val_quan) {
+                                // Tương tự như tỉnh, lưu full_name trong value và id trong data-id
+                                $("#quan").append('<option value="' + val_quan.full_name + '" data-id="' + val_quan.id + '">' + val_quan.full_name + '</option>');
+                            });
+
+                            // Khi chọn quận/huyện
+                            $("#quan").change(function() {
+                                var quanName = $(this).val(); // Lấy tên quận/huyện đã chọn
+                                var idquan = $("#quan option:selected").data('id'); // Lấy ID từ thuộc tính data-id
+                                console.log("ID Quận/Huyện:", idquan);
+                                console.log("Tên Quận/Huyện:", quanName);
+
+                                // Lấy phường/xã
+                                $.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function(data_phuong) {
+                                    if (data_phuong.error == 0) {
+                                        $("#phuong").html('<option value="0">Phường Xã</option>');
+                                        $.each(data_phuong.data, function(key_phuong, val_phuong) {
+                                            // Lưu tên trong value và id trong data-id
+                                            $("#phuong").append('<option value="' + val_phuong.full_name + '" data-id="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
+                                        });
+
+                                        // Khi chọn phường/xã
+                                        $("#phuong").change(function() {
+                                            var phuongName = $(this).val(); // Lấy tên phường/xã đã chọn
+                                            var idphuong = $("#phuong option:selected").data('id'); // Lấy ID từ data-id nếu cần
+                                            console.log("ID Phường/Xã:", idphuong);
+                                            console.log("Tên Phường/Xã:", phuongName);
+                                        });
+                                    }
+                                });
+                            });
+                        }
+                    });
+                });
+            }
+        });
+    });
+
+</script>
+</body>
+</html>

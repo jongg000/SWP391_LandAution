@@ -37,13 +37,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/doc/**","/coffeescripts/**","/icon/**","/images/**","/Land_images/**"
                 ,"/News_images/**","/User_images/**","/transfonts/**")
                 .permitAll()
-                .antMatchers("/home","/auctionDetailPage/**","/auction/showAuctionDetail/**"
+                .antMatchers("/home","/auctionDetailPage/**"
                 ,"/bids/showBidsPage/**","/auction/showAuctions/**","/news/**")
                 .access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
                 .antMatchers("/profile/**").hasRole("CUSTOMER")
                 .antMatchers("/auction/showAuctionResults").hasRole("STAFF")
                 .antMatchers("/changePassword",  "/customer/display/**").hasRole("CUSTOMER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers(("/auction/showAuctionDetail/**")).hasRole("CUSTOMER")
                 .antMatchers("/customer/**").hasRole("CUSTOMER")
                 .antMatchers("/wishlist/**").hasRole("CUSTOMER")
                 .antMatchers("/asset/**").hasRole("CUSTOMER")
