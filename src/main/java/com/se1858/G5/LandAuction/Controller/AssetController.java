@@ -76,9 +76,15 @@ public class AssetController {
 
 
     @GetMapping()
-    public String list(Principal principal, Model model) {
+    public String list(@RequestParam(value = "status", required = false) String status,
+                        Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
-        List<Land> list = landRepository.findByUser(user);
+        List<Land> list = null;
+        if(status == null || status.equals("0")) {
+            list = landRepository.findLandsByUserIdOrderedByRegistrationDate(user.getUserId());
+        }if(status != null){
+            list = landRepository.findLandsByUserIdAndStatusId(user.getUserId(), Integer.parseInt(status));
+        }
         long count = landService.countByUser(user);
         model.addAttribute("list", list);
         model.addAttribute("count", count);

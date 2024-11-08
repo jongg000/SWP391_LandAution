@@ -178,13 +178,18 @@
 								</div>
 								<div class="right-content">
 									<div class="input-select">
-										<select name="mark" id="mark">
-											<option value="-1">Sorted by</option>
-											<option>Price</option>
-											<option>Miles</option>
-											<option>Year</option>
-											<option>Near</option>
+										<form th:action="@{/asset}">
+										<select name="status" onchange="this.form.submit()">
+											<option value="-1">Lọc theo</option>
+											<option value="0">Tất cả</option>
+											<option value="13">Chưa thanh toán phí</option>
+											<option value="4">Chờ xét duyệt</option>
+											<option value="9">Đã bị hủy</option>
+											<option value="8">Chưa đấu giá</option>
+											<option value="5">Đang đấu giá</option>
+											<option value="7">Đấu giá thành công</option>
 										</select>
+										</form>
 									</div>
 									<div class="grid-list">
 										<ul>
@@ -291,32 +296,9 @@
 						</div>
 						<div id="sidebar" class="col-md-3">
 							<div class="sidebar-content">
-								<div class="head-side-bar">
-									<h4>Tìm kiếm tài sản</h4>
-								</div>
-								<form class="search-form">
-									<div class="select">
-										<select id="tinh" name="tinh">
-											<option value="">Tỉnh/Thành phố</option>
-										</select>
-									</div>
-									<div class="select">
-										<select type="text" id="quan" name="quan" placeholder="Huyện/Quận" required>
-											<option value="">Quận huyện</option>
-										</select>
-									</div>
-									<div class="select">
-										<select  type="text" id="phuong" name="phuong">
-											<option value="">Phường thị trấn</option>
 
-										</select>
-									</div>
-									<div class="advanced-button">
-										<a href="listing-right.html">Tìm kiếm<i class="fa fa-search"></i></a>
-									</div>
-								</form>
+
 							</div>
-
 						</div>
 					</div>
 				</div>
@@ -428,64 +410,7 @@
 			window.location.href = '/asset/post-asset';
 		}
 	}
-	$(document).ready(function () {
-		// Lấy tỉnh/thành
-		$.getJSON('https://esgoo.net/api-tinhthanh/1/0.htm', function (data_tinh) {
-			if (data_tinh.error == 0) {
-				$.each(data_tinh.data, function (key_tinh, val_tinh) {
-					// Lưu full_name trong value và id trong data-id
-					$("#tinh").append('<option value="' + val_tinh.full_name + '" data-id="' + val_tinh.id + '">' + val_tinh.full_name + '</option>');
-				});
 
-				// Khi chọn tỉnh/thành
-				$("#tinh").change(function () {
-					var tinhName = $(this).val(); // Lấy tên tỉnh/thành đã chọn
-					var idtinh = $("#tinh option:selected").data('id'); // Lấy ID từ thuộc tính data-id
-					console.log("ID Tỉnh/Thành phố:", idtinh);
-					console.log("Tên Tỉnh/Thành phố:", tinhName);
-
-					// Lấy quận/huyện
-					$.getJSON('https://esgoo.net/api-tinhthanh/2/' + idtinh + '.htm', function (data_quan) {
-						if (data_quan.error == 0) {
-							$("#quan").html('<option value="0">Quận Huyện</option>');
-							$("#phuong").html('<option value="0">Phường Xã</option>');
-							$.each(data_quan.data, function (key_quan, val_quan) {
-								// Tương tự như tỉnh, lưu full_name trong value và id trong data-id
-								$("#quan").append('<option value="' + val_quan.full_name + '" data-id="' + val_quan.id + '">' + val_quan.full_name + '</option>');
-							});
-
-							// Khi chọn quận/huyện
-							$("#quan").change(function () {
-								var quanName = $(this).val(); // Lấy tên quận/huyện đã chọn
-								var idquan = $("#quan option:selected").data('id'); // Lấy ID từ thuộc tính data-id
-								console.log("ID Quận/Huyện:", idquan);
-								console.log("Tên Quận/Huyện:", quanName);
-
-								// Lấy phường/xã
-								$.getJSON('https://esgoo.net/api-tinhthanh/3/' + idquan + '.htm', function (data_phuong) {
-									if (data_phuong.error == 0) {
-										$("#phuong").html('<option value="0">Phường Xã</option>');
-										$.each(data_phuong.data, function (key_phuong, val_phuong) {
-											// Lưu tên trong value và id trong data-id
-											$("#phuong").append('<option value="' + val_phuong.full_name + '" data-id="' + val_phuong.id + '">' + val_phuong.full_name + '</option>');
-										});
-
-										// Khi chọn phường/xã
-										$("#phuong").change(function () {
-											var phuongName = $(this).val(); // Lấy tên phường/xã đã chọn
-											var idphuong = $("#phuong option:selected").data('id'); // Lấy ID từ data-id nếu cần
-											console.log("ID Phường/Xã:", idphuong);
-											console.log("Tên Phường/Xã:", phuongName);
-										});
-									}
-								});
-							});
-						}
-					});
-				});
-			}
-		});
-	});
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
