@@ -50,7 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/home","/auctionDetailPage/**"
                 ,"/bids/showBidsPage/**","/auction/showAuctions/**","/news/**")
                 .access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
-                .antMatchers("/profile/**").hasRole("CUSTOMER")
+                .antMatchers("/profile/**","/profile").hasRole("CUSTOMER")
                 .antMatchers("/auction/showAuctionResults").hasRole("STAFF")
                 .antMatchers("/changePassword",  "/customer/display/**").hasRole("CUSTOMER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
