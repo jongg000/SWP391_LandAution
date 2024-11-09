@@ -264,7 +264,8 @@
 
                                     <!-- Loop through bid details -->
                                     <div id="scrollableBidList" style="max-height: 300px;overflow-x: hidden;  overflow-y: scroll;">
-                                        <div id="bidList" class="bid-list" th:each="bid : ${bidDetails}">
+                                        <div id="bidList" class="bid-list" >
+                                           <div th:each="bid : ${bidDetails}">
                                             <div class="row" style="border-bottom: 1px solid #ddd;">
                                                 <div class="col-md-3">
                                                     <ul class="list-unstyled">
@@ -279,6 +280,24 @@
                                                 <div class="col-md-4">
                                                     <ul class="list-unstyled">
                                                         <li><span th:text="${bid.bid.bidTime}"></span></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                           </div>
+                                            <div class="row" style="border-bottom: 1px solid #ddd;">
+                                                <div class="col-md-3">
+                                                    <ul class="list-unstyled">
+                                                        <li><span></span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-5">
+                                                    <ul class="list-unstyled">
+                                                        <li><span></span></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="list-unstyled">
+                                                        <li><span></span></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -300,7 +319,7 @@
 
                                         <input type="hidden" id="auctionRegistrationId" name="auctionRegistrationId" th:value="${auctionRegistrationId}"/>
                                         <input type="hidden" id="latestBidAmount" name="latestBidAmount" th:value="${latestBidAmount}"/>
-                                        <input type="hidden" id="userName" name="username" th:value="${userName}"/>
+                                        <input type="hidden" id="lastName" name="lastName" th:value="${userName}"/>
                                         <input type="hidden" id="userId" name="userId" th:value="${userId}"/>
                                         <input type="hidden" id="latestBidUserId" name="latestBidUserId" th:value="${latestBidUserId}"/>
                                         <button type="submit" id="bidButton" class="simple-button"
@@ -332,8 +351,7 @@
                             </div>
                             <script>
                                 let latestBidAmount = parseFloat(document.getElementById('latestBidAmount').value);
-                                let winnerName = document.getElementById("userName").value;
-
+                                let winnerName = document.getElementById('lastName').value;
                                 function startCountdown(endTime) {
                                     const countdownElement = document.getElementById("timer");
                                     const bidButton = document.getElementById("bidButton");
@@ -346,8 +364,6 @@
                                             clearInterval(interval);
                                             countdownElement.innerHTML = "Auction Ended";
                                             bidButton.disabled = true;
-
-                                            // Show winner information
                                             showModal(winnerName, latestBidAmount);
                                             return;
                                         }
@@ -391,6 +407,7 @@
                                     const bidAmount = parseFloat(document.getElementById('bidAmount').value);
                                     const auctionRegistrationId = document.getElementById('auctionRegistrationId').value;
                                     const currentUserId = document.getElementById('userId').value;
+                                    const lastName = document.getElementById("lastName").value;
                                     const registrationTime = new Date();
                                     registrationTime.setHours(registrationTime.getHours() + 7);
                                     const bidTimeISO = registrationTime.toISOString().slice(0, -1);
@@ -405,11 +422,11 @@
                                         'registrationTime': bidTimeISO,
                                         'registrationId': auctionRegistrationId,
                                         'userId': currentUserId,
-                                        'lastName': null
+                                        'lastName': lastName
                                     }));
 
                                     latestBidAmount = bidAmount;
-                                    winnerName = document.getElementById("userName").value;
+                                    winnerName = document.getElementById("lastName").value;
 
                                     document.getElementById('latestBidUserId').value = currentUserId;
                                     document.getElementById('bidAmount').value = '';
@@ -452,7 +469,7 @@
 
                                     latestBidAmount = parseFloat(bid.bidAmount);
                                     document.getElementById("latestBidUserId").value = bid.userId;
-                                    winnerName = bid.username;
+                                    winnerName = bid.lastName;
                                     document.getElementById("scrollableBidList").scrollTop = 0;
                                 }
 

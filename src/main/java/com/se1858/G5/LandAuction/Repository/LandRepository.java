@@ -2,6 +2,7 @@ package com.se1858.G5.LandAuction.Repository;
 
 import com.se1858.G5.LandAuction.Entity.Land;
 import com.se1858.G5.LandAuction.Entity.User;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -34,5 +35,6 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
             "ORDER BY ar.registration_date DESC", nativeQuery = true)
     List<Land> findLandsByUserIdAndStatusId(@Param("userId") int userId,
                                             @Param("statusId") int statusId);
+
 }
 

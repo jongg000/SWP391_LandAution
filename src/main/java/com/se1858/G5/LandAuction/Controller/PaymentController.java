@@ -26,10 +26,10 @@ public class PaymentController {
     public UserService userService;
     public AssetRegistrationService assetRegistrationService;
     public StatusService statusService;
-    private  EmailService emailService;
+    private EmailService emailService;
 
     @Autowired
-    public PaymentController(PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService) {
+    public PaymentController( EmailService emailService, PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService) {
         this.paymentService = paymentService;
         this.userService = userService;
         this.emailService = emailService;

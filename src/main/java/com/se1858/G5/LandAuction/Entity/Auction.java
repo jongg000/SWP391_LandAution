@@ -38,8 +38,8 @@ public class Auction {
     @OneToMany(mappedBy = "auction")
     private Set<Wishlist> wishlist;
 
-    @ManyToMany(mappedBy = "auction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<User> user;
+        @ManyToMany(mappedBy = "auction", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+        private Set<User> user;
 
     @OneToMany(mappedBy = "auction")
     private Set<AuctionChangeLog> auctionChangeLog;

@@ -11,6 +11,7 @@ import com.se1858.G5.LandAuction.util.UploadFile;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,8 +42,10 @@ public class UserController {
     ViolationService violationService;
     AuctionService auctionService;
     PaymentService paymentService;
+    AuctionRegistrationService auctionRegistrationService;
 
-    public UserController(UserService userService, PaymentService paymentService, PasswordEncoder passwordEncoder, RolesRepository roleRepository, StatusRepository statusRepository, EmailService emailService, AssetRegistrationService assetRegistrationService, StatusService statusService, ViolationService violationService, AuctionService auctionService) {
+    @Autowired
+    public UserController(AuctionRegistrationService auctionRegistrationService, UserService userService, PaymentService paymentService, PasswordEncoder passwordEncoder, RolesRepository roleRepository, StatusRepository statusRepository, EmailService emailService, AssetRegistrationService assetRegistrationService, StatusService statusService, ViolationService violationService, AuctionService auctionService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
@@ -53,6 +56,7 @@ public class UserController {
         this.violationService = violationService;
         this.auctionService = auctionService;
         this.paymentService = paymentService;
+        this.auctionRegistrationService = auctionRegistrationService;
     }
 
     @GetMapping("/register")
@@ -291,7 +295,8 @@ public class UserController {
         String detail = "";
         if (auction != null) {
             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName() + " Cấp độ 3";
-            Set<User> userList = auction.getUser();
+            List<User> userList = auctionRegistrationService.getUserInAuction(auction);
+            System.out.println(userList);;
             if (userList != null) {
                 for (User item : userList) {
                     BigDecimal balance = item.getRefundMoney().add(new BigDecimal("500000"));
@@ -317,6 +322,11 @@ public class UserController {
         List<Payment> payments = paymentService.getByUser(user);
         BigDecimal refundMoney = user.getRefundMoney();
         model.addAttribute("refund", refundMoney);
+        long total = 0;
+        for (Payment payment : payments) {
+            total += payment.getPaymentAmount();
+        }
+        model.addAttribute("total", total);
         model.addAttribute("payments", payments);
         return "/customer/payment-history";
     }
