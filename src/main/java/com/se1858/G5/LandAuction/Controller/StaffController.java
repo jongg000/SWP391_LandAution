@@ -162,7 +162,8 @@ public class StaffController {
     }
     @GetMapping("/handle-request")
     public String handleRequest(Model model) {
-        return "land-detail-request";
+
+        return "/staff/land-detail-request";
     }
 
     @GetMapping("waiting-list")
@@ -184,10 +185,18 @@ public class StaffController {
         model.addAttribute("auctionList", auctionList);
         return "/staff/ongoing-list";
     }
-    @GetMapping("cancel-list")
+    @GetMapping("cancel-listing")
     public String showCancelList(Model model) {
         List<AssetRegistration> allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(9));
         model.addAttribute("allAssets", allAssets);
         return "/staff/cancel-list";
     }
+
+    @GetMapping("profile")
+    public String showProfile(Model model, Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        return "/staff/staff-profile";
+    }
+
 }

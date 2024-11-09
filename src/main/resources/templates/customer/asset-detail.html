@@ -1,8 +1,8 @@
 
 <!DOCTYPE html>
-<!--[if IE 9]>
+
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<![endif]-->
+
 <html lang="en-US">
 <head>
 	<meta charset="UTF-8">
@@ -183,7 +183,13 @@
 											<p th:text="${assetRegistration.getLand().description}"></p>
 										</div>
 										<div id="tab3" class="tab">
-											<a th:src="${assetRegistration.getLand().location}">Xem vị trí</a>
+											<iframe th:src="${assetRegistration.land.location}"
+													width="700"
+													height="400"
+													style="border:0;"
+													allowfullscreen=""
+													loading="lazy">
+											</iframe>
 										</div>
 										<div id="tab4" class="tab">
 											<p th:text="${assetRegistration.reason}"></p>

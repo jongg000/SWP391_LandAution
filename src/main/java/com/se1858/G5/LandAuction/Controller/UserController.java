@@ -258,6 +258,7 @@ public class UserController {
                 for(User item : userList) {
                     BigDecimal balance = item.getRefundMoney().add(new BigDecimal("500000"));
                     item.setRefundMoney(balance);
+                    userService.save(item);
                     emailService.sendSimpleMail(item.getEmail(), "THÔNG BÁO HỦY BUỔI ĐẤU THẦU", "Chúng tôi thành thật xin lỗi vì sự bất tiện khi buổi đấu giá ngày [ngày dự kiến] đã bị hủy. Do một số lý do ngoài ý muốn, sự kiện không thể diễn ra như dự kiến. ");
                 }
             }
@@ -265,8 +266,6 @@ public class UserController {
              detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName()+ " Cấp độ 2";
         }
         auction.setStatus(statusService.getStatusById(9));
-        auction.setStartTime(null);
-        auction.setEndTime(null);
         violation.setDetail(detail);
         violationService.saveViolation(violation);
         assetRegistrationService.save(assetRegistration);

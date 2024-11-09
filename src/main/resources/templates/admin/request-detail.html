@@ -165,12 +165,12 @@
             </div>
               <div class="col-md-12 mb-3">
                 <label class="form-label"><strong>Ảnh căn cước mặt trước:</strong></label>
-                <img th:src="@{'User_images/' + ${user.getNationalFrontImage()}}" alt="National Front Image" style="width: 100%; max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"/>
+                <img th:src="@{'/User_images/' + ${user.nationalFrontImage}}" alt="National Front Image"/>
               </div>
 
               <div class="col-md-12 mb-3">
                 <label class="form-label"><strong>Ảnh căn cước mặt sau:</strong></label>
-                <img th:src="@{'User_images/' + ${user.getNationalBackImage()}}" alt="National Back Image" style="width: 100%; max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"/>
+                <img th:src="@{'/User_images/' + ${user.nationalBackImage}}" alt="National Back Image" style="width: 100%; max-width: 150px; max-height: 150px; object-fit: cover; border-radius: 5px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);"/>
               </div>
               <!-- Hidden fields -->
               <input type="hidden" name="userid" th:value="${user.userId}" />

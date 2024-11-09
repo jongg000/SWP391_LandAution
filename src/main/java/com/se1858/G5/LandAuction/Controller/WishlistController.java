@@ -136,7 +136,7 @@ public class WishlistController {
                 .auctionId(auctionId)
                 .build();
         wishlistService.saveWishlist(wishlistDTO);
-        return "redirect:/wishlist/showWishlists/" + userId;
+        return "redirect:/wishlist/showWishlists";
     }
 
 
@@ -146,7 +146,7 @@ public class WishlistController {
     public String deleteAuction(@PathVariable String id) {
         int userId = wishlistService.findWishlistById(Integer.valueOf(id)).getUserId();
         wishlistService.deleteWishlistById(id);
-        return "redirect:/wishlist/showWishlists/" + userId;
+        return "redirect:/wishlist/showWishlists";
     }
 }
 
