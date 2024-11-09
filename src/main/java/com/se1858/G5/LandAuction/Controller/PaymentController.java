@@ -3,6 +3,7 @@ package com.se1858.G5.LandAuction.Controller;
 import com.se1858.G5.LandAuction.DTO.VNPayResponse;
 import com.se1858.G5.LandAuction.Entity.Payment;
 import com.se1858.G5.LandAuction.Entity.User;
+import com.se1858.G5.LandAuction.Service.EmailService;
 import com.se1858.G5.LandAuction.Service.PaymentService;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.AuctionServiceImpl;
 import com.se1858.G5.LandAuction.Service.UserService;
@@ -23,11 +24,13 @@ public class PaymentController {
     private final AuctionServiceImpl auctionServiceImpl;
     private PaymentService paymentService;
     public UserService userService;
+    private  EmailService emailService;
 
-    public PaymentController(PaymentService paymentService, UserService userService, AuctionServiceImpl auctionServiceImpl) {
+    public PaymentController(PaymentService paymentService, UserService userService, AuctionServiceImpl auctionServiceImpl, EmailService emailService, EmailService emailService1) {
         this.paymentService = paymentService;
         this.userService = userService;
         this.auctionServiceImpl = auctionServiceImpl;
+        this.emailService = emailService1;
     }
 
     @GetMapping("/user")
@@ -65,6 +68,9 @@ public class PaymentController {
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
+        if(paymentStatus == 1) {
+            emailService.sendSimpleMail(user.getEmail(), "Thanh toán thành công", "Bạn đã thanh toán thành công "+totalPrice+" VND. Hẹn gặp bạn ở ĐH FPT ngày xx/xx/xxxx!!");
+        }
         return paymentStatus == 1 ? "redirect:/auction/save/" + id : "redirect:/auction/showAuctionDetail/" + id;
 
     }
@@ -78,9 +84,13 @@ public class PaymentController {
         String totalPrice = request.getParameter("vnp_Amount");
         String username = principal.getName();
         User user = userService.findByEmail(username);
+
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
+        if(paymentStatus == 1) {
+            emailService.sendSimpleMail(user.getEmail(), "Đặt cọc thành công", "Bạn đã đặt cọc thành công "+totalPrice+" VND. Bạn đã tham gia phiên đấu giá!!");
+        }
         return paymentStatus == 1 ? "redirect:/auctionRegistration/save/" + id : "redirect:/auction/showAuctionDetail/" + id;
 
     }

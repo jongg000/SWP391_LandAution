@@ -229,19 +229,16 @@
                             <div class="row" th:each="wishlistDetail : ${wishlistDetails}">
                                 <div class="featured-item">
                                     <img th:src="@{'/Land_images/' + ${wishlistDetail.landImage.imageUrl}}"
-                                         alt="Land Image" style="width: 20%; height:155px;"/>
+                                         alt="Land Image" style="width: 20%; height:155px;margin-left: 2%"/>
                                     <div class="right-content">
                                         <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}"><h2 th:text="${wishlistDetail.land.name}"></h2></a>
                                         <span th:text="${'$' + wishlistDetail.land.price}"></span>
                                         <div class="light-line"></div>
                                         <p th:text="${wishlistDetail.land.description}"></p>
                                         <div class="view-details">
-                                            <div th:if="${wishlistDetail.checkWinner == true}">
-                                                <a th:if="${wishlistDetail.auction1 == 13}" href="#">Đã
-                                                    thanh toán</a>
-                                                <a th:unless="${wishlistDetail.auction1 == 13}"
-                                                   th:href="@{/payment/handleafter/{id}(id=${wishlistDetail.auction.auctionId})}">
-                                                    Thanh toán
+                                            <div>
+                                                <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}">
+                                                    Chi tiết
                                                 </a>
                                             </div>
                                         </div>
@@ -250,25 +247,36 @@
                                                 <li>Thời gian bắt đầu: [[${wishlistDetail.auction.startTime}]]</li>
                                                 <li>Thời gian kết thúc: [[${wishlistDetail.auction.endTime}]]</li>
                                                 <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
-                                                     <th:block th:if="${checkWinner == true}">
+                                                     <th:block th:if="${wishlistDetail.checkWinner == true}">
 
-                                                    <a th:if="${auction1 == 13}" href="#">Đã
+                                                    <a th:if="${wishlistDetail.auction1 == 13}">Đã
                                                         thanh toán</a>
-                                                    <a th:unless="${auction1 == 13}"
+                                                    <a th:unless="${wishlistDetail.auction1 == 13}"
                                                        th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}">
                                                         Thanh toán
                                                     </a>
 
-                                                </th:block>
-                                                    <th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
-                                                        <a>Đã kết thúc</a>
-                                                    </th:block>
-                                                    <th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
-                                                        <a>Sắp diễn ra</a>
-                                                    </th:block>
-                                                    <th:block th:if="${wishlistDetail.dateCheck == 'is going on'}">
-                                                        <a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu
-                                                            giá ngay</a>
+                                                     </th:block>
+                                                    <th:block th:unless="${wishlistDetail.checkWinner == true}">
+                                                         <th:block>
+
+                                                             <th:block th:if="${wishlistDetail.auction1 == 9}">
+                                                                 <a>Đã bị hủy</a>
+                                                             </th:block>
+
+
+                                                             <th:block th:unless="${wishlistDetail.auction1 == 9}">
+                                                                 <th:block th:if="${wishlistDetail.dateCheck == 'ended'}">
+                                                                     <a>Đã kết thúc</a>
+                                                                 </th:block>
+                                                                 <th:block th:if="${wishlistDetail.dateCheck == 'upcoming'}">
+                                                                     <a>Sắp diễn ra</a>
+                                                                 </th:block>
+                                                                 <th:block th:if="${wishlistDetail.dateCheck == 'is going on'}">
+                                                                     <a th:href="@{/bids/showBidsPage/{id}(id=${wishlistDetail.auction.auctionId})}">Đấu giá ngay</a>
+                                                                 </th:block>
+                                                             </th:block>
+                                                         </th:block>
                                                     </th:block>
                                                 </li>
                                             </ul>

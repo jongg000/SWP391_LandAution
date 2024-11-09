@@ -130,9 +130,9 @@
 							<span>Khách hàng cam kết toàn bộ thông tin được cung cấp là chính xác</span>
 							<div class="page-active">
 								<ul>
-									<li><a href="index.html">Trang chủ</a></li>
+									<li><a href="/home">Trang chủ</a></li>
 									<li><i class="fa fa-dot-circle-o"></i></li>
-									<li><a href="listin-right.html">Chi tiết tài sản</a></li>
+									<li><a th:href="@{/asset/asset-detail/{id}(id=${assetRegistration.documentId})}">Chi tiết tài sản</a></li>
 								</ul>
 							</div>
 						</div>
@@ -178,7 +178,13 @@
 											<p th:text="${assetRegistration.getLand().description}"></p>
 										</div>
 										<div id="tab3" class="tab">
-											<a th:src="${assetRegistration.getLand().location}">Xem vị trí</a>
+											<iframe th:src="${assetRegistration.land.location}"
+													width="700"
+													height="400"
+													style="border:0;"
+													allowfullscreen=""
+													loading="lazy">
+											</iframe>
 										</div>
 										<div id="tab4" class="tab">
 											<p th:text="${assetRegistration.reason}"></p>

@@ -75,6 +75,7 @@ public class AuctionServiceImpl implements AuctionService {
                 startTime(auction.getStartTime()).
                 endTime(auction.getEndTime()).
                 highestBid(auction.getHighestBid()).
+                statusId(auction.getStatus().getStatusID()).
                 build();
     }
 
@@ -122,6 +123,7 @@ public class AuctionServiceImpl implements AuctionService {
     }
     public boolean checkWinner(int auctionId, int userId) {
         Bids bid = bidsRepository.findTop1ByAuctionRegistration_User_UserIdAndAuctionRegistration_Auction_AuctionIdOrderByBidAmountDesc(userId, auctionId);
+        if(bid==null) return false;
         Auction auction = auctionRepository.findByAuctionId(auctionId);
         if(auction.getStatus().getStatusID()==11||auction.getStatus().getStatusID()==13)  return bid.getBidAmount() == auction.getHighestBid();
         return false;
