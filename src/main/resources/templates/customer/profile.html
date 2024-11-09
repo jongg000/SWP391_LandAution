@@ -178,8 +178,10 @@
                   </a>
                 </div>
                 <hr>
-                <h4 style="font-weight: bold; padding: 10px;">Người dùng tải thông tin lên để được xét duyệt tài khoản</h4>
-
+                <h4 th:if="${user.status.statusID==1}" style="font-weight: bold; padding: 10px;">Người dùng tải thông tin lên để được xét duyệt tài khoản</h4>
+                <h4 th:if="${user.status.statusID==2}" style="font-weight: bold; padding: 10px;">Người dùng đã xác minh tài khoản</h4>
+                <h4 th:if="${user.status.statusID==4}" style="font-weight: bold; padding: 10px;">Thông tin đang chờ xét duyệt</h4>
+                <h4 th:if="${user.status.statusID==14}" style="font-weight: bold; padding: 10px;">Thông tin không hợp lệ</h4>
                 <!-- Form for editing personal information -->
                 <form th:action="@{/profile/edit}" th:object="${profileDTO}" method="post" enctype="multipart/form-data">
                   <div class="form-group row mb-4">

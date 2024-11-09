@@ -305,6 +305,7 @@ public class AdminController {
                 emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng: ", "Thành công");
             } else if ("reject".equals(decision) && !comment.isEmpty()) {
                 user.setStatus(statusRepository.getById(14));
+                userService.save(user);
                 emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng: ", comment);
             } else {
                 System.out.println("Rejection comment is empty; email not sent.");
