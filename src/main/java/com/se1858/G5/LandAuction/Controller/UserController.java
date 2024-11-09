@@ -11,6 +11,7 @@ import com.se1858.G5.LandAuction.util.UploadFile;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -39,8 +41,11 @@ public class UserController {
     StatusService statusService;
     ViolationService violationService;
     AuctionService auctionService;
+    PaymentService paymentService;
+    AuctionRegistrationService auctionRegistrationService;
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, RolesRepository roleRepository, StatusRepository statusRepository, EmailService emailService, AssetRegistrationService assetRegistrationService, StatusService statusService, ViolationService violationService, AuctionService auctionService) {
+    @Autowired
+    public UserController(AuctionRegistrationService auctionRegistrationService, UserService userService, PaymentService paymentService, PasswordEncoder passwordEncoder, RolesRepository roleRepository, StatusRepository statusRepository, EmailService emailService, AssetRegistrationService assetRegistrationService, StatusService statusService, ViolationService violationService, AuctionService auctionService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
@@ -50,6 +55,8 @@ public class UserController {
         this.statusService = statusService;
         this.violationService = violationService;
         this.auctionService = auctionService;
+        this.paymentService = paymentService;
+        this.auctionRegistrationService = auctionRegistrationService;
     }
 
     @GetMapping("/register")
@@ -79,7 +86,6 @@ public class UserController {
         session.setAttribute("userRegisterDTO", userRegisterDTO);
         return "otp_verification";
     }
-
 
     @PostMapping("/verify-otp")
     public String verifyOtp(@RequestParam("otp") String otp, HttpSession session, Model model) {
@@ -189,6 +195,8 @@ public class UserController {
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("profileDTO") ProfileDTO userProfileDTO,
+                                @RequestParam("nationalBackImage") MultipartFile nationalBackImage,
+                                @RequestParam("nationalFrontImage") MultipartFile nationalFrontImage,
                                 Principal principal, Model model) {
 
         String email = principal.getName();
@@ -202,7 +210,7 @@ public class UserController {
                 user.setPhoneNumber(userProfileDTO.getPhoneNumber());
             }
         }
-        if (userProfileDTO.getNationalID() != null) {
+        if (user.getNationalID() != null) {
             if (!user.getNationalID().equalsIgnoreCase(userProfileDTO.getNationalID())) {
                 if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
                     model.addAttribute("error", "Số CMND đã tồn tại.");
@@ -213,10 +221,16 @@ public class UserController {
                     user.setNationalID(userProfileDTO.getNationalID());
                 }
             }
+        } else {
+            if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
+                model.addAttribute("error", "Số CMND đã tồn tại.");
+                model.addAttribute("user", user);
+                return "customer/profile";
+            }
+            else  {
+                user.setNationalID(userProfileDTO.getNationalID());
+            }
         }
-
-
-
 
         // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
@@ -225,6 +239,9 @@ public class UserController {
         user.setDob(userProfileDTO.getDob());
         user.setGender(userProfileDTO.getGender());
         user.setEmail(userProfileDTO.getEmail());
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.UploadImagesNationalF(nationalFrontImage, user);
+        uploadFile.UploadImagesNationalB(nationalBackImage, user);
         user.setStatus(statusRepository.getById(4));
         // Save updated user information to the database
         userService.save(user);
@@ -283,11 +300,13 @@ public class UserController {
         String detail = "";
         if (auction != null) {
             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName() + " Cấp độ 3";
-            Set<User> userList = auction.getUser();
+            List<User> userList = auctionRegistrationService.getUserInAuction(auction);
+            System.out.println(userList);;
             if (userList != null) {
                 for (User item : userList) {
                     BigDecimal balance = item.getRefundMoney().add(new BigDecimal("500000"));
                     item.setRefundMoney(balance);
+                    userService.save(item);
                     emailService.sendSimpleMail(item.getEmail(), "THÔNG BÁO HỦY BUỔI ĐẤU THẦU", "Chúng tôi thành thật xin lỗi vì sự bất tiện khi buổi đấu giá ngày [ngày dự kiến] đã bị hủy. Do một số lý do ngoài ý muốn, sự kiện không thể diễn ra như dự kiến. ");
                 }
             }
@@ -295,14 +314,29 @@ public class UserController {
             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName() + " Cấp độ 2";
         }
         auction.setStatus(statusService.getStatusById(9));
-        auction.setStartTime(null);
-        auction.setEndTime(null);
         violation.setDetail(detail);
         violationService.saveViolation(violation);
         assetRegistrationService.save(assetRegistration);
         auctionService.saveAuction(auction);
         return "redirect:/asset";
     }
+
+    @GetMapping("payment-history")
+    public String paymentHistory(Model model, Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+        List<Payment> payments = paymentService.getByUser(user);
+        BigDecimal refundMoney = user.getRefundMoney();
+        model.addAttribute("refund", refundMoney);
+        long total = 0;
+        for (Payment payment : payments) {
+            total += payment.getPaymentAmount();
+        }
+        model.addAttribute("total", total);
+        model.addAttribute("payments", payments);
+        return "/customer/payment-history";
+    }
+
+
 
 
 }

@@ -75,6 +75,7 @@ public class AuctionServiceImpl implements AuctionService {
                 startTime(auction.getStartTime()).
                 endTime(auction.getEndTime()).
                 highestBid(auction.getHighestBid()).
+                statusId(auction.getStatus().getStatusID()).
                 build();
     }
 
@@ -109,9 +110,10 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRegistration.existsByUser_UserIdAndAuction_AuctionId(userId, auctionId);
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 5000)
     public void scheduledUpdateHighestBid() {
         auctionBidUpdateService.updateHighestBidForEndedAuctions();
+        auctionBidUpdateService.updateStatus();
     }
     @Override
     public long getTotalAuctions() {
@@ -122,6 +124,7 @@ public class AuctionServiceImpl implements AuctionService {
     }
     public boolean checkWinner(int auctionId, int userId) {
         Bids bid = bidsRepository.findTop1ByAuctionRegistration_User_UserIdAndAuctionRegistration_Auction_AuctionIdOrderByBidAmountDesc(userId, auctionId);
+        if(bid==null) return false;
         Auction auction = auctionRepository.findByAuctionId(auctionId);
         if(auction.getStatus().getStatusID()==11||auction.getStatus().getStatusID()==13)  return bid.getBidAmount() == auction.getHighestBid();
         return false;
@@ -135,7 +138,7 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public List<Auction> getAllAuctionByStartTime() {
-        return auctionRepository.findAllByOrderByStartTimeDesc();
+        return auctionRepository.findAllActiveAuctionsWithApprovalDate();
     }
 
     @Override

@@ -112,10 +112,10 @@
     <!-- Form to Create Account -->
     <div class="container mt-5">
       <h2>Tạo tài khoản nhân viên</h2>
-      <form th:action="@{/create-account}" th:object="${createDTO}" method="post" enctype="multipart/form-data">
+      <form th:action="@{/admin/create-account}" th:object="${createDTO}" method="post" enctype="multipart/form-data">
         <span th:if="${emailError}" th:text="${emailError}" style="color: #ff3c00;"></span>
         <span th:if="${phoneError}" th:text="${phoneError}" style="color: #ff3c00;"></span>
-        <span th:if="${nationError}" th:text="${phoneError}" style="color: #ff3c00;"></span>
+        <span th:if="${nationError}" th:text="${nationError}" style="color: #ff3c00;"></span>
         <div class="mb-3">
           <label for="email" class="form-label">Email</label>
           <input type="email" class="form-control" id="email" th:field="*{email}" required>

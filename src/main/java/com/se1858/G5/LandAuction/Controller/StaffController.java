@@ -6,10 +6,14 @@ import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Repository.LandRepository;
 import com.se1858.G5.LandAuction.Service.*;
+import com.se1858.G5.LandAuction.util.UploadFile;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.time.Instant;
@@ -31,6 +35,7 @@ public class StaffController {
     private BidService bidService;
     private LandRepository landRepository;
     private EmailService emailService;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     public StaffController(AssetRegistrationService assetRegistrationService, UserService userService, StatusService statusService, AuctionService auctionService, AuctionRepository auctionRepository, LandService landService, BidService bidService, LandRepository landRepository) {
@@ -89,8 +94,8 @@ public class StaffController {
             auction.setEndTime(auctionStat.plusMinutes(45));
             auction.setLand(assetRegistration.getLand());
             assetRegistration.setUser(user);
-            assetRegistration.setStatus(statusService.getStatusById(8));
-            auction.setStatus(statusService.getStatusById(8));
+            assetRegistration.setStatus(statusService.getStatusById(10));
+            auction.setStatus(statusService.getStatusById(10));
             assetRegistrationService.save(assetRegistration);
             auctionService.saveAuction(auction);
             return "redirect:land-detail/" + requestDTO.getDocumentId();
@@ -162,7 +167,8 @@ public class StaffController {
     }
     @GetMapping("/handle-request")
     public String handleRequest(Model model) {
-        return "land-detail-request";
+
+        return "/staff/land-detail-request";
     }
 
     @GetMapping("waiting-list")
@@ -184,10 +190,80 @@ public class StaffController {
         model.addAttribute("auctionList", auctionList);
         return "/staff/ongoing-list";
     }
-    @GetMapping("cancel-list")
+    @GetMapping("cancel-listing")
     public String showCancelList(Model model) {
         List<AssetRegistration> allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(9));
         model.addAttribute("allAssets", allAssets);
         return "/staff/cancel-list";
     }
+
+    @GetMapping("profile")
+    public String showProfile(Model model, Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+        model.addAttribute("user", user);
+        return "/staff/staff-profile";
+    }
+
+    @PostMapping("/upload")
+    public String upAvatar(@RequestParam("avatar") MultipartFile images,
+                           RedirectAttributes redirectAttributes, Principal principal, Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.upLoadDocumentAvata(images, user);
+        userService.save(user);
+        model.addAttribute("user", user);
+        return "redirect:/customer-care/profile";
+    }
+
+    @GetMapping("/change")
+    public String showChangePasswordForm(Model model, Principal principal) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Đưa thông tin người dùng vào model (nếu cần)
+        model.addAttribute("user", user);
+
+        return "staff/change";
+    }
+
+
+    @PostMapping("/change")
+    public String changePassword(@RequestParam("currentPassword") String currentPassword,
+                                 @RequestParam("newPassword") String newPassword,
+                                 @RequestParam("confirmPassword") String confirmPassword,
+                                 Principal principal, Model model) {
+        String email = principal.getName();
+        User user = userService.findByEmail(email);
+
+        // Kiểm tra mật khẩu hiện tại có đúng không
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            model.addAttribute("error", "Mật khẩu hiện tại không đúng.");
+            model.addAttribute("user", user);
+            return "customer-care/change";
+        }
+
+        // Kiểm tra nếu mật khẩu mới giống với mật khẩu hiện tại
+        if (passwordEncoder.matches(newPassword, user.getPassword())) {
+            model.addAttribute("error", "Mật khẩu mới không được giống mật khẩu hiện tại.");
+            model.addAttribute("user", user);
+            return "customer-care/change";
+        }
+
+        // Kiểm tra xem mật khẩu mới có khớp với xác nhận mật khẩu không
+        if (!newPassword.equals(confirmPassword)) {
+            model.addAttribute("error", "Mật khẩu mới và xác nhận không khớp.");
+            model.addAttribute("user", user);
+            return "customer-care/change";
+        }
+
+        // Cập nhật mật khẩu mới
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userService.save(user);
+
+        model.addAttribute("success", "Mật khẩu đã được cập nhập.");
+        model.addAttribute("user", user);
+        return "staff/change";
+    }
+
 }
