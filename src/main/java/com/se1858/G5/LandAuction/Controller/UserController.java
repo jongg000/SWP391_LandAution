@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -39,8 +40,9 @@ public class UserController {
     StatusService statusService;
     ViolationService violationService;
     AuctionService auctionService;
+    PaymentService paymentService;
 
-    public UserController(UserService userService, PasswordEncoder passwordEncoder, RolesRepository roleRepository, StatusRepository statusRepository, EmailService emailService, AssetRegistrationService assetRegistrationService, StatusService statusService, ViolationService violationService, AuctionService auctionService) {
+    public UserController(UserService userService, PaymentService paymentService, PasswordEncoder passwordEncoder, RolesRepository roleRepository, StatusRepository statusRepository, EmailService emailService, AssetRegistrationService assetRegistrationService, StatusService statusService, ViolationService violationService, AuctionService auctionService) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.roleRepository = roleRepository;
@@ -50,6 +52,7 @@ public class UserController {
         this.statusService = statusService;
         this.violationService = violationService;
         this.auctionService = auctionService;
+        this.paymentService = paymentService;
     }
 
     @GetMapping("/register")
@@ -79,7 +82,6 @@ public class UserController {
         session.setAttribute("userRegisterDTO", userRegisterDTO);
         return "otp_verification";
     }
-
 
     @PostMapping("/verify-otp")
     public String verifyOtp(@RequestParam("otp") String otp, HttpSession session, Model model) {
@@ -202,7 +204,7 @@ public class UserController {
                 user.setPhoneNumber(userProfileDTO.getPhoneNumber());
             }
         }
-        if (userProfileDTO.getNationalID() != null) {
+        if (user.getNationalID() != null) {
             if (!user.getNationalID().equalsIgnoreCase(userProfileDTO.getNationalID())) {
                 if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
                     model.addAttribute("error", "Số CMND đã tồn tại.");
@@ -213,10 +215,16 @@ public class UserController {
                     user.setNationalID(userProfileDTO.getNationalID());
                 }
             }
+        } else {
+            if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
+                model.addAttribute("error", "Số CMND đã tồn tại.");
+                model.addAttribute("user", user);
+                return "customer/profile";
+            }
+            else  {
+                user.setNationalID(userProfileDTO.getNationalID());
+            }
         }
-
-
-
 
         // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
@@ -302,6 +310,18 @@ public class UserController {
         auctionService.saveAuction(auction);
         return "redirect:/asset";
     }
+
+    @GetMapping("payment-history")
+    public String paymentHistory(Model model, Principal principal) {
+        User user = userService.findByEmail(principal.getName());
+        List<Payment> payments = paymentService.getByUser(user);
+        BigDecimal refundMoney = user.getRefundMoney();
+        model.addAttribute("refund", refundMoney);
+        model.addAttribute("payments", payments);
+        return "/customer/payment-history";
+    }
+
+
 
 
 }

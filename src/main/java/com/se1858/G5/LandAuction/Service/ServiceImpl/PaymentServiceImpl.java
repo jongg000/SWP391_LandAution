@@ -3,6 +3,7 @@ package com.se1858.G5.LandAuction.Service.ServiceImpl;
 import com.se1858.G5.LandAuction.Config.VNPayConfig;
 import com.se1858.G5.LandAuction.DTO.VNPayResponse;
 import com.se1858.G5.LandAuction.Entity.Payment;
+import com.se1858.G5.LandAuction.Entity.User;
 import com.se1858.G5.LandAuction.Repository.PaymentRepository;
 import com.se1858.G5.LandAuction.Service.PaymentService;
 import com.se1858.G5.LandAuction.util.VNPayUtil;
@@ -138,4 +139,10 @@ public class PaymentServiceImpl implements PaymentService {
 
         return monthlyRevenue;
     }
+
+    @Override
+    public List<Payment> getByUser(User user) {
+        return paymentRepository.findByUser(user);
+    }
+
 }
