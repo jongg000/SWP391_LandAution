@@ -50,9 +50,9 @@ VALUES (8, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user3@gmail.com'
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
 VALUES (9, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023168967', 0, 1, 2)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (10, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'022568967', 0, 3, 2)
+VALUES (10, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller1@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'022568967', 0, 3, 2)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (11, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023768967', 0, 4, 2)
+VALUES (11, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller2@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023768967', 0, 4, 2)
 SET IDENTITY_INSERT [dbo].[users] OFF
 GO
 SET IDENTITY_INSERT [dbo].[land] ON 
@@ -63,6 +63,7 @@ INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], 
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (5, N'023568967', N'hehhehe', N'Huyện Sóc Sơn', 50, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Thành phố của những giấc mơ', N'DocumentBT3..docx', CAST(13215321 AS Numeric(19, 0)), N'Thành phố Hà Nội',1000, N'Xã Thanh Xuân', 20, 9)
 SET IDENTITY_INSERT [dbo].[land] OFF
 GO
+
 SET IDENTITY_INSERT [dbo].[asset_registration] ON 
 
 INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (1, NULL, NULL, NULL, CAST(N'2024-10-25T13:11:47.863' AS DateTime), 1, 8, 4)
@@ -122,33 +123,15 @@ INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date
 INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (11, 10, 200, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
 INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (12, 11, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
 INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (13, 11, 150, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (14, 12, 200, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (15, 13, 300, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (16, 13, 250, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (17, 14, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (18, 14, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (19, 15, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (20, 15, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (21, 8, 150, CAST(N'2024-01-15T10:15:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (22, 8, 200, CAST(N'2024-02-20T14:20:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (23, 9, 300, CAST(N'2024-03-10T09:30:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (24, 10, 150, CAST(N'2024-04-05T16:45:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (25, 10, 200, CAST(N'2024-05-12T11:55:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (26, 11, 100, CAST(N'2024-06-25T13:15:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (27, 11, 150, CAST(N'2024-07-04T08:10:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (28, 12, 200, CAST(N'2024-08-19T15:05:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (29, 13, 300, CAST(N'2024-09-21T17:30:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (30, 13, 250, CAST(N'2024-10-02T12:40:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (31, 14, 100, CAST(N'2024-11-15T09:25:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (32, 14, 100, CAST(N'2024-12-03T10:50:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (33, 15, 100, CAST(N'2025-01-05T16:05:00' AS datetime), N'phi tham gia')
-INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (34, 15, 100, CAST(N'2025-02-20T08:30:00' AS datetime), N'phi tham gia')
-
+INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (14, 6, 200, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
+INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (15, 6, 300, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
+INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (16, 6, 250, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
+INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (17, 6, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
+INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (18, 6, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
+INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (19, 6, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
+INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (20, 6, 100, CAST(N'2024-10-30T10:15:00' As datetime), N'phi tham gia')
 SET IDENTITY_INSERT [dbo].[Payment] OFF
 
-SET IDENTITY_INSERT [dbo].[Payment] OFF
-
-SET IDENTITY_INSERT [dbo].[Payment] OFF
 GO
 
 SET IDENTITY_INSERT [dbo].[Wishlist] ON 
