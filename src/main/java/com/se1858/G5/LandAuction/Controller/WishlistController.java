@@ -144,7 +144,6 @@ public class WishlistController {
 
     @GetMapping("/delete/{id}")
     public String deleteAuction(@PathVariable String id) {
-        int userId = wishlistService.findWishlistById(Integer.valueOf(id)).getUserId();
         wishlistService.deleteWishlistById(id);
         return "redirect:/wishlist/showWishlists";
     }

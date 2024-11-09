@@ -87,8 +87,7 @@ public class AuctionRegistrationController {
                 dateCheck = "is going on";
             }
             boolean checkWinner = auctionService.checkWinner( auction.getAuctionId(),userId);
-            Auction auction1 = auctionRepository.findByAuctionId( auction.getAuctionId());
-            details.put("auction1", auction1.getStatus().getStatusID());
+            details.put("auction1",auction.getStatusId());
             details.put("checkWinner", checkWinner);
             details.put("dateCheck", dateCheck);
             details.put("wishlist", auctionRegistrationDTO);

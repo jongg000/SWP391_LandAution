@@ -26,11 +26,14 @@ public class PaymentController {
     public UserService userService;
     public AssetRegistrationService assetRegistrationService;
     public StatusService statusService;
+    private  EmailService emailService;
 
     @Autowired
     public PaymentController(PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService) {
         this.paymentService = paymentService;
         this.userService = userService;
+        this.auctionServiceImpl = auctionServiceImpl;
+        this.emailService = emailService1;
         this.assetRegistrationService = assetRegistrationService;
         this.statusService = statusService;
         this.auctionService = auctionService;
@@ -71,6 +74,9 @@ public class PaymentController {
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
+        if(paymentStatus == 1) {
+            emailService.sendSimpleMail(user.getEmail(), "Thanh toán thành công", "Bạn đã thanh toán thành công "+totalPrice+" VND. Hẹn gặp bạn ở ĐH FPT ngày xx/xx/xxxx!!");
+        }
         return paymentStatus == 1 ? "redirect:/auction/save/" + id : "redirect:/auction/showAuctionDetail/" + id;
 
     }
@@ -114,6 +120,9 @@ public class PaymentController {
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
+        if(paymentStatus == 1) {
+            emailService.sendSimpleMail(user.getEmail(), "Đặt cọc thành công", "Bạn đã đặt cọc thành công "+totalPrice+" VND. Bạn đã tham gia phiên đấu giá!!");
+        }
         return paymentStatus == 1 ? "redirect:/auctionRegistration/save/" + id : "redirect:/auction/showAuctionDetail/" + id;
 
     }

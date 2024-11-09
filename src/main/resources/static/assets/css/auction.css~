@@ -2319,7 +2319,7 @@ footer .gallery .gallery-item img {
     }
 }
 
-.listing-page #listing-cars .featured-item .right-content .view-details  a {
+.listing-page #listing-cars .featured-item .right-content .view-details div a {
     font-size: 11px;
     font-family: 'Montserrat', sans-serif;
     color: #336699;
@@ -3814,6 +3814,9 @@ footer .gallery .gallery-item img {
     height: 40px;
     background-color: #f4c23d;
     line-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .advanced-button a {
@@ -3824,14 +3827,32 @@ footer .gallery .gallery-item img {
     font-weight: 700;
     text-transform: uppercase;
 }
+.advanced-button button {
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    color: #222222;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0; /* Remove default padding */
+    line-height: normal; /* Avoid conflict with line-height of .advanced-button */
+}
 
-.advanced-button i {
-    float: right;
+.advanced-button button i {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 40px;
     height: 40px;
-    line-height: 40px;
-    text-align: center;
     background-color: #f0b20e;
+    margin-left: 8px; /* Space between text and icon */
+    color: #222222;
+    font-size: 14px;
+    border-radius: 4px; /* Optional rounded corners */
 }
 
 .simple-button a {
