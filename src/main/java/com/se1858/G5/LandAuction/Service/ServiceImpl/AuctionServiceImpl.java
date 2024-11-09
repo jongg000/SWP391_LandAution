@@ -110,7 +110,7 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRegistration.existsByUser_UserIdAndAuction_AuctionId(userId, auctionId);
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = 5000)
     public void scheduledUpdateHighestBid() {
         auctionBidUpdateService.updateHighestBidForEndedAuctions();
         auctionBidUpdateService.updateStatus();
