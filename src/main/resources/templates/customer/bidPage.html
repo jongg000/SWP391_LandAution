@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<!--[if IE 9]>
 <html class="ie ie9" lang="en-US" xmlns:th="http://www.thymeleaf.org">
-<![endif]-->
 <html lang="en-US">
 <head>
     <meta charset="UTF-8">
@@ -224,7 +222,7 @@
                                             <p th:text="${land.description}"></p>
                                         </div>
                                         <div id="tab3" class="tab">
-<!--                                           <&#45;&#45; <a th:href="#"></a>&ndash;&gt;-->
+                                            <!--                                           <&#45;&#45; <a th:href="#"></a>&ndash;&gt;-->
                                         </div>
 
                                     </div>
@@ -238,8 +236,8 @@
                                     <h4>Danh sách đấu giá</h4>
                                     <div hidden id="endTime" name="endTime" th:attr="value=${auction.endTime}"></div>
                                     <h4 id="countdown" name="countdown">
-                                    Thời gian còn lại: <span id="timer"></span>
-                                </h4>
+                                        Thời gian còn lại: <span id="timer"></span>
+                                    </h4>
                                 </div>
 
                                 <div class="list-info">
@@ -265,25 +263,25 @@
                                     <!-- Loop through bid details -->
                                     <div id="scrollableBidList" style="max-height: 300px;overflow-x: hidden;  overflow-y: scroll;">
                                         <div id="bidList" class="bid-list" >
-                                           <div th:each="bid : ${bidDetails}">
-                                            <div class="row" style="border-bottom: 1px solid #ddd;">
-                                                <div class="col-md-3">
-                                                    <ul class="list-unstyled">
-                                                        <li><span th:text="${bid.username}"></span></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <ul class="list-unstyled">
-                                                        <li><span th:text="${bid.bid.bidAmount}"></span></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <ul class="list-unstyled">
-                                                        <li><span th:text="${bid.bid.bidTime}"></span></li>
-                                                    </ul>
+                                            <div th:each="bid : ${bidDetails}">
+                                                <div class="row" style="border-bottom: 1px solid #ddd;">
+                                                    <div class="col-md-3">
+                                                        <ul class="list-unstyled">
+                                                            <li><span th:text="${bid.username}"></span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <ul class="list-unstyled">
+                                                            <li><span th:text="${bid.bid.bidAmount}"></span></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <ul class="list-unstyled">
+                                                            <li><span th:text="${bid.bid.bidTime}"></span></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                           </div>
                                             <div class="row" style="border-bottom: 1px solid #ddd;">
                                                 <div class="col-md-3">
                                                     <ul class="list-unstyled">

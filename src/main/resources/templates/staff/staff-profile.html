@@ -75,6 +75,9 @@
                         <li class="submenu-item active">
                             <a th:href="@{/staff/profile}">Thông tin cá nhân</a>
                         </li>
+                        <li class="submenu-item">
+                            <a th:href="@{/staff/change}">Đổi mật khẩu</a>
+                        </li>
                         <li class="submenu-item ">
                             <a th:href="@{/logout}" class="submenu-item">
                                 <i class="bi bi-box-arrow-right"></i>
@@ -92,13 +95,21 @@
 <div class="container mt-5" style="padding-left: 280px; padding-bottom: 30px;">
     <div class="row">
         <div class="col-lg-4">
-            <!-- Profile Picture with Small Icon -->
-            <div class="card mb-4">
-                <div class="card-body text-center position-relative">
-                    <!-- Main profile picture -->
-                    <img th:src="'/User_images/' + ${ user.getAvatar() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                <!-- Profile Picture with Small Icon -->
+                <div class="card mb-4">
+                    <div class="card-body text-center position-relative">
+                        <!-- Main profile picture -->
+                        <img th:src="'/User_images/' + ${ user.getAvatar() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                    </div>
                 </div>
-            </div>
+                <div style="margin-top: 30px;">
+                    <form th:action="@{/staff/upload}" method="post" enctype="multipart/form-data">
+                        <a href="#" >
+                            <input type="file" name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                        </a>
+                        <button type="submit"  style="margin-top: 30px" class="btn btn-primary mt-3">Tải ảnh đại diện</button>
+                    </form>
+                </div>
         </div>
         <div class="col-lg-8">
             <!-- Profile Details -->

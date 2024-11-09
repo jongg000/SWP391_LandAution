@@ -18,7 +18,7 @@ public class AuctionRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int registrationID;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "AuctionID", nullable = false)
     private Auction auction;
 

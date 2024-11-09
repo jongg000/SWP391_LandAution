@@ -67,7 +67,6 @@ public class AdminController {
 
         // Prepare monthly payments for the current year
         Map<Integer, Long> monthlyPaymentAmounts = paymentService.getMonthlyRevenue();
-        System.out.println("Monthly Payment Amounts: " + monthlyPaymentAmounts);  // Debugging line
 
         model.addAttribute("monthlyPaymentAmounts", monthlyPaymentAmounts);
         model.addAttribute("users", users);
