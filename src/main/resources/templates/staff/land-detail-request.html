@@ -278,11 +278,11 @@
 <body>
 <div id="app">
     <div id="sidebar" class="active">
-        <div class="sidebar-wrapper active">
+        <div class="sidebar-wrapper">
             <div class="sidebar-header">
                 <div class="d-flex justify-content-between">
                     <div class="logo">
-                        <a href="#"><img src="/assets/images/logo/logo.png" alt="Logo" srcset=""></a>
+                        <a th:href="@{/staff}"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
                     </div>
                     <div class="toggler">
                         <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
@@ -300,33 +300,50 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item ">
-                        <a th:href="@{/staff/showAuctionResults}" href="#" class='sidebar-link'>
+                    <li class="sidebar-item">
+                        <a th:href="@{/staff/showAuctionResults}" class='sidebar-link'>
                             <span>Theo dõi đấu giá</span>
                         </a>
                     </li>
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item active has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-collection-fill"></i>
                             <span>Hồ sơ đất đai</span>
                         </a>
                         <ul class="submenu">
-                            <li class="submenu-item">
+                            <li class="submenu-item active">
                                 <a th:href="@{/staff/waiting-list}">Chờ xác nhận</a>
                             </li>
-                            <li class="submenu-item ">
+                            <li class="submenu-item">
                                 <a th:href="@{/staff/ongoing-list}">Đã xác nhận</a>
                             </li>
-                            <li class="submenu-item active">
-                                <a  th:href="@{/staff/cancel-list}">Đã bị hủy</a>
+                            <li class="submenu-item ">
+                                <a th:href="@{/staff/cancel-list}">Đã bị hủy</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-person-circle"></i>
+                            <span>Tài khoản</span>
+                        </a>
+                        <ul class="submenu">
+                            <li class="submenu-item">
+                                <a th:href="@{/staff/profile}">Thông tin cá nhân</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a th:href="@{/logout}" class="submenu-item">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span>Đăng xuất</span>
+                                </a>
                             </li>
                         </ul>
                     </li>
                 </div>
-                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
             </div>
         </div>
     </div>
+</div>
     <!--End of side bar-->
     <div id="main">
         <header class="mb-3">
@@ -351,7 +368,7 @@
             <section class="section">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Hồ sơ người dùng</h5>
+                        <h5>Hồ sơ tài sản</h5>
                     </div>
                     <div class="card-body">
                         <form th:action="@{/staff/schedule}" th:object="${requestDTO}" method="post">
@@ -593,6 +610,20 @@
             return;
         }
 
+        // Lấy ngày hiện tại và thêm 5 ngày
+        const currentDateTime = new Date();
+        const minDateTime = new Date(currentDateTime);
+        minDateTime.setDate(currentDateTime.getDate() + 5);
+
+        // Chuyển approvalDateTime thành đối tượng Date
+        const inputDateTime = new Date(approvalDateTime);
+
+        // Kiểm tra nếu ngày nhập vào nhỏ hơn minDateTime (cách hiện tại ít nhất 5 ngày)
+        if (inputDateTime < minDateTime) {
+            alert("Ngày phê duyệt phải cách thời điểm hiện tại ít nhất 5 ngày.");
+            return;
+        }
+
         // Gán ngày giờ vào trường ẩn trong form
         const hiddenDateInput = document.getElementById("approvalDateHidden");
         hiddenDateInput.value = approvalDateTime;
@@ -608,6 +639,7 @@
         const form = document.querySelector("form");
         form.submit();
     }
+
 </script>
 <script src="/assets/js/main.js"></script>
 </body>

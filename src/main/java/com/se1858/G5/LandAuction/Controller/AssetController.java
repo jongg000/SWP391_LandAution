@@ -82,8 +82,12 @@ public class AssetController {
         List<Land> list = null;
         if(status == null || status.equals("0")) {
             list = landRepository.findLandsByUserIdOrderedByRegistrationDate(user.getUserId());
-        }if(status != null){
+            System.out.println(status);
+            System.out.println(list.size());
+        }else {
             list = landRepository.findLandsByUserIdAndStatusId(user.getUserId(), Integer.parseInt(status));
+            System.out.println(status);
+            System.out.println(list.size());
         }
         long count = landService.countByUser(user);
         model.addAttribute("list", list);

@@ -9,6 +9,19 @@
 
     <title>Auction Detail Page</title>
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+
+
+    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../assets/css/animate.css">
+    <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
+    <link rel="stylesheet" href="../../assets/css/flexslider.css">
+    <link rel="stylesheet" href="../../assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../assets/css/icon-font.css">
+    <link rel="stylesheet" href="../../assets/css/auction.css">
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
@@ -23,8 +36,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
+    <link rel="stylesheet" href="../../assets/rs-plugin/css/settings.css">
 
-    <!--[if lt IE 9]>
+
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
 
@@ -250,75 +264,80 @@
                                 </div>
                             </div>
                             <div class="head-side-bar">
-                                <!-- Check if the user is the seller -->
-                                <div th:if="${isSeller}">
-                                    <br><a class="seller-restriction-message">Người bán không thể tham gia buổi đấu giá
-                                    sản phẩm của mình</a>
-
-
+                                <div th:if="${auction1 == 9}">
+                                    <!-- Display auction cancellation message -->
+                                    <div class="auction-cancelled-message">
+                                        <div class="attended-label">Buổi đấu giá đã bị hủy</div>
+                                    </div>
                                 </div>
 
-                                <!-- When user is not the seller -->
-                                <div th:unless="${isSeller}">
+                                <div th:unless="${auction1 == 9}">
+                                    <!-- Check if the user is the seller -->
+                                    <div th:if="${isSeller}">
+                                        <br><a class="seller-restriction-message">Người bán không thể tham gia buổi đấu giá sản phẩm của mình</a>
+                                    </div>
 
-                                    <!-- For dateCheck = upcoming -->
-                                    <div th:if="${dateCheck == 'upcoming'}">
-                                        <div th:if="${check == false}">
-                                            <div th:if="${isAvailable}" class="advanced-button">
-                                                <a th:href="@{/payment/handle/{id}(id=${auction.auctionId})}">
-                                                    Tham gia <i class="fa fa-paper-plane"></i>
-                                                </a>
+                                    <!-- When user is not the seller -->
+                                    <div th:unless="${isSeller}">
+                                        <!-- For dateCheck = upcoming -->
+                                        <div th:if="${dateCheck == 'upcoming'}">
+                                            <div th:if="${check == false}">
+                                                <div th:if="${isAvailable}" class="advanced-button">
+                                                    <a th:href="@{/payment/handle/{id}(id=${auction.auctionId})}">
+                                                        Tham gia <i class="fa fa-paper-plane"></i>
+                                                    </a>
+                                                </div>
+                                                <div th:unless="${isAvailable}">
+                                                    <br><a class="seller-restriction-message">Bạn cần cập nhật thông tin cá nhân để tham gia</a>
+                                                </div>
                                             </div>
-                                            <div th:unless="${isAvailable}">
-                                                <br><a class="seller-restriction-message">Bạn cần cập nhật thông tin cá
-                                                nhân để tham gia</a>
+                                            <div th:if="${check == true}">
+                                                <div class="attended-label">Đã tham gia</div>
+                                            </div>
+                                            <br>
+                                            <div th:if="${wishlistCheck == false}" class="advanced-button">
+                                                <a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Thêm vào theo dõi</a>
                                             </div>
                                         </div>
-                                        <div th:if="${check == true}">
-                                            <div class="attended-label">Đã tham gia</div>
+
+                                        <div th:if="${dateCheck == 'is going on'}">
+                                            <div th:if="${check == true}" class="advanced-button">
+                                                <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực tiếp
+                                                    <i class="fa fa-paper-plane"></i></a>
+                                            </div>
+                                            <div th:if="${check == false}">
+                                                <div class="attended-label">Đang diễn ra</div>
+                                            </div>
+                                        </div>
+
+
+                                        <div th:if="${dateCheck == 'ended'}">
+                                            <div th:if="${check == true}" class="advanced-button">
+                                                <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực tiếp
+                                                    <i class="fa fa-paper-plane"></i></a>
+                                            </div>
+                                            <div th:if="${check == false}">
+                                                <div class="attended-label">Đã kết thúc</div>
+                                            </div>
                                         </div>
                                         <br>
-                                        <div th:if="${wishlistCheck == false}" class="advanced-button">
-                                            <a th:href="@{/wishlist/save/{auctionId}(auctionId=${auction.auctionId})}">Thêm
-                                                vào theo dõi</a>
+
+                                        <div th:if="${checkWinner == true}">
+                                            <div class="advanced-button">
+                                                <a th:if="${auction1 == 13}" href="#">Đã thanh toán</a>
+                                                <a th:unless="${auction1 == 13}" th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}">
+                                                    Thanh toán <i class="fa fa-paper-plane"></i>
+                                                </a>
+                                            </div>
                                         </div>
+
                                     </div>
 
-                                    <!-- For dateCheck = isgoingon -->
-                                    <div th:if="${dateCheck == 'is going on'}">
-                                        <!-- Hide "Add to wishlist" and show View button -->
-                                        <div th:if="${check == true}" class="advanced-button">
-                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
-                                                tiếp
-                                                <i class="fa fa-paper-plane"></i></a>
-                                        </div>
-                                        <div th:if="${check == false}">
-                                            <div class="attended-label">Đang diễn ra</div>
-                                        </div>
-                                    </div>
 
-                                    <div th:if="${dateCheck == 'ended'}">
-                                        <div th:if="${check == true}" class="advanced-button">
-                                            <a th:href="@{/bids/showBidsPage/{id}(id=${auction.auctionId})}">Xem trực
-                                                tiếp
-                                                <i class="fa fa-paper-plane"></i></a>
-                                        </div>
-                                        <div th:if="${check == false}">
-                                            <div class="attended-label">Đã kết thúc</div>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div th:if="${checkWinner == true}">
-                                        <div class="advanced-button">
-                                            <a th:if="${auction1 == 13}" href="#">Đã thanh toán</a>
-                                            <a th:unless="${auction1 == 13}" th:href="@{/payment/handleafter/{id}(id=${auction.auctionId})}">
-                                                Thanh toán <i class="fa fa-paper-plane"></i>
-                                            </a>
-                                        </div>
-                                    </div>
 
                                 </div>
                             </div>
+
 
 
                         </div>
@@ -350,7 +369,11 @@
                                     </a>
                                     <span th:text="${auctionDetail.land.price}"></span>
                                     <div class="light-line"></div>
-                                    <p th:text="${auctionDetail.land.description}"></p>
+                                    <p th:text="${auctionDetail.land.province}" style="margin-bottom: 0px"></p>
+                                    <p th:if="${auctionDetail.auction.statusId == 11 or auctionDetail.auction.statusId == 13}">Đã kết thúc</p>
+                                    <p th:if="${auctionDetail.auction.statusId == 10}">Chưa bắt đầu</p>
+                                    <p th:if="${auctionDetail.auction.statusId == 12}">Đang diễn ra</p>
+                                    <p th:if="${auctionDetail.auction.statusId == 9}">Đã hủy</p>
                                 </div>
                             </div>
                         </div>

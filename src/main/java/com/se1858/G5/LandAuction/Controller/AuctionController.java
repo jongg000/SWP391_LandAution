@@ -10,7 +10,6 @@ import com.se1858.G5.LandAuction.Repository.StatusRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -85,32 +84,34 @@ public class AuctionController {
         auctionService.deleteAuction(id);
         return "redirect:/auction";
     }
+
+
     @GetMapping("/showAuctions")
     public String showAuctions(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "all") String filter,
-            @RequestParam(required = false) String province,
+            @RequestParam(required = false, defaultValue = "-1") String province,
             @RequestParam(required = false) Long minPrice,
             @RequestParam(required = false) Long maxPrice,
-            @RequestParam(required = false) Integer status,
+            @RequestParam(required = false) String keyword,
+            @RequestParam(required = false, defaultValue = "-1") Integer status,
             Model model) {
 
         List<AuctionDto> allAuctions = auctionService.getAllAuctions();
-
         List<String> provinces = allAuctions.stream()
                 .map(auction -> landService.findLandById(auction.getLandId()).getProvince())
                 .distinct()
                 .collect(Collectors.toList());
 
         List<AuctionDto> filteredAuctions = allAuctions.stream()
-                .filter(auction ->
-                        (status == null || auction.getStatusId() == status) &&
-                                (province == null || landService.findLandById(auction.getLandId()).getProvince().equals(province)) &&
-                                (minPrice == null || landService.findLandById(auction.getLandId()).getPrice() >= minPrice) &&
-                                (maxPrice == null || landService.findLandById(auction.getLandId()).getPrice() <= maxPrice)
-                )
+                .filter(auction -> {
+                    boolean matchesStatus = (status == -1 || auction.getStatusId() == status);
+                    boolean matchesProvince = ("-1".equals(province) || landService.findLandById(auction.getLandId()).getProvince().equals(province));
+                    boolean matchesMinPrice = (minPrice == null || landService.findLandById(auction.getLandId()).getPrice() >= minPrice);
+                    boolean matchesMaxPrice = (maxPrice == null || landService.findLandById(auction.getLandId()).getPrice() <= maxPrice);
+                    boolean matchesKeyword = keyword==null || landService.findLandById(auction.getLandId()).getName().toLowerCase().contains(keyword.toLowerCase());
+                    return matchesStatus && matchesProvince && matchesMinPrice && matchesMaxPrice&& matchesKeyword;
+                })
                 .collect(Collectors.toList());
-
 
         int totalAuctions = filteredAuctions.size();
         int size = 6;
@@ -135,19 +136,14 @@ public class AuctionController {
         model.addAttribute("auctionDetails", auctionDetails);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", totalPages);
-        model.addAttribute("currentFilter", filter);
         model.addAttribute("currentProvince", province);
         model.addAttribute("currentMinPrice", minPrice);
         model.addAttribute("currentMaxPrice", maxPrice);
+        model.addAttribute("currentKeyword", keyword);
         model.addAttribute("currentStatus", status);
         model.addAttribute("provinces", provinces);
-
         return "auctionPage";
     }
-
-
-
-
 
 
     private List<Map<String, Object>> getAuctionDetailsList(List<Auction> auctions) {
@@ -207,10 +203,11 @@ public class AuctionController {
             auctionDetails.add(details);
         }
         int userId = (int) session.getAttribute("id");
-        boolean checkWinner = auctionService.checkWinner( auctionDto.getAuctionId(),userId);
-        Auction auction1 = auctionRepository.findByAuctionId(id);
-        model.addAttribute("auction1", auction1.getStatus().getStatusID());
-        model.addAttribute("checkWinner", checkWinner);
+
+            boolean checkWinner = auctionService.checkWinner( auctionDto.getAuctionId(),userId);
+            model.addAttribute("checkWinner", checkWinner);
+
+        model.addAttribute("auction1", auctionDto.getStatusId());
         model.addAttribute("auctionDetails", auctionDetails);
         model.addAttribute("isAvailable",isAvailable);
         model.addAttribute("isSeller",isSeller);
@@ -221,7 +218,7 @@ public class AuctionController {
         model.addAttribute("userCheck", check);
         model.addAttribute("wishlistCheck", wishCheck);
         model.addAttribute("dateCheck", dateCheck);
-        return "auctionDetailPage";
+        return "customer/auctionDetailPage";
     }
 
 }
