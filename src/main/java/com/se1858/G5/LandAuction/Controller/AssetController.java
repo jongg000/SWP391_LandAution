@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
+import java.text.DateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Controller
@@ -31,15 +33,17 @@ public class AssetController {
     private  AssetRegistrationService assetRegistrationService;
     private  LandRepository landRepository;
     private  StatusService statusService;
+    private AuctionService auctionService;
 
     @Autowired
-    public AssetController(UserService userService, LandService landService, AssetService assetService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
+    public AssetController(AuctionService auctionService, UserService userService, LandService landService, AssetService assetService, AssetRegistrationService assetRegistrationService, LandRepository landRepository, StatusService statusService) {
         this.userService = userService;
         this.landService = landService;
         this.assetService = assetService;
         this.assetRegistrationService = assetRegistrationService;
         this.landRepository = landRepository;
         this.statusService = statusService;
+        this.auctionService = auctionService;
     }
 
     @GetMapping("/post-asset")
@@ -67,7 +71,7 @@ public class AssetController {
         assetRegistration.setLand(land);
         assetRegistration.setRegistrationDate(createdDate);
         land.setAssetRegistration(assetRegistration);
-        assetRegistration.setStatus(statusService.getStatusById(10));
+        assetRegistration.setStatus(statusService.getStatusById(13));
         landService.save(land);
         System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);
@@ -98,7 +102,10 @@ public class AssetController {
     @GetMapping("/asset-detail/{id}")
     public String detail(Principal principal, @PathVariable int id, Model model) {
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
-        System.out.println(assetRegistration.getLand().getName());
+        Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDate = assetRegistration.getRegistrationDate().format(formatter);
+        model.addAttribute("registrationDate", formattedDate);
         model.addAttribute("assetRegistration", assetRegistration);
         return "customer/asset-detail";
     }

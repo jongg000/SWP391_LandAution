@@ -113,6 +113,7 @@ public class AuctionServiceImpl implements AuctionService {
     @Scheduled(fixedRate = 1000)
     public void scheduledUpdateHighestBid() {
         auctionBidUpdateService.updateHighestBidForEndedAuctions();
+        auctionBidUpdateService.updateStatus();
     }
     @Override
     public long getTotalAuctions() {

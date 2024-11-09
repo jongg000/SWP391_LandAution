@@ -7,6 +7,7 @@ import com.se1858.G5.LandAuction.Service.AuctionRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -79,9 +80,20 @@ public class AuctionRegistrationServiceImpl implements AuctionRegistrationServic
     }
 
     @Override
+    public List<User> getUserInAuction(Auction auction) {
+         List<AuctionRegistration> as = auctionRegistrationRepository.findAllByAuction_AuctionId(auction.getAuctionId());
+         List<User> users = new ArrayList<>();
+         for(AuctionRegistration a : as) {
+             users.add(a.getUser());
+         }
+         return users;
+    }
+
+    @Override
     public boolean checkAvailableAttend(int userId){
         User user = userRepository.findById(userId).orElse(null);
         assert user != null;
         return user.getStatus().getStatusID() == 2;
     }
+
 }

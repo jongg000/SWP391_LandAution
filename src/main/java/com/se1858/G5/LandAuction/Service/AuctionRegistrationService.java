@@ -26,7 +26,7 @@ public interface AuctionRegistrationService {
     public List<AuctionRegistrationDTO> getAllAuctionRegistrationsByUserId(int userId);
     public boolean checkAvailableAttend(int userId, int landId);
     public AuctionRegistration getByAuctionAndBidAmount( Auction auction, long bidAmount);
-
+    public List<User> getUserInAuction(Auction auction);
     public boolean checkAvailableAttend(int userId);
 }
 
