@@ -22,5 +22,7 @@ public class UserRegisterDTO {
     String firstName;
     String lastName;
     String phoneNumber;
+    String otpCode;
+    String emailVerified;
 
 }

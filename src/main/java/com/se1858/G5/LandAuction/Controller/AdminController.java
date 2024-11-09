@@ -269,7 +269,7 @@ public class AdminController {
     @GetMapping("/request-account")
     public String showRequestAccountList(Model model) {
 
-        Status status1 = statusRepository.getById(1);
+        Status status1 = statusRepository.getById(4);
         Status status2 = statusRepository.getById(14);
 
         // Find users with either status 1 or 2
@@ -302,6 +302,7 @@ public class AdminController {
             if ("approve".equals(decision)) {
                 user.setStatus(statusRepository.getById(2));  // Assuming status ID 2 is for 'approved'
                 userService.save(user);
+                emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng: ", "Thành công");
             } else if ("reject".equals(decision) && !comment.isEmpty()) {
                 user.setStatus(statusRepository.getById(14));
                 emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng: ", comment);

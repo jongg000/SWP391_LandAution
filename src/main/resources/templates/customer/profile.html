@@ -118,7 +118,7 @@
               </div>
             </div>
             <div style="margin-top: 30px;">
-              <form th:action="@{profile/upload}" method="post" enctype="multipart/form-data">
+              <form th:action="@{/profile/upload}" method="post" enctype="multipart/form-data">
                 <a href="#" >
                   <input type="file" name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
                 </a>
@@ -134,7 +134,7 @@
             </div>
 
             <div style="margin-top: 30px;">
-              <form th:action="@{profile/uploadNational}" method="post" enctype="multipart/form-data">
+              <form th:action="@{/profile/uploadNational}" method="post" enctype="multipart/form-data">
                 <!-- Additional image 1 upload field -->
                 <div class="form-group">
                   <label for="nationalBackImage">Ảnh CCCD Mặt trước</label>
@@ -181,18 +181,18 @@
                 <h4 style="font-weight: bold; padding: 10px;">Người dùng tải thông tin lên để được xét duyệt tài khoản</h4>
 
                 <!-- Form for editing personal information -->
-                <form th:action="@{profile/edit}" th:object="${profileDTO}" method="post" enctype="multipart/form-data">
+                <form th:action="@{/profile/edit}" th:object="${profileDTO}" method="post" enctype="multipart/form-data">
                   <div class="form-group row mb-4">
                     <label for="firstName" class="col-sm-3 col-form-label">Họ và tên đệm</label>
                     <div class="col-sm-9">
-                      <input type="text" id="firstName" name="firstName" class="form-control" th:field="*{firstName}" >
+                      <input type="text" id="firstName" name="firstName" class="form-control" th:field="*{firstName}" required>
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="lastName" class="col-sm-3 col-form-label">Tên</label>
                     <div class="col-sm-9">
-                      <input type="text" id="lastName" name="lastName" class="form-control" th:field="*{lastName}" >
+                      <input type="text" id="lastName" name="lastName" class="form-control" th:field="*{lastName}" required>
                     </div>
                   </div>
 
@@ -206,14 +206,14 @@
                   <div class="form-group row mb-4">
                     <label for="phoneNumber" class="col-sm-3 col-form-label">Số điện thoại</label>
                     <div class="col-sm-9">
-                      <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" th:field="*{phoneNumber}" >
+                      <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" th:field="*{phoneNumber}" required>
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="address" class="col-sm-3 col-form-label">Địa chỉ</label>
                     <div class="col-sm-9">
-                      <input type="text" id="address" name="address" class="form-control" th:field="*{address}" >
+                      <input type="text" id="address" name="address" class="form-control" th:field="*{address}" required >
                     </div>
                   </div>
 
@@ -223,7 +223,7 @@
                   <div class="form-group row mb-4">
                     <label for="gender" class="col-sm-3 col-form-label">Giới tính</label>
                     <div class="col-sm-9">
-                      <select id="gender" name="gender" class="form-control" th:field="*{gender}">
+                      <select id="gender" name="gender" class="form-control" th:field="*{gender}" required>
                         <option value="Nam" >Nam</option>
                         <option value="Nữ" >Nữ</option>
                         <option value="Khác">Khác</option>
@@ -234,17 +234,18 @@
                   <div class="form-group row mb-4">
                     <label for="dob" class="col-sm-3 col-form-label">Ngày sinh</label>
                     <div class="col-sm-9">
-                      <input type="date" id="dob" class="form-control" th:field="*{dob}" name="dob">
+                      <input type="date" id="dob" class="form-control" th:field="*{dob}" name="dob" required>
                     </div>
                   </div>
 
                   <div class="form-group row mb-4">
                     <label for="nationalID" class="col-sm-3 col-form-label">Căn cước công dân</label>
                     <div class="col-sm-9">
-                      <input type="text" id="nationalID" name="nationalID" class="form-control" th:field="*{nationalID}">
+                      <input type="text" id="nationalID" name="nationalID" class="form-control" th:field="*{nationalID}" required>
                     </div>
                   </div>
                   <div th:if="${error!= null}" th:text="${error}"></div>
+                  <div th:if="${success!= null}">Cập nhật thông tin cá nhân thành công. Chờ xét duyêt hãy chờ email</div>
 
                   <div class="text-right">
                     <button type="submit" class="btn btn-primary">Cập nhật thông tin</button>
@@ -257,9 +258,9 @@
             <!-- Change Password Form (Initially Hidden) -->
             <div class="card mb-4" id="changePasswordForm" style="display: none;">
               <div class="card-body">
-                <h6 class="text-primary">Đổi mật khẩu</h6>
+                <h3 class="text-primary">Đổi mật khẩu</h3>
                 <hr>
-                <form th:action="@{profile/change-password}" method="post">
+                <form th:action="@{/profile/change-password}" method="post">
                   <div class="form-group row mb-4">
                     <label for="currentPassword" class="col-sm-3 col-form-label">Mật khẩu hiện tại</label>
                     <div class="col-sm-9">

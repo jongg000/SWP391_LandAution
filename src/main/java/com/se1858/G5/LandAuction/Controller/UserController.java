@@ -19,26 +19,38 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Controller
-@RequestMapping()
-@RequiredArgsConstructor
-@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
+@RequestMapping
 public class UserController {
     UserService userService;
     PasswordEncoder passwordEncoder;
-    UserRepository userRepository;
     RolesRepository roleRepository;
-    private final StatusRepository statusRepository;
+    StatusRepository statusRepository;
+    EmailService emailService;
     AssetRegistrationService assetRegistrationService;
     StatusService statusService;
     ViolationService violationService;
     AuctionService auctionService;
-    EmailService emailService;
+
+    public UserController(UserService userService, PasswordEncoder passwordEncoder, RolesRepository roleRepository, StatusRepository statusRepository, EmailService emailService, AssetRegistrationService assetRegistrationService, StatusService statusService, ViolationService violationService, AuctionService auctionService) {
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
+        this.statusRepository = statusRepository;
+        this.emailService = emailService;
+        this.assetRegistrationService = assetRegistrationService;
+        this.statusService = statusService;
+        this.violationService = violationService;
+        this.auctionService = auctionService;
+    }
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
@@ -47,27 +59,49 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute("registerDTO") UserRegisterDTO userRegisterDTO, BindingResult bindingResult, Model model) {
-        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
+    public String register(@ModelAttribute("registerDTO") UserRegisterDTO userRegisterDTO, BindingResult bindingResult, HttpSession session, Model model) {
+        // Kiểm tra email và số điện thoại tồn tại
         if (userService.existsByEmail(userRegisterDTO.getEmail())) {
             model.addAttribute("emailError", "Email này đã tồn tại.");
+            return "register";
         }
-
         if (userService.existsByPhoneNumber(userRegisterDTO.getPhoneNumber())) {
             model.addAttribute("phoneError", "Số điện thoại đã tồn tại.");
+            return "register";
         }
 
-        // Kiểm tra nếu có lỗi trong BindingResult (các thông báo lỗi từ validate)
-        if (bindingResult.hasErrors() || model.containsAttribute("emailError") || model.containsAttribute("phoneError")) {
-            return "register"; // Trả về trang đăng ký nếu có lỗi
-        }
-        // Gọi phương thức createUser để xử lý việc tạo người dùng
-        createUser(userRegisterDTO, 1);
+        // Sinh OTP
+        String otp = emailService.generateOtp();
+        emailService.sendOtpEmail(userRegisterDTO.getEmail(), otp);
 
-        // Nếu đăng ký thành công, chuyển hướng đến trang login
-        model.addAttribute("success", "Đăng ký thành công!");
-        return "redirect:/login";
+        // Lưu OTP và thông tin người dùng vào session
+        session.setAttribute("otp", otp);
+        session.setAttribute("userRegisterDTO", userRegisterDTO);
+        return "otp_verification";
     }
+
+
+    @PostMapping("/verify-otp")
+    public String verifyOtp(@RequestParam("otp") String otp, HttpSession session, Model model) {
+        String sessionOtp = (String) session.getAttribute("otp");
+        UserRegisterDTO userRegisterDTO = (UserRegisterDTO) session.getAttribute("userRegisterDTO");
+
+        if (sessionOtp != null && sessionOtp.equals(otp)) {
+            // Tạo người dùng sau khi OTP xác nhận thành công
+            createUser(userRegisterDTO, 1);
+            model.addAttribute("success", "Đăng ký thành công!");
+
+            // Xóa OTP và thông tin người dùng khỏi session sau khi thành công
+            session.removeAttribute("otp");
+            session.removeAttribute("userRegisterDTO");
+
+            return "redirect:/login";
+        } else {
+            model.addAttribute("otpError", "OTP không hợp lệ.");
+            return "otp_verification";
+        }
+    }
+
 
     private void createUser(UserRegisterDTO userRegisterDTO, int roleId) {
         // Tạo người dùng mới và gán các thuộc tính
@@ -84,12 +118,13 @@ public class UserController {
 
         // Gán trạng thái mặc định cho người dùng
         Status status = new Status();
-        status.setStatusID(14); // Ví dụ: 1 là trạng thái "Active" hoặc tương đương
+        status.setStatusID(1); // Ví dụ: 1 là trạng thái "Active" hoặc tương đương
         user.setStatus(status);
 
         // Lưu người dùng vào cơ sở dữ liệu
         userService.save(user);
     }
+
     @GetMapping("/profile")
     public String showProfile(Model model, Principal principal) {
         // Lấy thông tin người dùng hiện tại từ tên đăng nhập (email)
@@ -105,7 +140,7 @@ public class UserController {
         profileDTO.setNationalID(user.getNationalID());
         profileDTO.setDob(user.getDob());
 
-        model.addAttribute("profileDTO",profileDTO);
+        model.addAttribute("profileDTO", profileDTO);
         // Đưa thông tin người dùng vào model
         model.addAttribute("user", user);
 
@@ -148,65 +183,57 @@ public class UserController {
 
         model.addAttribute("success", "Mật khẩu đã được cập nhập.");
         model.addAttribute("user", user);
-        return "customer/profile";
+        return "redirect:/profile";
     }
 
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("profileDTO") ProfileDTO userProfileDTO,
-                                Principal principal, Model model){
+                                Principal principal, Model model) {
 
         String email = principal.getName();
         User user = userService.findByEmail(email);
-        if (user == null) {
-            model.addAttribute("error", "User not found.");
-            return "customer/profile";
+
+        if (!user.getPhoneNumber().equalsIgnoreCase(userProfileDTO.getPhoneNumber())) {
+            if (userService.existsByPhoneNumber(userProfileDTO.getPhoneNumber())) {
+                model.addAttribute("error", "Số điện thoại đã tồn tại.");
+                return "customer/profile";
+            } else  {
+                user.setPhoneNumber(userProfileDTO.getPhoneNumber());
+            }
         }
-        // Kiểm tra email và số điện thoại tồn tại trước khi tạo người dùng mới
-        if (userService.existsByEmail(userProfileDTO.getEmail())) {
-            model.addAttribute("emailError", "Email này đã tồn tại.");
-            model.addAttribute("user", user);
-            return "customer/profile";
+        if (!user.getNationalID().equalsIgnoreCase(userProfileDTO.getNationalID())) {
+            if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
+                model.addAttribute("error", "Số CMND đã tồn tại.");
+                model.addAttribute("user", user);
+                return "customer/profile";
+            }
+            else  {
+                user.setNationalID(userProfileDTO.getNationalID());
+            }
         }
 
-        if (userService.existsByPhoneNumber(userProfileDTO.getPhoneNumber())) {
-            model.addAttribute("error", "Số điện thoại đã tồn tại.");
-            model.addAttribute("user", user);
-            return "customer/profile";
-        }
+
 
         // Update personal information
         user.setFirstName(userProfileDTO.getFirstName());
         user.setLastName(userProfileDTO.getLastName());
-        user.setPhoneNumber(userProfileDTO.getPhoneNumber());
         user.setAddress(userProfileDTO.getAddress());
         user.setDob(userProfileDTO.getDob());
         user.setGender(userProfileDTO.getGender());
         user.setEmail(userProfileDTO.getEmail());
-
-    // Chỉ kiểm tra nếu National ID khác nhau và không phải là null
-        if (userProfileDTO.getNationalID() != null &&
-                (user.getNationalID() == null || !user.getNationalID().equals(userProfileDTO.getNationalID())) &&
-                userService.existsByNationalID(userProfileDTO.getNationalID())) {
-
-            model.addAttribute("error", "Số CMND đã tồn tại.");
-            model.addAttribute("user", user);
-            return "customer/profile";
-        } else {
-            user.setNationalID(userProfileDTO.getNationalID());
-        }
-        user.setStatus(statusRepository.getById(1));
+        user.setStatus(statusRepository.getById(4));
         // Save updated user information to the database
         userService.save(user);
-
-        model.addAttribute("success", "Cập nhật thông tin cá nhân thành công.");
+        model.addAttribute("success", "Cập nhật thông tin cá nhân thành công. Chờ xét duyêt hãy chờ email");
         model.addAttribute("user", user);
-        return "redirect:/profile";
+        return "customer/profile";
+
     }
 
     @PostMapping("/profile/upload")
     public String upAvatar(@RequestParam("avatar") MultipartFile images,
-                           RedirectAttributes redirectAttributes, Principal principal, Model model) {
+                           Principal principal, Model model) {
         String email = principal.getName();
         User user = userService.findByEmail(email);
         UploadFile uploadFile = new UploadFile();
@@ -219,7 +246,7 @@ public class UserController {
     @PostMapping("/profile/uploadNational")
     public String upNation(@RequestParam("nationalBackImage") MultipartFile nationalBackImage,
                            @RequestParam("nationalFrontImage") MultipartFile nationalFrontImage,
-                           RedirectAttributes redirectAttributes, Principal principal, Model model) {
+                           Principal principal, Model model) {
         String email = principal.getName();
         User user = userService.findByEmail(email);
         UploadFile uploadFile = new UploadFile();
@@ -251,19 +278,19 @@ public class UserController {
         violation.setUser(user);
         Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
         String detail = "";
-        if(auction != null) {
-             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName()+ " Cấp độ 3";
+        if (auction != null) {
+            detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName() + " Cấp độ 3";
             Set<User> userList = auction.getUser();
-            if(userList != null) {
-                for(User item : userList) {
+            if (userList != null) {
+                for (User item : userList) {
                     BigDecimal balance = item.getRefundMoney().add(new BigDecimal("500000"));
                     item.setRefundMoney(balance);
                     userService.save(item);
                     emailService.sendSimpleMail(item.getEmail(), "THÔNG BÁO HỦY BUỔI ĐẤU THẦU", "Chúng tôi thành thật xin lỗi vì sự bất tiện khi buổi đấu giá ngày [ngày dự kiến] đã bị hủy. Do một số lý do ngoài ý muốn, sự kiện không thể diễn ra như dự kiến. ");
                 }
             }
-        }else{
-             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName()+ " Cấp độ 2";
+        } else {
+            detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName() + " Cấp độ 2";
         }
         auction.setStatus(statusService.getStatusById(9));
         violation.setDetail(detail);
@@ -272,7 +299,6 @@ public class UserController {
         auctionService.saveAuction(auction);
         return "redirect:/asset";
     }
-
 
 
 }
