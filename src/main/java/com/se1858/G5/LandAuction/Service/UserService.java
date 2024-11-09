@@ -12,7 +12,6 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 public interface UserService {
-
     User findByEmail(String email);
     boolean existsByEmail(String email);
     User save(User user);
