@@ -202,16 +202,19 @@ public class UserController {
                 user.setPhoneNumber(userProfileDTO.getPhoneNumber());
             }
         }
-        if (!user.getNationalID().equalsIgnoreCase(userProfileDTO.getNationalID())) {
-            if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
-                model.addAttribute("error", "Số CMND đã tồn tại.");
-                model.addAttribute("user", user);
-                return "customer/profile";
-            }
-            else  {
-                user.setNationalID(userProfileDTO.getNationalID());
+        if (userProfileDTO.getNationalID() != null) {
+            if (!user.getNationalID().equalsIgnoreCase(userProfileDTO.getNationalID())) {
+                if (userService.existsByNationalID(userProfileDTO.getNationalID())) {
+                    model.addAttribute("error", "Số CMND đã tồn tại.");
+                    model.addAttribute("user", user);
+                    return "customer/profile";
+                }
+                else  {
+                    user.setNationalID(userProfileDTO.getNationalID());
+                }
             }
         }
+
 
 
 
