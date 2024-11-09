@@ -32,8 +32,7 @@ public class PaymentController {
     public PaymentController(PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService) {
         this.paymentService = paymentService;
         this.userService = userService;
-        this.auctionServiceImpl = auctionServiceImpl;
-        this.emailService = emailService1;
+        this.emailService = emailService;
         this.assetRegistrationService = assetRegistrationService;
         this.statusService = statusService;
         this.auctionService = auctionService;
