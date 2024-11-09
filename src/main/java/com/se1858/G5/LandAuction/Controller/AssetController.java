@@ -71,7 +71,7 @@ public class AssetController {
         assetRegistration.setLand(land);
         assetRegistration.setRegistrationDate(createdDate);
         land.setAssetRegistration(assetRegistration);
-        assetRegistration.setStatus(statusService.getStatusById(13));
+        assetRegistration.setStatus(statusService.getStatusById(15));
         landService.save(land);
         System.out.println(land.toString());
         assetRegistrationService.save(assetRegistration);

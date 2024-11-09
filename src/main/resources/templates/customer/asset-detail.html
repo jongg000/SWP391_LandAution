@@ -227,11 +227,11 @@
 							</div>
 							<div class="enquiry">
 								<div class="check-boxes">
-									<div class="advanced-button" th:if="${assetRegistration.status.statusID == 4 || assetRegistration.status.statusID == 8 || assetRegistration.status.statusID == 13}">
+									<div class="advanced-button" th:if="${assetRegistration.status.statusID == 4 || assetRegistration.status.statusID == 10 || assetRegistration.status.statusID == 15}">
 										<a th:href="@{/user-drop/{id}(id=${assetRegistration.documentId})}" data-toggle="modal" data-target="#exampleModal">Hủy bỏ đơn<i class="fa fa-ban"></i></a>
 									</div>
 								</div>
-								<div class="check-boxes" id="plus" th:if="${assetRegistration.status.statusID == 13}">
+								<div class="check-boxes" id="plus" th:if="${assetRegistration.status.statusID == 15}">
 									<div class="advanced-button2">
 										<a th:href="@{/payment/registration-fee/{id}(id=${assetRegistration.documentId})}">Thanh toán phí<i class="fa fa-dollar-sign" ></i></a>
 									</div>

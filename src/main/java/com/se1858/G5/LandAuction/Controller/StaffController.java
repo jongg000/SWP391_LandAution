@@ -89,8 +89,8 @@ public class StaffController {
             auction.setEndTime(auctionStat.plusMinutes(45));
             auction.setLand(assetRegistration.getLand());
             assetRegistration.setUser(user);
-            assetRegistration.setStatus(statusService.getStatusById(8));
-            auction.setStatus(statusService.getStatusById(8));
+            assetRegistration.setStatus(statusService.getStatusById(10));
+            auction.setStatus(statusService.getStatusById(10));
             assetRegistrationService.save(assetRegistration);
             auctionService.saveAuction(auction);
             return "redirect:land-detail/" + requestDTO.getDocumentId();
