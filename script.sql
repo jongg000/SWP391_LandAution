@@ -24,7 +24,7 @@ INSERT INTO dbo.status (statusid, description, name) VALUES (9, NULL, N'Đã h�
 INSERT INTO dbo.status (statusid, description, name) VALUES (10, NULL, N'Chưa bắt đầu'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (11, NULL, N'Đã kết thúc'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (12, NULL, N'Đang tiến hành'); -- auction
-INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã hủy'); --asset
+INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã than toán'); --asset
 INSERT INTO dbo.status (statusid, description, name) VALUES (14, NULL, N'Thông tin không hợp lệ'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (15, NULL, N'Chưa hoàn thành phí'); 
 SET IDENTITY_INSERT [dbo].[status] OFF
