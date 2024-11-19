@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -43,7 +42,8 @@ public class AuctionRegistrationController {
             @RequestParam(required = false) String filter,
             Model model,
             HttpServletRequest request) {
-
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("id");
         List<AuctionRegistrationDTO> auctionRegistrationDTOS = auctionRegistrationService.getAllAuctionRegistrationsByUserId(userId);
@@ -74,6 +74,9 @@ public class AuctionRegistrationController {
             AuctionRegistrationDTO auctionRegistrationDTO = auctionRegistrationDTOS.get(i);
             AuctionDto auction = auctionService.findAuctionById(auctionRegistrationDTO.getAuctionId());
             LandDTO land = landService.findLandById(auction.getLandId());
+            String formattedPrice = numberFormat.format(land.getPrice());
+            String formattedStartTime = auction.getStartTime().format(dateTimeFormatter);
+            String formattedEndTime = auction.getEndTime().format(dateTimeFormatter);
             List<LandImageDTO> landImageDTOList = landService.findAllLandImageByLandId(auction.getLandId());
             LandImageDTO landImage = landImageDTOList.isEmpty() ? null : landImageDTOList.get(0);
             Map<String, Object> details = new HashMap<>();
@@ -94,6 +97,9 @@ public class AuctionRegistrationController {
             details.put("auction", auction);
             details.put("land", land);
             details.put("landImage", landImage);
+            details.put("formattedPrice", formattedPrice);
+            details.put("formattedStartTime", formattedStartTime);
+            details.put("formattedEndTime", formattedEndTime);
             auctionRegistrationDetails.add(details);
         }
 

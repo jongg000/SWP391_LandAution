@@ -194,7 +194,7 @@
                         <div id="single-car" class="col-md-8">
                             <div class="up-content clearfix">
                                 <h2 th:text="${land.name}"></h2>
-                                <span th:text="${land.price}"></span>
+                                <span th:text="${formattedPrice}"></span>
                             </div>
                             <div class="flexslider">
                                 <ul class="slides">
@@ -234,16 +234,8 @@
                                         <div id="tab2" class="tab active">
                                             <p class="notice-text" th:inline="text">
                                                 <strong>Lưu ý:</strong> <br/>
-                                                1. Trước khi mở cuộc đấu giá 01 ngày làm việc, người phải thi hành án có
-                                                quyền nhận lại tài sản nếu nộp đủ tiền thi hành án và thanh toán các chi
-                                                phí thực tế, hợp lý đã phát sinh từ việc cưỡng chế thi hành án, tổ chức
-                                                bán đấu giá. Người phải thi hành án có trách nhiệm hoàn trả phí tổn thực
-                                                tế, hợp lý cho người đăng ký mua tài sản. Mức phí tổn do các bên thỏa
-                                                thuận; nếu không thỏa thuận được thì yêu cầu Tòa án giải quyết;<br/>
-                                                2. Khách hàng có trách nhiệm xem xét kỹ tình trạng, chất lượng của tài
-                                                sản, có xác nhận đã xem tài sản của người có tài sản đấu giá. Tài sản
-                                                đấu giá bán theo hiện trạng thực tế nêu trên. Tổ chức đấu giá không chịu
-                                                trách nhiệm về tình trạng, chất lượng tài sản khi đã thông báo trước.
+                                                1. Trước khi mở cuộc đấu giá 01 ngày làm việc, người phải thi hành án có quyền nhận lại tài sản nếu nộp đủ tiền thi hành án và thanh toán các chi phí thực tế, hợp lý đã phát sinh từ việc cưỡng chế thi hành án, tổ chức bán đấu giá. Người phải thi hành án có trách nhiệm hoàn trả phí tổn thực tế, hợp lý cho người đăng ký mua tài sản. Mức phí tổn do các bên thỏa thuận; nếu không thỏa thuận được thì yêu cầu Tòa án giải quyết;<br/>
+                                                2. Khách hàng có trách nhiệm xem xét kỹ tình trạng, chất lượng của tài sản, có xác nhận đã xem tài sản của người có tài sản đấu giá. Tài sản đấu giá bán theo hiện trạng thực tế nêu trên. Tổ chức đấu giá không chịu trách nhiệm về tình trạng, chất lượng tài sản khi đã thông báo trước.
                                             </p>
                                         </div>
 
@@ -269,7 +261,7 @@
                                 <div class="list-info">
                                     <ul>
                                         <li><span>Sản phẩm:</span><span th:text="${land.name}"></span></li>
-                                        <li><span>Giá: </span><span th:text="${land.price}"></span></li>
+                                        <li><span>Giá: </span><span th:text="${formattedPrice}"></span></li>
                                         <li>
                                             <span>Trạng thái:</span>
                                             <span th:text="
@@ -283,9 +275,9 @@
                                         <li><span>Chiều dài:</span><span th:text="${land.length}"></span></li>
                                         <li><span>Chiều rộng:</span><span th:text="${land.width}"></span></li>
                                         <li><span>Diện tích:</span><span th:text="${land.square}"></span></li>
-                                        <li><span>Thời gian bắt đầu:</span><span th:text="${auction.startTime}"></span>
+                                        <li><span>Thời gian bắt đầu:</span><span th:text="${formattedStartTime}"></span>
                                         </li>
-                                        <li><span>Thời gian kết thúc:</span><span th:text="${auction.endTime}"></span>
+                                        <li><span>Thời gian kết thúc:</span><span th:text="${formattedEndTime}"></span>
                                         </li>
                                     </ul>
                                 </div>
@@ -398,7 +390,7 @@
                                     <a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">
                                         <h2 th:text="${auctionDetail.land.name}"></h2>
                                     </a>
-                                    <span th:text="${auctionDetail.land.price}"></span>
+                                    <span th:text="${auctionDetail.formattedPrice}"></span>
                                     <div class="light-line"></div>
                                     <p th:text="${auctionDetail.land.province}" style="margin-bottom: 0px"></p>
                                     <p th:if="${auctionDetail.auction.statusId == 11 or auctionDetail.auction.statusId == 13}">

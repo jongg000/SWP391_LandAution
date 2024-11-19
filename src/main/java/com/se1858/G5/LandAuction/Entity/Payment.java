@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +21,6 @@ public class Payment {
     @ManyToOne
     @JoinColumn(name = "UserId", nullable = false)
     private User user;
-
     private long paymentAmount;
 
     @Column(nullable = true)

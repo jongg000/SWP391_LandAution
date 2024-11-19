@@ -12,6 +12,7 @@ SET IDENTITY_INSERT [dbo].[Roles] OFF
 GO
 --status
 SET IDENTITY_INSERT [dbo].[status] ON 
+
 INSERT INTO dbo.status (statusid, description, name) VALUES (1, NULL, N'Chưa xác minh'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (2, NULL, N'Đã xác minh'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (3, NULL, N'Khóa');-- all user-admin
@@ -24,9 +25,11 @@ INSERT INTO dbo.status (statusid, description, name) VALUES (9, NULL, N'Đã h�
 INSERT INTO dbo.status (statusid, description, name) VALUES (10, NULL, N'Chưa bắt đầu'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (11, NULL, N'Đã kết thúc'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (12, NULL, N'Đang tiến hành'); -- auction
-INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã hủy'); --asset
+INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã thanh toán'); --asset
 INSERT INTO dbo.status (statusid, description, name) VALUES (14, NULL, N'Thông tin không hợp lệ'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (15, NULL, N'Chưa hoàn thành phí'); 
+INSERT INTO dbo.status (statusid, description, name) VALUES (17, NULL, N'Đấu giá thất bại'); -- asset
+INSERT INTO dbo.status (statusid, description, name) VALUES (16, NULL, N'Chờ đấu giá lại'); -- asset
 SET IDENTITY_INSERT [dbo].[status] OFF
 GO
 
@@ -69,10 +72,10 @@ SET IDENTITY_INSERT [dbo].[land] OFF
 GO
 SET IDENTITY_INSERT [dbo].[asset_registration] ON 
 
-INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (1, NULL, NULL, NULL, CAST(N'2024-10-25T13:11:47.863' AS DateTime), 1, 8, 4)
-INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (2, NULL, NULL, NULL, CAST(N'2024-10-25T13:15:51.157' AS DateTime), 2, 8, 4)
-INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (3, NULL, NULL, NULL, CAST(N'2024-10-25T13:19:24.013' AS DateTime), 3, 8, 4)
-INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (4, NULL, NULL, NULL, CAST(N'2024-10-25T13:21:29.420' AS DateTime), 4, 8, 4	)
+INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (1, NULL, NULL, NULL, CAST(N'2024-10-25T13:11:47.863' AS DateTime), 1, 10, 4)
+INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (2, NULL, NULL, NULL, CAST(N'2024-10-25T13:15:51.157' AS DateTime), 2, 10, 4)
+INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (3, NULL, NULL, NULL, CAST(N'2024-10-25T13:19:24.013' AS DateTime), 3, 10, 4)
+INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (4, NULL, NULL, NULL, CAST(N'2024-10-25T13:21:29.420' AS DateTime), 4, 10, 4	)
 INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (5, NULL, NULL, NULL, CAST(N'2024-10-25T13:27:29.570' AS DateTime), 5, 4, NULL)
 SET IDENTITY_INSERT [dbo].[asset_registration] OFF
 GO
@@ -92,12 +95,12 @@ INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (9, N
 SET IDENTITY_INSERT [dbo].[land_image] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Auction] ON 
-INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (1, 1, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-16T16:08:09.823' AS DateTime), 12, 0)
-INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (2, 2, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-01T16:08:09.823' AS DateTime), 10, 0)
-INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (3, 3, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-19T16:08:09.823' AS DateTime), 11, 0)
-INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (4, 4, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0)
-INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (5, 5, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0)
-INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (6, 6, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0)
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (1, 1, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-16T16:08:09.823' AS DateTime), 12, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (2, 2, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-01T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (3, 3, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-19T16:08:09.823' AS DateTime), 11, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (4, 4, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (5, 5, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (6, 6, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
 SET IDENTITY_INSERT [dbo].[Auction] OFF
 GO
 

@@ -17,7 +17,7 @@ public interface AuctionService {
     public boolean checkExistUserInAuction(int userId, int auctionId);
     public long getTotalAuctions();
     public AuctionDto convertToDTO(Auction auction);
-    public void scheduledUpdateHighestBid();
+    public void scheduledUpdate();
     public List<Auction> findAllAuctionEnd();
     public void saveAuction(Auction auction);
     public List<Auction> getAllAuctionByStartTime();

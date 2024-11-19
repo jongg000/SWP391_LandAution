@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
@@ -36,7 +37,6 @@ public class Land {
 
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String description;
-
     private long price;
 
     private String contact;

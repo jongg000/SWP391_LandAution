@@ -15,11 +15,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -93,7 +92,7 @@ public class AuctionController {
             @RequestParam(required = false) Long minPrice,
             @RequestParam(required = false) Long maxPrice,
             @RequestParam(required = false) String keyword,
-            @RequestParam(required = false, defaultValue = "-1") Integer status,
+            @RequestParam(required = false, defaultValue = "-1") String status, // Changed to String
             Model model) {
 
         List<AuctionDto> allAuctions = auctionService.getAllAuctions();
@@ -102,14 +101,24 @@ public class AuctionController {
                 .distinct()
                 .collect(Collectors.toList());
 
+        // Parse status parameter into a list of integers
+        List<Integer> statusList;
+        if (!status.equals("-1")) {
+            statusList = Arrays.stream(status.split(","))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+        } else {
+            statusList = new ArrayList<>();
+        }
+
         List<AuctionDto> filteredAuctions = allAuctions.stream()
                 .filter(auction -> {
-                    boolean matchesStatus = (status == -1 || auction.getStatusId() == status);
+                    boolean matchesStatus = (statusList.isEmpty() || statusList.contains(auction.getStatusId()));
                     boolean matchesProvince = ("-1".equals(province) || landService.findLandById(auction.getLandId()).getProvince().equals(province));
                     boolean matchesMinPrice = (minPrice == null || landService.findLandById(auction.getLandId()).getPrice() >= minPrice);
                     boolean matchesMaxPrice = (maxPrice == null || landService.findLandById(auction.getLandId()).getPrice() <= maxPrice);
-                    boolean matchesKeyword = keyword==null || landService.findLandById(auction.getLandId()).getName().toLowerCase().contains(keyword.toLowerCase());
-                    return matchesStatus && matchesProvince && matchesMinPrice && matchesMaxPrice&& matchesKeyword;
+                    boolean matchesKeyword = keyword == null || landService.findLandById(auction.getLandId()).getName().toLowerCase().contains(keyword.toLowerCase());
+                    return matchesStatus && matchesProvince && matchesMinPrice && matchesMaxPrice && matchesKeyword;
                 })
                 .collect(Collectors.toList());
 
@@ -125,9 +134,12 @@ public class AuctionController {
                     Map<String, Object> details = new HashMap<>();
                     LandDTO land = landService.findLandById(auction.getLandId());
                     List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(auction.getLandId());
+                    NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+                    String formattedPrice = numberFormat.format(land.getPrice());
                     details.put("auction", auction);
                     details.put("land", land);
                     details.put("Image", landImageList.isEmpty() ? null : landImageList.get(0).getImageUrl());
+                    details.put("formattedPrice", formattedPrice);
                     return details;
                 })
                 .collect(Collectors.toList());
@@ -144,6 +156,7 @@ public class AuctionController {
         model.addAttribute("provinces", provinces);
         return "auctionPage";
     }
+
 
 
     private List<Map<String, Object>> getAuctionDetailsList(List<Auction> auctions) {
@@ -175,9 +188,15 @@ public class AuctionController {
 
     @GetMapping("/showAuctionDetail/{id}")
     public String showAuctionDetail(@PathVariable int id, Model model, HttpServletRequest request) {
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         HttpSession session = request.getSession();
         AuctionDto auctionDto = auctionService.findAuctionById(id);
+
         LandDTO landDTO = landService.findLandById(auctionDto.getLandId());
+        String formattedPrice = numberFormat.format(landDTO.getPrice());
+        String formattedStartTime = auctionDto.getStartTime().format(dateTimeFormatter);
+        String formattedEndTime = auctionDto.getEndTime().format(dateTimeFormatter);
         List<LandImageDTO> landImageDTO = landService.findAllLandImageByLandId(auctionDto.getLandId());
         boolean check = auctionService.checkExistUserInAuction((int) session.getAttribute("id")   , id);
         boolean wishCheck = wishlistService.checkExistAuctionInWishlist((int) session.getAttribute("id"), id);
@@ -197,9 +216,11 @@ public class AuctionController {
             Map<String, Object> details = new HashMap<>();
             LandDTO l = landService.findLandById(a.getLandId());
             List<LandImageDTO> landImageList = landService.findAllLandImageByLandId(a.getLandId());
+            String formattedPrice1 = numberFormat.format(l.getPrice());
             details.put("auction", a);
             details.put("land", l);
             details.put("Image", landImageList.get(0).getImageUrl());
+            details.put("formattedPrice", formattedPrice1);
             auctionDetails.add(details);
         }
         int userId = (int) session.getAttribute("id");
@@ -214,6 +235,9 @@ public class AuctionController {
         model.addAttribute("check",check);
         model.addAttribute("auction", auctionDto);
         model.addAttribute("land", landDTO);
+        model.addAttribute("formattedPrice", formattedPrice);
+        model.addAttribute("formattedStartTime", formattedStartTime);
+        model.addAttribute("formattedEndTime", formattedEndTime);
         model.addAttribute("landImages", landImageDTO);
         model.addAttribute("userCheck", check);
         model.addAttribute("wishlistCheck", wishCheck);

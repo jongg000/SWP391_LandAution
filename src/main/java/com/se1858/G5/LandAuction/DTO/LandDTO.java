@@ -1,6 +1,6 @@
 package com.se1858.G5.LandAuction.DTO;
 
-import com.se1858.G5.LandAuction.Entity.LandImage;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 

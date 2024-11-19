@@ -158,9 +158,10 @@
                                               <span th:text="${item.status.name}"
                                                     th:classappend="${item.status.name == 'Chưa đấu giá'} ? 'status-unpaid' : ''"></span>
                                     </td>
-                                    <td><span th:text="${item.highestBid}"></span></td>
+                                    <td><span class="highestBid" th:text="${item.highestBid}"></span></td>
+
                                     <td>
-                                        <span th:text="${item.bidder != null ? item.bidder.lastName : 'Chưa kết thúc'}"></span>
+                                        <span th:text="${item.bidder != null ? item.bidder.lastName : 'Không có'}"></span>
                                     </td>
                                     <td>
                                         <a th:href="@{/staff/showStaffAuctionDetail/{id}(id=${item.auction.auctionId})}">Chi tiet</a>
@@ -173,6 +174,16 @@
                 </div>
             </section>
         </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const bidElements = document.querySelectorAll(".highestBid");
+                bidElements.forEach(function (bidElement) {
+                    const bidValue = parseInt(bidElement.textContent, 10);
+                    bidElement.textContent = new Intl.NumberFormat('en-US').format(bidValue);
+                });
+            });
+        </script>
+
 
     </div>
 </div>

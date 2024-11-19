@@ -92,6 +92,7 @@ public class StaffController {
             Auction auction = new Auction();
             auction.setStartTime(auctionStat);
             auction.setEndTime(auctionStat.plusMinutes(45));
+            auction.setDepositTime(auctionStat.plusDays(5).plusMinutes(45));
             auction.setLand(assetRegistration.getLand());
             assetRegistration.setUser(user);
             assetRegistration.setStatus(statusService.getStatusById(10));

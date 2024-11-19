@@ -1,12 +1,10 @@
 package com.se1858.G5.LandAuction.Entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -27,7 +25,6 @@ public class AuctionChangeLog {
 
     @Column(columnDefinition = "NVARCHAR(MAX)")
     private String action_type;
-
     private LocalDateTime change_time;
 
     @Column(columnDefinition = "NVARCHAR(MAX)")

@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
+
 import lombok.*;
 
 import javax.persistence.*;
@@ -25,7 +26,6 @@ public class AssetRegistration {
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;
-
     private LocalDateTime registrationDate;
 
     @Column(columnDefinition = "NVARCHAR(255)")

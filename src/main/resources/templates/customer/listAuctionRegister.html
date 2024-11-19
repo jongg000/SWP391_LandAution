@@ -334,9 +334,9 @@
                                     <div class="right-content">
                                         <a th:href="@{/auction/showAuctionDetail/{id}(id=${wishlistDetail.auction.auctionId})}">
                                             <h2 th:text="${wishlistDetail.land.name}"></h2></a>
-                                        <span th:text="${'$' + wishlistDetail.land.price}"></span>
+                                        <span th:text="${'$' + wishlistDetail.formattedPrice}"></span>
                                         <div class="light-line"></div>
-                                        <p th:if="${wishlistDetail.auction.statusId == 11 or wishlistDetail.auction.statusId == 13}">Đã kết thúc</p>
+                                        <p th:if="${wishlistDetail.auction.statusId == 11 or wishlistDetail.auction.statusId == 13 or wishlistDetail.auction.statusId == 17}">Đã kết thúc</p>
                                         <p th:if="${wishlistDetail.auction.statusId == 10}">Chưa bắt đầu</p>
                                         <p th:if="${wishlistDetail.auction.statusId == 12}">Đang diễn ra</p>
                                         <p th:if="${wishlistDetail.auction.statusId == 9}">Đã hủy</p>
@@ -349,8 +349,8 @@
                                         </div>
                                         <div class="car-info">
                                             <ul>
-                                                <li>Thời gian bắt đầu: [[${wishlistDetail.auction.startTime}]]</li>
-                                                <li>Thời gian kết thúc: [[${wishlistDetail.auction.endTime}]]</li>
+                                                <li>Thời gian bắt đầu: [[${wishlistDetail.formattedStartTime}]]</li>
+                                                <li>Thời gian kết thúc: [[${wishlistDetail.formattedEndTime}]]</li>
                                                 <li style="position: absolute; right: 0; color: #685e5e; font-weight: bold; background: #f4c23d; padding: calc(0.9%);">
                                                     <th:block th:if="${wishlistDetail.checkWinner==true}">
                                                         <th:block>

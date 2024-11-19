@@ -300,12 +300,12 @@
             </a>
           </li>
 
-          <li class="sidebar-item active">
+          <li class="sidebar-item">
             <a th:href="@{/staff/showAuctionResults}" class='sidebar-link'>
               <span>Theo dõi đấu giá</span>
             </a>
           </li>
-          <li class="sidebar-item  has-sub">
+          <li class="sidebar-item  has-sub active">
             <a href="#" class='sidebar-link'>
               <i class="bi bi-collection-fill"></i>
               <span>Hồ sơ đất đai</span>
@@ -386,7 +386,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label  class="form-label"><strong>Ngày gửi đơn:</strong></label>
-                  <input type="text" id="" name="registrationDate" th:value="${approvedAsset.registrationDate}" class="form-control custom-input" readonly>
+                  <input type="text" id="" name="registrationDate" th:value="${approvedAsset.registrationDate}" class="form-control custom-input formatTime" readonly>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="userName" class="form-label"><strong>Chủ :</strong></label>
@@ -419,7 +419,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="price" class="form-label"><strong>Giá:</strong></label>
-                  <input type="text" id="price" name="price" th:value="*{approvedAsset.land.price}" class="form-control custom-input" readonly>
+                  <input type="text" id="price" name="price" th:value="*{approvedAsset.land.price}" class="form-control custom-input formatPrice" readonly>
                 </div>
                 <div class="col-md-6 mb-3">
                   <label for="contact" class="form-label"><strong>Liên hệ:</strong></label>
@@ -443,7 +443,7 @@
                 </div>
                 <div class="col-md-6 mb-3">
                   <label  class="form-label"><strong>Ngày phê duyệt:</strong></label>
-                  <input type="text"  th:value="${approvedAsset.approvalDate}" class="form-control custom-input" readonly>
+                  <input type="text"  th:value="${approvedAsset.approvalDate}" class="form-control custom-input formatTime" readonly>
                 </div>
                 <div class="col-md-12 mb-3">
                   <label class="form-label"><strong>Lí do hủy:</strong></label>
@@ -483,6 +483,40 @@
 <script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
 <script src="/assets/js/bootstrap.bundle.min.js"></script>
 <script src="/assets/vendors/simple-datatables/simple-datatables.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const dateElements = document.querySelectorAll(".formatTime");
+
+    dateElements.forEach(function (dateElement) {
+      const rawDate = dateElement.value;
+
+      if (rawDate) {
+        const date = new Date(rawDate);
+        dateElement.value = ("0" + date.getDate()).slice(-2) + "/" +
+                ("0" + (date.getMonth() + 1)).slice(-2) + "/" +
+                date.getFullYear() + " " +
+                ("0" + date.getHours()).slice(-2) + ":" +
+                ("0" + date.getMinutes()).slice(-2) + ":" +
+                ("0" + date.getSeconds()).slice(-2);
+      }
+    });
+  });
+
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const priceElements = document.querySelectorAll(".formatPrice");
+
+    priceElements.forEach(function (priceElement) {
+      const rawPrice = priceElement.value;
+
+      if (rawPrice) {
+        const formattedPrice = new Intl.NumberFormat('en-US').format(rawPrice);
+        priceElement.value = formattedPrice;
+      }
+    });
+  });
+</script>
 <script>
   // Mở modal và hiển thị ảnh
   function openModal(image) {

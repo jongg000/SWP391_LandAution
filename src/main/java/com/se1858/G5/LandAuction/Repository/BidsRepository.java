@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface BidsRepository extends JpaRepository<Bids, Integer> {
   List<Bids> findAllByAuctionRegistration_Auction_AuctionIdOrderByBidTimeDesc(int auctionRegistrationId);
-
+  List<Bids> findAllByAuctionRegistration_Auction(Auction auction);
     Bids findTop1ByAuctionRegistration_User_UserIdAndAuctionRegistration_Auction_AuctionIdOrderByBidAmountDesc(int userId, int auctionId);
 
     Bids findByAuctionRegistration_AuctionAndBidAmount(Auction auction, long bidAmount);

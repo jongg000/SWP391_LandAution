@@ -274,12 +274,12 @@
                                                     </div>
                                                     <div class="col-md-5">
                                                         <ul class="list-unstyled">
-                                                            <li><span th:text="${bid.bid.bidAmount}"></span></li>
+                                                            <li><span th:text="${bid.formattedBidAmount}"></span></li>
                                                         </ul>
                                                     </div>
                                                     <div class="col-md-4">
                                                         <ul class="list-unstyled">
-                                                            <li><span th:text="${bid.bid.bidTime}"></span></li>
+                                                            <li><span th:text="${bid.formattedBidTime}"></span></li>
                                                         </ul>
                                                     </div>
                                                 </div>
@@ -331,10 +331,15 @@
                             </div>
                             <div id="winnerModal" class="modal">
                                 <div class="modal-content">
-                                    <p class="bid-amount">Auction Ended</p>
-                                    <p class="congratulations">Congratulations!</p>
-                                    <p class="winner">Winner: <span id="winnerNameModal" class="highlight"></span><i class="fas fa-crown" aria-hidden="true"></i></p>
-                                    <p class="bid-amount">Bid Amount: <span id="winnerBidAmountModal" class="highlight"></span></p>
+                                    <p id="modalMessage" class="bid-amount"></p>
+                                    <p id="congratulationsMessage" class="congratulations"></p>
+                                    <p id="winnerDetails" class="winner">
+                                        Winner: <span id="winnerNameModal" class="highlight"></span>
+                                        <i class="fas fa-crown" aria-hidden="true"></i>
+                                    </p>
+                                    <p id="bidDetails" class="bid-amount">
+                                        Bid Amount: <span id="winnerBidAmountModal" class="highlight"></span>
+                                    </p>
                                     <th:block th:if="${checkWinner == true}">
                                         <th:block th:if="${auction1 == 11}">
                                             <!-- Show the payment button when auction has ended but not yet paid -->
@@ -349,6 +354,7 @@
                                     <button onclick="closeModal()" class="close-button">Close</button>
                                 </div>
                             </div>
+
                             <script>
                                 let latestBidAmount = parseFloat(document.getElementById('latestBidAmount').value);
                                 let winnerName = document.getElementById('lastName').value;
@@ -364,7 +370,15 @@
                                             clearInterval(interval);
                                             countdownElement.innerHTML = "Auction Ended";
                                             bidButton.disabled = true;
-                                            showModal(winnerName, latestBidAmount);
+
+
+                                                if (latestBidAmount > 0) {
+                                                    showModal("Congratulations!", winnerName, latestBidAmount);
+                                                } else {
+                                                    showModal("Auction ended without Winner", null, null);
+                                                }
+
+
                                             return;
                                         }
 
@@ -376,29 +390,52 @@
                                         countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
                                     }
 
-                                    const interval = setInterval(updateCountdown, 1000);
+                                    const interval = setInterval(updateCountdown, 0);
                                     updateCountdown();
                                 }
-
-                                const endTime = document.getElementById("endTime").getAttribute("value");
-
-                                startCountdown(endTime);
 
                                 function closeModal() {
                                     document.getElementById("winnerModal").style.display = "none";
                                 }
 
-                                function showModal(winnerName, winnerBidAmount) {
-                                    document.getElementById("winnerNameModal").innerText = winnerName;
-                                    document.getElementById("winnerBidAmountModal").innerText = winnerBidAmount;
+                                function showModal(message, winnerName, winnerBidAmount) {
+                                    const modalMessage = document.getElementById("modalMessage");
+                                    const congratulationsMessage = document.getElementById("congratulationsMessage");
+                                    const winnerDetails = document.getElementById("winnerDetails");
+                                    const bidDetails = document.getElementById("bidDetails");
+
+                                    modalMessage.innerText = "Auction Ended";
+                                    congratulationsMessage.innerText = message || "";
+
+                                    if (winnerName && winnerBidAmount) {
+                                        winnerDetails.style.display = "block";
+                                        bidDetails.style.display = "block";
+                                        document.getElementById("winnerNameModal").innerText = winnerName;
+                                        document.getElementById("winnerBidAmountModal").innerText = new Intl.NumberFormat('en-US', {
+                                            minimumFractionDigits: 0
+                                        }).format(winnerBidAmount);
+                                    } else {
+                                        winnerDetails.style.display = "none";
+                                        bidDetails.style.display = "none";
+                                    }
+
                                     document.getElementById("winnerModal").style.display = "block";
                                 }
+
+                                const endTime = document.getElementById("endTime").getAttribute("value");
+                                startCountdown(endTime);
 
                                 function checkAuctionStatus() {
                                     const auctionEnded = false;
 
                                     if (auctionEnded) {
-                                        showModal(winnerName, latestBidAmount);
+
+                                            if (latestBidAmount > 0) {
+                                                showModal("Congratulations!", winnerName, latestBidAmount);
+                                            } else {
+                                                showModal("Auction ended without Winner", null, null);
+                                            }
+
                                     }
                                 }
 
@@ -446,24 +483,40 @@
 
                                 function showBid(bid) {
                                     const bidList = document.getElementById("bidList");
+
+                                    const rawDateTime = new Date(bid.registrationTime);
+                                    const formattedDateTime = rawDateTime.toLocaleString('en-GB', {
+                                        day: '2-digit',
+                                        month: '2-digit',
+                                        year: 'numeric',
+                                        hour: '2-digit',
+                                        minute: '2-digit',
+                                        second: '2-digit',
+                                        hour12: false
+                                    });
+
+                                    const formattedBidAmount = new Intl.NumberFormat('en-US', {
+                                        minimumFractionDigits: 0
+                                    }).format(bid.bidAmount);
+
                                     const newBid = `
-            <div class="row">
-                <div class="col-md-3">
-                    <ul class="list-unstyled">
-                        <li><span>${bid.lastName}</span></li>
-                    </ul>
-                </div>
-                <div class="col-md-5">
-                    <ul class="list-unstyled">
-                       <li><span>${bid.bidAmount}</span></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <ul class="list-unstyled">
-                       <li><span>${bid.registrationTime}</span></li>
-                    </ul>
-                </div>
-            </div>`;
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="list-unstyled">
+                    <li><span>${bid.lastName}</span></li>
+                </ul>
+            </div>
+            <div class="col-md-5">
+                <ul class="list-unstyled">
+                    <li><span>${formattedBidAmount}</span></li>
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <ul class="list-unstyled">
+                    <li><span>${formattedDateTime}</span></li>
+                </ul>
+            </div>
+        </div>`;
 
                                     bidList.innerHTML = newBid + bidList.innerHTML;
 
@@ -473,10 +526,12 @@
                                     document.getElementById("scrollableBidList").scrollTop = 0;
                                 }
 
+
                                 window.onload = function () {
                                     connect();
                                     checkAuctionStatus();
                                 };
+
                             </script>
 
 

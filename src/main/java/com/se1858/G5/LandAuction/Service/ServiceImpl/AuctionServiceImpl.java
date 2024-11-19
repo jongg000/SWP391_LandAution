@@ -76,6 +76,7 @@ public class AuctionServiceImpl implements AuctionService {
                 endTime(auction.getEndTime()).
                 highestBid(auction.getHighestBid()).
                 statusId(auction.getStatus().getStatusID()).
+                depositTime(auction.getDepositTime()).
                 build();
     }
 
@@ -95,6 +96,7 @@ public class AuctionServiceImpl implements AuctionService {
                 .startTime(auctionDto.getStartTime())
                 .endTime(auctionDto.getEndTime())
                 .highestBid(auctionDto.getHighestBid())
+                .depositTime(auctionDto.getDepositTime())
                 .build();
     }
 
@@ -111,7 +113,7 @@ public class AuctionServiceImpl implements AuctionService {
     }
 
     @Scheduled(fixedRate = 5000)
-    public void scheduledUpdateHighestBid() {
+    public void scheduledUpdate() {
         auctionBidUpdateService.updateHighestBidForEndedAuctions();
         auctionBidUpdateService.updateStatus();
     }

@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -44,6 +43,8 @@ public class WishlistController {
     public String showWishlistPage(@RequestParam(defaultValue = "0") int page,
                                    @RequestParam(required = false) String filter,
                                    Model model,HttpServletRequest request) {
+        NumberFormat numberFormat = NumberFormat.getInstance(Locale.US);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("id");
         List<WishlistDTO> wishlists = wishlistService.findAllWishlistByUserId(userId);
@@ -75,7 +76,6 @@ public class WishlistController {
                     })
                     .collect(Collectors.toList());
         } else {
-            // If no filter is applied, show all wishlists
             filteredWishlists = wishlists;
         }
 
@@ -89,6 +89,9 @@ public class WishlistController {
             WishlistDTO wishlist = filteredWishlists.get(i);
             AuctionDto auction = auctionService.findAuctionById(wishlist.getAuctionId());
             LandDTO land = landService.findLandById(auction.getLandId());
+            String formattedPrice = numberFormat.format(land.getPrice());
+            String formattedStartTime = auction.getStartTime().format(dateTimeFormatter);
+            String formattedEndTime = auction.getEndTime().format(dateTimeFormatter);
             List<LandImageDTO> landImageDTOList = landService.findAllLandImageByLandId(auction.getLandId());
             LandImageDTO landImage = landImageDTOList.isEmpty() ? null : landImageDTOList.get(0);
             Map<String, Object> details = new HashMap<>();
@@ -110,6 +113,9 @@ public class WishlistController {
             details.put("auction", auction);
             details.put("land", land);
             details.put("landImage", landImage);
+            details.put("formattedPrice", formattedPrice);
+            details.put("formattedStartTime", formattedStartTime);
+            details.put("formattedEndTime", formattedEndTime);
             wishlistDetails.add(details);
         }
         model.addAttribute("num", totalFilteredWishlists); // Number of filtered wishlists
