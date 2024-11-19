@@ -12,7 +12,6 @@ SET IDENTITY_INSERT [dbo].[Roles] OFF
 GO
 --status
 SET IDENTITY_INSERT [dbo].[status] ON 
-
 INSERT INTO dbo.status (statusid, description, name) VALUES (1, NULL, N'Chưa xác minh'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (2, NULL, N'Đã xác minh'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (3, NULL, N'Khóa');-- all user-admin
@@ -25,7 +24,7 @@ INSERT INTO dbo.status (statusid, description, name) VALUES (9, NULL, N'Đã h�
 INSERT INTO dbo.status (statusid, description, name) VALUES (10, NULL, N'Chưa bắt đầu'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (11, NULL, N'Đã kết thúc'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (12, NULL, N'Đang tiến hành'); -- auction
-INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã thanh toán'); --asset
+INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã hủy'); --asset
 INSERT INTO dbo.status (statusid, description, name) VALUES (14, NULL, N'Thông tin không hợp lệ'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (15, NULL, N'Chưa hoàn thành phí'); 
 INSERT INTO dbo.status (statusid, description, name) VALUES (17, NULL, N'Đấu giá thất bại'); -- asset
