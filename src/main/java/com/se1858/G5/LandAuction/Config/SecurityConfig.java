@@ -43,12 +43,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/forgot-password", "/reset-password**","/register","/verify-otp", "/css/**", "/js/**", "/assets/**",
+                .antMatchers("/", "/home","/forgot-password", "/reset-password**","/register","/verify-otp", "/css/**", "/js/**", "/assets/**",
                 "/doc/**","/coffeescripts/**","/icon/**","/images/**","/Land_images/**"
                 ,"/News_images/**","/User_images/**","/transfonts/**")
                 .permitAll()
-                .antMatchers("/home","/auctionDetailPage/**"
-                ,"/bids/showBidsPage/**","/auction/showAuctions/**","/news/**")
+                .antMatchers("/auction/showAuctions/**","/news/**", "/aboutUs")
                 .access("!hasRole('ADMIN') and !hasRole('CUSTOMER_CARE') and !hasRole('STAFF')")
                 .antMatchers("/profile/**","/profile").hasRole("CUSTOMER")
                 .antMatchers("/auction/showAuctionResults").hasRole("STAFF")

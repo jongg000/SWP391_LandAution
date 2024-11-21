@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang nhân viên</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/bootstraps.css">
+    <link rel="stylesheet" href="/assets/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/assets/css/app.css">
+
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f7f9fc;
+            overflow-x: hidden; /* Để tránh tràn ngang */
+        }
+        /* Sidebar styles */
+        #sidebar {
+            width: 250px;
+            background-color: #ffffff;
+            padding-top: 20px;
+            position: fixed;
+            height: 100vh;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+        .sidebar-menu {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar-menu li {
+            margin: 10px 0;
+            font-weight: 600;
+        }
+        .sidebar-link {
+            color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            display: block;
+        }
+        .sidebar-link:hover {
+            background-color: #e9ecef;
+            border-radius: 5px;
+        }
+        .sidebar-item.active .sidebar-link {
+            background-color: #0d6efd;
+            color: white;
+            border-radius: 5px;
+        }
+        /* Main content and header */
+        #main {
+            margin-left: 270px;
+            margin-top: 60px; /* Tạo khoảng trống cho header */
+            padding: 20px;
+        }
+        .page-heading h3 {
+            font-weight: 700;
+            margin-bottom: 10px;
+            margin-left: 20px;
+        }
+        .page-heading p {
+            color: #6c757d;
+        }
+        /* Income panel styles */
+        .income-panel {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+            gap: 20px;
+            padding: 20px 0;
+        }
+        .card {
+            background-color: white;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            overflow: hidden; /* Để tránh tràn */
+        }
+        .card h5 {
+            font-size: 1.1rem;
+            color: #6c757d;
+        }
+        .text-subtitle{
+            margin-left: 20px;
+        }
+        .card .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .card .income-value {
+            font-size: 2rem;
+            color: #343a40;
+            font-weight: 700;
+        }
+        .card{
+            width: 80%;
+            margin-left: 30px;
+        }
+        .card .comparison-text {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+        .card .last-week-income {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #343a40;
+        }
+        .change-percentage {
+            color: #dc3545;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<div id="sidebar" class="active">
+    <div class="sidebar-wrapper active">
+        <div class="sidebar-header">
+            <div class="d-flex justify-content-between">
+                <div class="logo">
+                    <a th:href="@{/staff}"><img style="height: 150px; width: 200px;padding-left: 40px;" src="/images/img.png" alt="Logo" srcset=""></a>
+                </div>
+                <div class="toggler">
+                    <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-menu">
+            <div class="menu">
+                <li class="sidebar-title">Menu</li>
+
+                <li class="sidebar-item  ">
+                    <a th:href="@{/staff}" class='sidebar-link'>
+                        <i class="bi bi-grid-fill"></i>
+                        <span>Trang chính</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item ">
+                    <a th:href="@{/staff/showAuctionResults}"  class='sidebar-link'>
+                        <i class="bi bi-eye-fill"></i>
+                        <span>Theo dõi đấu giá</span>
+                    </a>
+                </li>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link'>
+                        <i class="bi bi-collection-fill"></i>
+                        <span>Hồ sơ đất đai</span>
+                    </a>
+                    <ul class="submenu ">
+                        <li class="submenu-item ">
+                            <a th:href="@{/staff/waiting-list}">Chờ xác nhận</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a th:href="@{/staff/ongoing-list}">Đã xác nhận</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a th:href="@{/staff/cancel-listing}">Đã bị hủy</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="sidebar-item  has-sub">
+                    <a href="#" class='sidebar-link active'>
+                        <i class="bi bi-person-circle"></i>
+                        <span>Tài khoản</span>
+                    </a>
+                    <ul class="submenu">
+                        <li class="submenu-item">
+                            <a th:href="@{/staff/profile}">Thông tin cá nhân</a>
+                        </li>
+                        <li class="submenu-item">
+                            <a th:href="@{/staff/change}">Đổi mật khẩu</a>
+                        </li>
+                        <li class="submenu-item ">
+                            <a th:href="@{/logout}" class="submenu-item">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Đăng xuất</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </div>
+            <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5" style="padding-left: 280px; padding-bottom: 30px;">
+    <div class="row">
+        <div class="col-lg-4">
+            <!-- Profile Picture with Small Icon -->
+            <div class="card mb-4">
+                <div class="card-body text-center position-relative">
+                    <!-- Main profile picture -->
+                    <img th:src="'/User_images/' + ${ user.getAvatar() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                </div>
+                <!-- Centered, uppercase name -->
+                <p  class="text-muted mb-0 mt-3" th:text="${user.firstName.toUpperCase()} + ' ' + ${user.lastName.toUpperCase()}" style="font-weight: bold; padding-left: 60px;">
+                    JOHN DOE
+                </p>
+            </div>
+            <div style="margin-top: 30px;" >
+                <form th:action="@{/staff/upload}" method="post" enctype="multipart/form-data">
+                    <a href="#" >
+                        <input type="file" name="avatar" id="avatar" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                    </a>
+                    <button type="submit"  style="margin-top: 30px" class="btn btn-primary mt-3">Tải ảnh đại diện</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <!-- Profile Details -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h6 class="text-primary">Đổi mật khẩu</h6>
+                    <hr>
+                    <form>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Mật khẩu cũ</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="password" id="currentPassword" name="currentPassword" class="form-control" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Mật khẩu mới</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="password" id="newPassword" name="newPassword" class="form-control" required>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Xác nhận</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="password" id="confirmPassword" name="confirmPassword" class="form-control" required>
+                            </div>
+                        </div>
+                        <button type="submit">Đổi mật khẩu</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function confirmDelete() {
+        return confirm("Are you sure you want to delete this news?");
+    }
+</script>
+<script src="/assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="/assets/js/bootstrap.bundle.min.js"></script>
+
+<script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+<script src="/assets/js/pages/dashboard.js"></script>
+
+<script src="/assets/js/main.js"></script>
+<script src="/assets/vendors/apexcharts/apexcharts.js"></script>
+</body>
+</html>

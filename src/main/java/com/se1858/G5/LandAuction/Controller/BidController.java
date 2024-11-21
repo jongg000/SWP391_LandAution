@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -67,10 +69,17 @@ public class BidController {
         for (BidDTO bid : bids) {
             AuctionRegistrationDTO auctionRegistrationDTO1 = auctionRegisterService.getById(bid.getRegistrationId());
             String username = userRepository.getById(auctionRegistrationDTO1.getUserId()).getLastName();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+            String formattedBidTime = bid.getBidTime().format(formatter);
+            DecimalFormat decimalFormatter = new DecimalFormat("#,###");
+            String formattedBidAmount = decimalFormatter.format(bid.getBidAmount());
             Map<String, Object> details = new HashMap<>();
             details.put("bidId", bid.getRegistrationId());
             details.put("bid", bid);
             details.put("username", username);
+            details.put("formattedBidTime", formattedBidTime);
+            details.put("formattedBidAmount", formattedBidAmount);
+
             bidDetails.add(details);
         }
         boolean checkWinner = auctionService.checkWinner(auctionId, userId);

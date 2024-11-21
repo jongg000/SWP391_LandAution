@@ -126,38 +126,6 @@
               </form>
             </div>
 
-            <div class="card mb-4"  style="margin-top: 30px;">
-              <div class="card-body text-center position-relative">
-                <!-- Main profile picture -->
-                <img th:src="'/User_images/' + ${ user.getNationalFrontImage() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
-              </div>
-            </div>
-
-            <div style="margin-top: 30px;">
-              <form th:action="@{/profile/uploadNational}" method="post" enctype="multipart/form-data">
-                <!-- Additional image 1 upload field -->
-                <div class="form-group">
-                  <label for="nationalBackImage">Ảnh CCCD Mặt trước</label>
-                  <input type="file" name="nationalBackImage" id="nationalBackImage" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
-                </div>
-
-                <div class="card mb-4">
-                  <div class="card-body text-center position-relative">
-                    <!-- Main profile picture -->
-                    <img th:src="'/User_images/' + ${ user.getNationalBackImage() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
-                  </div>
-                </div>
-
-                <!-- Additional image 2 upload field -->
-                <div class="form-group" style="margin-top: 15px;">
-                  <label for="nationalFrontImage">Ảnh CCCD Mặt sau</label>
-                  <input type="file" name="nationalFrontImage" id="nationalFrontImage" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
-                </div>
-
-                <button type="submit" style="margin-top: 10px" class="btn btn-primary">Tải ảnh</button>
-              </form>
-            </div>
-
           </div>
           <div class="col-lg-8">
             <!-- Profile Details -->
@@ -178,8 +146,10 @@
                   </a>
                 </div>
                 <hr>
-                <h4 style="font-weight: bold; padding: 10px;">Người dùng tải thông tin lên để được xét duyệt tài khoản</h4>
-
+                <h4 th:if="${user.status.statusID==1}" style="font-weight: bold; padding: 10px;">Người dùng tải thông tin lên để được xét duyệt tài khoản</h4>
+                <h4 th:if="${user.status.statusID==2}" style="font-weight: bold; padding: 10px;">Người dùng đã xác minh tài khoản</h4>
+                <h4 th:if="${user.status.statusID==4}" style="font-weight: bold; padding: 10px;">Thông tin đang chờ xét duyệt</h4>
+                <h4 th:if="${user.status.statusID==14}" style="font-weight: bold; padding: 10px;">Thông tin không hợp lệ</h4>
                 <!-- Form for editing personal information -->
                 <form th:action="@{/profile/edit}" th:object="${profileDTO}" method="post" enctype="multipart/form-data">
                   <div class="form-group row mb-4">
@@ -244,6 +214,34 @@
                       <input type="text" id="nationalID" name="nationalID" class="form-control" th:field="*{nationalID}" required>
                     </div>
                   </div>
+
+                  <!-- Additional image 1 upload field -->
+                  <div class="form-group text-left">
+                    <label for="nationalFrontImage">Ảnh CCCD Mặt trước</label>
+                    <input type="file" name="nationalFrontImage" id="nationalFrontImage" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                  </div>
+
+                  <!-- Display front image -->
+                  <div class="card mb-4" style="margin-top: 30px;">
+                    <div class="card-body text-left position-relative">
+                      <img th:src="'/User_images/' + ${user.getNationalFrontImage()}" alt="CCCD Mặt Trước" class="rounded img-fluid" style="width: 150px; height: 150px;">
+                    </div>
+                  </div>
+
+                  <!-- Additional image 2 upload field -->
+                  <div class="form-group text-left" style="margin-top: 15px;">
+                    <label for="nationalBackImage">Ảnh CCCD Mặt sau</label>
+                    <input type="file" name="nationalBackImage" id="nationalBackImage" class="form-control" accept="image/png, image/jpeg, image/jpg" required>
+                  </div>
+
+                  <!-- Display back image -->
+                  <div class="card mb-4" style="margin-top: 15px;">
+                    <div class="card-body text-left position-relative">
+                      <img th:src="'/User_images/' + ${user.getNationalBackImage()}" alt="CCCD Mặt Sau" class="rounded img-fluid" style="width: 150px; height: 150px;">
+                    </div>
+                  </div>
+
+
                   <div th:if="${error!= null}" th:text="${error}"></div>
                   <div th:if="${success!= null}">Cập nhật thông tin cá nhân thành công. Chờ xét duyêt hãy chờ email</div>
 

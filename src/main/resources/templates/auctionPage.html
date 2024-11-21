@@ -6,44 +6,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
-    <title>Auction Page</title>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-
-
-    <link rel="stylesheet" href="../../assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../../assets/css/animate.css">
-    <link rel="stylesheet" href="../../assets/css/jquery-ui.css">
-    <link rel="stylesheet" href="../../assets/css/flexslider.css">
-    <link rel="stylesheet" href="../../assets/css/simple-line-icons.css">
-    <link rel="stylesheet" href="../../assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../assets/css/icon-font.css">
-    <link rel="stylesheet" href="../../assets/css/auction.css">
-
-    <link rel="stylesheet" href="../../assets/rs-plugin/css/settings.css">
+    <title> Land Auction</title>
     <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/assets/css/bootstrap.css">
     <link rel="stylesheet" href="/assets/css/animate.css">
     <link rel="stylesheet" href="/assets/css/jquery-ui.css">
     <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/icon-font.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/icon-font.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
     <link rel="stylesheet" href="/assets/css/auction.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
 
     <link rel="stylesheet" href="/assets/rs-plugin/css/settings.css">
-
-    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <![endif]-->
     <style>
         .attended-label {
             display: inline-block;
@@ -197,7 +179,7 @@
                                             <option value="-1">Chọn trạng thái</option>
                                             <option value="10" th:selected="${currentStatus == 10}">Sắp diễn ra</option>
                                             <option value="12" th:selected="${currentStatus == 12}">Đang diễn ra</option>
-                                            <option value="11" th:selected="${currentStatus == 11}">Đã kết thúc</option>
+                                            <option value="11,17,13" th:selected="${currentStatus == 11 || currentStatus == 17 || currentStatus == 13}">Đã kết thúc</option>
                                             <option value="9" th:selected="${currentStatus == 9}">Đã hủy</option>
                                         </select>
                                     </div>
@@ -221,10 +203,10 @@
                                     <a th:href="@{/auction/showAuctionDetail/{id}(id=${auctionDetail.auction.auctionId})}">
                                         <h2 th:text="${auctionDetail.land.name}"></h2>
                                     </a>
-                                    <span th:text="${auctionDetail.land.price}"></span>
-                                    <p th:if="${auctionDetail.auction.statusId == 11 or auctionDetail.auction.statusId == 13}">Đã kết thúc</p>
+                                    <span th:text="${auctionDetail.formattedPrice}"></span>
+                                    <p th:if="${auctionDetail.auction.statusId == 11 or auctionDetail.auction.statusId == 13 or auctionDetail.auction.statusId == 17}">Đã kết thúc</p>
                                     <p th:if="${auctionDetail.auction.statusId == 10}">Chưa bắt đầu</p>
-                                    <p th:if="${auctionDetail.auction.statusId == 12}">Đang diễn ra</p>
+                                    <p th:if="${auctionDetail.auction.statusId == 12 }">Đang diễn ra</p>
                                     <p th:if="${auctionDetail.auction.statusId == 9}">Đã hủy</p>
                                 </div>
                             </div>

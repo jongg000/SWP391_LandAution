@@ -195,6 +195,8 @@ public class UserController {
 
     @PostMapping("/profile/edit")
     public String updateProfile(@ModelAttribute("profileDTO") ProfileDTO userProfileDTO,
+                                @RequestParam("nationalBackImage") MultipartFile nationalBackImage,
+                                @RequestParam("nationalFrontImage") MultipartFile nationalFrontImage,
                                 Principal principal, Model model) {
 
         String email = principal.getName();
@@ -237,6 +239,9 @@ public class UserController {
         user.setDob(userProfileDTO.getDob());
         user.setGender(userProfileDTO.getGender());
         user.setEmail(userProfileDTO.getEmail());
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.UploadImagesNationalF(nationalFrontImage, user);
+        uploadFile.UploadImagesNationalB(nationalBackImage, user);
         user.setStatus(statusRepository.getById(4));
         // Save updated user information to the database
         userService.save(user);

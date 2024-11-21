@@ -67,7 +67,6 @@ public class AdminController {
 
         // Prepare monthly payments for the current year
         Map<Integer, Long> monthlyPaymentAmounts = paymentService.getMonthlyRevenue();
-        System.out.println("Monthly Payment Amounts: " + monthlyPaymentAmounts);  // Debugging line
 
         model.addAttribute("monthlyPaymentAmounts", monthlyPaymentAmounts);
         model.addAttribute("users", users);
@@ -305,6 +304,7 @@ public class AdminController {
                 emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng: ", "Thành công");
             } else if ("reject".equals(decision) && !comment.isEmpty()) {
                 user.setStatus(statusRepository.getById(14));
+                userService.save(user);
                 emailService.sendSimpleMail(user.getEmail(), "Kết quả xác nhận hồ sơ người dùng: ", comment);
             } else {
                 System.out.println("Rejection comment is empty; email not sent.");

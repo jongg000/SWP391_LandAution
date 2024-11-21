@@ -1,5 +1,6 @@
 package com.se1858.G5.LandAuction.Entity;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
