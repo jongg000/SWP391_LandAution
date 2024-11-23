@@ -406,7 +406,7 @@
 <script>
 	function checkStatusAndRedirect() {
 
-		if (userStatusID === 1) {
+		if (userStatusID !== 2) {
 			$('#statusModal').modal('show');
 		} else {
 			window.location.href = '/asset/post-asset';

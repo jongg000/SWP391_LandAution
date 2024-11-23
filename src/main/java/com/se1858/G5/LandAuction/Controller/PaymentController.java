@@ -99,12 +99,18 @@ public class PaymentController {
         String username = principal.getName();
         User user = userService.findByEmail(username);
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
-        String paymentInformation = "Đăng kí tài sản: "+ assetRegistration.getDocumentId() + " " +orderInfo + " " + paymentTime + " " + transactionId;
-        assetRegistration.setStatus(statusService.getStatusById(4));
+        String paymentInformation = "";
+        if(assetRegistration.getStatus().getStatusID() == 17){
+            paymentInformation = "Đăng kí đấu giá lại tài sản: "+ assetRegistration.getDocumentId() + " " +orderInfo + " " + paymentTime + " " + transactionId;
+            assetRegistration.setStatus(statusService.getStatusById(16));
+        }else {
+            paymentInformation = "Đăng kí tài sản: " + assetRegistration.getDocumentId() + " " + orderInfo + " " + paymentTime + " " + transactionId;
+            assetRegistration.setStatus(statusService.getStatusById(4));
+        }
+        assetRegistrationService.updateAssetRegistration(assetRegistration);
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
         return paymentStatus == 1 ? "redirect:/asset/asset-detail/" + id : "redirect:/asset";
-
     }
 
     @RequestMapping(value = "/back/{id}", method = RequestMethod.GET)

@@ -117,9 +117,14 @@ public class AssetController {
     @GetMapping("auction-again/{id}")
     public String auctionAgain(@PathVariable int id, Model model) {
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
-        assetRegistration.setStatus(statusService.getStatusById(16));
-        assetRegistrationService.save(assetRegistration);
-        return "redirect:/asset/asset-detail/" + id;
+        Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
+        if(auction.getHighestBid() != 0){
+            assetRegistration.setStatus(statusService.getStatusById(16));
+            assetRegistrationService.save(assetRegistration);
+            return "redirect:/asset/asset-detail/" + id;
+        }else{
+            return "redirect:/payment/registration-fee/" + id;
+        }
     }
 
 }
