@@ -188,6 +188,8 @@
 											<option value="10">Chưa bắt đầu</option>
 											<option value="5">Đang đấu giá</option>
 											<option value="7">Đấu giá thành công</option>
+											<option value="16">Chờ đấu giá lại</option>
+											<option value="17">Đấu giá thất bại</option>
 										</select>
 										</form>
 									</div>
@@ -239,6 +241,14 @@
             								</span>
 										<span th:if="${item.getAssetRegistration().status.statusID == 15}"
 											  th:text="'Chưa thanh toán'"
+											  class="status-unpay">
+										</span>
+										<span th:if="${item.getAssetRegistration().status.statusID == 16}"
+											  th:text="'Chờ đấu giá lại'"
+											  class="status-unpay">
+										</span>
+										<span th:if="${item.getAssetRegistration().status.statusID == 17}"
+											  th:text="'Đấu giá thất bại'"
 											  class="status-unpay">
 										</span>
 										<div class="car-info">

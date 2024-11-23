@@ -9,7 +9,6 @@ import com.se1858.G5.LandAuction.Service.ViolationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +54,6 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
     public void updateStatus() {
         LocalDateTime currentTime = LocalDateTime.now();
         List<Auction> auctions = auctionRepository.findAll();
-
         for (Auction auction : auctions) {
             Status status = null;
             Status status1 = null;
@@ -70,7 +68,7 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
                 violation.setUser(bidder);
                 violation.setDetail("QUÁ HẠN THANH TOÁN TIỀN CỌC - CẤP ĐỘ 3");
                 violationRepository.save(violation);
-                status1 = statusRepository.findById(16).orElse(null);
+                status1 = statusRepository.findById(17).orElse(null);
             } else if (currentTime.isAfter(auction.getEndTime())) {
                 List<Bids> bids = bidsRepository.findAllByAuctionRegistration_Auction(auction);
                 if (bids.isEmpty()) {
@@ -101,7 +99,8 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
 
                 auctionRepository.save(auction);
             }
-            AssetRegistration assetRegistration = assetRegistrationRepository.findAssetRegistrationByLand_LandId(auction.getLand().getLandId());
+//            AssetRegistration assetRegistration = assetRegistrationRepository.findAssetRegistrationByLand_LandId(auction.getLand().getLandId());
+            AssetRegistration assetRegistration = auction.getLand().getAssetRegistration();
             if(assetRegistration.getStatus().getStatusID()!=4 && assetRegistration.getStatus().getStatusID()!=15 && status1 != null && !status1.equals(assetRegistration.getStatus())) {
                 assetRegistration.setStatus(status1);
                 assetRegistrationRepository.save(assetRegistration);

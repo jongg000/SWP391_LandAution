@@ -29,13 +29,13 @@ public class PaymentController {
     private EmailService emailService;
 
     @Autowired
-    public PaymentController( EmailService emailService, PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService) {
+    public PaymentController(AuctionService auctionService, PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService, EmailService emailService) {
+        this.auctionService = auctionService;
         this.paymentService = paymentService;
         this.userService = userService;
-        this.emailService = emailService;
         this.assetRegistrationService = assetRegistrationService;
         this.statusService = statusService;
-        this.auctionService = auctionService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/user")
@@ -56,7 +56,7 @@ public class PaymentController {
 
     @RequestMapping("handleafter/{id}")
     public String handleAfter(HttpServletRequest request, @PathVariable int id) {
-        long amount  = 1000000;
+        long amount = (long) Math.ceil(auctionService.findAuctionById(id).getHighestBid() * 0.5);;
         VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back1/"+id);
         String link =vnPayResponse.paymentUrl;
         return "redirect:" + link;
@@ -70,7 +70,7 @@ public class PaymentController {
         String totalPrice = request.getParameter("vnp_Amount");
         String username = principal.getName();
         User user = userService.findByEmail(username);
-        String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
+        String paymentInformation = orderInfo + "-" + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
         if(paymentStatus == 1) {

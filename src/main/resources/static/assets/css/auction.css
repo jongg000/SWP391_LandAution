@@ -3827,6 +3827,15 @@ footer .gallery .gallery-item img {
     font-weight: 700;
     text-transform: uppercase;
 }
+.advanced-button i {
+    float: right;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #f0b20e;
+}
+
 .advanced-button button {
     font-size: 12px;
     font-family: 'Montserrat', sans-serif;
@@ -3856,11 +3865,11 @@ footer .gallery .gallery-item img {
 }
 
 .advanced-button2 {
-    width: 160px;
+    width: 165px;
     height: 40px;
     background-color: green;
     line-height: 40px;
-    ;
+;
 }
 
 .advanced-button2 a {

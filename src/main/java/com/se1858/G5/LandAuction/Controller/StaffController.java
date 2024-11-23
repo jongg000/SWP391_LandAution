@@ -54,7 +54,7 @@ public class StaffController {
     @GetMapping()
     public String allLandRequest(Model model) {
         long approve = assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(8));
-        long waiting = assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(4));
+        long waiting = assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(4)) + assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(16));
         long cancel = assetRegistrationService.countAssetRegistrationsByStatus(statusService.getStatusById(9));
         long auction = auctionService.getTotalAuctions();
         model.addAttribute("approve", approve);
@@ -66,11 +66,16 @@ public class StaffController {
     @GetMapping("/land-detail/{id}")
     public String landDetail(@PathVariable("id") int id, Model model) {
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
-        if(assetRegistration.getStatus().getStatusID() == 4 ){
+        if(assetRegistration.getStatus().getStatusID() == 4) {
             RequestDTO requestDTO = new RequestDTO();
             requestDTO = requestDTO.convertToDTO(assetRegistration);
             model.addAttribute("requestDTO", requestDTO);
             return "/staff/land-detail-request";
+        }else if (assetRegistration.getStatus().getStatusID() == 16){
+            RequestDTO requestDTO = new RequestDTO();
+            requestDTO = requestDTO.convertToDTO(assetRegistration);
+            model.addAttribute("requestDTO", requestDTO);
+            return "/staff/again-detail";
         }else{
             model.addAttribute("approvedAsset", assetRegistration);
             return "/staff/asset-detail";
@@ -173,11 +178,36 @@ public class StaffController {
     }
 
     @GetMapping("waiting-list")
-    public String showWatingList(Model model) {
-        List<AssetRegistration> allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(4));
+    public String showWatingList(Model model, @RequestParam(value = "landName", required = false) String name) {
+        List<AssetRegistration> allAssets = new ArrayList<>();
+        if (name != null) {
+            List<Integer> ar = assetRegistrationService.findByLandNameAndStatus(name, statusService.getStatusById(4));
+            for (Integer i : ar) {
+                allAssets.add(assetRegistrationService.getAssetRegistrationByID(i));
+            }
+        } else {
+            allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(4));
+        }
         model.addAttribute("allAssets", allAssets);
         return "/staff/waiting-list";
     }
+
+    @GetMapping("again-list")
+    public String showAgainList(Model model, @RequestParam(value = "landName", required = false) String name) {
+        List<AssetRegistration> allAssets = new ArrayList<>();
+        if (name != null) {
+            List<Integer> ar = assetRegistrationService.findByLandNameAndStatus(name, statusService.getStatusById(16));
+            for (Integer i : ar) {
+                allAssets.add(assetRegistrationService.getAssetRegistrationByID(i));
+            }
+        } else {
+            allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(16));
+        }
+        model.addAttribute("allAssets", allAssets);
+        return "/staff/auction-again";
+    }
+
+
 
 
     @GetMapping("ongoing-list")
@@ -192,9 +222,18 @@ public class StaffController {
         return "/staff/ongoing-list";
     }
     @GetMapping("cancel-listing")
-    public String showCancelList(Model model) {
-        List<AssetRegistration> allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(9));
+    public String showCancelList(Model model, @RequestParam(value = "landName", required = false) String name) {
+        List<AssetRegistration> allAssets = new ArrayList<>();
+        if (name != null) {
+            List<Integer> ar = assetRegistrationService.findByLandNameAndStatus(name, statusService.getStatusById(9));
+            for (Integer i : ar) {
+                allAssets.add(assetRegistrationService.getAssetRegistrationByID(i));
+            }
+        } else {
+            allAssets = assetRegistrationService.findByStatus(statusService.getStatusById(9));
+        }
         model.addAttribute("allAssets", allAssets);
+
         return "/staff/cancel-list";
     }
 

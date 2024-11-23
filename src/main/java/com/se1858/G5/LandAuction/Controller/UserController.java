@@ -292,8 +292,11 @@ public class UserController {
     public String handleCancel(@ModelAttribute("cancelAssetDTO") CancelAssetDTO cancelAssetDTO, Principal principal, Model model) {
         User user = userService.findByEmail(principal.getName());
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(cancelAssetDTO.getId());
-        assetRegistration.setReason(cancelAssetDTO.getReason());
-        assetRegistration.setStatus(statusService.getStatusById(9));
+        if(assetRegistration.getStatus().getStatusID() == 17 || assetRegistration.getStatus().getStatusID() == 15){
+            assetRegistration.setStatus(statusService.getStatusById(9));
+            assetRegistrationService.save(assetRegistration);
+            return "redirect:/asset";
+        }
         Violation violation = new Violation();
         violation.setUser(user);
         Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
@@ -301,23 +304,26 @@ public class UserController {
         if (auction != null) {
             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName() + " Cấp độ 3";
             List<User> userList = auctionRegistrationService.getUserInAuction(auction);
-            System.out.println(userList);;
             if (userList != null) {
                 for (User item : userList) {
                     BigDecimal balance = item.getRefundMoney().add(new BigDecimal("500000"));
                     item.setRefundMoney(balance);
+                    String paymentInformation = "Hoàn trả phí tham gia đấu giá" + "-" +auction.getLand().getName();
+                    Payment payment = new Payment(item, paymentInformation, Long.parseLong("500000"), LocalDateTime.now());
+                    paymentService.createPaymentBill(payment);
                     userService.save(item);
                     emailService.sendSimpleMail(item.getEmail(), "THÔNG BÁO HỦY BUỔI ĐẤU THẦU", "Chúng tôi thành thật xin lỗi vì sự bất tiện khi buổi đấu giá ngày [ngày dự kiến] đã bị hủy. Do một số lý do ngoài ý muốn, sự kiện không thể diễn ra như dự kiến. ");
                 }
             }
+            auction.setStatus(statusService.getStatusById(9));
+            auctionService.saveAuction(auction);
         } else {
             detail = "Hủy bỏ tài sản " + assetRegistration.getLand().getName() + " Cấp độ 2";
         }
-        auction.setStatus(statusService.getStatusById(9));
+        assetRegistration.setStatus(statusService.getStatusById(9));
+        assetRegistrationService.save(assetRegistration);
         violation.setDetail(detail);
         violationService.saveViolation(violation);
-        assetRegistrationService.save(assetRegistration);
-        auctionService.saveAuction(auction);
         return "redirect:/asset";
     }
 

@@ -128,4 +128,10 @@ public class LandServiceImpl implements LandService {
         return landRepository.countByUser(user);
     }
 
+    @Override
+    public List<Land> findByNameContaining(String keyword) {
+        return landRepository.findByNameContaining(keyword);
+    }
+
+
 }
