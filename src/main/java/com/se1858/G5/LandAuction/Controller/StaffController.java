@@ -206,10 +206,7 @@ public class StaffController {
         model.addAttribute("allAssets", allAssets);
         return "/staff/auction-again";
     }
-
-
-
-
+    
     @GetMapping("ongoing-list")
     public String showOngoingList(Model model) {
         List<Auction> auctionList = auctionService.getAllAuctionByStartTime();

@@ -14,6 +14,6 @@ public interface AssetRegistrationService {
     public List<AssetRegistration> findByStatus(Status status);
     public List<AssetRegistration> findByUser(User user);
     public long countAssetRegistrationsByStatus(Status status);
-     public long countAssetRegistrationsByUser(User user);
-     public List<Integer> findByLandNameAndStatus(String landName, Status status);
+    public long countAssetRegistrationsByUser(User user);
+    public List<Integer> findByLandNameAndStatus(String landName, Status status);
 }

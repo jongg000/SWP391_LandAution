@@ -326,7 +326,6 @@
                 </table>
             </div>
         </div>
-
             <!-- Footer -->
             <footer>
                 <div class="container">
@@ -425,13 +424,23 @@
     const userStatusID = /*[[${status}]]*/ 2;
 </script>
 <script>
-    function checkStatusAndRedirect() {
-        if (userStatusID === 1) {
-            $('#statusModal').modal('show');
-        } else {
-            window.location.href = '/asset/post-asset';
-        }
-    }
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateElements = document.querySelectorAll(".formatTime");
+
+        dateElements.forEach(function (dateElement) {
+            const rawDate = dateElement.value;
+
+            if (rawDate) {
+                const date = new Date(rawDate);
+                dateElement.value = ("0" + date.getDate()).slice(-2) + "/" +
+                    ("0" + (date.getMonth() + 1)).slice(-2) + "/" +
+                    date.getFullYear() + " " +
+                    ("0" + date.getHours()).slice(-2) + ":" +
+                    ("0" + date.getMinutes()).slice(-2) + ":" +
+                    ("0" + date.getSeconds()).slice(-2);
+            }
+        });
+    });
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

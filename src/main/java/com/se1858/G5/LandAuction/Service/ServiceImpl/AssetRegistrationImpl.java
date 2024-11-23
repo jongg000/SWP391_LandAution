@@ -60,8 +60,6 @@ public class AssetRegistrationImpl implements AssetRegistrationService {
     public List<Integer> findByLandNameAndStatus(String landName, Status status) {
         return assetRegistrationRepository.findDocumentIdsByLandNameAndStatusId(landName, status);
     }
-
-
     @Override
     public long countAssetRegistrationsByStatus(Status status) {
         return assetRegistrationRepository.countByStatus(status);
