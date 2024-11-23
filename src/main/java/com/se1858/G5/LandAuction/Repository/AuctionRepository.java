@@ -15,13 +15,12 @@ public interface AuctionRepository extends JpaRepository<Auction, Integer> {
     List<Auction> findAllByEndTimeBefore(LocalDateTime endTime);
     List<Auction> findAllByOrderByStartTimeDesc();
     long countByStatus(Status status);
-    Auction findAuctionByLand(Land land);
+    List<Auction> findAuctionByLand(Land land);
     List<Auction> findTop6ByOrderByAuctionIdDesc();
     @Query("SELECT a FROM Auction a "
             + "JOIN a.land l "
             + "JOIN AssetRegistration ar ON ar.land = l "
-            + "WHERE a.status.id != 4 AND a.status.id != 9 "
+            + "WHERE a.status.statusID != 4 AND a.status.statusID != 9 "
             + "ORDER BY ar.approvalDate DESC")
     List<Auction> findAllActiveAuctionsWithApprovalDate();
-
 }

@@ -6,7 +6,6 @@ import com.se1858.G5.LandAuction.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -60,7 +59,7 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
             if (auction.getStatus().getStatusID() == 13 || auction.getStatus().getStatusID() == 9 || auction.getStatus().getStatusID() == 17) {
                 continue;
             } else if (auction.getStatus().getStatusID() == 11 && currentTime.isAfter(auction.getDepositTime())) {
-                status = statusRepository.findById(9).orElse(null);
+                status = statusRepository.findById(17).orElse(null);
                 Bids bids = bidsRepository.findByAuctionRegistration_AuctionAndBidAmount(auction, auction.getHighestBid());
                 AuctionRegistration auctionRegistration = bids != null ? bids.getAuctionRegistration() : null;
                 User bidder = (auctionRegistration != null && (auction.getStatus().getStatusID() == 11 || auction.getStatus().getStatusID() == 13)) ? auctionRegistration.getUser() : null;
@@ -68,10 +67,10 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
                 violation.setUser(bidder);
                 violation.setDetail("QUÁ HẠN THANH TOÁN TIỀN CỌC - CẤP ĐỘ 3");
                 violationRepository.save(violation);
-                status1 = statusRepository.findById(16).orElse(null);
-                emailService.sendSimpleMail(bidder.getEmail(), "QUÁ HẠN THANH TOÁN CỌC", "Bạn đã không thanh toán cọc, lưu vào violation");
-                emailService.sendSimpleMail(bidder.getEmail(), "QUÁ HẠN THANH TOÁN CỌC", "Bạn đã không thanh toán cọc, lưu vào violation");
+                status1 = statusRepository.findById(17).orElse(null);
 
+                emailService.sendSimpleMail(bidder.getEmail(), "QUÁ HẠN THANH TOÁN CỌC", "Bạn đã không thanh toán cọc, lưu vào violation");
+                emailService.sendSimpleMail(auction.getLand().getUser().getEmail(),  "ĐẤT "+auction.getLand().getName()+" ĐẤU GIÁ KHÔNG THÀNH CÔNG", "người dùng " + bidder.getLastName() + " không thanh toán cọc, mảnh đất đang chờ đấu giá lại ");
             } else if (currentTime.isAfter(auction.getEndTime())) {
                 List<Bids> bids = bidsRepository.findAllByAuctionRegistration_Auction(auction);
                 if (bids.isEmpty()) {
@@ -101,8 +100,9 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
 
                 auctionRepository.save(auction);
             }
-            AssetRegistration assetRegistration = assetRegistrationRepository.findAssetRegistrationByLand_LandId(auction.getLand().getLandId());
-            if (assetRegistration.getStatus().getStatusID() != 4 && assetRegistration.getStatus().getStatusID() != 15 && status1 != null && !status1.equals(assetRegistration.getStatus())) {
+//            AssetRegistration assetRegistration = assetRegistrationRepository.findAssetRegistrationByLand_LandId(auction.getLand().getLandId());
+            AssetRegistration assetRegistration = auction.getLand().getAssetRegistration();
+            if(assetRegistration.getStatus().getStatusID()!=4 && assetRegistration.getStatus().getStatusID()!=15 && status1 != null && !status1.equals(assetRegistration.getStatus())) {
                 assetRegistration.setStatus(status1);
                 assetRegistrationRepository.save(assetRegistration);
             }

@@ -36,5 +36,6 @@ public interface LandRepository extends JpaRepository<Land, Integer> {
     List<Land> findLandsByUserIdAndStatusId(@Param("userId") int userId,
                                             @Param("statusId") int statusId);
 
+    List<Land> findByNameContaining(String keyword);
 }
 

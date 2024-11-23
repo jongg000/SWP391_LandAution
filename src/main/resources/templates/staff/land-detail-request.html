@@ -317,11 +317,11 @@
                             <li class="submenu-item">
                                 <a th:href="@{/staff/ongoing-list}">Đã xác nhận</a>
                             </li>
-                            <li class="submenu-item">
-                                <a th:href="@{/staff/change}">Đổi mật khẩu</a>
-                            </li>
                             <li class="submenu-item ">
                                 <a th:href="@{/staff/cancel-listing}">Đã bị hủy</a>
+                            </li>
+                            <li class="submenu-item">
+                                <a th:href="@{/staff/again-list}">Chờ xếp lịch lại</a>
                             </li>
                         </ul>
                     </li>
@@ -386,7 +386,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label  class="form-label"><strong>Ngày đăng ký:</strong></label>
-                                    <input type="text" id="" name="registrationDate" th:value="*{registrationDate}" class="form-control custom-input" readonly>
+                                    <input type="text"  name="registrationDate" th:value="*{registrationDate}" class="form-control custom-input" readonly>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label for="userName" class="form-label"><strong>Tên người dùng:</strong></label>
@@ -439,8 +439,8 @@
                                     <input type="text" id="length" name="length" th:value="*{length}" class="form-control custom-input" readonly>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label for="registrationDate" class="form-label"><strong>Ngày gưi don:</strong></label>
-                                    <input type="text" id="" name="registrationDate" th:value="*{registrationDate}" class="form-control custom-input" readonly>
+                                    <label  class="form-label"><strong>Ngày gưi don:</strong></label>
+                                    <input type="text"  name="registrationDate" th:value="*{registrationDate}" class="form-control custom-input" readonly>
                                 </div>
 
                                 <div th:each="item : ${requestDTO.imageUrls}" class="col-md-12 mb-3">

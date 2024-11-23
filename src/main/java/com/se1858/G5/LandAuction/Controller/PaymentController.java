@@ -4,7 +4,6 @@ import com.se1858.G5.LandAuction.DTO.VNPayResponse;
 import com.se1858.G5.LandAuction.Entity.AssetRegistration;
 import com.se1858.G5.LandAuction.Entity.Payment;
 import com.se1858.G5.LandAuction.Entity.User;
-import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.AuctionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,6 @@ import java.util.Optional;
 @Controller
 @RequestMapping("payment")
 public class PaymentController {
-    private final AuctionRepository auctionRepository;
     private  AuctionService auctionService;
     private PaymentService paymentService;
     public UserService userService;
@@ -31,14 +29,13 @@ public class PaymentController {
     private EmailService emailService;
 
     @Autowired
-    public PaymentController(EmailService emailService, PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService, AuctionRepository auctionRepository) {
+    public PaymentController(AuctionService auctionService, PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService, EmailService emailService) {
+        this.auctionService = auctionService;
         this.paymentService = paymentService;
         this.userService = userService;
-        this.emailService = emailService;
         this.assetRegistrationService = assetRegistrationService;
         this.statusService = statusService;
-        this.auctionService = auctionService;
-        this.auctionRepository = auctionRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping("/user")
@@ -59,7 +56,7 @@ public class PaymentController {
 
     @RequestMapping("handleafter/{id}")
     public String handleAfter(HttpServletRequest request, @PathVariable int id) {
-        long amount = (long) Math.ceil(auctionRepository.findByAuctionId(id).getHighestBid() * 0.5);
+        long amount = (long) Math.ceil(auctionService.findAuctionById(id).getHighestBid() * 0.5);;
         VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back1/"+id);
         String link =vnPayResponse.paymentUrl;
         return "redirect:" + link;
@@ -73,7 +70,7 @@ public class PaymentController {
         String totalPrice = request.getParameter("vnp_Amount");
         String username = principal.getName();
         User user = userService.findByEmail(username);
-        String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;
+        String paymentInformation = orderInfo + "-" + transactionId;
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
         if(paymentStatus == 1) {
@@ -102,12 +99,18 @@ public class PaymentController {
         String username = principal.getName();
         User user = userService.findByEmail(username);
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
-        String paymentInformation = "Đăng kí tài sản: "+ assetRegistration.getDocumentId() + " " +orderInfo + " " + paymentTime + " " + transactionId;
-        assetRegistration.setStatus(statusService.getStatusById(4));
+        String paymentInformation = "";
+        if(assetRegistration.getStatus().getStatusID() == 17){
+            paymentInformation = "Đăng kí đấu giá lại tài sản: "+ assetRegistration.getDocumentId() + " " +orderInfo + " " + paymentTime + " " + transactionId;
+            assetRegistration.setStatus(statusService.getStatusById(16));
+        }else {
+            paymentInformation = "Đăng kí tài sản: " + assetRegistration.getDocumentId() + " " + orderInfo + " " + paymentTime + " " + transactionId;
+            assetRegistration.setStatus(statusService.getStatusById(4));
+        }
+        assetRegistrationService.updateAssetRegistration(assetRegistration);
         Payment payment = new Payment(user, paymentInformation, Long.parseLong(totalPrice), LocalDateTime.now());
         paymentService.createPaymentBill(payment);
         return paymentStatus == 1 ? "redirect:/asset/asset-detail/" + id : "redirect:/asset";
-
     }
 
     @RequestMapping(value = "/back/{id}", method = RequestMethod.GET)

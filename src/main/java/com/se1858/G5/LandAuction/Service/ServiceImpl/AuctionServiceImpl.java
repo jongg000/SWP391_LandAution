@@ -112,7 +112,7 @@ public class AuctionServiceImpl implements AuctionService {
         return auctionRegistration.existsByUser_UserIdAndAuction_AuctionId(userId, auctionId);
     }
 
-    @Scheduled(fixedRate = 2000)
+    @Scheduled(fixedRate = 1000)
     public void scheduledUpdate() {
         auctionBidUpdateService.updateHighestBidForEndedAuctions();
         auctionBidUpdateService.updateStatus();
@@ -150,7 +150,8 @@ public class AuctionServiceImpl implements AuctionService {
 
     @Override
     public Auction findAuctionByLand(Land land) {
-        return auctionRepository.findAuctionByLand(land);
+        List<Auction> auctions = auctionRepository.findAuctionByLand(land);
+        return auctions.isEmpty() ? null : auctions.get(auctions.size() - 1);
     }
 
     @Override

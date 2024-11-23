@@ -25,10 +25,8 @@ public class Auction {
     @ManyToOne
     @JoinColumn(name = "StatusID")
     private Status status;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private java.time.LocalDateTime startTime;
     private long highestBid;
-    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private java.time.LocalDateTime depositTime;
     @ManyToOne
     @JoinColumn(name = "LandID", nullable = false)

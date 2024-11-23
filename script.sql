@@ -1,4 +1,4 @@
---create database LandAuction
+﻿--create database LandAuction
 USE [LandAuction]
 
 GO

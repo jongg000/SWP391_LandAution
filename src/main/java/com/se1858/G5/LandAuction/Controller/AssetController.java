@@ -105,9 +105,26 @@ public class AssetController {
         Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDate = assetRegistration.getRegistrationDate().format(formatter);
+        if(auction != null) {
+            String formatStartDate = auction.getStartTime().format(formatter);
+            model.addAttribute("StartDate", formatStartDate);
+        }
         model.addAttribute("registrationDate", formattedDate);
         model.addAttribute("assetRegistration", assetRegistration);
         return "customer/asset-detail";
+    }
+
+    @GetMapping("auction-again/{id}")
+    public String auctionAgain(@PathVariable int id, Model model) {
+        AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
+        Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
+        if(auction.getHighestBid() != 0){
+            assetRegistration.setStatus(statusService.getStatusById(16));
+            assetRegistrationService.save(assetRegistration);
+            return "redirect:/asset/asset-detail/" + id;
+        }else{
+            return "redirect:/payment/registration-fee/" + id;
+        }
     }
 
 }

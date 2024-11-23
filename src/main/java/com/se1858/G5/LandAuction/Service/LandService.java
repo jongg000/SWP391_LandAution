@@ -16,33 +16,19 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public interface LandService {
-
-
      LandDTO convertToDTO(Land land);
-
-
      Land convertToEntity(LandDTO land);
      LandImage convertToLEntity(LandImageDTO land);
-
      LandImageDTO convertToLDTO(LandImage land);
-
-
      void save(Land land);
-
-
      void saveLand(LandDTO wishlistRequest);
-
      List<LandDTO> findAllLand();
-
-
      LandDTO findLandById(int wishlistId);
-
      List<LandImageDTO> findAllLandImageByLandId(int landId);
-
      void deleteLandById(String wishlistId);
      LandDTO update(LandDTO landDTO);
-
      List<Land> findByUser(User user);
      Long countByUser(User user);
+     List<Land> findByNameContaining(String keyword);
 }
 
