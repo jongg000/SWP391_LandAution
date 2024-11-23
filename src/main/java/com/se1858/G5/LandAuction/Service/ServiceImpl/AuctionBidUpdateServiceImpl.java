@@ -2,10 +2,7 @@ package com.se1858.G5.LandAuction.Service.ServiceImpl;
 
 import com.se1858.G5.LandAuction.Entity.*;
 import com.se1858.G5.LandAuction.Repository.*;
-import com.se1858.G5.LandAuction.Service.AssetService;
-import com.se1858.G5.LandAuction.Service.AuctionBidUpdateService;
-import com.se1858.G5.LandAuction.Service.BidService;
-import com.se1858.G5.LandAuction.Service.ViolationService;
+import com.se1858.G5.LandAuction.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +13,8 @@ import java.util.Optional;
 
 @Service
 public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
-
+    @Autowired
+    private EmailService emailService;
     @Autowired
     private AuctionRepository auctionRepository;
 
@@ -59,7 +57,7 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
         for (Auction auction : auctions) {
             Status status = null;
             Status status1 = null;
-            if (auction.getStatus().getStatusID() == 13 || auction.getStatus().getStatusID() == 9 ||  auction.getStatus().getStatusID() == 17) {
+            if (auction.getStatus().getStatusID() == 13 || auction.getStatus().getStatusID() == 9 || auction.getStatus().getStatusID() == 17) {
                 continue;
             } else if (auction.getStatus().getStatusID() == 11 && currentTime.isAfter(auction.getDepositTime())) {
                 status = statusRepository.findById(9).orElse(null);
@@ -71,19 +69,21 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
                 violation.setDetail("QUÁ HẠN THANH TOÁN TIỀN CỌC - CẤP ĐỘ 3");
                 violationRepository.save(violation);
                 status1 = statusRepository.findById(16).orElse(null);
+                emailService.sendSimpleMail(bidder.getEmail(), "QUÁ HẠN THANH TOÁN CỌC", "Bạn đã không thanh toán cọc, lưu vào violation");
+                emailService.sendSimpleMail(bidder.getEmail(), "QUÁ HẠN THANH TOÁN CỌC", "Bạn đã không thanh toán cọc, lưu vào violation");
+
             } else if (currentTime.isAfter(auction.getEndTime())) {
                 List<Bids> bids = bidsRepository.findAllByAuctionRegistration_Auction(auction);
                 if (bids.isEmpty()) {
                     status = statusRepository.findById(17).orElse(null);
                     status1 = statusRepository.findById(17).orElse(null);
+                } else {
+                    status = statusRepository.findById(11).orElse(null);
+                    status1 = statusRepository.findById(11).orElse(null);
                 }
-               else {
-                   status = statusRepository.findById(11).orElse(null);
-               status1 = statusRepository.findById(11).orElse(null);
-               }
             } else if (currentTime.isBefore(auction.getStartTime())) {
-                    status = statusRepository.findById(10).orElse(null);
-                    status1 = statusRepository.findById(10).orElse(null);
+                status = statusRepository.findById(10).orElse(null);
+                status1 = statusRepository.findById(10).orElse(null);
 
             } else {
                 List<AuctionRegistration> ar = auctionRegistrationRepository.findAllByAuction_AuctionId(auction.getAuctionId());
@@ -102,7 +102,7 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
                 auctionRepository.save(auction);
             }
             AssetRegistration assetRegistration = assetRegistrationRepository.findAssetRegistrationByLand_LandId(auction.getLand().getLandId());
-            if(assetRegistration.getStatus().getStatusID()!=4 && assetRegistration.getStatus().getStatusID()!=15 && status1 != null && !status1.equals(assetRegistration.getStatus())) {
+            if (assetRegistration.getStatus().getStatusID() != 4 && assetRegistration.getStatus().getStatusID() != 15 && status1 != null && !status1.equals(assetRegistration.getStatus())) {
                 assetRegistration.setStatus(status1);
                 assetRegistrationRepository.save(assetRegistration);
             }

@@ -4,6 +4,7 @@ import com.se1858.G5.LandAuction.DTO.VNPayResponse;
 import com.se1858.G5.LandAuction.Entity.AssetRegistration;
 import com.se1858.G5.LandAuction.Entity.Payment;
 import com.se1858.G5.LandAuction.Entity.User;
+import com.se1858.G5.LandAuction.Repository.AuctionRepository;
 import com.se1858.G5.LandAuction.Service.*;
 import com.se1858.G5.LandAuction.Service.ServiceImpl.AuctionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("payment")
 public class PaymentController {
+    private final AuctionRepository auctionRepository;
     private  AuctionService auctionService;
     private PaymentService paymentService;
     public UserService userService;
@@ -29,13 +31,14 @@ public class PaymentController {
     private EmailService emailService;
 
     @Autowired
-    public PaymentController( EmailService emailService, PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService) {
+    public PaymentController(EmailService emailService, PaymentService paymentService, UserService userService, AssetRegistrationService assetRegistrationService, StatusService statusService, AuctionRepository auctionRepository) {
         this.paymentService = paymentService;
         this.userService = userService;
         this.emailService = emailService;
         this.assetRegistrationService = assetRegistrationService;
         this.statusService = statusService;
         this.auctionService = auctionService;
+        this.auctionRepository = auctionRepository;
     }
 
     @GetMapping("/user")
@@ -56,7 +59,7 @@ public class PaymentController {
 
     @RequestMapping("handleafter/{id}")
     public String handleAfter(HttpServletRequest request, @PathVariable int id) {
-        long amount  = 1000000;
+        long amount = (long) Math.ceil(auctionRepository.findByAuctionId(id).getHighestBid() * 0.5);
         VNPayResponse vnPayResponse = paymentService.createVnPayPayment(request, amount,"http://localhost:8080/payment/back1/"+id);
         String link =vnPayResponse.paymentUrl;
         return "redirect:" + link;
