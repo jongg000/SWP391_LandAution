@@ -267,7 +267,7 @@
                                             <span th:text="
         ${auction.statusId == 9} ? 'Đã hủy' :
         (${auction.statusId == 10} ? 'Chưa diễn ra' :
-        (${auction.statusId == 11 || auction.statusId == 13} ? 'Đã kết thúc' :
+        (${auction.statusId == 11 || auction.statusId == 13|| auction.statusId == 17} ? 'Đã kết thúc' :
         (${auction.statusId == 12} ? 'Đang diễn ra' : '')))">
     </span>
                                         </li>

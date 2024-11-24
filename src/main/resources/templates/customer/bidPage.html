@@ -523,7 +523,9 @@
                                     latestBidAmount = parseFloat(bid.bidAmount);
                                     document.getElementById("latestBidUserId").value = bid.userId;
                                     winnerName = bid.lastName;
+                                    document.getElementById("lastName").value=bid.lastName;
                                     document.getElementById("scrollableBidList").scrollTop = 0;
+
                                 }
 
 
