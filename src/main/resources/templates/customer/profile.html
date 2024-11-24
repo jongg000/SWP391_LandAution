@@ -114,7 +114,8 @@
             <div class="card mb-4">
               <div class="card-body text-center position-relative">
                 <!-- Main profile picture -->
-                <img th:src="'/User_images/' + ${ user.getAvatar() }" alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
+                <img th:src="${user != null && user.getAvatar() != null ? '/User_images/' + user.getAvatar() : '/User_images/default-avatar.png'}"
+                     alt="Profile Picture" class="rounded-circle img-fluid" style="width: 150px; height: 150px;">
               </div>
             </div>
             <div style="margin-top: 30px;">
@@ -146,10 +147,19 @@
                   </a>
                 </div>
                 <hr>
-                <h4 th:if="${user.status.statusID==1}" style="font-weight: bold; padding: 10px;">Người dùng tải thông tin lên để được xét duyệt tài khoản</h4>
-                <h4 th:if="${user.status.statusID==2}" style="font-weight: bold; padding: 10px;">Người dùng đã xác minh tài khoản</h4>
-                <h4 th:if="${user.status.statusID==4}" style="font-weight: bold; padding: 10px;">Thông tin đang chờ xét duyệt</h4>
-                <h4 th:if="${user.status.statusID==14}" style="font-weight: bold; padding: 10px;">Thông tin không hợp lệ</h4>
+                <h4 th:if="${user != null && user.status != null && user.status.statusID == 1}" style="font-weight: bold; padding: 10px;">
+                  Người dùng tải thông tin lên để được xét duyệt tài khoản
+                </h4>
+                <h4 th:if="${user != null && user.status != null && user.status.statusID == 2}" style="font-weight: bold; padding: 10px;">
+                  Người dùng đã xác minh tài khoản
+                </h4>
+                <h4 th:if="${user != null && user.status != null && user.status.statusID == 4}" style="font-weight: bold; padding: 10px;">
+                  Thông tin đang chờ xét duyệt
+                </h4>
+                <h4 th:if="${user != null && user.status != null && user.status.statusID == 14}" style="font-weight: bold; padding: 10px;">
+                  Thông tin không hợp lệ
+                </h4>
+
                 <!-- Form for editing personal information -->
                 <form th:action="@{/profile/edit}" th:object="${profileDTO}" method="post" enctype="multipart/form-data">
                   <div class="form-group row mb-4">
@@ -224,7 +234,10 @@
                   <!-- Display front image -->
                   <div class="card mb-4" style="margin-top: 30px;">
                     <div class="card-body text-left position-relative">
-                      <img th:src="'/User_images/' + ${user.getNationalFrontImage()}" alt="CCCD Mặt Trước" class="rounded img-fluid" style="width: 150px; height: 150px;">
+                      <img th:src="${user != null && user.nationalFrontImage != null ? '/User_images/' + user.getNationalFrontImage() : '/User_images/default_front.png'}"
+                           alt="CCCD Mặt Trước"
+                           class="rounded img-fluid"
+                           style="width: 150px; height: 150px;">
                     </div>
                   </div>
 
@@ -237,7 +250,10 @@
                   <!-- Display back image -->
                   <div class="card mb-4" style="margin-top: 15px;">
                     <div class="card-body text-left position-relative">
-                      <img th:src="'/User_images/' + ${user.getNationalBackImage()}" alt="CCCD Mặt Sau" class="rounded img-fluid" style="width: 150px; height: 150px;">
+                      <img th:src="${user != null && user.nationalBackImage != null ? '/User_images/' + user.getNationalBackImage() : '/User_images/default_back.png'}"
+                           alt="CCCD Mặt Sau"
+                           class="rounded img-fluid"
+                           style="width: 150px; height: 150px;">
                     </div>
                   </div>
 

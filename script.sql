@@ -62,6 +62,9 @@ INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], 
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (3, N'023568967', N'Hay quá', N'Huyện Đăk Đoa', 30, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất số 3', N'Document_FPT help(2).doc', CAST(300000 AS Numeric(19, 0)), N'Tỉnh Gia Lai', 600, N'Xã Đăk Sơmei', 20, 9)
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (4, N'023568967', N'hay quá', N'Quận Thốt Nốt', 40, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất 4', N'DocumentSWE201c_PE_2024_Summer_Sample..pdf', CAST(369 AS Numeric(19, 0)), N'Thành phố Cần Thơ', 800, N'Phường Tân Hưng', 20, 9)
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (5, N'023568967', N'hehhehe', N'Huyện Sóc Sơn', 50, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Thành phố của những giấc mơ', N'DocumentBT3..docx', CAST(13215321 AS Numeric(19, 0)), N'Thành phố Hà Nội',1000, N'Xã Thanh Xuân', 20, 9)
+INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (6, N'023568967', N'hay quá', N'Quận Thốt Nốt', 40, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất 4', N'DocumentSWE201c_PE_2024_Summer_Sample..pdf', CAST(369 AS Numeric(19, 0)), N'Thành phố Cần Thơ', 800, N'Phường Tân Hưng', 20, 9)
+INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (7, N'023568967', N'hay quá', N'Quận Thốt Nốt', 40, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất 4', N'DocumentSWE201c_PE_2024_Summer_Sample..pdf', CAST(369 AS Numeric(19, 0)), N'Thành phố Cần Thơ', 800, N'Phường Tân Hưng', 20, 9)
+
 SET IDENTITY_INSERT [dbo].[land] OFF
 GO
 SET IDENTITY_INSERT [dbo].[asset_registration] ON 
@@ -81,9 +84,11 @@ INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (3, N
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (4, N'land3.jpg', 2)
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (5, N'land2.jpg', 2)
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (6, N'land4.jpg', 3)
-INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (7, N'Asset_Screenshot 2024-10-29 202205.png', 3)
-INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (8, N'Asset_Screenshot 2024-10-21 160159.png', 4)
-INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (9, N'Asset_Screenshot 2024-10-21 160141.png', 5)
+INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (7, N'land4.jpg', 3)
+INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (8, N'land4.jpg', 4)
+INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (9, N'land4.jpg', 6)
+    INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (10, N'land4.jpg', 7)
+    INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (11, N'land4.jpg', 5)
 SET IDENTITY_INSERT [dbo].[land_image] OFF
 GO
 SET IDENTITY_INSERT [dbo].[Auction] ON 
@@ -91,6 +96,8 @@ INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [Statu
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (2, 2, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-01T16:08:09.823' AS DateTime), 10, 0)
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (3, 3, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-19T16:08:09.823' AS DateTime), 11, 0)
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (4, 4, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0)
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (5, 5, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0)
+INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid]) VALUES (6, 6, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0)
 SET IDENTITY_INSERT [dbo].[Auction] OFF
 GO
 
