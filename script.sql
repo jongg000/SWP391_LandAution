@@ -24,38 +24,49 @@ INSERT INTO dbo.status (statusid, description, name) VALUES (9, NULL, N'Đã h�
 INSERT INTO dbo.status (statusid, description, name) VALUES (10, NULL, N'Chưa bắt đầu'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (11, NULL, N'Đã kết thúc'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (12, NULL, N'Đang tiến hành'); -- auction
-INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã thanh toán'); --asset
+INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã hoàn thành'); --asset
 INSERT INTO dbo.status (statusid, description, name) VALUES (14, NULL, N'Thông tin không hợp lệ'); -- user
-INSERT INTO dbo.status (statusid, description, name) VALUES (15, NULL, N'Chưa hoàn thành phí'); 
+INSERT INTO dbo.status (statusid, description, name) VALUES (15, NULL, N'Chưa hoàn thành phí');
 INSERT INTO dbo.status (statusid, description, name) VALUES (17, NULL, N'Đấu giá thất bại'); -- asset
 INSERT INTO dbo.status (statusid, description, name) VALUES (16, NULL, N'Chờ đấu giá lại'); -- asset
 SET IDENTITY_INSERT [dbo].[status] OFF
 GO
 
 --user
-SET IDENTITY_INSERT [dbo].[users] ON 
+SET IDENTITY_INSERT [dbo].[users] ON
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
 VALUES (1, N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'admin@gmail.com', N'Lê Đoàn Đức','Nam', N'Chung',  N'backendcccd.png', N'frontendcccd.png', N'0123456789', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'0358210806', CAST(0 AS Numeric(19, 0)), 2, 2)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (2,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'customercare@gmail.com', N'Le ', 'Nam', N'Chung',  N'backendcccd.png', N'frontendcccd.png', '01302526891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'045214221', CAST(0 AS Numeric(19, 0)), 4, 2)
+VALUES (2, NULL, NULL, NULL, N'tungthptvixuyen@gmail.com', N'Tung', NULL, N'Customer', NULL, NULL, NULL, N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'0862423204', CAST(0 AS Numeric(19, 0)), 1, 1)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (3,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'staff@gmail.com', N'Staf', 'Nam', N'Agent',  N'backendcccd.png', N'frontendcccd.png', '013025891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'023568963', CAST(0 AS Numeric(19, 0)), 3, 2)
+VALUES (3,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'customercare@gmail.com', N'Le ', 'Nam', N'Chung',  N'backendcccd.png', N'frontendcccd.png', '01302526891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'045214221', CAST(0 AS Numeric(19, 0)), 4, 2)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (4, N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller@gmail.com', N'Họ', 'Nam', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678978', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568963', 0, 1, 2)
+VALUES (4,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'staff@gmail.com', N'Staf', 'Nam', N'Agent',  N'backendcccd.png', N'frontendcccd.png', '013025891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'023568963', CAST(0 AS Numeric(19, 0)), 3, 2)
+INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
+VALUES (5, N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user@gmail.com', N'Họ', 'Nam', N'Tên User', N'backendcccd.png', N'frontendcccd.png', N'0123456678978', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568963', 0, 1, 2)
+INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
+VALUES (6, N'TP HCM', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user1@gmail.com', N'Họ', 'Nam', N'Tên User 2', N'backendcccd.png', N'frontendcccd.png', N'0123456678977', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568964', 0, 1, 2)
+INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
+VALUES (7, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user2@gmail.com', N'Họ', 'Nu', N'Tên User 3', N'backendcccd.png', N'frontendcccd.png', N'0123456678976', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568965', 0, 1, 2)
+INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
+VALUES (8, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user3@gmail.com', N'Họ', 'Nam', N'Tên User 3', N'backendcccd.png', N'frontendcccd.png', N'0123456678975', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568966', 0, 1, 1)
+INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
+VALUES (9, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023168967', 0, 1, 2)
+INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
+VALUES (10, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller1@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'022568967', 0, 3, 2)
+INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
+VALUES (11, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller2@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023768967', 0, 4, 2)
 SET IDENTITY_INSERT [dbo].[users] OFF
 GO
-SET IDENTITY_INSERT [dbo].[land] ON 
+SET IDENTITY_INSERT [dbo].[land] ON
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (1, N'023568967', N'aa', N'Huyện Bác Ái', 10, N'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d499699.54686142836!2d108.53019549916499!3d11.911858794180532!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3170e2259bdd297b%3A0x2b94fccebb59765f!2zQsOhYyDDgWksIE5pbmggVGh14bqtbiwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1730688263414!5m2!1svi!2s', N'Đất 1', N'DocumentFPT help..doc', CAST(10000 AS Numeric(19, 0)), N'Tỉnh Ninh Thuận', 100, N'Xã Phước Bình', 10, 9)
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (2,N'023568967', N'aaa', N'Thị xã Duy Tiên', 20, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất 2', N'Document_FPT help(1).doc', CAST(20000 AS Numeric(19, 0)), N'Tỉnh Hà Nam', 800, N'Phường Yên Bắc', 40, 9)
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (3, N'023568967', N'Hay quá', N'Huyện Đăk Đoa', 30, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất số 3', N'Document_FPT help(2).doc', CAST(300000 AS Numeric(19, 0)), N'Tỉnh Gia Lai', 600, N'Xã Đăk Sơmei', 20, 9)
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (4, N'023568967', N'hay quá', N'Quận Thốt Nốt', 40, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất 4', N'DocumentSWE201c_PE_2024_Summer_Sample..pdf', CAST(369 AS Numeric(19, 0)), N'Thành phố Cần Thơ', 800, N'Phường Tân Hưng', 20, 9)
 INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (5, N'023568967', N'hehhehe', N'Huyện Sóc Sơn', 50, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Thành phố của những giấc mơ', N'DocumentBT3..docx', CAST(13215321 AS Numeric(19, 0)), N'Thành phố Hà Nội',1000, N'Xã Thanh Xuân', 20, 9)
-INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (6, N'023568967', N'hay quá', N'Quận Thốt Nốt', 40, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất 4', N'DocumentSWE201c_PE_2024_Summer_Sample..pdf', CAST(369 AS Numeric(19, 0)), N'Thành phố Cần Thơ', 800, N'Phường Tân Hưng', 20, 9)
-INSERT [dbo].[land] ([land_id], [contact], [description], [district], [length], [location], [name], [path], [price], [province], [square], [ward], [width], [user_user_id]) VALUES (7, N'023568967', N'hay quá', N'Quận Thốt Nốt', 40, N'https://www.google.com/maps/place/FPT+University/@21.0075648,105.5227904,14z/data=!4m14!1m7!3m6!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!2sFPT+University!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm!3m5!1s0x3135abc60e7d3f19:0x2be9d7d0b5abcbf4!8m2!3d21.0124167!4d105.5252892!16s%2Fm%2F02rsytm?entry=ttu&g_ep=EgoyMDI0MTAxNS4wIKXMDSoASAFQAw%3D%3D', N'Đất 4', N'DocumentSWE201c_PE_2024_Summer_Sample..pdf', CAST(369 AS Numeric(19, 0)), N'Thành phố Cần Thơ', 800, N'Phường Tân Hưng', 20, 9)
-
 SET IDENTITY_INSERT [dbo].[land] OFF
 GO
-SET IDENTITY_INSERT [dbo].[asset_registration] ON 
+SET IDENTITY_INSERT [dbo].[asset_registration] ON
 
 INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (1, NULL, NULL, NULL, CAST(N'2024-10-25T13:11:47.863' AS DateTime), 1, 10, 4)
 INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (2, NULL, NULL, NULL, CAST(N'2024-10-25T13:15:51.157' AS DateTime), 2, 10, 4)
@@ -64,7 +75,7 @@ INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [
 INSERT [dbo].[asset_registration] ([document_id], [approval_date], [comments], [reason], [registration_date], [land_id], [statusid], [userid]) VALUES (5, NULL, NULL, NULL, CAST(N'2024-10-25T13:27:29.570' AS DateTime), 5, 4, NULL)
 SET IDENTITY_INSERT [dbo].[asset_registration] OFF
 GO
-SET IDENTITY_INSERT [dbo].[land_image] ON 
+SET IDENTITY_INSERT [dbo].[land_image] ON
 
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (1, N'Land.jpg', 1)
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (2, N'Land_1.jpg', 1)
@@ -74,32 +85,32 @@ INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (5, N
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (6, N'land4.jpg', 3)
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (7, N'land4.jpg', 3)
 INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (8, N'land4.jpg', 4)
-INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (9, N'land4.jpg', 6)
-    INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (10, N'land4.jpg', 7)
+INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (9, N'land4.jpg', 5)
+    INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (10, N'land4.jpg',4)
     INSERT [dbo].[land_image] ([image_id], [image_url], [land_land_id]) VALUES (11, N'land4.jpg', 5)
 SET IDENTITY_INSERT [dbo].[land_image] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Auction] ON 
+SET IDENTITY_INSERT [dbo].[Auction] ON
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (1, 1, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-16T16:08:09.823' AS DateTime), 12, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (2, 2, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-01T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (3, 3, CAST(N'2024-10-30T16:08:09.823' AS DateTime), CAST(N'2024-11-19T16:08:09.823' AS DateTime), 11, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (4, 4, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
 INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (5, 5, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
-INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (6, 6, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
+--INSERT [dbo].[Auction] ([Auction_ID], [LandID], [Start_Time], [End_Time], [StatusID], [Highest_Bid],[deposit_time]) VALUES (6, 6, CAST(N'2024-11-10T16:08:09.823' AS DateTime), CAST(N'2024-11-12T16:08:09.823' AS DateTime), 10, 0,CAST(N'2024-11-30T16:08:09.823' AS DateTime))
 SET IDENTITY_INSERT [dbo].[Auction] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Auction_Registration] ON 
+SET IDENTITY_INSERT [dbo].[Auction_Registration] ON
 INSERT [dbo].[Auction_Registration] (registrationid, auctionid, userid) values (1,1,6)
 INSERT [dbo].[Auction_Registration] (registrationid, auctionid, userid) values (2,1,7)
 INSERT [dbo].[Auction_Registration] (registrationid, auctionid, userid) values (3,2,7)
 INSERT [dbo].[Auction_Registration] (registrationid, auctionid, userid) values (4,2,6)
 INSERT [dbo].[Auction_Registration] (registrationid, auctionid, userid) values (5,3,7)
-INSERT [dbo].[Auction_Registration] (registrationid, auctionid, userid) values (6,3,6)
+--INSERT [dbo].[Auction_Registration] (registrationid, auctionid, userid) values (6,3,6)
 SET IDENTITY_INSERT [dbo].[Auction_Registration] OFF
 GO
 
-SET IDENTITY_INSERT [dbo].[Payment] ON	
+SET IDENTITY_INSERT [dbo].[Payment] ON
 INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (1, 6, 100, CAST(N'2024-10-29T16:08:09.823' As datetime), N'phi tham gia')
 INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (2, 6, 100, CAST(N'2024-10-29T16:08:09.823' As datetime), N'phi tham gia')
 INSERT [dbo].[Payment] ([Payment_ID], [User_ID], [Payment_Amount], [payment_date], [payment_description]) VALUES (3, 6, 100, CAST(N'2024-10-29T16:08:09.823' As datetime), N'phi tham gia')
@@ -124,7 +135,7 @@ SET IDENTITY_INSERT [dbo].[Payment] OFF
 
 GO
 
-SET IDENTITY_INSERT [dbo].[Wishlist] ON 
+SET IDENTITY_INSERT [dbo].[Wishlist] ON
 INSERT [dbo].[wishlist] (wishlist_id, auctionid, userid) values (1,1,6)
 INSERT [dbo].[wishlist] (wishlist_id, auctionid, userid) values (2,2,6)
 INSERT [dbo].[wishlist] (wishlist_id, auctionid, userid) values (3,3,6)
@@ -133,7 +144,7 @@ INSERT [dbo].[wishlist] (wishlist_id, auctionid, userid) values (5,2,7)
 INSERT [dbo].[wishlist] (wishlist_id, auctionid, userid) values (6,3,7)
 SET IDENTITY_INSERT [dbo].[Wishlist] OFF
 GO
-SET IDENTITY_INSERT [dbo].[Bids] ON 
+SET IDENTITY_INSERT [dbo].[Bids] ON
 INSERT [dbo].[bids] (bid_id, bid_amount, bid_time, registrationid) values (10,400000,CAST(N'2024-10-30 20:30:09.823' AS DateTime),3)
 INSERT [dbo].[bids] (bid_id, bid_amount, bid_time, registrationid) values (1,2000,CAST(N'2024-10-30T17:08:09.823' AS DateTime),3)
 INSERT [dbo].[bids] (bid_id, bid_amount, bid_time, registrationid) values (2,2600,CAST(N'2024-10-30T17:12:09.823' AS DateTime),4)
@@ -145,7 +156,7 @@ INSERT [dbo].[bids] (bid_id, bid_amount, bid_time, registrationid) values (6,200
 SET IDENTITY_INSERT [dbo].[Bids] OFF
 GO
 GO
-SET IDENTITY_INSERT [dbo].[news] ON 
+SET IDENTITY_INSERT [dbo].[news] ON
 
 INSERT [dbo].[news] ([news_id], [content], [image], [time], [title], [userid]) VALUES (1, N'Chia sẻ với báo chí sáng 28/4, bà Đỗ Thị Hồng Hạnh, Tổng giám đốc Công ty Đấu giá hợp danh Lạc Việt, cho biết, pháp nhân vận hành hệ thống đấu giá trực tuyến là Công ty CP Đấu giá Trực tuyến Lạc Việt do bà Đỗ Chung Thủy làm đại diện pháp luật với chức danh Tổng giám đốc
 Bà Đỗ Thị Hồng Hạnh, Tổng giám đốc Công ty Đấu giá hợp danh Lạc Việt, giới thiệu về hệ thống đấu giá trực tuyến Lạc Việt.
@@ -249,11 +260,11 @@ INSERT [dbo].[news] ([news_id], [content], [image], [time], [title], [userid]) V
 "Ông Trump đã hứa chấm dứt xung đột ở Ukraine và Trung Đông. Mỹ không phải Belarus, họ có thể quên, nhưng chúng tôi hy vọng ông Trump sẽ giữ lời. Nếu ông Trump làm được, Belarus sẽ đề xuất trao giải Nobel Hòa bình cho ông ấy", Tổng thống Belarus Alexander Lukashenko tuyên bố ngày 7/11.
 Ông Lukashenko lưu ý thêm không phải mọi thứ "đều phụ thuộc vào ông Trump do hòa bình đòi hỏi hai bên tham gia".
 Bình luận về kết quả bầu cử tổng thống Mỹ, ông Lukashenko nói không quan tâm ai thắng, dù tin rằng nước Mỹ "sẵn sàng có tổng thống da màu mới, nhưng chưa sẵn sàng có nữ tổng thống".
-', N'NewsScreenshot 2024-11-09 155152..png', N'09-11-2024 15:51:57', N'Belarus hứa đề cử giải Nobel ', 24)
+', N'NewsScreenshot 2024-11-09 155152..png', N'09-11-2024 15:51:57', N'Belarus hứa đề cử giải Nobel ',3)
 INSERT [dbo].[news] ([news_id], [content], [image], [time], [title], [userid]) VALUES (12, N'Donald Trump Jr., con trai cả ông Trump, đăng "đơn nghỉ việc" dí dỏm của bố gửi đến chuỗi nhà hàng McDonald''s, nơi Tổng thống đắc cử Mỹ từng chiên khoai.
 "Xin hãy chấp nhận thư này như thông báo chính thức về việc tôi từ chức khỏi vị trí của mình tại McDonald''s, từ ngày 20/1/2025", Donald Trump Jr. hôm nay đăng trên mạng xã hội hình ảnh bức thư có chèn tên, chữ ký của Donald Trump gửi phòng nhân sự McDonald''s.
 Ngày "nghỉ việc" trong bức thư trùng với ngày ông Trump nhậm chức Tổng thống Mỹ thứ 47. Ông Trump đắc cử tổng thống sau hàng loạt chiến thắng ở các bang chiến trường trong ngày bầu cử 5/11, trở thành tổng thống Mỹ đầu tiên đảm nhận hai nhiệm kỳ không liên tiếp trong thế kỷ này.
-', N'NewsScreenshot 2024-11-09 155223..png', N'09-11-2024 15:52:28', N'Con trai ông Trump đăng ảnh', 24)
+', N'NewsScreenshot 2024-11-09 155223..png', N'09-11-2024 15:52:28', N'Con trai ông Trump đăng ảnh', 3)
 SET IDENTITY_INSERT [dbo].[news] OFF
 GO
 
