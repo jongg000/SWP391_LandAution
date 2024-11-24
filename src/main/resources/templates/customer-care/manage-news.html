@@ -168,13 +168,13 @@
                                     <div class="update ml-auto mr-auto card-footer">
                                         <a th:href="@{/customer-care/newsDetail(newsId=${news.newsId})}"
                                            class="btn btn-primary btn-round" style="margin-top: 5px;">
-                                            View detail
+                                            Xem chi tết
                                         </a>
                                         <a
-                                           th:href="@{/customer-care/deleteNews(newsId=${news.newsId})}"
-                                           class="btn btn-danger btn-round"
-                                           onclick="return confirmDelete();"
-                                           style="margin-top: 5px;">
+                                                th:href="@{/customer-care/deleteNews(newsId=${news.newsId})}"
+                                                class="btn btn-danger btn-round"
+                                                onclick="return confirmDelete();"
+                                                style="margin-top: 5px;">
                                             Xóa
                                         </a>
                                     </div>

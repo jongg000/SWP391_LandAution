@@ -227,7 +227,8 @@
                             <div class="tab">
                                 <div class="tabs">
                                     <ul class="tab-links">
-                                        <li class="active"><a href="#tab2">Mô tả</a></li>
+                                        <li class="active"><a href="#tab2">Quy chế</a></li>
+                                        <li><a href="#tab4">Mô tả</a></li>
                                         <li><a href="#tab3">Vị trí</a></li>
                                     </ul>
                                     <div class="tab-content">
@@ -238,7 +239,10 @@
                                                 2. Khách hàng có trách nhiệm xem xét kỹ tình trạng, chất lượng của tài sản, có xác nhận đã xem tài sản của người có tài sản đấu giá. Tài sản đấu giá bán theo hiện trạng thực tế nêu trên. Tổ chức đấu giá không chịu trách nhiệm về tình trạng, chất lượng tài sản khi đã thông báo trước.
                                             </p>
                                         </div>
-
+                                        <div id="tab4" class="tab">
+                                            <p class="notice-text" th:inline="text" th:text="${land.description}">
+                                           </p>
+                                        </div>
                                         <div id="tab3" class="tab">
                                             <iframe th:src="${land.location}"
                                                     width="700"
@@ -267,7 +271,7 @@
                                             <span th:text="
         ${auction.statusId == 9} ? 'Đã hủy' :
         (${auction.statusId == 10} ? 'Chưa diễn ra' :
-        (${auction.statusId == 11 || auction.statusId == 13} ? 'Đã kết thúc' :
+        (${auction.statusId == 11 || auction.statusId == 13|| auction.statusId==17} ? 'Đã kết thúc' :
         (${auction.statusId == 12} ? 'Đang diễn ra' : '')))">
     </span>
                                         </li>

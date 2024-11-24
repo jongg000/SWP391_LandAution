@@ -297,11 +297,11 @@
             <div class="dashboard">
                 <div class="summary-card total-amount">
                     <div class="summary-title">Tổng lượng giao dịch</div>
-                    <div class="summary-value" th:text="${total ?: 0}+'vnd'"></div>
+                    <div class="summary-value formatPrice" th:text="${total ?: 0}+'vnd'"></div>
                 </div>
                 <div class="summary-card refund-amount">
                     <div class="summary-title">Số tiền hoàn trả</div>
-                    <div class="summary-value" th:text="${refund} +'vnd'"></div>
+                    <div class="summary-value formatPrice" th:text="${refund} +'vnd'"></div>
                 </div>
             </div>
 
@@ -317,7 +317,7 @@
                     </thead>
                     <tbody>
                     <tr th:each="item, index: ${payments}">
-                        <td th:text="${index.count}"></td>
+                        <td th:text="${index.count}" class="formatPrice"></td>
                         <td th:text="${item.paymentAmount}"></td>
                         <td th:text="${item.paymentDescription}"></td>
                         <td th:text="${item.paymentDate}"></td>
@@ -438,6 +438,40 @@
                     ("0" + date.getHours()).slice(-2) + ":" +
                     ("0" + date.getMinutes()).slice(-2) + ":" +
                     ("0" + date.getSeconds()).slice(-2);
+            }
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const dateElements = document.querySelectorAll(".formatTime");
+
+        dateElements.forEach(function (dateElement) {
+            const rawDate = dateElement.value;
+
+            if (rawDate) {
+                const date = new Date(rawDate);
+                dateElement.value = ("0" + date.getDate()).slice(-2) + "/" +
+                    ("0" + (date.getMonth() + 1)).slice(-2) + "/" +
+                    date.getFullYear() + " " +
+                    ("0" + date.getHours()).slice(-2) + ":" +
+                    ("0" + date.getMinutes()).slice(-2) + ":" +
+                    ("0" + date.getSeconds()).slice(-2);
+            }
+        });
+    });
+
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const priceElements = document.querySelectorAll(".formatPrice");
+
+        priceElements.forEach(function (priceElement) {
+            const rawPrice = priceElement.value;
+
+            if (rawPrice) {
+                const formattedPrice = new Intl.NumberFormat('en-US').format(rawPrice);
+                priceElement.value = formattedPrice;
             }
         });
     });

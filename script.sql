@@ -24,7 +24,7 @@ INSERT INTO dbo.status (statusid, description, name) VALUES (9, NULL, N'Đã h�
 INSERT INTO dbo.status (statusid, description, name) VALUES (10, NULL, N'Chưa bắt đầu'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (11, NULL, N'Đã kết thúc'); -- auction
 INSERT INTO dbo.status (statusid, description, name) VALUES (12, NULL, N'Đang tiến hành'); -- auction
-INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã hủy'); --asset
+INSERT INTO dbo.status (statusid, description, name) VALUES (13, NULL, N'Đã thanh toán'); --asset
 INSERT INTO dbo.status (statusid, description, name) VALUES (14, NULL, N'Thông tin không hợp lệ'); -- user
 INSERT INTO dbo.status (statusid, description, name) VALUES (15, NULL, N'Chưa hoàn thành phí'); 
 INSERT INTO dbo.status (statusid, description, name) VALUES (17, NULL, N'Đấu giá thất bại'); -- asset
@@ -37,25 +37,11 @@ SET IDENTITY_INSERT [dbo].[users] ON
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
 VALUES (1, N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'admin@gmail.com', N'Lê Đoàn Đức','Nam', N'Chung',  N'backendcccd.png', N'frontendcccd.png', N'0123456789', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'0358210806', CAST(0 AS Numeric(19, 0)), 2, 2)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (2, NULL, NULL, NULL, N'tungthptvixuyen@gmail.com', N'Tung', NULL, N'Customer', NULL, NULL, NULL, N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'0862423204', CAST(0 AS Numeric(19, 0)), 1, 1)
+VALUES (2,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'customercare@gmail.com', N'Le ', 'Nam', N'Chung',  N'backendcccd.png', N'frontendcccd.png', '01302526891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'045214221', CAST(0 AS Numeric(19, 0)), 4, 2)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (3,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'customercare@gmail.com', N'Le ', 'Nam', N'Chung',  N'backendcccd.png', N'frontendcccd.png', '01302526891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'045214221', CAST(0 AS Numeric(19, 0)), 4, 2)
+VALUES (3,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'staff@gmail.com', N'Staf', 'Nam', N'Agent',  N'backendcccd.png', N'frontendcccd.png', '013025891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'023568963', CAST(0 AS Numeric(19, 0)), 3, 2)
 INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (4,N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'staff@gmail.com', N'Staf', 'Nam', N'Agent',  N'backendcccd.png', N'frontendcccd.png', '013025891', N'$2a$10$Al9nRp.z0gjmUG1n1NOA0eBRoS/JBbwo1HCzFFV8rYeLXoV1ae7yS', N'023568963', CAST(0 AS Numeric(19, 0)), 3, 2)
-INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (5, N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user@gmail.com', N'Họ', 'Nam', N'Tên User', N'backendcccd.png', N'frontendcccd.png', N'0123456678978', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568963', 0, 1, 2)
-INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (6, N'TP HCM', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user1@gmail.com', N'Họ', 'Nam', N'Tên User 2', N'backendcccd.png', N'frontendcccd.png', N'0123456678977', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568964', 0, 1, 2)
-INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid]) 
-VALUES (7, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user2@gmail.com', N'Họ', 'Nu', N'Tên User 3', N'backendcccd.png', N'frontendcccd.png', N'0123456678976', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568965', 0, 1, 2)
-INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (8, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'user3@gmail.com', N'Họ', 'Nam', N'Tên User 3', N'backendcccd.png', N'frontendcccd.png', N'0123456678975', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568966', 0, 1, 1)
-INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (9, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023168967', 0, 1, 2)
-INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (10, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller1@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'022568967', 0, 3, 2)
-INSERT [dbo].[users] ([user_id], [address], [avatar], [dob], [email], [first_name], [gender], [last_name], [national_back_image], [national_front_image], [nationalid], [password], [phone_number], [refund_money], [roleid], [statusid])
-VALUES (11, N'Da Nang', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller2@gmail.com', N'Họ', 'Nu', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678974', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023768967', 0, 4, 2)
+VALUES (4, N'Ha Noi', N'4.jpg', CAST(N'1990-01-01' AS Date), N'seller@gmail.com', N'Họ', 'Nam', N'Seller', N'backendcccd.png', N'frontendcccd.png', N'0123456678978', N'$2a$10$XDVenY.7wuqc4V/LRDhEi.KYbv5A3HwxTikEw.pF9UuCUEPxdbjfy', N'023568963', 0, 1, 2)
 SET IDENTITY_INSERT [dbo].[users] OFF
 GO
 SET IDENTITY_INSERT [dbo].[land] ON 

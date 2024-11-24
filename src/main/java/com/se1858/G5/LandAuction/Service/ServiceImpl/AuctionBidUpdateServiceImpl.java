@@ -79,6 +79,12 @@ public class AuctionBidUpdateServiceImpl implements AuctionBidUpdateService {
                 } else {
                     status = statusRepository.findById(11).orElse(null);
                     status1 = statusRepository.findById(11).orElse(null);
+                    if(currentTime.minusSeconds(2).isBefore(auction.getEndTime())) {
+                        Bids bid = bidsRepository.findByAuctionRegistration_AuctionAndBidAmount(auction, auction.getHighestBid());
+                        AuctionRegistration auctionRegistration = bid != null ? bid.getAuctionRegistration() : null;
+                        User winner = auctionRegistration != null ? auctionRegistration.getUser() : null;
+                        emailService.sendSimpleMail(winner.getEmail(), "CHIẾN THẮNG ĐẤU GIÁ, THANH TOÁN CỌC", "Bạn đã chiến thắng đất " + auction.getLand().getName() + " với giá " + auction.getHighestBid() + ", vui lòng thanh toán trước " + auction.getDepositTime());
+                    }
                 }
             } else if (currentTime.isBefore(auction.getStartTime())) {
                 status = statusRepository.findById(10).orElse(null);

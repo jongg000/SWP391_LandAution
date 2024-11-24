@@ -79,7 +79,7 @@ public class WishlistController {
             filteredWishlists = wishlists;
         }
 
-        int pageSize = 6; // Change as necessary
+        int pageSize = 10; // Change as necessary
         int totalFilteredWishlists = filteredWishlists.size();
         int start = page * pageSize;
         int end = Math.min(start + pageSize, totalFilteredWishlists);

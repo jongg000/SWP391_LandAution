@@ -67,7 +67,8 @@ public class PaymentController {
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
-        String totalPrice = request.getParameter("vnp_Amount");
+        String totalPrice = request.getParameter("vnp_Amount").substring(0, request.getParameter("vnp_Amount").length() - 2);
+
         String username = principal.getName();
         User user = userService.findByEmail(username);
         String paymentInformation = orderInfo + "-" + transactionId;
@@ -95,7 +96,7 @@ public class PaymentController {
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
-        String totalPrice = request.getParameter("vnp_Amount");
+        String totalPrice = request.getParameter("vnp_Amount").substring(0, request.getParameter("vnp_Amount").length() - 2);
         String username = principal.getName();
         User user = userService.findByEmail(username);
         AssetRegistration assetRegistration = assetRegistrationService.getAssetRegistrationByID(id);
@@ -119,7 +120,7 @@ public class PaymentController {
         String orderInfo = request.getParameter("vnp_OrderInfo");
         String paymentTime = request.getParameter("vnp_PayDate");
         String transactionId = request.getParameter("vnp_TransactionNo");
-        String totalPrice = request.getParameter("vnp_Amount");
+        String totalPrice = request.getParameter("vnp_Amount").substring(0, request.getParameter("vnp_Amount").length() - 2);
         String username = principal.getName();
         User user = userService.findByEmail(username);
         String paymentInformation = "Thanh toán" + " " +orderInfo + " " + paymentTime + " " + transactionId;

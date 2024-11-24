@@ -312,14 +312,9 @@
                                     <div class="input-select">
                                         <select name="mark" id="mark" onchange="filterAuctionRegistration()">
                                             <option value="" disabled selected>-- Lọc theo --</option>
-                                            <option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra
-                                            </option>
-                                            <option value="is going on" th:selected="${currentFilter == 'is going on'}">
-                                                Đang diễn ra
-                                            </option>
-                                            <option value="upcoming" th:selected="${currentFilter == 'upcoming'}">Sắp
-                                                diễn ra
-                                            </option>
+                                            <option value="ended" th:selected="${currentFilter == 'ended'}">Đã diễn ra</option>
+                                            <option value="isGoingOn" th:selected="${currentFilter == 'isGoingOn'}">Đang diễn ra</option>
+                                            <option value="comingSoon" th:selected="${currentFilter == 'comingSoon'}">Sắp diễn ra</option>
                                             <option value="all" th:selected="${currentFilter == 'all'}">Tất cả</option>
                                         </select>
 
@@ -418,9 +413,15 @@
 
                         <script>
                             function filterAuctionRegistration() {
-                                const filter = document.getElementById("mark").value;
+                                const selectedValue = document.getElementById("mark").value;
                                 const userId = document.getElementById("userId").value;
-                                window.location.href = `/auctionRegistration/showAuctionRegistrationPage?page=0&filter=${filter}&userId=${userId}`;
+                                const baseUrl = "/auctionRegistration/showAuctionRegistrationPage";
+                                let url = baseUrl;
+
+                                if (selectedValue !== "-1") {
+                                    url += `?filter=${selectedValue}`;
+                                }
+                                window.location.href = url;
                             }
                         </script>
 

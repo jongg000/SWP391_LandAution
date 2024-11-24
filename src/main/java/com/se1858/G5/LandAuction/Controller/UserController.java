@@ -297,6 +297,7 @@ public class UserController {
             assetRegistrationService.save(assetRegistration);
             return "redirect:/asset";
         }
+        assetRegistration.setReason(cancelAssetDTO.getReason());
         Violation violation = new Violation();
         violation.setUser(user);
         Auction auction = auctionService.findAuctionByLand(assetRegistration.getLand());
@@ -341,8 +342,4 @@ public class UserController {
         model.addAttribute("payments", payments);
         return "/customer/payment-history";
     }
-
-
-
-
 }

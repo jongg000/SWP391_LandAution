@@ -47,32 +47,47 @@ public class AuctionRegistrationController {
         HttpSession session = request.getSession();
         int userId = (int) session.getAttribute("id");
         List<AuctionRegistrationDTO> auctionRegistrationDTOS = auctionRegistrationService.getAllAuctionRegistrationsByUserId(userId);
+        List<AuctionRegistrationDTO> filteredWishlists;
 
         if (filter != null && !filter.equals("all")) {
-            auctionRegistrationDTOS = auctionRegistrationDTOS.stream()
-                    .filter(auctionRegistration -> {
-                        AuctionDto auction = auctionService.findAuctionById(auctionRegistration.getAuctionId());
+            filteredWishlists = auctionRegistrationDTOS.stream()
+                    .filter(wishlist -> {
+                        AuctionDto auction = auctionService.findAuctionById(wishlist.getAuctionId());
+                        LocalDateTime now = LocalDateTime.now();
                         String dateCheck;
-                        if (LocalDateTime.now().isAfter(auction.getEndTime())) {
+
+                        if (now.isAfter(auction.getEndTime())) {
                             dateCheck = "ended";
-                        } else if (LocalDateTime.now().isBefore(auction.getStartTime())) {
-                            dateCheck = "upcoming";
+                        } else if (now.isBefore(auction.getStartTime())) {
+                            dateCheck = "comingSoon";
                         } else {
-                            dateCheck = "is going on";
+                            dateCheck = "isGoingOn";
                         }
-                        return dateCheck.equals(filter);
+                        switch (filter) {
+                            case "ended":
+                                return "ended".equals(dateCheck);
+                            case "isGoingOn":
+                                return "isGoingOn".equals(dateCheck);
+                            case "comingSoon":
+                                return "comingSoon".equals(dateCheck);
+                            default:
+                                return true; // In case of an unexpected filter value, show all
+                        }
                     })
                     .collect(Collectors.toList());
+        } else {
+            filteredWishlists = auctionRegistrationDTOS;
         }
 
-        List<Map<String, Object>> auctionRegistrationDetails = new ArrayList<>();
-        int pageSize = 10;
+        int pageSize = 10; // Change as necessary
+        int totalFilteredWishlists = filteredWishlists.size();
         int start = page * pageSize;
-        int end = Math.min(start + pageSize, auctionRegistrationDTOS.size());
+        int end = Math.min(start + pageSize, totalFilteredWishlists);
 
+        List<Map<String, Object>> wishlistDetails = new ArrayList<>();
         for (int i = start; i < end; i++) {
-            AuctionRegistrationDTO auctionRegistrationDTO = auctionRegistrationDTOS.get(i);
-            AuctionDto auction = auctionService.findAuctionById(auctionRegistrationDTO.getAuctionId());
+            AuctionRegistrationDTO wishlist = filteredWishlists.get(i);
+            AuctionDto auction = auctionService.findAuctionById(wishlist.getAuctionId());
             LandDTO land = landService.findLandById(auction.getLandId());
             String formattedPrice = numberFormat.format(land.getPrice());
             String formattedStartTime = auction.getStartTime().format(dateTimeFormatter);
@@ -82,35 +97,34 @@ public class AuctionRegistrationController {
             Map<String, Object> details = new HashMap<>();
 
             String dateCheck;
-            if(LocalDateTime.now().isAfter(auction.getEndTime())) {
+            if (LocalDateTime.now().isAfter(auction.getEndTime())) {
                 dateCheck = "ended";
-            } else if(LocalDateTime.now().isBefore(auction.getStartTime())) {
-                dateCheck = "upcoming";
+            } else if (LocalDateTime.now().isBefore(auction.getStartTime())) {
+                dateCheck = "comingSoon";
             } else {
-                dateCheck = "is going on";
+                dateCheck = "isGoingOn";
             }
-            boolean checkWinner = auctionService.checkWinner( auction.getAuctionId(),userId);
-            details.put("auction1",auction.getStatusId());
+            boolean checkWinner = auctionService.checkWinner(auction.getAuctionId(), userId);
+            Auction auction1 = auctionRepository.findByAuctionId(auction.getAuctionId());
+            details.put("auction1", auction1.getStatus().getStatusID());
             details.put("checkWinner", checkWinner);
             details.put("dateCheck", dateCheck);
-            details.put("wishlist", auctionRegistrationDTO);
+            details.put("wishlist", wishlist);
             details.put("auction", auction);
             details.put("land", land);
             details.put("landImage", landImage);
             details.put("formattedPrice", formattedPrice);
             details.put("formattedStartTime", formattedStartTime);
             details.put("formattedEndTime", formattedEndTime);
-            auctionRegistrationDetails.add(details);
+            wishlistDetails.add(details);
         }
-
-        model.addAttribute("num", auctionRegistrationDTOS.size());
-        model.addAttribute("wishlistDetails", auctionRegistrationDetails);
+        model.addAttribute("num", totalFilteredWishlists); // Number of filtered wishlists
+        model.addAttribute("wishlistDetails", wishlistDetails);
         model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", (int) Math.ceil((double) auctionRegistrationDTOS.size() / pageSize));
+        model.addAttribute("totalPages", (int) Math.ceil((double) totalFilteredWishlists / pageSize)); // Total pages based on filtered list
         model.addAttribute("currentFilter", filter);
-        return "customer/listAuctionRegister";
+        return "/customer/listAuctionRegister";
     }
-
     @RequestMapping("/save/{id}")
     public String saveAuctionRegistration(@PathVariable int id, HttpServletRequest request) {
         HttpSession session = request.getSession();

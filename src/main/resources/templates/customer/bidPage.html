@@ -224,7 +224,13 @@
                                             <p th:text="${land.description}"></p>
                                         </div>
                                         <div id="tab3" class="tab">
-                                            <!--                                           <&#45;&#45; <a th:href="#"></a>&ndash;&gt;-->
+                                            <iframe th:src="${land.location}"
+                                                    width="700"
+                                                    height="400"
+                                                    style="border:0;"
+                                                    allowfullscreen=""
+                                                    loading="lazy">
+                                            </iframe>
                                         </div>
 
                                     </div>
@@ -522,6 +528,7 @@
 
                                     latestBidAmount = parseFloat(bid.bidAmount);
                                     document.getElementById("latestBidUserId").value = bid.userId;
+                                    document.getElementById("lastName").value = bid.lastName;
                                     winnerName = bid.lastName;
                                     document.getElementById("scrollableBidList").scrollTop = 0;
                                 }
